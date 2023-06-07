@@ -3,6 +3,24 @@
 ## Description
 This project is a three-week game jam carried out by a team of 7 ~~students~~ **GOATS** in their 3rd year of engineering school at Polytech Grenoble.
 
+## Table of contents (M. Périn)
+
+- [Lancement du projet](LANCEMENT.md)
+
+- [Fonctionnement](FONCTIONNEMENT.md)
+
+- [Planning](PLANNING.md)
+
+- [Description du projet](PROJET.org)
+
+- [Exigences des enseignants](EXIGENCES.org)
+
+- [GAL : Langage de description des automates](gal/)
+
+- [Conseils et F.A.Q](faq/)
+
+- Le code du parser `NE PAS LE MODIFIER` = info3.game.automata/
+
 ## Visuals
 
 ## Installation
