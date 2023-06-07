@@ -1,188 +1,65 @@
-# PROPOSITION DE JEU - Groupe Enseignants
+# PROPOSITION DE JEU - Groupe G
 
-# PacMan
+# Sea of Crabes
 
-### Phase de jeu classique : `jeu d'action`
-- un labyrinthe sur une `planète torique` comme dans le célèrre jeu PacMan
-- `Viewport` : tout le labyrinthe à l'écran
-- des fantômes, des pacgums 
+### Phase de jeu classique : `jeu de rapidité`
+- Un `océan aléatoire` à chaque partie dans lequel on peut naviguer
+- `Viewport` : Une partie de la carte centrée sur chaque joueur
+- Plusieurs ennemies et alliés (décrit plus bas)
 
 #### Objectif    
-- rammasser toutes les pacgums pour passer à la phase Bonus
+- Vaincre le terrifiant Kraken
+- Etre le plus rapide
 
 #### Jeu
-- ne pas se faire toucher par les fantômes
-- 3 vies  
-- les grosses PacGum rendent les fantômes vulnérables
+- Explorer toutes les îles afin de s'améliorer
+- Barre de vie (ne pas mourir)  
+- Etre assez fort pour vaincre le Kraken
+- 2 gameplay si le joueur est sur la terre ou la mer 
 
 #### Originalité       
-- Le comportement des fantômes est défini par des automates depuis un fichier `.gal` contenant :
-  *RedGhot, GreenGhost, PinkGhost, YellowGhost, BlueGhost, PanicGhost*
-- <strike>Chaque grosse PacGum</strike> **chaque fantôme dévoré** donne droit à un Bot pour la phase Bonus
+- Une carte généré procéduralement à chaque début de partie
+- Un jeu en 2D isométrique
+- Jouable à plusieurs
 
-#### `TODO` définir les actions Pop et Wizz
-##### pour les fantômes 
-+ `MP>` Pop : accélération pendant un pas
-+ `MP>` Wizz: destruction d'un mur
-+ `MP>` Egg: reproduction s'il est dans l'enceinte centrale  
+#### Scenario
 
-##### pour PacMan
-+ `MP>` Pop: parraliser le fantôme de la case adjacente (temps limité)
-+ `MP>` Wizz: se cacher dans le sol (temps limité)
-  
-### Phase bonus : principalement un `jeu de stratégie`     
-- `temps limité`
-- un monde de `taille illimité`, `généré automatiquement` au fur et à mesure des déplacements 
-- des obstacles, **des trous**, des fantômes 
-- `Viewport` centré sur PacMan : PacMan reste au centre de l'écran et c'est le décor qui glisse en dessous
+Le but du jeu est d’explorer la mer qui s’offre au joueur et accumuler assez de ressources pour tuer le Kraken. Deux joueurs s’affrontent sur une carte identique mais ne peuvent pas se voir. Ils pourront accoster des îles et trouver les coffres forts dans lesquels se trouvent les ressources mais attention des ennemis les protègent. Certains de ses trésors permettent d’entraver la progression de l'adversaire. La phase finale est le combat contre le Kraken. La défaite de celui-ci marque la fin du jeu et la victoire du joueur qui l’a vaincu.
 
+#### Les Personnages
 
-#### Objectif 
-- Rammasser le plus de pacgums possibles grâce aux bots pour marquer des points
-  + `OG>` Est-ce que PacMan ramasse aussi des pacgums ?
-  + `MP>` oui, ça me semble bien. 
+- Le personnage contrôlé par le joueur (Pirate)
+- Le “Do or Die” (Le bateau du pirate)
+- Les ennemis terres (des crabes assoiffés de sang)
+- Les ennemis en mer ( Bateau ennemis )
+- Le Kraken (Boss final de mer)
+- Crabs King (Boss final de terre )  
 
-#### Jeu et Originalité 
-- Avant de lancer l'action, le joueur attribue un automate (chargé en début de jeu depuis un fichier) à chaque bot amassés dans la phase 1
-<BLOCKQUOTE>
- Il faut prévoir une interface graphique agréable. Par exemple un bandeau en bas de page avec, pour chaque bot amassé, un bouton de sélection de l'automate parmi ceux chargé en mémoire depuis un fichier .gal
-</BLOCKQUOTE>
+#### Gameplay
 
-- Ensuite PacMan se déplace pour déposer chaque bot à l'endroit de son choix.
-- Chaque Bot démarre aussitôt qu'il est déposé
-- Les fantômes n'attaquent ni les bots, ni PacMan, mais mangent des pacgums
+##### Première phase
+
+En mer : le joueur manœuvre son bateau, il peut utiliser son canon pour combattre les ennemis en mer. s’ils sont vaincues ils vont donner des améliorations pour le joueur. Si par chance, vous trouvez en mer des barils de rhum, récupérez- les. Ils permettent au pirate de se régénérer.
+
+Sur Terre : Le joueur descend de son bateau et essaye de récupérer le coffre sur l’île et les ressources qu’il contient. Le pirate se sert de son épée pour combattre les assauts des crabes qui feront tout pour protéger leur trésor. Les ressources permettent au joueur d’améliorer le bateau et les planches sur l’île de le régénérer. La dernière île dans l’avant dernière zone de jeu est obligatoire. Sur celle-ci se trouve le Crab King qui donne accès au combat contre le Kraken
+
+##### Deuxième phase 
+
+Une fois que le joueur entre dans la dernière  zone de jeu.. Il se servira de tout ce qu’il a collecté pour tuer le Kraken. Pour ce faire, il doit éviter les attaques de ses tentacules tout en lui infligeant un maximum de dégâts avec les boulets de canon.
 
 
-#### Idées supplémentaires à l'étude
+#### Spécificités techniques
+- La map est créée en tronçon, chaque tronçon contient une île, le dernier tronçon contient le Kraken. Les tronçons sont générés procéduralement et stockés dans une file d’attente jusqu’à être supprimés
 
-##### 1. PacMan peut **jeter des sorts** aux fantômes, c'est à dire :
-+ leur envoyer un automate emballé dans une pacgum
-+ quand le fantôme est touché, son automate est remplacé par celui emballé dans la pacgum
+- Chacun des tronçons est infini sur ses côtés. Implémentation en Donut, le côté droit nous emmène au côté gauche et inversement.
 
-###### QUESTIONS 
-- comment choisir les automates de sort ? 
-- combien PacMan en a-t'il ?
-- est-ce intéressant pour le jeu ? 
-  + `MP>` Ça met plus d'action dans la phase Bonus
-  + `OG>` Mais PacMan est déjà occupé à bloquer les fantômes
+- Le joueur est toujours au centre de l’écran. Pour gérer le passage de gauche à droite, l’île est placée “au centre” du tronçon pour pouvoir passer d’un côté à l’autre sans voir l’île pour ne pas avoir l’impression de passer d’un côté à l’autre.
 
-##### 2. Une minimap qui permet de voir tous les bots partis explorers le monde ?
-
-##### 3. La possibilité de prendre temporairement le contrôle d'un Bot en cliquant dessus ?
-+ `OG>` dans ce cas que devient Pac Man ? Il reste immobile ?
-
-#### `TODO` définir les actions Pop et Wizz
-+ `MP>` Pop  = sortir d'un trou ?
-+ `MP>` Wizz = pousser un obstacle pour écraser un fantôme ou boucher un trou ?
-   
-
-
-## Extension expérimentale : un jeu reconfigurable
-
-   MP propose un menu de configuration
-   - il permet d'attribuer un automate, une animation, des caractéristiques à chaque entité.
-   - on sauve la configuration en sérialisant les données (= transformation de graphes d'objets en un codage binaire qu'on peut sauver dans un fichier et relire pour rétablir le graphe d'objects en mémoire)
-   - on peut ainsi recharger la configuration
-
-#### Voici à quoi pourrait ressembler le menu
-```
-                                                ------------ Pickable 
-                                               |   ------- Storable
-				               |  |  ----- Throwable
-				               |  |  |  -- Jumpable
-				               |  |  |  |  - pUshable
-	                                       P  S  T  J  U  --- sWappable  
- 1 PacMan   [> Player.gal ] [> PacMan.ani   ] [ ][ ][ ][ ][Y][ ]  ...
- 6 RedGhost [> GhostR.gal ] [> RedGhost.ani ] [ ][ ][ ][Y][Y][ ]  ...
-40 PacGum   [> Idle.gal   ] [> PacGum.ani   ] [Y][Y][Y][ ][ ][ ]  ...
-60 Wall     [> Idle.gal   ] [> Wall.ani     ] [ ][ ][ ][ ][ ][ ]  ...
-```
-
-L'idée c'est qu'on peut changer totalement le jeu depuis ce menu ; imaginez ce que donnerait le jeu configuré ainsi :
-```
-				               P  S  T  J  U  W
- 1 PacMan   [> Runner.gal ] [> PacMan.ani   ] [Y][Y][Y][ ][ ][ ]  ...
- 6 RedGhost [> Player.gal ] [> RedGhost.ani ] [Y][ ][Y][ ][ ][Y]  ...
-40 PacGum   [> Ghost.gal  ] [> PacGum.ani   ] [ ][ ][ ][ ][ ][ ]  ...
-60 Wall     [> Wave.gal   ] [> Wall.ani     ] [ ][ ][ ][ ][Y][ ]  ...
-```
-
-- on jouerait avec 6 fantômes, on pourrait passer de l'un à l'autre (swap)
-- on pourrait capturer PacMan et le jeter
-- on pourrait pousser les murs
-- les pacgums se déplaceraient
-- les mures bougeraient par vague
-
-
-
-## Extension expérimentale : MineCraft intégral
-
-   MP propose que tous les éléments du jeu soit Pickable, Storable.
-   - avec l'action Pick, on peut prendre un mur, prendre un fantôme et les stocker pour les déposer ailleurs (action Throw).
-   - Throw = un lancer si l'entité est Throwable, c'est un dépôt sinon.
-   - Lorsqu'un bot Pick quelque chose cela tombe dans le sac du joueur.
-   
-#### interface graphique
-    - Un bandeau sur la droite indique combien d'éléments de chaque type (mur, fantôme,...) on a dans son sac.
-    - le joueur sélectionne (en couleur 1) la prochaine entité à déposer. Par défaut c'est la dernière entité ramassé.
-    - le joueur sélectionne (en couleur 2) ce que les bots déposent
-
-
-
-## Extension: Création d'un monde pour tester ses automates
-
-Création d'un monde vide dans lequel on peut placer via la souris des entités.
-
-- Par défaut pas d'automate 
-- Touche A + clic droit souris = un entité de catégorie adversaire
-- Touche @ + clic droit souris = un entité de la catégorie joueur
-- ...
-
-- Touche ... + clic gauche souris = ouverture d'un fenetre pour sélectionner un fichier gal
-- Barre espace : start/pause de la simulation
-
-
-
-## Extension: les états = les hummeurs des bots
-
-On peut fixer des noms d'états  Angry, Happy, Peaceful, Hunting, ...
-Et installer une correspondance entre sprites et états de l'automate.
-Dans les états "Hunting" _1 et _2 on affiche un sprite de chasseur à l'affut
-et dans les états "Happy" _1 et _2 on affiche un sprite de chasseur satisfait.
-
-```haskell
-Automate(Hunting_1){
- * (Hunting_1) ...
- * (HUnting_2) ...
- * (Happy_1) ...
- * (Happy_2) ...
-}
-
-```
-
-
-## Extension: le joueur peut choisir son rôle
-
-À tout moment, par un clic souris sur une entité, le joueur peut jouer avec cette entité.
-- On mémorise l'automate courant de l'entité
-- On lui affecte l'automate du player
-
-**Que devient l'entité précédente du player ?**
-- elle reprend son ancien automate
-- si c'était le player, il disparaît du plateau, le joueur pourra le régénérer par un clic sur une position libre du plateau
-
-
-## Extension: le sac est un monde à part
-
-Quand le joueur contrôle une entité qui est Pickable et qu'il se fait Picked, il se retrouve dans un monde (le sac) où tous les objets stockés prennent vie
-"à la toy story". C'est un jeu caché dans le jeu.
-
-Que faut-il y faire ? trouver la sortie du sac et s'entraider pour réussir à atteindre la sortie (~Lemmings ?).
-Le jeu extérieur continue et de nouveaux objects picked apparaissent dans le sac.
+![Texte alternatif](/images-md/Representation_troncon.drawio.png "Schema de Vue")
 
 
 ---
-    AUTHOR: Olivier Grüber, Michaël PÉRIN, Polytech'Grenoble, Univ. Grenoble Alpes 
+    AUTHOR: MIRAS Romain, Polytech'Grenoble, Univ. Grenoble Alpes 
 
 
 
