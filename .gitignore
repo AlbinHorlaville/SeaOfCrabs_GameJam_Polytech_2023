@@ -1,13 +1,5 @@
-.settings/
-bin/
-tmp/
+game-project/.settings/
+game-project/bin/
 .metadata
-.classpath
-.project
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.loadpath
-.factorypath
+game-project/.classpath
+game-project/.project
