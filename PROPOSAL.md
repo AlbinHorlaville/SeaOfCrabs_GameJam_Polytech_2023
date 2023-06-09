@@ -24,12 +24,13 @@
 
 #### Scenario
 
-Le but du jeu est d’explorer la mer qui s’offre aux joueurs et accumuler assez de ressources pour tuer le Kraken. Deux joueurs coopèrent sur une carte pour accomplir leur objectif. Ils pourront accoster des îles et trouver les coffres forts dans lesquels se trouvent les ressources mais attention des ennemis les protègent. Certains de ses trésors permettent d’entraver la progression de l'adversaire. La phase finale est le combat contre le Kraken. La victoire sera assurer en tuant le Kraken sauf si leur bar ne descend pas à zero avant !
+Le but du jeu est d’explorer la mer qui s’offre aux joueurs et accumuler assez de ressources pour tuer le Kraken. Deux joueurs coopèrent sur une carte pour accomplir leur objectif. Cependant gare aux ennemis qui n'hésiteront pas à se mettre en travers du chemin de nos deux héros, Häag & Azs. Ils pourront accoster des îles et trouver les coffres aux trésors regorgeant d'atouts. La phase finale est le combat contre le Kraken. La victoire sera assurer en tuant le Kraken sauf si celui-ci ou les crabes enragés ne les entraînent par le fond avant !
 
 #### Les Personnages
 
-- Le personnage contrôlé par le joueur (Pirate)
-- Le “Do or Die” (Le bateau du pirate)
+- Häag, le pirate contrôlé par le joueur 1.
+- Azs, le pirate contrôlé par le joueur 2.
+- Le “Do or Die” (Le bateau pirate)
 - Les ennemis terres (des crabes assoiffés de sang)
 - Les ennemis en mer ( Bateau ennemis )
 - Le Kraken (Boss final de mer)
@@ -39,19 +40,19 @@ Le but du jeu est d’explorer la mer qui s’offre aux joueurs et accumuler ass
 
 ##### Première phase
 
-En mer : les joueurs manœuvre leurs bateau, l'un peut utiliser le canon pour combattre les ennemis en mer, l'autre controle les déplacements du bateau. Les ennemis vaincues donnent des améliorations pour les joueurs. Si par chance, vous trouvez en mer des barils de rhum, récupérez- les. Ils permettent au pirate de se régénérer.
+En mer : les joueurs manœuvre leur bateau, l'un peut utiliser le canon pour combattre les ennemis en mer, l'autre controle les déplacements du bateau. Les ennemis vaincues donnent des améliorations pour les joueurs. Si par chance, vous trouvez en mer des barils de rhum, récupérez-les. Ils permettent aux pirates de se régénérer.
 
-Sur Terre : Les joueurs descendent de leur bateau et essaye chacun de récupérer le coffre sur l’île et les ressources qu’il contient. Le pirate se sert de son épée pour combattre les assauts des crabes qui feront tout pour protéger leur trésor. Les ressources permettent au joueur d’améliorer le bateau et les planches sur l’île de le régénérer. La dernière île dans l’avant dernière zone de jeu est obligatoire. Sur celle-ci se trouve le Crab King qui donne accès au combat contre le Kraken
+Sur Terre : Les joueurs descendent de leur bateau et essayent de récupérer le coffre sur l’île et les ressources qu’il contient. Le pirate se sert de son épée pour combattre les assauts des crabes qui feront tout pour protéger leur trésor. Les ressources permettent au joueur d’améliorer le bateau et les planches sur l’île de le régénérer. La dernière île du jeu est obligatoire. Sur celle-ci se trouve le Crab King qui donne accès au combat contre le Kraken
 
 ##### Deuxième phase 
 
-Une fois que les joueurs entrant dans la dernière  zone de jeu.. Ils se serviront de toutes ce qu’il ont collecté pour tuer le Kraken. Pour ce faire, ils doivent éviter les attaques de ses tentacules tout en lui infligeant un maximum de dégâts avec les boulets de canon.
+Une fois que les joueurs entrent dans la dernière zone de jeu, ils se servent de tout ce qu’ils ont collecté pour tuer le Kraken. Pour ce faire, ils doivent éviter les attaques de ses tentacules tout en lui infligeant un maximum de dégâts avec les boulets de canon.
 
 
 #### Spécificités techniques
-- La map est créée en tronçon, chaque tronçon contient une île, le dernier tronçon contient le Kraken. Les tronçons sont générés procéduralement et stockés dans une file d’attente jusqu’à être supprimés
+- La map est créée par tronçon, chaque tronçon contient une île, le dernier tronçon contient le Kraken. Les tronçons sont générés procéduralement et stockés dans une file d’attente jusqu’à être supprimés.
 
-- Chacun des tronçons est infini sur ses côtés. Implémentation en Donut, le côté droit nous emmène au côté gauche et inversement.
+- Chacun des tronçons est infini sur ses côtés. Implémentation en cylindre, le côté droit nous emmène au côté gauche et inversement.
 
 - Le joueur est toujours au centre de l’écran. Pour gérer le passage de gauche à droite, l’île est placée “au centre” du tronçon pour pouvoir passer d’un côté à l’autre sans voir l’île pour ne pas avoir l’impression de passer d’un côté à l’autre.
 
