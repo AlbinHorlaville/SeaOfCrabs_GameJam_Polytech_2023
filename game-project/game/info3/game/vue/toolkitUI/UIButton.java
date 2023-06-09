@@ -3,7 +3,7 @@ package info3.game.vue.toolkitUI;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public abstract class UIButton extends UIComponent {
+public class UIButton extends UIComponent {
 	
 	private UILabel label;
 	private Color backgroundColor;
