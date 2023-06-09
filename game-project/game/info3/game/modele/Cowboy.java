@@ -18,28 +18,22 @@
  *  Created on: March, 2020
  *      Author: Pr. Olivier Gruber
  */
-package info3.game;
+package info3.game.modele;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
-import info3.game.graphics.GameCanvas;
+import info3.game.vue.avatar.CowboyAvatar;
 
-public class Sound {
-	GameCanvas m_canvas;
-	String m_name;
-	String m_filename;
+/**
+ * A simple class that holds the images of a sprite for an animated cowbow.
+ *
+ */
+public class Cowboy extends Entity {
 
-	Sound(GameCanvas canvas) {
-		m_canvas = canvas;
+	public Cowboy() throws IOException {
+		this.x = 10;
+		this.y = 10;
+		avatar = new CowboyAvatar(this);
 	}
 
-	public void load(String name, String filename, long duration, float volume) throws IOException {
-		m_name = name;
-		m_filename = filename;
-		File file = new File(filename);
-		FileInputStream fis = new FileInputStream(file);
-		m_canvas.playSound(name, fis, duration, volume);
-	}
 }
