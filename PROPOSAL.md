@@ -4,7 +4,7 @@
 
 ### Phase de jeu classique : `jeu de rapidité`
 - Un `océan aléatoire` à chaque partie dans lequel on peut naviguer
-- `Viewport` : Une partie de la carte centrée sur chaque joueur
+- `Viewport` : Carte centré sur le bateau sur mer et centré sur le milieu du segment reliant les deux joueurs sur terre
 - Plusieurs ennemies et alliés (décrit plus bas)
 
 #### Objectif    
@@ -20,6 +20,7 @@
 #### Originalité       
 - Une carte généré procéduralement à chaque début de partie
 - Un jeu en 2D isométrique
+- Un gameplay différent sur mer et sur terre
 - Ecran partagé
 
 #### Scenario
