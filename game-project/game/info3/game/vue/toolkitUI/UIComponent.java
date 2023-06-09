@@ -15,6 +15,11 @@ public abstract class UIComponent {
 		this.width = w;
 	}
 
+	public boolean mouseOnComponent(int x, int y) {
+		return x >= getPositionX() && x <= getPositionX() + getWidth() && y >= getPositionY()
+				&& y <= getPositionY() + getHeight();
+	}
+
 	public abstract void paint(Graphics g);
 
 	public int getPositionX() {
