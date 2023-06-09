@@ -9,11 +9,11 @@ import info3.game.vue.avatar.Avatar;
 public class PlayingView extends View{
 
 	static ArrayList<Avatar> avatars;
-	
+
 	public PlayingView() throws IOException {
 		avatars = new ArrayList<>();
 	}
-	
+
 	@Override
 	public void tick(long elapsed) {
 		for (Avatar avatar : avatars) {
@@ -27,14 +27,14 @@ public class PlayingView extends View{
 			avatar.paint(g,width,height);
 		}
 	}
-	
+
 	public static void addAvatar(Avatar avatar){
 		PlayingView.avatars.add(avatar);
 	}
-	
+
 	public static void deleteAvatar(Avatar avatar) {
 		PlayingView.avatars.remove(avatar);
 	}
-	
+
 
 }
