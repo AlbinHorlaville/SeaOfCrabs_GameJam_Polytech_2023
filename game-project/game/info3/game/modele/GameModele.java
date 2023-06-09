@@ -25,6 +25,7 @@ import java.io.IOException;
 import info3.game.GameState;
 import info3.game.Sound;
 import info3.game.vue.GameView;
+import info3.game.vue.view.PlayingView;
 
 public class GameModele {
 
@@ -63,7 +64,7 @@ public class GameModele {
 		if (currentState == GameState.Menu) {
 			setCurrentState(GameState.Jeu);
 			Cowboy cowboy = new Cowboy();
-			this.gameview.inputAvatar(cowboy.getAvatar());
+			PlayingView.addAvatar(cowboy.getAvatar());
 		}
 	}
 

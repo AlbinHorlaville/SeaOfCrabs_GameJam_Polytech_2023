@@ -8,7 +8,7 @@ import info3.game.vue.avatar.Avatar;
 
 public class PlayingView extends View{
 
-	ArrayList<Avatar> avatars;
+	static ArrayList<Avatar> avatars;
 	
 	public PlayingView() throws IOException {
 		avatars = new ArrayList<>();
@@ -28,8 +28,12 @@ public class PlayingView extends View{
 		}
 	}
 	
-	public void addAvatar(Avatar avatar){
-		this.avatars.add(avatar);
+	public static void addAvatar(Avatar avatar){
+		PlayingView.avatars.add(avatar);
+	}
+	
+	public static void deleteAvatar(Avatar avatar) {
+		PlayingView.avatars.remove(avatar);
 	}
 	
 
