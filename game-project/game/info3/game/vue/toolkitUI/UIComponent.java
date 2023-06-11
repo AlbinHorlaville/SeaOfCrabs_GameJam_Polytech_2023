@@ -3,11 +3,13 @@ package info3.game.vue.toolkitUI;
 import java.awt.Graphics;
 
 public abstract class UIComponent {
+	
 	private int positionX;
 	private int positionY;
 	private int height;
 	private int width;
-
+	private UIComponentListener componentListener;
+	
 	public UIComponent(int x, int y, int h, int w) {
 		this.positionX = x;
 		this.positionY = y;
@@ -53,4 +55,13 @@ public abstract class UIComponent {
 	public void setWidth(int width) {
 		this.width = width;
 	}
+
+	public void setUIComponentListener(UIComponentListener listener) {
+		this.componentListener = listener;
+	}
+
+	public void clicked() {
+		componentListener.onComponentClicked();
+	}
+	
 }

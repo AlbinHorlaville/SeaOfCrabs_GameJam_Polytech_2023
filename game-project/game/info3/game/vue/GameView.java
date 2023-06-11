@@ -26,7 +26,7 @@ public class GameView {
 	JLabel text;
 	GameCanvas canvas;
 	GameModele game;
-	View currentView;
+	private View currentView;
 	Controller controller;
 
 	HashMap<GameState, View> all_views;
@@ -52,8 +52,8 @@ public class GameView {
 
 	private void init_view() throws IOException{
 		this.all_views = new HashMap<>();
-		this.all_views.put(GameState.Menu, new MenuView());
-		this.all_views.put(GameState.Jeu, new PlayingView());
+		this.all_views.put(GameState.Menu, new MenuView(this));
+		this.all_views.put(GameState.Jeu, new PlayingView(this));
 	}
 
 	public void update_view(GameState state) {
@@ -160,6 +160,10 @@ public class GameView {
 	
 	public void inputAvatar(Avatar avatar) {
 		((PlayingView) this.all_views.get(GameState.Jeu)).addAvatar(avatar);
+	}
+
+	public View getCurrentView() {
+		return currentView;
 	}
 
 }

@@ -4,13 +4,15 @@ import java.awt.Graphics;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import info3.game.vue.GameView;
 import info3.game.vue.avatar.Avatar;
 
 public class PlayingView extends View{
 
 	ArrayList<Avatar> avatars;
 	
-	public PlayingView() throws IOException {
+	public PlayingView(GameView gv) throws IOException {
+		super(gv);
 		avatars = new ArrayList<>();
 	}
 	
