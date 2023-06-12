@@ -23,7 +23,7 @@ public class MenuView extends View {
 	public MenuView(GameView gv) {
 		super(gv);
 		button = new UIButton(100, 100, new UILabel(0, 0, "Button", FONT1, Color.white), Color.black);
-		cursor = new UICursor(300, 300, 20, 100, Color.black, Color.red);
+		cursor = new UICursor(300, 300, 20, 400, Color.black, Color.red);
 		label = new UILabel(200, 400, "SeaOfCrabs", FONT2, Color.white);
 
 		button.setUIComponentListener(new UIComponentListener() {
@@ -31,7 +31,17 @@ public class MenuView extends View {
 			public void onComponentClicked() {
 				gameView.update_view(GameState.Jeu);
 			}
+			
+			public void onComponentPressed(int x, int y) {};
 
+		});
+		
+		cursor.setUIComponentListener(new UIComponentListener(){
+			public void onComponentPressed(int x, int y) {
+				cursor.move(x, y);
+			}
+			
+			public void onComponentClicked() {};
 		});
 
 		// on ajoute les différents components

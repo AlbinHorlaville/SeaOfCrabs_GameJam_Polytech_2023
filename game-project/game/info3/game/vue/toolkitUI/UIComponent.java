@@ -64,4 +64,8 @@ public abstract class UIComponent {
 		componentListener.onComponentClicked();
 	}
 	
+	public void pressed(int x, int y) {
+		componentListener.onComponentPressed(x, y);
+	}
+	
 }

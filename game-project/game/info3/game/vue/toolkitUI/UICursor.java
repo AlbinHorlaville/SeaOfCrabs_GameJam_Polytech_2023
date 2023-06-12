@@ -10,6 +10,7 @@ public class UICursor extends UIComponent{
 	private int sizeCursor;
 	private Color colorBar;
 	private Color colorCursor;
+	
 
 	public UICursor(int x, int y, int h, int w, Color cBar, Color cCursor) {
 		super(x, y, h, w);
@@ -22,13 +23,26 @@ public class UICursor extends UIComponent{
 		this.sizeCursor = java.lang.Math.min(h, w); //(int)(min + 0.2*min);
 	}
 	
+	public Color getColorCursor() {
+		return colorCursor;
+	}
+
+	public void setColorCursor(Color colorCursor) {
+		this.colorCursor = colorCursor;
+	}
+
 	public void move(int x, int y) {
-		if (x>=getPositionX() && x<=getPositionX()+getWidth()) {
-			setPositionX(x);
+		if (getWidth() > getHeight()) {
+			if (x>=getPositionX() && x<=getPositionX()+getWidth()-sizeCursor) {
+				this.value = x;
+			}
 		}
-		if (y>=getPositionY() && y<=getPositionY()+getHeight()) {
-			setPositionY(y);
+		if (getWidth() < getHeight()) {
+			if (y>=getPositionY() && y<=getPositionY()+getHeight()-sizeCursor) {
+				this.value = y;
+			}
 		}
+		System.out.println("CHECK");
 	}
 
 	@Override
@@ -41,12 +55,14 @@ public class UICursor extends UIComponent{
 		g.setColor(this.colorCursor);
 		
 		// Gère l'affichage du curseur peu importe si le Component est horizontal ou vertical.
-		if (getPositionX() < getPositionY()) {
-			X += this.value;
+		if (getWidth() < getHeight()) {
+			Y = java.lang.Math.max(this.value, getPositionY()); //getHeight() * this.value + getPositionY();
 		}
 		else {
-			Y += this.value;
+			X = java.lang.Math.max(this.value, getPositionX());//(getWidth() * this.value)/100 + getPositionX();
 		}
+		
+		
 		g.fillRect(X, Y, this.sizeCursor, this.sizeCursor);
 	}
 }

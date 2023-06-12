@@ -28,10 +28,12 @@ import java.io.IOException;
 import info3.game.graphics.GameCanvasListener;
 import info3.game.modele.GameModele;
 import info3.game.vue.GameView;
+import info3.game.vue.toolkitUI.UIComponent;
 
 public class Controller implements GameCanvasListener {
 	GameModele gameModele;
 	GameView gameView;
+	UIComponent CurrentFocus;
 
 	public Controller() throws Exception {
 		gameModele = new GameModele();
@@ -41,40 +43,46 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		try {
-			gameView.getCurrentView().getHoveredComponent(e.getX(), e.getY()).clicked();
-		} catch (Exception e1) {
-			return;
-		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		/*try {
+				gameView.getCurrentView().getHoveredComponent(e.getX(), e.getY()).pressed(e.getX(), e.getY());
+		} catch (Exception e1) {
+			return;
+		}*/
 
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		UIComponent newFocus = gameView.getCurrentView().getHoveredComponent(e.getX(), e.getY());
+		if (CurrentFocus != newFocus) {
+			if (CurrentFocus != null)
+				System.out.println("OUI");
+			if (newFocus != null)
+				System.out.println("NON");
+			CurrentFocus = newFocus;
+		}
+
+		//System.out.println("CHECKLISTENER");
 
 	}
 
