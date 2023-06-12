@@ -49,7 +49,10 @@ public class UICursor extends UIComponent {
 
 		g.setColor(this.colorBar);
 		g.fillRect(X, Y, getWidth(), getHeight());
+		g.setColor(new Color(230, 230, 230));
 
+		
+		g.fillRect(X+2, Y+2, getWidth()-4, getHeight()-4);
 		g.setColor(this.colorCursor);
 
 		// Gère l'affichage du curseur peu importe si le Component est horizontal ou
