@@ -17,8 +17,11 @@ import info3.game.graphics.GameCanvas;
 import info3.game.modele.GameModele;
 import info3.game.sound.RandomFileInputStream;
 import info3.game.vue.avatar.Avatar;
+import info3.game.vue.view.CreditsView;
 import info3.game.vue.view.MenuView;
 import info3.game.vue.view.PlayingView;
+import info3.game.vue.view.ScoreView;
+import info3.game.vue.view.SettingsView;
 import info3.game.vue.view.View;
 
 public class GameView {
@@ -58,6 +61,9 @@ public class GameView {
 		this.all_views = new HashMap<>();
 		this.all_views.put(GameState.Menu, new MenuView(this));
 		this.all_views.put(GameState.Jeu, new PlayingView(this));
+		this.all_views.put(GameState.Parametre, new SettingsView(this));
+		this.all_views.put(GameState.Score, new ScoreView(this));
+		this.all_views.put(GameState.Credits, new CreditsView(this));
 	}
 
 	public void update_view(GameState state) {

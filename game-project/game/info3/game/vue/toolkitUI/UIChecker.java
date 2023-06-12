@@ -8,9 +8,9 @@ import java.awt.Graphics;
 public class UIChecker extends UIButton {
 	private boolean state;
 
-	public UIChecker(int x, int y, UILabel l, Color c) {
+	public UIChecker(int x, int y, UILabel l, Color c, boolean baseState) {
 		super(x, y, l, c);
-		this.state = false;
+		this.state = baseState;
 		setHeight(30);
 		setWidth(30);
 	}

@@ -13,7 +13,7 @@ public class UICursor extends UIComponent {
 
 	public UICursor(int x, int y, int h, int w, Color cBar, Color cCursor) {
 		super(x, y, h, w);
-		this.value = 0;
+		this.value = getWidth() > getHeight() ? getPositionX() : getPositionY();
 		this.colorBar = cBar;
 		this.colorCursor = cCursor;
 
@@ -29,18 +29,39 @@ public class UICursor extends UIComponent {
 	public void setColorCursor(Color colorCursor) {
 		this.colorCursor = colorCursor;
 	}
+	
+	public int getValue() {
+		if (getWidth() > getHeight())
+			return (value - getPositionX())*100/(getWidth() - sizeCursor);
+		else {
+			return (value - getPositionY())*100/(getHeight() - sizeCursor);
+		}
+	}
 
 	public void move(int x, int y) {
 		if (getWidth() > getHeight()) {
 			if (x >= getPositionX() && x <= getPositionX() + getWidth() - sizeCursor) {
 				this.value = x;
 			}
+			else if (x < getPositionX()) {
+				this.value = getPositionX();
+			}
+			else if(x > getPositionX() + getWidth() - sizeCursor) {
+				this.value = getPositionX() + getWidth() - sizeCursor;
+			}
 		}
 		if (getWidth() < getHeight()) {
 			if (y >= getPositionY() && y <= getPositionY() + getHeight() - sizeCursor) {
 				this.value = y;
 			}
+			else if (y < getPositionY()) {
+				this.value = getPositionY();
+			}
+			else if(y > getPositionY() + getHeight() - sizeCursor) {
+				this.value = getPositionY() + getHeight() - sizeCursor;
+			}
 		}
+		
 	}
 
 	@Override

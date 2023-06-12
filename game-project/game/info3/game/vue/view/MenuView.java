@@ -25,30 +25,16 @@ public class MenuView extends View {
 	UILabel label;
 	UIChecker checker;
 	
-	private int window_width;
-	private int window_height;
-	
-	private Color c1;
-	private Color c2;
-	private Color c3;
-	
-	private static final Font FONT1 = new Font("TimesRoman", Font.BOLD, 20);
-	private static final Font FONT2 = new Font("IMPACT", Font.BOLD, 100);
+
 
 	public MenuView(GameView gv) {
 		super(gv);
-		window_width = 1024;
-		window_height = 768;
-		c1 = new Color(255, 100, 100);
-		c2 = new Color(255, 255, 102);
-		c3 = new Color(255, 218, 185);
+
 		
-		
-		
-		buttonPlay = new UIButton(450, 300, new UILabel(0, 0, "Play", FONT1, c2), c3);
-		buttonSettings = new UIButton(450, 400, new UILabel(0, 0, "Settings", FONT1, c2), c3);
-		buttonScore = new UIButton(450, 500, new UILabel(0, 0, "Score", FONT1, c2), c3);
-		buttonCredits = new UIButton(450, 600, new UILabel(0, 0, "Credits", FONT1, c2), c3);
+		buttonPlay = new UIButton(450, 300, new UILabel(0, 0, "Play", FONT1, c1), c2);
+		buttonSettings = new UIButton(450, 400, new UILabel(0, 0, "Settings", FONT1, c1), c2);
+		buttonScore = new UIButton(450, 500, new UILabel(0, 0, "Score", FONT1, c1), c2);
+		buttonCredits = new UIButton(450, 600, new UILabel(0, 0, "Credits", FONT1, c1), c2);
 		
 		//cursor = new UICursor(300, 300, 100, 400, Color.black, Color.red);
 		label = new UILabel(250, window_height/5, "SEA OF CRABES", FONT2, Color.white);
@@ -86,12 +72,8 @@ public class MenuView extends View {
 		buttonSettings.setUIComponentListener(new UIComponentListener() {
 			@Override
 			public void onComponentClicked() {
-				try {
-					gameView.getGame().start();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				gameView.update_view(GameState.Parametre);
+				gameView.getGame().setCurrentState(GameState.Parametre);
 			}
 
 			@Override
@@ -114,12 +96,8 @@ public class MenuView extends View {
 		buttonScore.setUIComponentListener(new UIComponentListener() {
 			@Override
 			public void onComponentClicked() {
-				try {
-					gameView.getGame().start();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				gameView.update_view(GameState.Score);
+				gameView.getGame().setCurrentState(GameState.Score);
 			}
 
 			@Override
@@ -142,14 +120,9 @@ public class MenuView extends View {
 		buttonCredits.setUIComponentListener(new UIComponentListener() {
 			@Override
 			public void onComponentClicked() {
-				try {
-					gameView.getGame().start();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				gameView.update_view(GameState.Credits);
+				gameView.getGame().setCurrentState(GameState.Credits);
 			}
-
 			@Override
 			public void onComponentMouseIn() {
 				buttonCredits.setBackgroundColor(c1);
