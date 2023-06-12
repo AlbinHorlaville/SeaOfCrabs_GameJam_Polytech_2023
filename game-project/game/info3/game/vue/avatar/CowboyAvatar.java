@@ -17,7 +17,6 @@ public class CowboyAvatar extends Avatar {
 	 * Simple animation here, the cowbow 
 	 */
 	public void tick(long elapsed) {
-		System.out.println("TEST");
 		imageElapsed += elapsed;
 		if (imageElapsed > 200) {
 			imageElapsed = 0;

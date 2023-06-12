@@ -21,10 +21,12 @@
 package info3.game.modele;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import info3.game.GameState;
 import info3.game.Sound;
 import info3.game.vue.GameView;
+import info3.game.vue.view.PlayingView;
 
 public class GameModele {
 
@@ -32,6 +34,8 @@ public class GameModele {
 	GameView gameview;
 	Cowboy cowboy;
 	Sound music;
+	
+	public static ArrayList<Entity> entities = new ArrayList<>();
 
 	GameState currentState;
 
@@ -63,7 +67,7 @@ public class GameModele {
 		if (currentState == GameState.Menu) {
 			setCurrentState(GameState.Jeu);
 			Cowboy cowboy = new Cowboy();
-			this.gameview.inputAvatar(cowboy.getAvatar());
+			GameModele.entities.add(cowboy);
 		}
 	}
 
