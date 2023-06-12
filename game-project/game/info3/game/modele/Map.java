@@ -6,7 +6,7 @@ import java.util.Random;
  * This class contain a reprensation of the map section by section and the offset of each tiles to create the wave effect
  */
 public class Map {
-	private int[][] wave; // The offset of each tiles of the map to create a wave effect
+	private double[][] wave; // The offset of each tiles of the map to create a wave effect
 	private MapSection[] map; // The map itself composed of section
 
 	private int sectionWidth; // The width of a section
@@ -35,7 +35,11 @@ public class Map {
 
 		this.map = new MapSection[this.nbSection];
 
+		this.wave = new double[this.sectionWidth * this.nbSection][this.sectionWidth];
+
 		generateMap();
+
+		generateWave();
 	}
 
 	/*
@@ -57,7 +61,250 @@ public class Map {
 		}
 	}
 
-	public int[][] getWave() {
+	/*
+	 * Print the waveMap, usefull for debbuging
+	 */
+	public void printWaveMap() {
+		for (int i = 0; i < this.nbSection; i++) {
+			for (int j = 0; j < this.sectionHeight; j++) {
+				for (int k = 0; k < this.sectionWidth; k++) {
+					System.out.print(" " + this.wave[i * this.sectionHeight + j][k] + " ");
+				}
+				System.out.print("\n");
+			}
+			System.out.print("\n\n-------------\n\n");
+		}
+	}
+
+	/*
+	 * Map a value in a range to another range
+	 * 
+	 * @param value : The value in the initialRange to transform into a value of the
+	 * transformedRange
+	 * 
+	 * @param initialRangeMin and initialRangeMax : the range of the initial value
+	 * 
+	 * @param transformedRangeMin and transformedRangeMax : the range of the
+	 * transformed value
+	 */
+	private double map(double value, double initialRangeMin, double initialRangeMax, double transformedRangeMin,
+			double transformedRangeMax) {
+		return transformedRangeMin + ((transformedRangeMax - transformedRangeMin) / (initialRangeMax - initialRangeMin))
+				* (value - initialRangeMin);
+	}
+
+	/*
+	 * Generate the wave of the map section by section regarding of the section type
+	 * The generation is done with perlin noise mapped to a range depending of the
+	 * section type
+	 */
+	public void generateWave() {
+		PerlinNoiseGenerator perlin = new PerlinNoiseGenerator(0.05);
+		double[][] waveNoise = new double[this.sectionHeight * this.nbSection][this.sectionWidth];
+
+		waveNoise = perlin.generateNoiseArray(this.sectionHeight * this.nbSection, this.sectionWidth,
+				rand.nextDouble() * 10000, rand.nextDouble() * 10000);
+
+		for (int i = 0; i < this.nbSection; i++) {
+			int waveRange;
+			switch (this.map[i].getSeaType()) {
+			case CALM_SEA:
+				waveRange = 40;
+				break;
+			case STORMY_SEA:
+				waveRange = 70;
+				break;
+			case RAGING_SEA:
+			case CRAB_KING_SEA:
+			case KRAKEN_SEA:
+				waveRange = 100;
+				break;
+			default:
+				waveRange = 0;
+			}
+			for (int j = 0; j < this.sectionHeight; j++) {
+				for (int k = 0; k < this.sectionWidth; k++) {
+					this.wave[i * this.sectionHeight + j][k] = map(waveNoise[i * this.sectionHeight + j][k], -1, 1,
+							-waveRange, waveRange);
+				}
+			}
+		}
+		
+		smoothWaveBorder(); // Smooth the border of the array for no relica when cycling the wave
+	}
+	
+	/*
+	 * Smooth all the border
+	 */
+	public void smoothWaveBorder() {
+		smoothWaveBorderNorthAndSouth();
+		smoothWaveBorderEastAndWest();
+	}
+
+	/*
+	 * Smooth North and South border
+	 */
+	private void smoothWaveBorderNorthAndSouth() {
+		double valueNorth;
+		double valueSouth;
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				
+				//South value become  combinaison of south and north wave
+				if (i == 0) {
+					valueSouth = 0.5 * this.wave[i][j]
+							+ 0.5 * this.wave[(this.nbSection * this.sectionHeight) - i - 1][j];
+				} else {
+					valueSouth = 0.6 * this.wave[i][j]
+							+ 0.4 * this.wave[i - 1][j];
+				}
+				
+				//North value become  combinaison of south and north wave
+				if (i == 0) {
+					valueNorth = 0.5 * this.wave[i][j]
+							+ 0.5 * this.wave[(this.nbSection * this.sectionHeight) - i - 1][j];
+				} else {
+					valueNorth = 0.4 * this.wave[(this.nbSection * this.sectionHeight) - i][j]
+							+ 0.6 * this.wave[(this.nbSection * this.sectionHeight) - i - 1][j];
+				}
+				
+
+				this.wave[i][j] = valueSouth;
+				this.wave[(this.nbSection * this.sectionHeight) - i - 1][j] = valueNorth;
+			}
+		}
+	}
+	
+	/*
+	 * Smooth West and East border
+	 */
+	private void smoothWaveBorderEastAndWest() {
+		double valueEast;
+		double valueWest;
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < this.sectionHeight * this.nbSection; j++) {
+				//West value become  combinaison of west and east wave
+				if (i == 0) {
+					valueWest = 0.5 * this.wave[j][i]
+							+ 0.5 * this.wave[j][this.sectionWidth - i - 1];
+				} else {
+					valueWest = 0.6 * this.wave[j][i]
+							+ 0.4 * this.wave[j][i - 1];
+				}
+				
+				//East value become  combinaison of west and east wave
+				if (i == 0) {
+					valueEast = 0.5 * this.wave[j][i]
+							+ 0.5 * this.wave[j][this.sectionWidth - i - 1];
+				} else {
+					valueEast = 0.4 * this.wave[j][this.sectionWidth - i]
+							+ 0.6 * this.wave[j][this.sectionWidth - i - 1];
+				}
+				
+
+				this.wave[j][i] = valueWest;
+				this.wave[j][this.sectionWidth - i - 1] = valueEast;
+			}
+		}
+	}
+
+	/*
+	 * The wave cicle torward the north
+	 */
+	public void cicleWaveNorth() {
+		double temp[] = new double[this.sectionWidth];
+		for (int i = 0; i < this.sectionWidth; i++) {
+			temp[i] = this.wave[this.nbSection * this.sectionHeight - 1][i];
+		}
+
+		for (int i = 0; i < this.nbSection; i++) {
+			for (int j = this.sectionHeight - 1; j >= (i == 0 ? 1 : 0); j--) {
+				for (int k = 0; k < this.sectionWidth; k++) {
+					this.wave[i * this.sectionHeight + j][k] = this.wave[i * this.sectionHeight + (j - 1)][k];
+				}
+			}
+		}
+
+		for (int i = 0; i < this.sectionWidth; i++) {
+			this.wave[0][i] = temp[i];
+		}
+	}
+
+	/*
+	 * The wave cicle torward the South
+	 */
+	public void cicleWaveSouth() {
+		double temp[] = new double[this.sectionWidth];
+		for (int i = 0; i < this.sectionWidth; i++) {
+			temp[i] = this.wave[0][i];
+		}
+
+		for (int i = 0; i < this.nbSection; i++) {
+			for (int j = 0; j < (i == this.nbSection - 1 ? this.sectionHeight - 1 : this.sectionHeight); j++) {
+				for (int k = 0; k < this.sectionWidth; k++) {
+					this.wave[i * this.sectionHeight + j][k] = this.wave[i * this.sectionHeight + (j + 1)][k];
+				}
+			}
+		}
+
+		for (int i = 0; i < this.sectionWidth; i++) {
+			this.wave[this.nbSection * this.sectionHeight - 1][i] = temp[i];
+		}
+	}
+
+	/*
+	 * The wave cicle torward the west
+	 */
+	public void cicleWaveWest() {
+		double temp[] = new double[this.sectionHeight * this.nbSection];
+		for (int i = 0; i < this.nbSection; i++) {
+			for (int j = 0; j < this.sectionHeight; j++) {
+				temp[i * this.sectionHeight + j] = this.wave[i * this.sectionHeight + j][0];
+			}
+		}
+
+		for (int i = 0; i < this.nbSection; i++) {
+			for (int j = 0; j < this.sectionHeight; j++) {
+				for (int k = 0; k < this.sectionWidth - 1; k++) {
+					this.wave[i * this.sectionHeight + j][k] = this.wave[i * this.sectionHeight + j][k + 1];
+				}
+			}
+		}
+
+		for (int i = 0; i < this.nbSection; i++) {
+			for (int j = 0; j < this.sectionHeight; j++) {
+				this.wave[i * this.sectionHeight + j][this.sectionWidth - 1] = temp[i * this.sectionHeight + j];
+			}
+		}
+	}
+
+	/*
+	 * The wave cicle torward the east
+	 */
+	public void cicleWaveEast() {
+		double temp[] = new double[this.sectionHeight * this.nbSection];
+		for (int i = 0; i < this.nbSection; i++) {
+			for (int j = 0; j < this.sectionHeight; j++) {
+				temp[i * this.sectionHeight + j] = this.wave[i * this.sectionHeight + j][this.sectionWidth - 1];
+			}
+		}
+
+		for (int i = 0; i < this.nbSection; i++) {
+			for (int j = 0; j < this.sectionHeight; j++) {
+				for (int k = this.sectionWidth - 1; k > 0; k--) {
+					this.wave[i * this.sectionHeight + j][k] = this.wave[i * this.sectionHeight + j][k - 1];
+				}
+			}
+		}
+
+		for (int i = 0; i < this.nbSection; i++) {
+			for (int j = 0; j < this.sectionHeight; j++) {
+				this.wave[i * this.sectionHeight + j][0] = temp[i * this.sectionHeight + j];
+			}
+		}
+	}
+
+	public double[][] getWave() {
 		return wave;
 	}
 

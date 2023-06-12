@@ -18,7 +18,7 @@ public class MapSection {
 	private Random randomGenerator; // The random generator initialized based on the seed of the map the section is
 							// in
 
-	private final static int NB_TILE_MIN_PER_ISLAND = 230; // The number of tiles an island must be composed to be valid
+	private final static int NB_TILE_MIN_PER_ISLAND = 0; // The number of tiles an island must be composed to be valid
 
 	/*
 	 * @param seaType : The type of sea
@@ -95,7 +95,7 @@ public class MapSection {
 		// Generation of perlin noise for the island
 		double[][] tempPerlinNoiseIsland = new double[islandSize][islandSize];
 		tempPerlinNoiseIsland = this.noiseGenerator.generateNoiseArray(islandSize, islandSize,
-				this.randomGenerator.nextFloat() * 10000, this.randomGenerator.nextFloat() * 10000);
+				this.randomGenerator.nextDouble() * 10000, this.randomGenerator.nextDouble() * 10000);
 
 		// Substract a island gradient to the perlin noise
 		tempPerlinNoiseIsland = generateIslandGradient(tempPerlinNoiseIsland, islandSize);
@@ -190,7 +190,7 @@ public class MapSection {
 				double value = Math.sqrt(Math.pow(Math.max(i, islandSize / 2) - Math.min(i, islandSize / 2), 2)
 						+ Math.pow(Math.max(j, islandSize / 2) - Math.min(j, islandSize / 2), 2));
 
-				island[i][j] -= map(value, 0, maxValue, 0, 1); // The more the value is far from the center of the
+				island[i][j] -= map(value, 0, maxValue, -1, 1); // The more the value is far from the center of the
 																// array, the closer it is from 1
 			}
 		}
