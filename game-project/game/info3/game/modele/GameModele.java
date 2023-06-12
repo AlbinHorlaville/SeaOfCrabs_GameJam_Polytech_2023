@@ -24,7 +24,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import info3.game.GameState;
-import info3.game.Sound;
+import info3.game.sound.BackgroundMusic;
+import info3.game.sound.Sound;
+import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 import info3.game.vue.view.PlayingView;
 
@@ -65,6 +67,7 @@ public class GameModele {
 
 	public void start() throws IOException {
 		if (currentState == GameState.Menu) {
+			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
 			Cowboy cowboy = new Cowboy();
 			GameModele.entities.add(cowboy);

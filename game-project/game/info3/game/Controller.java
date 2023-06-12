@@ -27,6 +27,8 @@ import java.io.IOException;
 
 import info3.game.graphics.GameCanvasListener;
 import info3.game.modele.GameModele;
+import info3.game.sound.BackgroundMusic;import info3.game.sound.SoundEffect;
+import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 
 public class Controller implements GameCanvasListener {
@@ -96,9 +98,6 @@ public class Controller implements GameCanvasListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		System.out.println("Key pressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
-
-		System.out.println("DEBUT");
-
 		try {
 			this.start();
 		} catch (IOException e1) {
@@ -125,8 +124,8 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void windowOpened() {
-		gameView.loadMusic();
 		// game.m_canvas.setTimer(6000);
+		SoundTool.playBackgroundMusic();
 	}
 
 	@Override
@@ -136,17 +135,12 @@ public class Controller implements GameCanvasListener {
 	// boolean m_expired;
 	@Override
 	public void endOfPlay(String name) {
-		// if (!m_expired) // only reload if it was a forced reload by timer
-		gameView.loadMusic();
-		// m_expired = false;
+		if (SoundTool.is_background(name)) SoundTool.playBackgroundMusic();
 	}
 
 	@Override
 	public void expired() {
 		// will force a change of music, after 6s of play
-		// System.out.println("Forcing an ealy change of music");
-		// m_expired = true;
-		// game.loadMusic();
 	}
 
 	private void start() throws IOException {
