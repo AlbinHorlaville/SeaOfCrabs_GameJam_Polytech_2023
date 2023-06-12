@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import info3.game.modele.Entity;
+import info3.game.modele.GameModele;
 import info3.game.vue.avatar.Avatar;
 
 public class PlayingView extends View{
@@ -16,25 +18,16 @@ public class PlayingView extends View{
 
 	@Override
 	public void tick(long elapsed) {
-		for (Avatar avatar : avatars) {
-			avatar.tick(elapsed);
-		}		
+		for (Entity entity : GameModele.entities) {
+			entity.getAvatar().tick(elapsed);
+		}	
 	}
 
 	@Override
 	public void paint(Graphics g, int width, int height) {
-		for (Avatar avatar : avatars) {
-			avatar.paint(g,width,height);
+		for (Entity entity : GameModele.entities) {
+			entity.getAvatar().paint(g, width, height);
 		}
 	}
-
-	public static void addAvatar(Avatar avatar){
-		PlayingView.avatars.add(avatar);
-	}
-
-	public static void deleteAvatar(Avatar avatar) {
-		PlayingView.avatars.remove(avatar);
-	}
-
 
 }

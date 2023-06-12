@@ -21,9 +21,8 @@ public abstract class MoveableEntity extends Entity{
 	public abstract void takeDamage();
 
 	public void die() {
-		PlayingView.deleteAvatar(this.avatar);
+		GameModele.entities.remove(this);
 	}
-
 
 	public int getLifePoint() {
 		return lifePoint;
