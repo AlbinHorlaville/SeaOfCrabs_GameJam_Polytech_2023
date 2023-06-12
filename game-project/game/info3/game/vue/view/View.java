@@ -10,7 +10,6 @@ public abstract class View {
 
 	ArrayList<UIComponent> components;
 	GameView gameView;
-	private UIComponent currentFocusComponent;
 
 	public View(GameView gv) {
 		gameView = gv;

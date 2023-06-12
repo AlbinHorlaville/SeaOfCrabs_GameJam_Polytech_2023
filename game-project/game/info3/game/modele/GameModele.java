@@ -28,7 +28,6 @@ import info3.game.vue.GameView;
 
 public class GameModele {
 
-
 	GameView gameview;
 	Cowboy cowboy;
 	Sound music;
@@ -39,16 +38,14 @@ public class GameModele {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		currentState = GameState.Menu;
-	}	
-	
+	}
+
 	public void setGameview(GameView gameview) {
 		this.gameview = gameview;
 	}
 
-
 	public void tick(long elapsed) {
 	}
-
 
 	public GameState getCurrentState() {
 		return currentState;
@@ -66,7 +63,5 @@ public class GameModele {
 			this.gameview.inputAvatar(cowboy.getAvatar());
 		}
 	}
-
-
 
 }

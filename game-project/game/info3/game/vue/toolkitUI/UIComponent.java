@@ -2,8 +2,6 @@ package info3.game.vue.toolkitUI;
 
 import java.awt.Graphics;
 
-import info3.game.graphics.GameCanvasListener;
-
 public abstract class UIComponent {
 
 	private int positionX;
@@ -72,6 +70,10 @@ public abstract class UIComponent {
 
 	public void mouseOut() {
 		componentListener.onComponentMouseOut();
+	}
+
+	public void pressed(int x, int y) {
+		componentListener.onComponentPressed(x, y);
 	}
 
 }

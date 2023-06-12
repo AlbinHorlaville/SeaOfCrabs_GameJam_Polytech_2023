@@ -48,21 +48,17 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		try {
+		if (focus != null) {
 			focus.clicked();
-		} catch (Exception e1) {
-			return;
 		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-
 	}
 
 	@Override
@@ -75,7 +71,9 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-
+		if (focus != null) {
+			focus.pressed(e.getX(), e.getY());
+		}
 	}
 
 	@Override

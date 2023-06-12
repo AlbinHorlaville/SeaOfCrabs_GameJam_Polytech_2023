@@ -8,4 +8,5 @@ public interface UIComponentListener {
 
 	void onComponentMouseOut();
 
+	void onComponentPressed(int x, int y);
 }
