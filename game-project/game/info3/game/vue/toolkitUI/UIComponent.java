@@ -2,14 +2,16 @@ package info3.game.vue.toolkitUI;
 
 import java.awt.Graphics;
 
+import info3.game.graphics.GameCanvasListener;
+
 public abstract class UIComponent {
-	
+
 	private int positionX;
 	private int positionY;
 	private int height;
 	private int width;
 	private UIComponentListener componentListener;
-	
+
 	public UIComponent(int x, int y, int h, int w) {
 		this.positionX = x;
 		this.positionY = y;
@@ -63,5 +65,13 @@ public abstract class UIComponent {
 	public void clicked() {
 		componentListener.onComponentClicked();
 	}
-	
+
+	public void mouseIn() {
+		componentListener.onComponentMouseIn();
+	}
+
+	public void mouseOut() {
+		componentListener.onComponentMouseOut();
+	}
+
 }

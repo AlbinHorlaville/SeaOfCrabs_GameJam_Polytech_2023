@@ -3,6 +3,7 @@ package info3.game.vue.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.IOException;
 
 import info3.game.GameState;
 import info3.game.vue.GameView;
@@ -29,7 +30,24 @@ public class MenuView extends View {
 		button.setUIComponentListener(new UIComponentListener() {
 			@Override
 			public void onComponentClicked() {
-				gameView.update_view(GameState.Jeu);
+				try {
+					gameView.getGame().start();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			public void onComponentMouseIn() {
+				button.setBackgroundColor(Color.white);
+				button.setForegroundColor(Color.black);
+			}
+
+			@Override
+			public void onComponentMouseOut() {
+				button.setBackgroundColor(Color.black);
+				button.setForegroundColor(Color.white);
 			}
 
 		});

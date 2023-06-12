@@ -14,20 +14,19 @@ public class CowboyAvatar extends Avatar {
 	}
 
 	/*
-	 * Simple animation here, the cowbow 
+	 * Simple animation here, the cowbow
 	 */
 	public void tick(long elapsed) {
-		System.out.println("TEST");
 		imageElapsed += elapsed;
 		if (imageElapsed > 200) {
 			imageElapsed = 0;
 			imageIndex = (imageIndex + 1) % m_images.length;
 		}
-	    moveElapsed += elapsed;
-	    if (moveElapsed>24 & width!=0) {
-	      moveElapsed=0;
-	      this.entity.setX((entity.getX() +2)%width); 
-	    }
+		moveElapsed += elapsed;
+		if (moveElapsed > 24 & width != 0) {
+			moveElapsed = 0;
+			this.entity.setX((entity.getX() + 2) % width);
+		}
 	}
 
 	public void paint(Graphics g, int width, int height) {

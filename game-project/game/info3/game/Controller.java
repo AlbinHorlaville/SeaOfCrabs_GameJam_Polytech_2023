@@ -28,21 +28,28 @@ import java.io.IOException;
 import info3.game.graphics.GameCanvasListener;
 import info3.game.modele.GameModele;
 import info3.game.vue.GameView;
+import info3.game.vue.toolkitUI.UIComponent;
 
 public class Controller implements GameCanvasListener {
+
 	GameModele gameModele;
 	GameView gameView;
+	UIComponent focus;
 
 	public Controller() throws Exception {
-		gameModele = new GameModele();
-		gameView = new GameView(gameModele, this);
-		gameModele.setGameview(gameView);
+		try {
+			gameModele = new GameModele();
+			gameView = new GameView(gameModele, this);
+			gameModele.setGameview(gameView);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		try {
-			gameView.getCurrentView().getHoveredComponent(e.getX(), e.getY()).clicked();
+			focus.clicked();
 		} catch (Exception e1) {
 			return;
 		}
@@ -60,12 +67,10 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-
 	}
 
 	@Override
@@ -75,7 +80,16 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-
+		UIComponent newFocus = gameView.getCurrentView().getHoveredComponent(e.getX(), e.getY());
+		if (focus != newFocus) {
+			if (focus != null) {
+				focus.mouseOut();
+			}
+			if (newFocus != null) {
+				newFocus.mouseIn();
+			}
+			focus = newFocus;
+		}
 	}
 
 	@Override
@@ -86,12 +100,6 @@ public class Controller implements GameCanvasListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 
-		try {
-			this.start();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 	}
 
 	@Override
@@ -101,31 +109,41 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void tick(long elapsed) {
-		gameModele.tick(elapsed);
-		gameView.tick(elapsed);
+		if (gameModele != null && gameView != null) {
+			gameModele.tick(elapsed);
+			gameView.tick(elapsed);
+		}
 	}
 
 	@Override
 	public void paint(Graphics g) {
-		gameView.paint(g);
+		if (gameModele != null && gameView != null) {
+			gameView.paint(g);
+		}
 	}
 
 	@Override
 	public void windowOpened() {
-		gameView.loadMusic();
-		// game.m_canvas.setTimer(6000);
+		if (gameModele != null && gameView != null) {
+			gameView.loadMusic();
+			// game.m_canvas.setTimer(6000);
+		}
 	}
 
 	@Override
 	public void exit() {
+		if (gameModele != null && gameView != null) {
+		}
 	}
 
 	// boolean m_expired;
 	@Override
 	public void endOfPlay(String name) {
-		// if (!m_expired) // only reload if it was a forced reload by timer
-		gameView.loadMusic();
-		// m_expired = false;
+		if (gameModele != null && gameView != null) {
+			// if (!m_expired) // only reload if it was a forced reload by timer
+			gameView.loadMusic();
+			// m_expired = false;
+		}
 	}
 
 	@Override
@@ -134,9 +152,11 @@ public class Controller implements GameCanvasListener {
 		// System.out.println("Forcing an ealy change of music");
 		// m_expired = true;
 		// game.loadMusic();
+		if (gameModele != null && gameView != null) {
+		}
 	}
 
-	private void start() throws IOException {
+	public void start() throws IOException {
 		this.gameModele.start();
 	}
 

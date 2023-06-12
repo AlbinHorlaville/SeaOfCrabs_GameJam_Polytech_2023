@@ -10,6 +10,7 @@ public abstract class View {
 
 	ArrayList<UIComponent> components;
 	GameView gameView;
+	private UIComponent currentFocusComponent;
 
 	public View(GameView gv) {
 		gameView = gv;
@@ -28,13 +29,13 @@ public abstract class View {
 		components.add(c);
 	}
 
-	public UIComponent getHoveredComponent(int x, int y) throws Exception {
+	public UIComponent getHoveredComponent(int x, int y) {
 		for (UIComponent c : components) {
 			if (c.mouseOnComponent(x, y)) {
 				return c;
 			}
 		}
-		throw new Exception("No component");
+		return null;
 	}
 
 }

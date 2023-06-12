@@ -34,23 +34,27 @@ public class GameView {
 	private long m_textElapsed;
 
 	public GameView(GameModele game, Controller controller) throws IOException {
-		this.game = game;
-		init_view();
-		update_view(game.getCurrentState());
-		// creating the game canvas to render the game,
-		// that would be a part of the view in the MVC pattern
-		this.controller = controller;
-		canvas = new GameCanvas(controller);
+		try {
+			this.game = game;
+			init_view();
+			update_view(game.getCurrentState());
+			// creating the game canvas to render the game,
+			// that would be a part of the view in the MVC pattern
+			this.controller = controller;
+			canvas = new GameCanvas(controller);
 
-		System.out.println("  - creating frame...");
-		Dimension d = new Dimension(1024, 768);
-		frame = canvas.createFrame(d);
+			System.out.println("  - creating frame...");
+			Dimension d = new Dimension(1024, 768);
+			frame = canvas.createFrame(d);
 
-		System.out.println("  - setting up the frame...");
-		setupFrame();	
+			System.out.println("  - setting up the frame...");
+			setupFrame();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	private void init_view() throws IOException{
+	private void init_view() throws IOException {
 		this.all_views = new HashMap<>();
 		this.all_views.put(GameState.Menu, new MenuView(this));
 		this.all_views.put(GameState.Jeu, new PlayingView(this));
@@ -82,12 +86,6 @@ public class GameView {
 		frame.setVisible(true);
 	}
 
-
-	void changeView() {
-
-	}
-
-
 	/*
 	 * This method is invoked almost periodically, given the number of milli-seconds
 	 * that elapsed since the last time this method was invoked.
@@ -113,8 +111,9 @@ public class GameView {
 	}
 
 	/*
-	 * This request is to paint the GameModele Canvas, using the given graphics. This is
-	 * called from the GameModeleCanvasListener, called from the GameModeleCanvas.
+	 * This request is to paint the GameModele Canvas, using the given graphics.
+	 * This is called from the GameModeleCanvasListener, called from the
+	 * GameModeleCanvas.
 	 */
 	public void paint(Graphics g) {
 
@@ -125,14 +124,13 @@ public class GameView {
 		g.setColor(Color.gray);
 		g.fillRect(0, 0, width, height);
 
-		this.currentView.paint(g,width,height);
+		this.currentView.paint(g, width, height);
 	}
-
 
 	/*
 	 * ================================================================ All the
-	 * methods below are invoked from the GameModeleCanvas listener, once the window is
-	 * visible on the screen.
+	 * methods below are invoked from the GameModeleCanvas listener, once the window
+	 * is visible on the screen.
 	 * ==============================================================
 	 */
 
@@ -145,8 +143,8 @@ public class GameView {
 		m_musicName = m_musicNames[m_musicIndex];
 		String filename = "resources/" + m_musicName + ".ogg";
 		m_musicIndex = (m_musicIndex + 1) % m_musicNames.length;
-		try { 
-			RandomAccessFile file = new RandomAccessFile(filename,"r");
+		try {
+			RandomAccessFile file = new RandomAccessFile(filename, "r");
 			RandomFileInputStream fis = new RandomFileInputStream(file);
 			canvas.playMusic(fis, 0, 1.0F);
 		} catch (Throwable th) {
@@ -156,14 +154,18 @@ public class GameView {
 	}
 
 	private int m_musicIndex = 0;
-	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" }; 
-	
+	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" };
+
 	public void inputAvatar(Avatar avatar) {
 		((PlayingView) this.all_views.get(GameState.Jeu)).addAvatar(avatar);
 	}
 
 	public View getCurrentView() {
 		return currentView;
+	}
+
+	public GameModele getGame() {
+		return game;
 	}
 
 }
