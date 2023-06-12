@@ -1,79 +1,89 @@
 # PROPOSITION DE JEU - Groupe G
 
-# Sea of Crabes
+# __Sea of Crabes__
 
-### Phase de jeu classique : `jeu de rapidité`
-- Un `océan aléatoire` à chaque partie dans lequel on peut naviguer
-- `Viewport` : Carte centré sur le bateau sur mer et centré sur le milieu du segment reliant les deux joueurs sur terre
-- Plusieurs ennemies et alliés (décrit plus bas)
+## Synopsis :
+Explorez la mer et les îles, et récoltez les ressources afin de pouvoir vaincre le Roi des crabes et le terrible Kraken.
+Controlez 2 valeureux pirates: Häag and Azs dans leur quête, mais gare aux navires ennemis et crabes qui feront tout pour vous ralentir. Que la houle vous soit favorable.
+<br>
+<br>
 
-#### Objectif    
-- Vaincre le terrifiant Kraken
-- Etre le plus rapide pour finir le jeu
 
-#### Jeu
-- Explorer toutes les îles afin de s'améliorer
-- Barre de vie (ne pas mourir)  
-- Etre assez fort pour vaincre le Kraken
-- Gameplay de bateau en coopération sur Mer
-- Gameplay individuelle sur Terre
-#### Originalité       
-- Une carte généré procéduralement à chaque début de partie
-- Un jeu en 2D isométrique
-- Un gameplay différent sur mer et sur terre
-- Viewport commun pour les deux joueurs
+## Jeu : 
+- Type: `Jeu de rapidité`, `Coopération`
+- Themes: Mer, îles, pirates, bateaux
+- But: Tuer le Roi Crabe et le Kraken le plus rapidement possible
+  <br>
+  <br>
 
-#### Scenario
+## Map :
+- `Cylindrique`: le côté droit nous emmène au côté gauche et inversement.
+- `Division en tronçons de cylindre`: Une île sur chaque tronçon. Au moins un ennemi et un bonus sur mer et sur l'île.
+- Boss Crabe sur dernière île, Kraken sur dernier tronçon.
+  <br>
+  <br>
 
-Le but du jeu est d’explorer la mer qui s’offre aux joueurs et accumuler assez de ressources pour tuer le Kraken. Deux joueurs coopèrent sur une carte pour accomplir leur objectif. Cependant gare aux ennemis qui n'hésiteront pas à se mettre en travers du chemin de nos deux héros, Häag & Azs. Ils pourront accoster des îles et trouver les coffres aux trésors regorgeant d'atouts. La phase finale se débloquera après avoir vaincu sur terre, le Roi des Crabes. La phase final sera donc le combat contre le Kraken. La victoire sera assurer en tuant le Kraken sauf si celui-ci ou les crabes enragés ne les entraînent par le fond avant !
+## Gameplay :
 
-#### Les Personnages
+### Mer :
+- `2 joueurs contrôlent le bateau`, l'un le dirige, l'autre attaque.
+- `Attaque à distance`
+<br>
+  
 
-- Häag, le pirate contrôlé par le joueur 1.
-- Azs, le pirate contrôlé par le joueur 2.
-- Le “Do or Die” (Le bateau pirate)
-- Les ennemis terres (des crabes assoiffés de sang)
-- Les ennemis en mer ( Bateau ennemis )
-- Le Kraken (Boss final de mer)
-- Crabs King (Boss final de terre )  
+### Ile :
+- `Chacun des joueurs contrôle son personnage`
+- `Viewport commun` aux 2 joueurs
+- `Barre de vie commune`
+- `Attaque au corps à corps`
+  <br>
 
-#### Bonus obtenu dans les coffres
+### Bonus :
+- `Les bonus récupérés en mer améliorent les statistiques des joueurs sur l'île` et vice et versa.
 
-Les bonus récupérés sur la terre permettra de s'améliorer pour la mer et inversement. Voici, les spécifications : 
-##### Pour la terre
-
+#### Statistiques des joueurs (sur l'île)améliorables par les bonus :
 - Vitesse de déplacement
 - Vitesse d'attaque
 - Dégât d'attaque
 - PV Bonus
 
-##### Pour la mer
+#### Statistiques du bateau améliorables par les bonus :
+- PV Bonus
+- Différents types de boulets de canon
 
-Des boulets de cannons spéciaux ( Ex : Changeant les automates, appliquant des poisons, ... )
+#### Méthodes d'obtention des bonus :
+- Tuer des ennemis
+- Ouvrir des coffres
+- Récupérer du rhum ou des planches pour améliorer les points de vie des joueurs et du bateau
+  <br>
 
-#### Gameplay
-
-##### Première phase
-
-En mer : les joueurs manœuvre leur bateau, l'un peut utiliser le canon pour combattre les ennemis en mer, l'autre controle les déplacements du bateau. Les ennemis vaincues donnent des améliorations pour les joueurs. Si par chance, vous trouvez en mer des barils de rhum, récupérez-les. Ils permettent aux pirates de se régénérer.
-
-Sur Terre : Les joueurs descendent de leur bateau et essayent de récupérer le coffre sur l’île et les ressources qu’il contient. Le pirate se sert de son épée pour combattre les assauts des crabes qui feront tout pour protéger leur trésor. Les ressources permettent au joueur d’améliorer le bateau et les planches sur l’île de le régénérer. La dernière île du jeu est obligatoire. Sur celle-ci se trouve le Crab King qui donne accès au combat contre le Kraken
-
-##### Deuxième phase 
-
-Une fois que les joueurs entrent dans la dernière zone de jeu, ils se servent de tout ce qu’ils ont collecté pour tuer le Kraken. Pour ce faire, ils doivent éviter les attaques de ses tentacules tout en lui infligeant un maximum de dégâts avec les boulets de canon.
+### Ennemis :
+- Bateaux sur mer, Crabes sur Iles
+- Boss: Roi Crabe, Kraken
+- Automates : `Tous les ennemis ont des automates`. Les boss ont des automates plus complexes que les bateaux et crabes
+- Niveau: `Plus on avance en tronçons, plus les ennemis sont forts` (statistiques plus élevées)
+<br>
+<br>
 
 
-#### Spécificités techniques
-- La map est créée par tronçon, chaque tronçon contient une île, le dernier tronçon contient le Kraken. Les tronçons sont générés procéduralement et stockés dans une file d’attente jusqu’à être supprimés.
 
-- Chacun des tronçons est infini sur ses côtés. Implémentation en cylindre, le côté droit nous emmène au côté gauche et inversement.
+## Spécificités affichage et configuration :
+- Ecran de démarrage
+- Tableau des scores
+- Map en 2d isométrique
+- Fichier de configuration pour les automates
+<br>
+<br>
 
-- Le joueur est toujours au centre de l’écran. Pour gérer le passage de gauche à droite, l’île est placée “au centre” du tronçon pour pouvoir passer d’un côté à l’autre sans voir l’île pour ne pas avoir l’impression de passer d’un côté à l’autre.
 
-- Les automates des boss seront plus développé que les monstres normaux permettant des combats plus durs pour les joueurs.
+## Originalité :      
+- Une `carte générée procéduralement` à chaque début de partie
+- Un jeu en `2D isométrique`
+- Un `gameplay différent` sur mer et sur terre
+- `Viewport commun` pour les deux joueurs
 
-![Texte alternatif](/images-md/Representation_troncon.drawio.png "Schema de Vue")
+
+
 
 
 ---
