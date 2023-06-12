@@ -9,7 +9,7 @@
 
 #### Objectif    
 - Vaincre le terrifiant Kraken
-- Etre le plus rapide
+- Etre le plus rapide pour finir le jeu
 
 #### Jeu
 - Explorer toutes les îles afin de s'améliorer
@@ -21,11 +21,11 @@
 - Une carte généré procéduralement à chaque début de partie
 - Un jeu en 2D isométrique
 - Un gameplay différent sur mer et sur terre
-- Ecran partagé
+- Viewport commun pour les deux joueurs
 
 #### Scenario
 
-Le but du jeu est d’explorer la mer qui s’offre aux joueurs et accumuler assez de ressources pour tuer le Kraken. Deux joueurs coopèrent sur une carte pour accomplir leur objectif. Cependant gare aux ennemis qui n'hésiteront pas à se mettre en travers du chemin de nos deux héros, Häag & Azs. Ils pourront accoster des îles et trouver les coffres aux trésors regorgeant d'atouts. La phase finale est le combat contre le Kraken. La victoire sera assurer en tuant le Kraken sauf si celui-ci ou les crabes enragés ne les entraînent par le fond avant !
+Le but du jeu est d’explorer la mer qui s’offre aux joueurs et accumuler assez de ressources pour tuer le Kraken. Deux joueurs coopèrent sur une carte pour accomplir leur objectif. Cependant gare aux ennemis qui n'hésiteront pas à se mettre en travers du chemin de nos deux héros, Häag & Azs. Ils pourront accoster des îles et trouver les coffres aux trésors regorgeant d'atouts. La phase finale se débloquera après avoir vaincu sur terre, le Roi des Crabes. La phase final sera donc le combat contre le Kraken. La victoire sera assurer en tuant le Kraken sauf si celui-ci ou les crabes enragés ne les entraînent par le fond avant !
 
 #### Les Personnages
 
@@ -36,6 +36,20 @@ Le but du jeu est d’explorer la mer qui s’offre aux joueurs et accumuler ass
 - Les ennemis en mer ( Bateau ennemis )
 - Le Kraken (Boss final de mer)
 - Crabs King (Boss final de terre )  
+
+#### Bonus obtenu dans les coffres
+
+Les bonus récupérés sur la terre permettra de s'améliorer pour la mer et inversement. Voici, les spécifications : 
+##### Pour la terre
+
+- Vitesse de déplacement
+- Vitesse d'attaque
+- Dégât d'attaque
+- PV Bonus
+
+##### Pour la mer
+
+Des boulets de cannons spéciaux ( Ex : Changeant les automates, appliquant des poisons, ... )
 
 #### Gameplay
 
@@ -56,6 +70,8 @@ Une fois que les joueurs entrent dans la dernière zone de jeu, ils se servent d
 - Chacun des tronçons est infini sur ses côtés. Implémentation en cylindre, le côté droit nous emmène au côté gauche et inversement.
 
 - Le joueur est toujours au centre de l’écran. Pour gérer le passage de gauche à droite, l’île est placée “au centre” du tronçon pour pouvoir passer d’un côté à l’autre sans voir l’île pour ne pas avoir l’impression de passer d’un côté à l’autre.
+
+- Les automates des boss seront plus développé que les monstres normaux permettant des combats plus durs pour les joueurs.
 
 ![Texte alternatif](/images-md/Representation_troncon.drawio.png "Schema de Vue")
 
