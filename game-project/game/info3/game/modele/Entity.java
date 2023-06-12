@@ -5,12 +5,12 @@ import info3.game.vue.avatar.Avatar;
 public abstract class Entity {
 
 	protected int x, y;
+	protected boolean valid;
 
 	Avatar avatar;
 
-	// Automaton Variable TODO 
-	// State Variable TODO 
-
+	// Automaton Variable TODO
+	// State Variable TODO
 
 	public Entity() {
 		// TODO Auto-generated constructor stub
@@ -42,6 +42,11 @@ public abstract class Entity {
 	}
 
 	public void setY(int y) {
+		this.y = y;
+	}
+
+	public void setLocation(int x, int y) {
+		this.x = x;
 		this.y = y;
 	}
 
