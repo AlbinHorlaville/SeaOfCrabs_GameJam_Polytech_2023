@@ -120,8 +120,7 @@
 - Albin et Alexandre: Toolkit UI/Vue du menu
 - Albin: Animation du pirate
 - Axel et Emin: Travail Automates et Visitor
-- Brice et Romain: Base du modèle du jeu
-- Romain: Finalisation Proposal.md
+- Brice et Romain: Base du modèle du jeu et 2eme version du Proposal.md
 - Rémi: Génération procédurale des vagues et lissage de celles-ci
 <br>
 <br>
@@ -134,13 +133,13 @@
 - Animation Pirate: de dos, de face: Terminé
   
 ### Axel et Emin :
-- Compréhension du parcours du visitor dans l'AST et création diagramme de classes pour les automates
+- 
 
 ### Brice et Romain :
 - Base du modèle du jeu: Finalisation des déclarations des sous-classes de Entities.
+-  2ème version du Proposal.md: Terminé
 
-### Romain :
-- Finalisation du Proposal.md: Terminé
+
 
 ### Rémi :
 - Génération procédurale des vagues et lissage de celles-ci: Terminé
@@ -155,5 +154,16 @@
 <br>
 
 
+# 13 Juin
 
+
+## Répartition des tâches:
+
+- Albin et Alexandre: Toolkit UI/Vue du menu : Finalisation écran de démarrage et implémentation tableau des scores
+- Axel et Emin: Premier tests automates
+- Brice : Sprite Loader
+- Romain : Son du jeu 
+- Rémi: Fixer bug vagues
+<br>
+<br>
 
