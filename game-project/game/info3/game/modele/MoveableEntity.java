@@ -1,12 +1,12 @@
 package info3.game.modele;
 
-import info3.game.vue.view.PlayingView;
+import automate.EnumDirection;
 
 public abstract class MoveableEntity extends Entity{
 	protected int lifePoint;
 	protected int attackCoeff;
 	protected int speedCoeff;
-	Direction facing;
+	EnumDirection facing;
 
 	public MoveableEntity(int lifePoint, int attackCoeff,int speedCoeff) {
 		super();
@@ -54,12 +54,15 @@ public abstract class MoveableEntity extends Entity{
 	}
 
 
-	public Direction getFacing() {
+	public EnumDirection getFacing() {
 		return facing;
 	}
 
 
-	public void setFacing(Direction facing) {
+	public void setFacing(EnumDirection facing) {
 		this.facing = facing;
 	}
+	
+	//public abstract void move(EnumDirection eval);
+	
 }

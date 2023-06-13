@@ -22,6 +22,7 @@ package info3.game.modele;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import info3.game.GameState;
 import info3.game.modele.map.Map;
@@ -59,6 +60,9 @@ public class GameModele {
 				map.cicleWaveNorth();
 			}
 			waveTick = waveTick%10;
+		}
+		for(Entity entity : entities) {
+			entity.step();
 		}
 	}
 

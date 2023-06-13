@@ -3,6 +3,7 @@ package automate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import info3.game.modele.Entity;
 
 public abstract class FunCall extends Expression {
 	

@@ -3,9 +3,9 @@ package automate.ActionClass;
 import java.util.List;
 
 import automate.Direction;
-import automate.Entity;
 import automate.FunCall;
 import automate.Parameter;
+import info3.game.modele.Entity;
 
 public class MyDir extends FunCall{
 	

@@ -2,6 +2,7 @@ package automate;
 
 import java.util.ArrayList;
 import java.util.Random;
+import info3.game.modele.Entity;
 
 public class Action {
 	private ArrayList<FunCall> funcalls;

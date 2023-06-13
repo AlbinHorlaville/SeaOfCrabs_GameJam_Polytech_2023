@@ -2,11 +2,11 @@ package automate.ActionClass;
 
 import java.util.List;
 
-import automate.Entity;
 import automate.FunCall;
 import automate.Key;
 import automate.Parameter;
-import info3.game.CanvasListener;
+import info3.game.Controller;
+import info3.game.modele.Entity;
 
 public class KeyFunc extends FunCall{
 	
@@ -16,9 +16,9 @@ public class KeyFunc extends FunCall{
 	
 	public boolean eval(Entity e) {
 		Key k = (Key)parameters.get(0);
-		String s = String.valueOf(CanvasListener.getPressed());
+		String s = String.valueOf(Controller.getBuffer());
+		System.out.println(s);
 		boolean b = k.eval().equals(s);
-		System.out.println("b : " + b);
 		return b;
 	}
 

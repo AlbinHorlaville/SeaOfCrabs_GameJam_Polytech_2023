@@ -2,6 +2,8 @@ package automate;
 
 import java.util.ArrayList;
 
+import info3.game.modele.Entity;
+
 public class State {
 	private ArrayList<Transition> transitions;
 	protected String name;
@@ -26,7 +28,6 @@ public class State {
 	public State step(Entity e) {
 		for(Transition t : transitions) {
 			if(t.GetCondition().eval(e)) {
-				System.out.println("ONELSA");
 				t.GetAction().exec(e);
 				return t.GetDestination();
 			}
