@@ -18,8 +18,11 @@ import info3.game.modele.GameModele;
 import info3.game.sound.RandomFileInputStream;
 import info3.game.sound.SoundTool;
 import info3.game.vue.avatar.Avatar;
+import info3.game.vue.view.CreditsView;
 import info3.game.vue.view.MenuView;
 import info3.game.vue.view.PlayingView;
+import info3.game.vue.view.ScoreView;
+import info3.game.vue.view.SettingsView;
 import info3.game.vue.view.View;
 
 public class GameView {
@@ -27,7 +30,7 @@ public class GameView {
 	JLabel text;
 	GameCanvas canvas;
 	GameModele game;
-	View currentView;
+	private View currentView;
 	Controller controller;
 
 	HashMap<GameState, View> all_views;
@@ -35,28 +38,55 @@ public class GameView {
 	private long m_textElapsed;
 
 	public GameView(GameModele game, Controller controller) throws IOException {
-		this.game = game;
-		init_view();
-		update_view(game.getCurrentState());
-		// creating the game canvas to render the game,
-		// that would be a part of the view in the MVC pattern
-		this.controller = controller;
-		canvas = new GameCanvas(controller);
-		
-		SoundTool.initSoundTool(canvas); // INITIALISATION DE L OUTILS DE SON
-		
-		System.out.println("  - creating frame...");
-		Dimension d = new Dimension(1024, 768);
-		frame = canvas.createFrame(d);
+		try {
+			this.game = game;
 
-		System.out.println("  - setting up the frame...");
-		setupFrame();	
+			this.controller = controller;
+			canvas = new GameCanvas(controller);
+
+			SoundTool.initSoundTool(canvas); // INITIALISATION DE L OUTILS DE SON
+
+			// creating the game canvas to render the game,
+			// that would be a part of the view in the MVC pattern
+
+			System.out.println("  - creating frame...");
+			Dimension d = new Dimension(1024, 768);
+			frame = canvas.createFrame(d);
+
+			System.out.println("  - setting up the frame...");
+			setupFrame();
+
+			System.out.println("  - Init the view...");
+			init_view();
+			update_view(game.getCurrentState());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	private void init_view() throws IOException{
+	public GameModele getGame() {
+		return game;
+	}
+
+	public void setGame(GameModele game) {
+		this.game = game;
+	}
+
+	public View getCurrentView() {
+		return currentView;
+	}
+
+	public void setCurrentView(View currentView) {
+		this.currentView = currentView;
+	}
+
+	private void init_view() throws IOException {
 		this.all_views = new HashMap<>();
-		this.all_views.put(GameState.Menu, new MenuView());
-		this.all_views.put(GameState.Jeu, new PlayingView());
+		this.all_views.put(GameState.Menu, new MenuView(this));
+		this.all_views.put(GameState.Jeu, new PlayingView(this));
+		this.all_views.put(GameState.Parametre, new SettingsView(this));
+		this.all_views.put(GameState.Score, new ScoreView(this));
+		this.all_views.put(GameState.Credits, new CreditsView(this));
 	}
 
 	public void update_view(GameState state) {
@@ -85,12 +115,6 @@ public class GameView {
 		frame.setVisible(true);
 	}
 
-
-	void changeView() {
-
-	}
-
-
 	/*
 	 * This method is invoked almost periodically, given the number of milli-seconds
 	 * that elapsed since the last time this method was invoked.
@@ -116,8 +140,9 @@ public class GameView {
 	}
 
 	/*
-	 * This request is to paint the GameModele Canvas, using the given graphics. This is
-	 * called from the GameModeleCanvasListener, called from the GameModeleCanvas.
+	 * This request is to paint the GameModele Canvas, using the given graphics.
+	 * This is called from the GameModeleCanvasListener, called from the
+	 * GameModeleCanvas.
 	 */
 	public void paint(Graphics g) {
 
@@ -128,7 +153,15 @@ public class GameView {
 		g.setColor(Color.gray);
 		g.fillRect(0, 0, width, height);
 
-		this.currentView.paint(g,width,height);
+		this.currentView.paint(g, width, height);
 	}
-	
+
+	public int getWidthCanvas() {
+		return canvas.getWidth();
+	}
+
+	public int getHeightCanvas() {
+		return canvas.getHeight();
+	}
+
 }

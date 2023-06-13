@@ -27,123 +27,138 @@ import java.io.IOException;
 
 import info3.game.graphics.GameCanvasListener;
 import info3.game.modele.GameModele;
-import info3.game.sound.BackgroundMusic;import info3.game.sound.SoundEffect;
+import info3.game.sound.BackgroundMusic;
+import info3.game.sound.SoundEffect;
 import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
+import info3.game.vue.toolkitUI.UIComponent;
 
 public class Controller implements GameCanvasListener {
+
 	GameModele gameModele;
 	GameView gameView;
 	static char buffer = '\0';
-	
+	UIComponent focus; // focus is the UIComponent currently hovered on the game canvas
+
 	public Controller() throws Exception {
-		gameModele = new GameModele();
-		gameView = new GameView(gameModele, this);
-		gameModele.setGameview(gameView);
+		try {
+			gameModele = new GameModele();
+			gameView = new GameView(gameModele, this);
+			gameModele.setGameview(gameView);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		System.out.println("Mouse clicked: (" + e.getX() + "," + e.getY() + ")");
-		System.out.println("   modifiers=" + e.getModifiersEx());
-		System.out.println("   buttons=" + e.getButton());
+	public void mouseClicked(MouseEvent e) { // when the mouse is clicked
+		if (focus != null) {
+			focus.clicked(); // calls to the focus'clicked behavior
+		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		System.out.println("Mouse pressed: (" + e.getX() + "," + e.getY() + ")");
-		System.out.println("   modifiers=" + e.getModifiersEx());
-		System.out.println("   buttons=" + e.getButton());
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		System.out.println("Mouse released: (" + e.getX() + "," + e.getY() + ")");
-		System.out.println("   modifiers=" + e.getModifiersEx());
-		System.out.println("   buttons=" + e.getButton());
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		System.out.println("Mouse entered: (" + e.getX() + "," + e.getY() + ")");
-		System.out.println("   modifiers=" + e.getModifiersEx());
-		System.out.println("   buttons=" + e.getButton());
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		System.out.println("Mouse exited: (" + e.getX() + "," + e.getY() + ")");
-		System.out.println("   modifiers=" + e.getModifiersEx());
-		System.out.println("   buttons=" + e.getButton());
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		System.out.println("Mouse dragged: (" + e.getX() + "," + e.getY() + ")");
-		System.out.println("   modifiers=" + e.getModifiersEx());
-		System.out.println("   buttons=" + e.getButton());
+		if (focus != null) {
+			focus.pressed(e.getX(), e.getY()); // calls to the focus'pressed behavior
+		}
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		System.out.println("Mouse moved: (" + e.getX() + "," + e.getY() + ")");
-		System.out.println("   modifiers=" + e.getModifiersEx());
-		System.out.println("   buttons=" + e.getButton());
+		UIComponent newFocus = gameView.getCurrentView().getHoveredComponent(e.getX(), e.getY());
+
+		if (focus != newFocus) {
+			if (focus != null) {
+				focus.mouseOut(); // calls to the focus'mouseOut behavior
+			}
+			if (newFocus != null) {
+				newFocus.mouseIn(); // calls to the focus'mouseIn behavior
+			}
+			focus = newFocus;
+		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		System.out.println("Key typed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("Key pressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
 		Controller.buffer = e.getKeyChar();
-		try {
-			this.start();
-		}  catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		if (focus != null) {
+			focus.keyPressed(e); // calls to the focus'keyPressed behavior
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		System.out.println("Key released: " + e.getKeyChar() + " code=" + e.getKeyCode());
 		Controller.buffer = '\0';
 	}
 
 	@Override
 	public void tick(long elapsed) {
-		gameModele.tick(elapsed);
-		gameView.tick(elapsed);
+		if (gameModele != null && gameView != null) {
+			gameModele.tick(elapsed);
+			gameView.tick(elapsed);
+		}
 	}
 
 	@Override
 	public void paint(Graphics g) {
-		gameView.paint(g);
+		if (gameModele != null && gameView != null) {
+			gameView.paint(g);
+		}
 	}
 
 	@Override
 	public void windowOpened() {
-		// game.m_canvas.setTimer(6000);
-		SoundTool.playBackgroundMusic();
+		if (gameModele != null && gameView != null) {
+			SoundTool.playBackgroundMusic();
+		}
 	}
 
 	@Override
 	public void exit() {
+		if (gameModele != null && gameView != null) {
+		}
 	}
 
 	// boolean m_expired;
 	@Override
 	public void endOfPlay(String name) {
-		if (SoundTool.is_background(name)) SoundTool.playBackgroundMusic();
+		if (gameModele != null && gameView != null) {
+			if (SoundTool.is_background(name))
+				SoundTool.playBackgroundMusic();
+		}
 	}
 
 	@Override
 	public void expired() {
 		// will force a change of music, after 6s of play
+		// System.out.println("Forcing an ealy change of music");
+		// m_expired = true;
+		// game.loadMusic();
+		if (gameModele != null && gameView != null) {
+		}
 	}
 
 	private void start() throws Exception {

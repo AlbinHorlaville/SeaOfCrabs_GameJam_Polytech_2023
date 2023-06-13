@@ -6,15 +6,15 @@ import java.util.ArrayList;
 
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
+import info3.game.vue.GameView;
 import info3.game.vue.avatar.Avatar;
 
 public class PlayingView extends View {
 
-	static ArrayList<Avatar> avatars;
-
-	public PlayingView() throws IOException {
-		avatars = new ArrayList<>();
+	public PlayingView(GameView gv) {
+		super(gv);
 	}
+
 
 	@Override
 	public void tick(long elapsed) {
