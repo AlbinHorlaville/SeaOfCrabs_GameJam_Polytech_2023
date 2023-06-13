@@ -55,6 +55,14 @@ public class Map {
 		for (int i = 0; i < this.nbSection; i++) {
 			this.map[i] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
 		}
+		
+		//Put the section in the right order
+		MapSection temp;
+		for (int i = 0; i < Math.ceil(this.nbSection / 2); i++) {
+			temp = this.map[i];
+			this.map[i] = this.map[this.nbSection - 1 - i];
+			this.map[this.nbSection - 1 - i] = temp;
+		}
 	}
 
 	/*

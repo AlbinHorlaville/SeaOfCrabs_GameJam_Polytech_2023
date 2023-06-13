@@ -35,7 +35,7 @@ public class MapRepresentation {
 		if (imageFile.exists()) {
 			this.grassImage = ImageIO.read(imageFile);
 		}
-
+		
 		imageFile = new File("assets/img/tiles/sand.png");
 		if (imageFile.exists()) {
 			this.sandImage = ImageIO.read(imageFile);
@@ -77,6 +77,9 @@ public class MapRepresentation {
 		 */
 		int imgWidth = img.getWidth();
 		int imgHeight = img.getHeight();
+		
+		int playerStartX = this.map.getMap()[this.map.getNbSection() - 1].getTiles()[this.map.getSectionHeight() - 5][this.map.getSectionWidth() / 2].getX();
+		int playerStartY = this.map.getMap()[this.map.getNbSection() - 1].getTiles()[this.map.getSectionHeight() - 5][this.map.getSectionWidth() / 2].getY();
 
 		/*
 		 * Draw each tiles of the map
@@ -107,41 +110,41 @@ public class MapRepresentation {
 					}
 
 					// Only drawing the tiles on screen
-					if (!(section[j][k].getX() + playerX > width) && !(section[j][k].getY() + playerY > height)) {
+					if (!(section[j][k].getX() + playerX - playerStartX> width) && !(section[j][k].getY() + playerY - playerStartY> height)) {
 						// If the tile to be drawed is sand water (special case since it is composed of
 						// 2 tiles, a static sand and a moving half transparent water)
 						if (sandWater) {
 							// If the sand is on top of the water
-							if (section[j][k].getY() + playerY > map.transpoYCoordinateToIsometric(img.getWidth(),
-									img.getHeight(), k, i * this.map.getSectionHeight() + j) + playerY) {
+							if (section[j][k].getY() + playerY  - playerStartY > map.transpoYCoordinateToIsometric(img.getWidth(),
+									img.getHeight(), k, i * this.map.getSectionHeight() + j) + playerY - playerStartY) {
 								// We only draw the sand since the water is under
 								// We have to recalculate the coordinate to remove the wave offset since the
 								// sand is not moving and this offset is only applied to the transparent water
 								// when she is on top of the sand
 								g.drawImage(img,
 										map.transpoXCoordinateToIsometric(img.getWidth(), img.getHeight(), k,
-												i * this.map.getSectionHeight() + j) + playerX,
+												i * this.map.getSectionHeight() + j) + playerX - playerStartX,
 										map.transpoYCoordinateToIsometric(img.getWidth(), img.getHeight(), k,
-												i * this.map.getSectionHeight() + j) + playerY,
+												i * this.map.getSectionHeight() + j) + playerY - playerStartY,
 										imgWidth, imgHeight, null);
 							} else { // If the water is on top of the sand
 								// We first draw the sand and then the water (which is on top)
 								g.drawImage(img,
 										map.transpoXCoordinateToIsometric(img.getWidth(), img.getHeight(), k,
-												i * this.map.getSectionHeight() + j) + playerX,
+												i * this.map.getSectionHeight() + j) + playerX - playerStartX,
 										map.transpoYCoordinateToIsometric(img.getWidth(), img.getHeight(), k,
-												i * this.map.getSectionHeight() + j) + playerY,
+												i * this.map.getSectionHeight() + j) + playerY - playerStartY,
 										imgWidth, imgHeight, null);
 
 								img = sandWaterImage;
 
-								g.drawImage(img, section[j][k].getX() + playerX, section[j][k].getY() + playerY,
+								g.drawImage(img, section[j][k].getX() + playerX - playerStartX, section[j][k].getY() + playerY - playerStartY,
 										imgWidth, imgHeight, null);
 
 							}
 						} else {
 							// We can directly draw the tiles
-							g.drawImage(img, section[j][k].getX() + playerX, section[j][k].getY() + playerY, imgWidth,
+							g.drawImage(img, section[j][k].getX() + playerX - playerStartX, section[j][k].getY() + playerY - playerStartY, imgWidth,
 									imgHeight, null);
 						}
 					}
