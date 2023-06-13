@@ -8,7 +8,7 @@ public class Direction extends Parameter{
 
 	@Override
 	public Object eval() {
-		return EnumCategory.valueOf(m_string);
+		return EnumDirection.valueOf(m_string);
 	}
 	
 	

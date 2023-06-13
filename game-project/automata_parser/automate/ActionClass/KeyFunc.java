@@ -4,7 +4,9 @@ import java.util.List;
 
 import automate.Entity;
 import automate.FunCall;
+import automate.Key;
 import automate.Parameter;
+import info3.game.CanvasListener;
 
 public class KeyFunc extends FunCall{
 	
@@ -13,11 +15,11 @@ public class KeyFunc extends FunCall{
 	}
 	
 	public boolean eval(Entity e) {
-		return this.parameters.get(0).toString().equals(getPressedCharacter());
-	}
-	
-	private String getPressedCharacter() {
-		return "z";
+		Key k = (Key)parameters.get(0);
+		String s = String.valueOf(CanvasListener.getPressed());
+		boolean b = k.eval().equals(s);
+		System.out.println("b : " + b);
+		return b;
 	}
 
 	@Override

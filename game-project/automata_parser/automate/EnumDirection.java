@@ -2,10 +2,10 @@ package automate;
 
 public enum EnumDirection {
 
-	MoveNorth("N"),
-	MoveSouth("S"),
-	MoveEast("E"),
-	MoveWest("W");
+	N("N"),
+	S("S"),
+	W("W"),
+	E("E");
 	
 	private String m_string;
 	

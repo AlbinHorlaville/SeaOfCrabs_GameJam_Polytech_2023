@@ -1,7 +1,6 @@
 package automate;
 
 public class Key extends Parameter{
-	private String m_string;
 	
 	public Key(String s) {
 		super(s);

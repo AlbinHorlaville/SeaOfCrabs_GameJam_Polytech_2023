@@ -30,8 +30,8 @@ public class Automate {
 		return state;
 	}
 	
-	public void step(Entity e, State state) {
-		state.step(e);
+	public State step(Entity e, State state) {
+		return state.step(e);
 	}
 	
 	public void print() {
