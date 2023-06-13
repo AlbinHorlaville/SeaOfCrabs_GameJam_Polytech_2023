@@ -1,4 +1,4 @@
-package info3.game.modele;
+package info3.game.modele.map;
 
 /*
  * Enumeration of every different type of tiles
@@ -14,4 +14,8 @@ public enum EnumTiles {
 	TRANSITION_GRASS_ANGLE_SAND_TOP_LEFT, TRANSITION_GRASS_ANGLE_SAND_TOP_RIGHT,
 	TRANSITION_GRASS_ANGLE_SAND_BOTTOM_LEFT, TRANSITION_GRASS_ANGLE_SAND_BOTTOM_RIGHT, TREASUR, CRAB_SPAWNER, TREE,
 	SEA_CHEST, RED_FLOWER, YELLOW_FLOWER, BLUE_FLOWER, SHELLFISH_1, SHELLFISH_2, SHELLFISH_3;
+	
+	//water tile : CALM_SATER, STORMY_WATER, RARGING_WATER
+	//sand tile : SAND_WATER, SAND, SHELLFISH_1, SHELLFISH_2, SHELLFISH_3
+	// other : grass / transition / special tiles
 }
