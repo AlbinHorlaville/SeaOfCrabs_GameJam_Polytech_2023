@@ -20,23 +20,19 @@
  */
 package info3.game.modele;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import info3.game.GameState;
+import info3.game.modele.map.Map;
 import info3.game.sound.BackgroundMusic;
 import info3.game.sound.SoundTool;
-import info3.game.modele.map.Map;
 import info3.game.vue.GameView;
-import info3.game.vue.avatar.MapRepresentation;
-import info3.game.vue.view.PlayingView;
 
 public class GameModele {
 
 
 	GameView gameview;
 	Cowboy cowboy;
-	Sound music;
 	
 	public static ArrayList<Entity> entities = new ArrayList<>();
 	
@@ -86,7 +82,5 @@ public class GameModele {
 			map = new Map(100, 3, 96, 48);
 		}
 	}
-
-
 
 }
