@@ -1,5 +1,6 @@
 package info3.game;
 
+import automate.AutomateLoader;
 import info3.game.modele.GameModele;
 import info3.game.vue.GameView;
 
@@ -12,6 +13,7 @@ public class SeaOfCrabes {
 	public static void main(String[] args) {
 		try {
 			System.out.println("Game starting...");
+			AutomateLoader.initAutomateLoader();
 			controller = new Controller();
 			System.out.println("Game started.");
 		} catch (Throwable th) {

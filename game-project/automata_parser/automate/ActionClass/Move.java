@@ -2,10 +2,10 @@ package automate.ActionClass;
 
 import java.util.List;
 
-import automate.Entity;
 import automate.EnumDirection;
 import automate.FunCall;
 import automate.Parameter;
+import info3.game.modele.Entity;
 
 public class Move extends FunCall{
 	
@@ -18,10 +18,9 @@ public class Move extends FunCall{
 
 	@Override
 	public void exec(Entity e) {
-		System.out.println(this.toString());
+		System.out.println("dSQDDDDDDDDDDDDDDdsqdqsdqsdqs");
 		e.move((EnumDirection)parameters.get(0).eval());
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

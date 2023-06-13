@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.lang.Math;
 
+import info3.game.modele.Entity;
 
 public class Automate {
 	public String name;

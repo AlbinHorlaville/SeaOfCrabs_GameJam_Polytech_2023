@@ -34,7 +34,8 @@ import info3.game.vue.GameView;
 public class Controller implements GameCanvasListener {
 	GameModele gameModele;
 	GameView gameView;
-
+	static char buffer = '\0';
+	
 	public Controller() throws Exception {
 		gameModele = new GameModele();
 		gameView = new GameView(gameModele, this);
@@ -98,6 +99,7 @@ public class Controller implements GameCanvasListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		System.out.println("Key pressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+		Controller.buffer = e.getKeyChar();
 		try {
 			this.start();
 		}  catch (Exception e1) {
@@ -109,6 +111,7 @@ public class Controller implements GameCanvasListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		System.out.println("Key released: " + e.getKeyChar() + " code=" + e.getKeyCode());
+		Controller.buffer = '\0';
 	}
 
 	@Override
@@ -145,6 +148,10 @@ public class Controller implements GameCanvasListener {
 
 	private void start() throws Exception {
 		this.gameModele.start();
+	}
+	
+	public static char getBuffer() {
+		return Controller.buffer;
 	}
 
 }

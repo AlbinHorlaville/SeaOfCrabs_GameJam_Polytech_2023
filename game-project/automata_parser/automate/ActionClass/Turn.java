@@ -2,9 +2,9 @@ package automate.ActionClass;
 
 import java.util.List;
 
-import automate.Entity;
 import automate.FunCall;
 import automate.Parameter;
+import info3.game.modele.Entity;
 
 public class Turn extends FunCall{
 	

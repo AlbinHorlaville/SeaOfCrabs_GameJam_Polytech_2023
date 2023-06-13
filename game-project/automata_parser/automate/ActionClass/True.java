@@ -1,7 +1,7 @@
 package automate.ActionClass;
 
-import automate.Entity;
 import automate.FunCall;
+import info3.game.modele.Entity;
 
 public class True extends FunCall {
 	

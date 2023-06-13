@@ -22,6 +22,9 @@ package info3.game.modele;
 
 import java.io.IOException;
 
+import automate.AutomateLoader;
+import automate.EnumCategory;
+import automate.EnumDirection;
 import info3.game.vue.avatar.CowboyAvatar;
 
 /**
@@ -34,6 +37,18 @@ public class Cowboy extends Entity {
 		this.x = 10;
 		this.y = 10;
 		avatar = new CowboyAvatar(this);
+		this.automate = AutomateLoader.getPiratePlayerAutomate();
+		this.current_state = automate.initial_state;
+	}
+	
+	public void move(EnumDirection eval) {
+		System.out.println("DIRECTION " + eval.toString());
+	}
+
+	@Override
+	public void move(EnumCategory eval) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

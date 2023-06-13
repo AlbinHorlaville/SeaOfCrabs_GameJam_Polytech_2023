@@ -1,5 +1,9 @@
 package info3.game.modele;
 
+import automate.Automate;
+import automate.EnumCategory;
+import automate.EnumDirection;
+import automate.State;
 import info3.game.vue.avatar.Avatar;
 
 public abstract class Entity {
@@ -9,8 +13,8 @@ public abstract class Entity {
 
 	Avatar avatar;
 
-	// Automaton Variable TODO
-	// State Variable TODO
+	Automate automate;
+	State current_state;
 
 	public Entity() {
 		// TODO Auto-generated constructor stub
@@ -49,5 +53,17 @@ public abstract class Entity {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public void setAutomate(Automate automate) {
+		this.automate = automate;
+	}
+	
+	public void step() {
+		this.automate.step(this, current_state);
+	}
+	
+	public abstract void move(EnumDirection eval);
+	
+	public abstract void move(EnumCategory eval);
 
 }

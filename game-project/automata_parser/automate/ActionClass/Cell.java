@@ -2,11 +2,9 @@ package automate.ActionClass;
 
 import java.util.List;
 
-import automate.Category;
-import automate.Direction;
-import automate.Entity;
 import automate.FunCall;
 import automate.Parameter;
+import info3.game.modele.Entity;
 
 public class Cell extends FunCall {
 	private Parameter direction;

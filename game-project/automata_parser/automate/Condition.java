@@ -1,5 +1,5 @@
 package automate;
-
+import info3.game.modele.Entity;
 
 public class Condition extends FunCall{
 	protected FunCall f;

@@ -1,12 +1,15 @@
 package info3.game.modele;
 
+import automate.AutomateLoader;
+import automate.EnumDirection;
+
 public class PiratePlayer extends Player {
 	
 	Weapon weapon;
 
 	public PiratePlayer(int lifePoint, int attackCoeff, int speedCoeff) {
 		super(lifePoint, attackCoeff, speedCoeff);
-		// TODO Auto-generated constructor stub
+		this.automate = AutomateLoader.getPiratePlayerAutomate();
 	}
 
 	@Override
@@ -22,6 +25,12 @@ public class PiratePlayer extends Player {
 	
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
+	}
+
+	@Override
+	public void move(EnumDirection eval) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -2,9 +2,9 @@ package automate.ActionClass;
 
 import java.util.List;
 
-import automate.Entity;
 import automate.FunCall;
 import automate.Parameter;
+import info3.game.modele.Entity;
 
 public class Power extends FunCall{
 	
@@ -17,7 +17,7 @@ public class Power extends FunCall{
 
 	@Override
 	public void exec(Entity e) {
-		System.out.println(this.toString());
+//		System.out.println(this.toString());
 		// TODO Auto-generated method stub
 		
 	}

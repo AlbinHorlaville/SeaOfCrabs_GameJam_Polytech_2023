@@ -23,10 +23,10 @@ public class CowboyAvatar extends Avatar {
 			imageIndex = (imageIndex + 1) % m_images.length;
 		}
 	    moveElapsed += elapsed;
-	    if (moveElapsed>24 & width!=0) {
-	      moveElapsed=0;
-	      this.entity.setX((entity.getX() +2)%width); 
-	    }
+//	    if (moveElapsed>24 & width!=0) {
+//	      moveElapsed=0;
+//	      this.entity.setX((entity.getX() +2)%width); 
+//	    }
 	}
 
 	public void paint(Graphics g, int width, int height) {
