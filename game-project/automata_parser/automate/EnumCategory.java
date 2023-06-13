@@ -2,18 +2,16 @@ package automate;
 
 public enum EnumCategory {
 	
-	Adversary("V"),
-	Clue("C"),
-	Danger("D"),
-	Gate("G"),
-	Jumpable("J"),
-	Missile("M"),
-	Obstacle("O"),
-	PickUp("P"),
-	Team("T"),
-	Void("V"),
-	Ally("@"),
-	Underscore("_");
+	A("Adversary"),
+	C("Clue"),
+	D("Danger"),
+	G("Gate"),
+	J("Jumpable"),
+	M("Missile"),
+	O("Obstacle"),
+	P("PickUp"),
+	T("Team"),
+	V("Void");
 	
 	private String m_string;
 	

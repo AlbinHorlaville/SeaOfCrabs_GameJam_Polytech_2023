@@ -37,7 +37,7 @@ public class Controller implements GameCanvasListener {
 
 	GameModele gameModele;
 	GameView gameView;
-	static char buffer = '\0';
+	static int buffer = -1;
 	UIComponent focus; // focus is the UIComponent currently hovered on the game canvas
 
 	public Controller() throws Exception {
@@ -103,7 +103,7 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		Controller.buffer = e.getKeyChar();
+		Controller.buffer = e.getKeyCode();
 		if (focus != null) {
 			focus.keyPressed(e); // calls to the focus'keyPressed behavior
 		}
@@ -111,7 +111,7 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		Controller.buffer = '\0';
+		Controller.buffer = -1;
 	}
 
 	@Override
@@ -165,7 +165,7 @@ public class Controller implements GameCanvasListener {
 		this.gameModele.start();
 	}
 	
-	public static char getBuffer() {
+	public static int getBuffer() {
 		return Controller.buffer;
 	}
 
