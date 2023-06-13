@@ -3,6 +3,7 @@ package info3.game.modele.map;
 import java.util.Random;
 
 import info3.game.vue.avatar.MapRepresentation;
+import info3.game.vue.avatar.MiniMap;
 
 /*
  * This class contain a reprensation of the map section by section and the offset of each tiles to create the wave effect
@@ -20,6 +21,8 @@ public class Map {
 	private Random rand; // The random generator created with the seed
 
 	private MapRepresentation mapRepres; // The graphic representation of the map
+	
+	private MiniMap miniMap; // The graphic representation of the map
 
 	/*
 	 * @param seed : the seed of the map
@@ -45,7 +48,9 @@ public class Map {
 
 		generateWave();
 
-		this.mapRepres = new MapRepresentation(this, this.wave);
+		this.mapRepres = new MapRepresentation(this);
+		
+		this.miniMap = new MiniMap(this);
 	}
 
 	/*
@@ -94,12 +99,9 @@ public class Map {
 		for (int i = 0; i < this.nbSection; i++) {
 			for (int j = 0; j < this.sectionHeight; j++) {
 				for (int k = 0; k < this.sectionWidth; k++) {
-					if (this.map[i].getTiles()[j][k].getType() == EnumTiles.CALM_WATER) {
+					if (this.map[i].getTiles()[j][k].getType() == EnumTiles.CALM_WATER || this.map[i].getTiles()[j][k].getType() == EnumTiles.SAND_WATER) {
 						this.map[i].getTiles()[j][k].setCoordinate(this.map[i].getTiles()[j][k].getX(),
 								this.map[i].getTiles()[j][k].getY() - (int) (this.wave[i * this.sectionHeight + j][k]));
-					} else if (this.map[i].getTiles()[j][k].getType() == EnumTiles.SAND_WATER) {
-						this.map[i].getTiles()[j][k].setCoordinate(this.map[i].getTiles()[j][k].getX(),
-								this.map[i].getTiles()[j][k].getY() - (int) ((this.wave[i * this.sectionHeight + j][k]) / 3));
 					}
 				}
 			}
@@ -113,13 +115,10 @@ public class Map {
 		for (int i = 0; i < this.nbSection; i++) {
 			for (int j = 0; j < this.sectionHeight; j++) {
 				for (int k = 0; k < this.sectionWidth; k++) {
-					if (this.map[i].getTiles()[j][k].getType() == EnumTiles.CALM_WATER) {
+					if (this.map[i].getTiles()[j][k].getType() == EnumTiles.CALM_WATER || this.map[i].getTiles()[j][k].getType() == EnumTiles.SAND_WATER) {
 						this.map[i].getTiles()[j][k].setCoordinate(this.map[i].getTiles()[j][k].getX(),
 								this.map[i].getTiles()[j][k].getY() + (int) (this.wave[i * this.sectionHeight + j][k]));
-					} else if (this.map[i].getTiles()[j][k].getType() == EnumTiles.SAND_WATER) {
-						this.map[i].getTiles()[j][k].setCoordinate(this.map[i].getTiles()[j][k].getX(),
-								this.map[i].getTiles()[j][k].getY() + (int) ((this.wave[i * this.sectionHeight + j][k]) / 3));
-					}
+					} 
 				}
 			}
 		}
@@ -432,5 +431,9 @@ public class Map {
 
 	public MapRepresentation getRepresentation() {
 		return this.mapRepres;
+	}
+	
+	public MiniMap getMiniMap() {
+		return this.miniMap;
 	}
 }

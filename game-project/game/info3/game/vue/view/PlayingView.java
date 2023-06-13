@@ -31,6 +31,8 @@ public class PlayingView extends View {
 		for (Entity entity : GameModele.entities) {
 			entity.getAvatar().paint(g, width, height);
 		}
+		
+		//GameModele.map.getMiniMap().paint(g, width, height, 0);
 	}
 
 }
