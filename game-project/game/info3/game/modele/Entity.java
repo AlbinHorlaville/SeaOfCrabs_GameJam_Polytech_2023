@@ -62,8 +62,35 @@ public abstract class Entity {
 		this.automate.step(this, current_state);
 	}
 	
-	public abstract void move(EnumDirection eval);
+	/*
+	 * Déplacement de l'entité en coordonée absolue
+	 * L'implémentation initial est pour le déplacement du joueur sur terre
+	 */
+	public void move(EnumDirection eval) {
+		switch (eval) {
+		case W:
+			x += 1;
+			break;
+		case E:
+			x -= 1;
+			break;
+		case N:
+			y += 1;
+			break;
+		case S:
+			y -= 1;
+			break;
+		default:
+			break;
+		}
+	}
 	
-	public abstract void move(EnumCategory eval);
+	/*
+	 * Déplacement de l'entité en coordonée relatif
+	 * L'implémentation initial est pour le déplacement du joueur sur terre
+	 */
+	public void move(EnumCategory eval) {
+		
+	}
 
 }

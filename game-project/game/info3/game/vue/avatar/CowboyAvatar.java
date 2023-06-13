@@ -22,17 +22,17 @@ public class CowboyAvatar extends Avatar {
 			imageElapsed = 0;
 			imageIndex = (imageIndex + 1) % m_images.length;
 		}
-		moveElapsed += elapsed;
-		if (moveElapsed > 24 & width != 0) {
-			moveElapsed = 0;
-			this.entity.setX((entity.getX() + 2) % width);
-		}
+//		moveElapsed += elapsed;
+//		if (moveElapsed > 24 & width != 0) {
+//			moveElapsed = 0;
+//			this.entity.setX((entity.getX() + 2) % width);
+//		}
 	}
 
 	public void paint(Graphics g, int width, int height) {
 		this.width = width;
 		BufferedImage img = m_images[imageIndex];
 		int scale = 2;
-		g.drawImage(img, this.entity.getX(), entity.getY(), scale * img.getWidth(), scale * img.getHeight(), null);
+		g.drawImage(img, width/2,height/2, scale * img.getWidth(), scale * img.getHeight(), null);
 	}
 }

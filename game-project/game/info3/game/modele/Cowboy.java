@@ -40,15 +40,5 @@ public class Cowboy extends Entity {
 		this.automate = AutomateLoader.getPiratePlayerAutomate();
 		this.current_state = automate.initial_state;
 	}
-	
-	public void move(EnumDirection eval) {
-		System.out.println("DIRECTION " + eval.toString());
-	}
-
-	@Override
-	public void move(EnumCategory eval) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
