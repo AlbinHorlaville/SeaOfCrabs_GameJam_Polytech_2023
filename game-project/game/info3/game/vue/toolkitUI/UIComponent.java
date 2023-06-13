@@ -18,6 +18,12 @@ public abstract class UIComponent {
 		this.width = w;
 	}
 
+	/**
+	 * This function returns if the mouse is currently hovered by the mouse 
+	 * @param x : the mouse's x-position
+	 * @param y : the mouse's y-position
+	 * @return boolean
+	 */
 	public boolean mouseOnComponent(int x, int y) {
 		return x >= getPositionX() && x <= getPositionX() + getWidth() && y >= getPositionY()
 				&& y <= getPositionY() + getHeight();
@@ -60,23 +66,38 @@ public abstract class UIComponent {
 	public void setUIComponentListener(UIComponentListener listener) {
 		this.componentListener = listener;
 	}
-
+	
+	/**
+	 * This function calls the listener when the needed UIComponent's behavior is Clicked event
+	 */
 	public void clicked() {
 		componentListener.onComponentClicked();
 	}
 
+	/**
+	 * This function calls the listener when the needed UIComponent's behavior is mouseIn event
+	 */
 	public void mouseIn() {
 		componentListener.onComponentMouseIn();
 	}
 
+	/**
+	 * This function calls the listener when the needed UIComponent's behavior is mouseOut event
+	 */
 	public void mouseOut() {
 		componentListener.onComponentMouseOut();
 	}
 
+	/**
+	 * This function calls the listener when the needed UIComponent's behavior is Pressed event
+	 */
 	public void pressed(int x, int y) {
 		componentListener.onComponentPressed(x, y);
 	}
-	
+
+	/**
+	 * This function calls the listener when the needed UIComponent's behavior is KeyPressed event
+	 */
 	public void keyPressed(KeyEvent e) {
 		componentListener.onKeyPressed(e);
 	}

@@ -13,8 +13,8 @@ public class UIButton extends UIComponent {
 	private Color backgroundColor;
 	private Color foregroundColor;
 
-	public UIButton(int x, int y, UILabel l, Color bg) {
-		super(x, y, 0, 0);
+	public UIButton(int x, int y, int w, UILabel l, Color bg) {
+		super(x, y, 0, w);
 		label = l;
 		backgroundColor = bg;
 		foregroundColor = label.getFontColor();
@@ -27,12 +27,12 @@ public class UIButton extends UIComponent {
 		int labelWidth = g.getFontMetrics().stringWidth(label.getText());
 		int labelHeight = g.getFontMetrics().getHeight();
 		int rectHeight = labelHeight + 2 * label.getFont().getSize();
-		int rectWidth = labelWidth + 3 * label.getFont().getSize();
+		// int rectWidth = 200;//labelWidth + 3 * label.getFont().getSize();
 		this.setHeight(rectHeight);
-		this.setWidth(rectWidth);
-		g.fillRect(super.getPositionX(), super.getPositionY(), rectWidth, rectHeight);
+		// this.setWidth(rectWidth);
+		g.fillRect(super.getPositionX(), super.getPositionY(), getWidth(), rectHeight);
 		g.setColor(foregroundColor);
-		int centerX = this.getPositionX() + (rectWidth - labelWidth) / 2;
+		int centerX = this.getPositionX() + (getWidth() - labelWidth) / 2;
 		int centerY = this.getPositionY() + rectHeight - labelHeight;
 		g.drawString(label.getText(), centerX, centerY);
 	}

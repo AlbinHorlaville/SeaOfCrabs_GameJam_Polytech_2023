@@ -15,7 +15,7 @@ import info3.game.vue.toolkitUI.UIChecker;
 import info3.game.vue.toolkitUI.UIComponentListener;
 import info3.game.vue.toolkitUI.UICursor;
 import info3.game.vue.toolkitUI.UILabel;
-import info3.game.vue.toolkitUI.UITextInput;
+import info3.game.vue.toolkitUI.UITitle;
 
 public class MenuView extends View {
 
@@ -24,18 +24,18 @@ public class MenuView extends View {
 	UIButton buttonScore;
 	UIButton buttonCredits;
 	UICursor cursor;
-	UILabel label;
+	UITitle title;
 	UIChecker checker;
 
 	public MenuView(GameView gv) {
 		super(gv);
-		buttonPlay = new UIButton(450, 300, new UILabel(0, 0, "Play", FONT1, c1), c2);
-		buttonSettings = new UIButton(450, 400, new UILabel(0, 0, "Settings", FONT1, c1), c2);
-		buttonScore = new UIButton(450, 500, new UILabel(0, 0, "Score", FONT1, c1), c2);
-		buttonCredits = new UIButton(450, 600, new UILabel(0, 0, "Credits", FONT1, c1), c2);
+		buttonPlay = new UIButton(412, 300, 200, new UILabel(0, 0, "Play", FONT1, c1), c2);
+		buttonSettings = new UIButton(412, 400, 200, new UILabel(0, 0, "Settings", FONT1, c1), c2);
+		buttonScore = new UIButton(412, 500, 200, new UILabel(0, 0, "Score", FONT1, c1), c2);
+		buttonCredits = new UIButton(412, 600, 200, new UILabel(0, 0, "Credits", FONT1, c1), c2);
 
 		// cursor = new UICursor(300, 300, 100, 400, Color.black, Color.red);
-		label = new UILabel(250, window_height / 5, "SEA OF CRABES", FONT2, Color.white);
+		title = new UITitle(1024, 768, "SEA OF CRABS", FONT2, Color.white);
 		// checker = new UIChecker(400, 400, new UILabel(0, 0, "Checker", FONT1,
 		// Color.white), Color.black);
 
@@ -77,8 +77,14 @@ public class MenuView extends View {
 		buttonSettings.setUIComponentListener(new UIComponentListener() {
 			@Override
 			public void onComponentClicked() {
-				gameView.update_view(GameState.Parametre);
-				gameView.getGame().setCurrentState(GameState.Parametre);
+				// gameView.update_view(GameState.Parametre);
+				// gameView.getGame().setCurrentState(GameState.Parametre);
+				try {
+					gameView.getGame().param();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 			@Override
@@ -107,8 +113,15 @@ public class MenuView extends View {
 		buttonScore.setUIComponentListener(new UIComponentListener() {
 			@Override
 			public void onComponentClicked() {
-				gameView.update_view(GameState.Score);
-				gameView.getGame().setCurrentState(GameState.Score);
+				// gameView.update_view(GameState.Score);
+				// gameView.getGame().setCurrentState(GameState.Score);
+				try {
+					gameView.getGame().score();
+					;
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 			@Override
@@ -131,14 +144,20 @@ public class MenuView extends View {
 				// TODO Auto-generated method stub
 
 			};
-
 		});
 
 		buttonCredits.setUIComponentListener(new UIComponentListener() {
 			@Override
 			public void onComponentClicked() {
-				gameView.update_view(GameState.Credits);
-				gameView.getGame().setCurrentState(GameState.Credits);
+				// gameView.update_view(GameState.Credits);
+				// gameView.getGame().setCurrentState(GameState.Credits);
+				try {
+					gameView.getGame().credits();
+					;
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 			@Override
@@ -163,50 +182,13 @@ public class MenuView extends View {
 			};
 
 		});
-		/*
-		 * cursor.setUIComponentListener(new UIComponentListener() {
-		 * 
-		 * public void onComponentPressed(int x, int y) { cursor.move(x, y); }
-		 * 
-		 * public void onComponentClicked() { }
-		 * 
-		 * @Override public void onComponentMouseIn() { // TODO Auto-generated method
-		 * stub cursor.setColorCursor(Color.blue); }
-		 * 
-		 * @Override public void onComponentMouseOut() { // TODO Auto-generated method
-		 * stub cursor.setColorCursor(Color.yellow);
-		 * 
-		 * }
-		 * 
-		 * @Override public void onKeyPressed(KeyEvent e) { // TODO Auto-generated
-		 * method stub
-		 * 
-		 * }
-		 * 
-		 * });
-		 */
-
-		/*
-		 * checker.setUIComponentListener(new UIComponentListener() {
-		 * 
-		 * public void onComponentPressed(int x, int y) { }
-		 * 
-		 * public void onComponentClicked() { checker.check(); }
-		 * 
-		 * @Override public void onComponentMouseIn() { // TODO Auto-generated method
-		 * stub }
-		 * 
-		 * @Override public void onComponentMouseOut() { // TODO Auto-generated method
-		 * stub }; });
-		 */
 
 		// on ajoute les différents components
 		addComponent(buttonPlay);
 		addComponent(buttonScore);
 		addComponent(buttonSettings);
 		addComponent(buttonCredits);
-		// addComponent(cursor);
-		addComponent(label);
+		addComponent(title);
 	}
 
 	@Override

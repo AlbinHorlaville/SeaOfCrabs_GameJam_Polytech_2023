@@ -29,12 +29,12 @@ public class UICursor extends UIComponent {
 	public void setColorCursor(Color colorCursor) {
 		this.colorCursor = colorCursor;
 	}
-	
+
 	public int getValue() {
 		if (getWidth() > getHeight())
-			return (value - getPositionX())*100/(getWidth() - sizeCursor);
+			return (value - getPositionX()) * 100 / (getWidth() - sizeCursor);
 		else {
-			return (value - getPositionY())*100/(getHeight() - sizeCursor);
+			return (value - getPositionY()) * 100 / (getHeight() - sizeCursor);
 		}
 	}
 
@@ -42,26 +42,22 @@ public class UICursor extends UIComponent {
 		if (getWidth() > getHeight()) {
 			if (x >= getPositionX() && x <= getPositionX() + getWidth() - sizeCursor) {
 				this.value = x;
-			}
-			else if (x < getPositionX()) {
+			} else if (x < getPositionX()) {
 				this.value = getPositionX();
-			}
-			else if(x > getPositionX() + getWidth() - sizeCursor) {
+			} else if (x > getPositionX() + getWidth() - sizeCursor) {
 				this.value = getPositionX() + getWidth() - sizeCursor;
 			}
 		}
 		if (getWidth() < getHeight()) {
 			if (y >= getPositionY() && y <= getPositionY() + getHeight() - sizeCursor) {
 				this.value = y;
-			}
-			else if (y < getPositionY()) {
+			} else if (y < getPositionY()) {
 				this.value = getPositionY();
-			}
-			else if(y > getPositionY() + getHeight() - sizeCursor) {
+			} else if (y > getPositionY() + getHeight() - sizeCursor) {
 				this.value = getPositionY() + getHeight() - sizeCursor;
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -72,8 +68,7 @@ public class UICursor extends UIComponent {
 		g.fillRect(X, Y, getWidth(), getHeight());
 		g.setColor(new Color(230, 230, 230));
 
-		
-		g.fillRect(X+2, Y+2, getWidth()-4, getHeight()-4);
+		g.fillRect(X + 2, Y + 2, getWidth() - 4, getHeight() - 4);
 		g.setColor(this.colorCursor);
 
 		// Gère l'affichage du curseur peu importe si le Component est horizontal ou

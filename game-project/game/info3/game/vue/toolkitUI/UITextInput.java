@@ -18,6 +18,16 @@ public class UITextInput extends UIComponent {
 	private Color savedBackgroundColor;
 
 	private static final Font FONT = new Font("TimesRoman", Font.PLAIN, 12);
+	
+	/**
+	 * The UITextInput is an text input 
+	 * @param x
+	 * @param y
+	 * @param w
+	 * @param bg
+	 * @param br
+	 * @param fg
+	 */
 
 	public UITextInput(int x, int y, int w, Color bg, Color br, Color fg) {
 		super(x, y, 0, w);
@@ -29,11 +39,13 @@ public class UITextInput extends UIComponent {
 		charCounter = inputText.length();
 		label = new UILabel(0, 0, inputText, FONT, foregroundColor);
 
+		// The UITextInput's behavior is implemented here because it has a only and
+		// specific usage unlike others UIComponent
 		this.setUIComponentListener(new UIComponentListener() {
 
 			@Override
 			public void onComponentClicked() {
-				eraseText();
+				eraseText(); // when clicked, the text input erase its contents
 			}
 
 			@Override
@@ -57,7 +69,7 @@ public class UITextInput extends UIComponent {
 			@Override
 			public void onKeyPressed(KeyEvent e) {
 				if (isSelected) {
-					updateTextInput(e);
+					updateTextInput(e); // update the text input string from a KeyEvent
 				}
 			}
 
@@ -68,19 +80,26 @@ public class UITextInput extends UIComponent {
 	public void paint(Graphics g) {
 		g.setColor(backgroundColor);
 		g.setFont(label.getFont());
-		int labelWidth = g.getFontMetrics().stringWidth(label.getText());
-		int labelHeight = g.getFontMetrics().getHeight();
-		int rectHeight = labelHeight + 2 * label.getFont().getSize();
+		int labelWidth = g.getFontMetrics().stringWidth(label.getText()); // the width of the label (text input string)
+		int labelHeight = g.getFontMetrics().getHeight(); // the height of the label (text input string)
+		int rectHeight = labelHeight + 2 * label.getFont().getSize(); // the height of the input rectangle is calculated
+																		// from the size of the font of the text input
 		this.setHeight(rectHeight);
 		g.setColor(borderColor);
-		g.fillRect(this.getPositionX() - 2, this.getPositionY() - 2, this.getWidth() + 4, rectHeight + 4);
+		g.fillRect(this.getPositionX() - 2, this.getPositionY() - 2, this.getWidth() + 4, rectHeight + 4); // we first
+																											// draw a
+																											// border
 		g.setColor(backgroundColor);
-		g.fillRect(super.getPositionX(), super.getPositionY(), this.getWidth(), rectHeight);
+		g.fillRect(super.getPositionX(), super.getPositionY(), this.getWidth(), rectHeight); // then we draw the
+																								// rectangle
 		g.setColor(foregroundColor);
-		int centerX = this.getPositionX() + 20;
+		int centerX = this.getPositionX() + 20; // the text input string is not centered but starts from the x-position
+												// of the rectangle + 20 (margin)
 		int centerY = this.getPositionY() + rectHeight - labelHeight;
-		maxChar = ((getWidth() - 40) / g.getFontMetrics().stringWidth("a"));
-		g.drawString(label.getText(), centerX, centerY);
+		maxChar = ((getWidth() - 40) / g.getFontMetrics().stringWidth("a")); // maxChar is calculated from the width of
+																				// the text input and from the height of
+																				// a char
+		g.drawString(label.getText(), centerX, centerY); // we draw the text input string
 	}
 
 	public UILabel getLabel() {
@@ -117,40 +136,51 @@ public class UITextInput extends UIComponent {
 		this.label.setText(inputText);
 	}
 
+	/**
+	 * This function update the text input depending on the KeyEvent
+	 */
 	public void updateTextInput(KeyEvent e) {
 
-		int keyCode = e.getKeyCode();
-		char keyChar = e.getKeyChar();
+		int keyCode = e.getKeyCode(); // the key code of the KeyEvent
+		char keyChar = e.getKeyChar(); // the key char of the KeyEvent
 		switch (keyCode) {
-		case 8:
-			if (inputText.length() > 0) {
-				inputText = inputText.substring(0, inputText.length() - 1);
-				charCounter--;
+		case 8: // if KeyCode is 'backspace' we clear the last char of the text input string
+			if (inputText.length() > 0) { // only if the text input string is not empty
+				inputText = inputText.substring(0, inputText.length() - 1); // we remove the last char of the string
+				charCounter--; // the char's counter is decremented
 			}
 			break;
-		case 16:
-			break;
-		case 32:
+		case 16: // if KeyCode is 'shift'
+			break; // we do nothing
+		case 32: // if KeyCode is 'space'
 			if (charCounter < maxChar) {
-				inputText += "_";
-				charCounter++;
+				inputText += "_"; // we add a underscore
+				charCounter++; // the char's counter is incremented
 			}
 			break;
-		default:
-			if (charCounter < maxChar) {
+		default: // by default we add the char corresponding to the KeyCode
+			if (charCounter < maxChar) { // only if we do not exceed the limit of char number
 				inputText += keyChar;
 				charCounter++;
 			}
 		}
-		this.setInputText(inputText);
+		this.setInputText(inputText); // update the input text string and label
 
 	}
 
+	/**
+	 * This function erase the text input
+	 */
 	public void eraseText() {
 		this.setInputText("");
-		charCounter = 0;
+		charCounter = 0; // the number of char is reinitialized
 	}
 
+	/**
+	 * This function returns true if the text input is empty
+	 * 
+	 * @return boolean
+	 */
 	public boolean isTextEmpty() {
 		return this.inputText.length() == 0;
 	}

@@ -10,6 +10,14 @@ public class UILabel extends UIComponent {
 	private Font font;
 	private String text;
 
+	/**
+	 * The UILabel is a simple label based from string text
+	 * @param x
+	 * @param y
+	 * @param text
+	 * @param font
+	 * @param fg
+	 */
 	public UILabel(int x, int y, String text, Font font, Color fg) {
 		super(x, y, 0, 0);
 		fontColor = fg;
@@ -23,7 +31,7 @@ public class UILabel extends UIComponent {
 		g.setFont(font);
 		g.drawString(text, super.getPositionX(), super.getPositionY());
 	}
-	
+
 	public Color getFontColor() {
 		return fontColor;
 	}
@@ -47,5 +55,5 @@ public class UILabel extends UIComponent {
 	public void setText(String text) {
 		this.text = text;
 	}
-	
+
 }

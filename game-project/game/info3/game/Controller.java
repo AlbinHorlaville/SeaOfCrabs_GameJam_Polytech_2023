@@ -34,7 +34,7 @@ public class Controller implements GameCanvasListener {
 
 	GameModele gameModele;
 	GameView gameView;
-	UIComponent focus;
+	UIComponent focus; // focus is the UIComponent currently hovered on the game canvas
 
 	public Controller() throws Exception {
 		try {
@@ -47,15 +47,15 @@ public class Controller implements GameCanvasListener {
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked(MouseEvent e) { // when the mouse is clicked
 		if (focus != null) {
-			focus.clicked();
+			focus.clicked(); // calls to the focus'clicked behavior
 		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-	
+
 	}
 
 	@Override
@@ -73,20 +73,20 @@ public class Controller implements GameCanvasListener {
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		if (focus != null) {
-			focus.pressed(e.getX(), e.getY());
+			focus.pressed(e.getX(), e.getY()); // calls to the focus'pressed behavior
 		}
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		UIComponent newFocus = gameView.getCurrentView().getHoveredComponent(e.getX(), e.getY());
-		
+
 		if (focus != newFocus) {
 			if (focus != null) {
-				focus.mouseOut();
+				focus.mouseOut(); // calls to the focus'mouseOut behavior
 			}
 			if (newFocus != null) {
-				newFocus.mouseIn();
+				newFocus.mouseIn(); // calls to the focus'mouseIn behavior
 			}
 			focus = newFocus;
 		}
@@ -100,7 +100,7 @@ public class Controller implements GameCanvasListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (focus != null) {
-			focus.keyPressed(e);
+			focus.keyPressed(e); // calls to the focus'keyPressed behavior
 		}
 	}
 
