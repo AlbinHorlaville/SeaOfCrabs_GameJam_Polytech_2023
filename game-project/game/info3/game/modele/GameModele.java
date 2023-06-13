@@ -30,7 +30,6 @@ import info3.game.vue.GameView;
 
 public class GameModele {
 
-
 	GameView gameview;
 	Cowboy cowboy;
 	
@@ -46,12 +45,11 @@ public class GameModele {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		currentState = GameState.Menu;
-	}	
-	
+	}
+
 	public void setGameview(GameView gameview) {
 		this.gameview = gameview;
 	}
-
 
 	public void tick(long elapsed) {
 		if (currentState == GameState.Jeu) {
@@ -62,7 +60,6 @@ public class GameModele {
 			waveTick = waveTick%10;
 		}
 	}
-
 
 	public GameState getCurrentState() {
 		return currentState;
@@ -80,6 +77,24 @@ public class GameModele {
 			Cowboy cowboy = new Cowboy();
 			GameModele.entities.add(cowboy);
 			map = new Map(100, 3, 96, 48);
+		}
+	}
+
+	public void param() throws IOException {
+		if (currentState == GameState.Menu) {
+			setCurrentState(GameState.Parametre);
+		}
+	}
+
+	public void credits() throws IOException {
+		if (currentState == GameState.Menu) {
+			setCurrentState(GameState.Credits);
+		}
+	}
+
+	public void score() throws IOException {
+		if (currentState == GameState.Menu) {
+			setCurrentState(GameState.Score);
 		}
 	}
 
