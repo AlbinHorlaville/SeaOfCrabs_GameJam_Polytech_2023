@@ -1,5 +1,7 @@
 package info3.game.vue.toolkitUI;
 
+import java.awt.event.KeyEvent;
+
 public interface UIComponentListener {
 
 	void onComponentClicked();
@@ -9,4 +11,6 @@ public interface UIComponentListener {
 	void onComponentMouseOut();
 
 	void onComponentPressed(int x, int y);
+	
+	void onKeyPressed(KeyEvent e);
 }

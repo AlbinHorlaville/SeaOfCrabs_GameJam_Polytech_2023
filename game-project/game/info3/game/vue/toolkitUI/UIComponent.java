@@ -1,6 +1,7 @@
 package info3.game.vue.toolkitUI;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 
 public abstract class UIComponent {
 
@@ -74,6 +75,10 @@ public abstract class UIComponent {
 
 	public void pressed(int x, int y) {
 		componentListener.onComponentPressed(x, y);
+	}
+	
+	public void keyPressed(KeyEvent e) {
+		componentListener.onKeyPressed(e);
 	}
 
 }

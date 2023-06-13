@@ -55,6 +55,7 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+	
 	}
 
 	@Override
@@ -97,7 +98,9 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-
+		if (focus != null) {
+			focus.keyPressed(e);
+		}
 	}
 
 	@Override
