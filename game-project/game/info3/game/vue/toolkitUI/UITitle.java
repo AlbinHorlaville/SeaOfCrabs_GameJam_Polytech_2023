@@ -4,11 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+// Cette classe implémente un titre à partir de la class Label.
+// Le titre est toujours centré et avec la FONT2.
 public class UITitle extends UILabel {
 
 	public UITitle(int widthWindow, int heightWindow, String text, Font font, Color fg) {
 		super(widthWindow, heightWindow, text, font, fg);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void paint(Graphics g) {

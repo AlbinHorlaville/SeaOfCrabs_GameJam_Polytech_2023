@@ -28,6 +28,9 @@ public class UIChecker extends UIButton {
 	}
 
 	@Override
+	// Le checker est un carré qui change de couleur quand on clique dessus, suivant
+	// son état.
+	// Un lizeré de 2 pixel entoure le rectangle.
 	public void paint(Graphics g) {
 		g.setColor(new Color(90, 90, 255));
 		g.fillRect(getPositionX(), getPositionY(), getWidth(), getHeight());

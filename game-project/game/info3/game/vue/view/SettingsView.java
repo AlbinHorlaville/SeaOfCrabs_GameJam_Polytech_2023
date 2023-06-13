@@ -23,7 +23,11 @@ public class SettingsView extends View {
 
 	public SettingsView(GameView gv) {
 		super(gv);
-		title = new UITitle(1024, 768, "Paramètres", FONT2, Color.white);
+
+		int windowWidth = (int) gameView.getWidthCanvas();
+		int windowHeight = (int) gameView.getHeightCanvas();
+
+		title = new UITitle(windowWidth, windowHeight, "Paramètres", FONT2, Color.white);
 		buttonRetour = new UIButton(100, 600, 200, new UILabel(0, 0, "Retour", FONT1, c1), c2);
 		cursorVolume = new UICursor(300, 300, 200, 20, c2, c3);
 		checkerMute = new UIChecker(600, 400, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
@@ -63,7 +67,7 @@ public class SettingsView extends View {
 
 			public void onComponentPressed(int x, int y) {
 				cursorVolume.move(x, y);
-				Volume.setText("Volume :" + cursorVolume.getValue());
+				Volume.setText("Volume : " + cursorVolume.getValue());
 			}
 
 			public void onComponentClicked() {
@@ -111,7 +115,6 @@ public class SettingsView extends View {
 			@Override
 			public void onKeyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
-
 			};
 		});
 

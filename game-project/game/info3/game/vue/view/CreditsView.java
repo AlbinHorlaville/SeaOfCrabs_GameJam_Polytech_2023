@@ -22,10 +22,12 @@ public class CreditsView extends View {
 	UILabel credits;
 
 	public CreditsView(GameView gv) {
-		super(gv);
-
+		super(gv);		
+		int windowWidth = (int) gameView.getWidthCanvas();
+		int windowHeight = (int) gameView.getHeightCanvas();
+		
 		buttonRetour = new UIButton(100, 600, 200, new UILabel(0, 0, "Retour", FONT1, c1), c2);
-		title = new UITitle(1024, 768, "Credits", FONT2, Color.white);
+		title = new UITitle(windowWidth, windowHeight, "Credits", FONT2, Color.white);
 		/*
 		 * noms1 = new UILabel(200, 250, "Romain MIRAS," + " Albin HORLAVILLE," +
 		 * " Axel COLE, " + " Brice DECURNINGE,", FONT1, Color.white); noms2 = new

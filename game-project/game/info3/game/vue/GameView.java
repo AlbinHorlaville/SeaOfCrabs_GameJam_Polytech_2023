@@ -39,12 +39,14 @@ public class GameView {
 	public GameView(GameModele game, Controller controller) throws IOException {
 		try {
 			this.game = game;
-			init_view();
-			update_view(game.getCurrentState());
-			// creating the game canvas to render the game,
-			// that would be a part of the view in the MVC pattern
+			
 			this.controller = controller;
 			canvas = new GameCanvas(controller);
+			
+			
+
+			// creating the game canvas to render the game,
+			// that would be a part of the view in the MVC pattern
 
 			System.out.println("  - creating frame...");
 			Dimension d = new Dimension(1024, 768);
@@ -52,6 +54,10 @@ public class GameView {
 
 			System.out.println("  - setting up the frame...");
 			setupFrame();
+			
+			System.out.println("  - Init the view...");
+			init_view();
+			update_view(game.getCurrentState());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -172,6 +178,14 @@ public class GameView {
 
 	public GameModele getGame() {
 		return game;
+	}
+
+	public int getWidthCanvas() {
+		return this.canvas.getWidth();
+	}
+	
+	public int getHeightCanvas() {
+		return this.canvas.getHeight();
 	}
 
 }

@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+// Cette classe implémente une zone de texte appelée label. Attention,
+// la calsse n'affiche que sur une seule ligne, donc penser à faire une
+// ArrayList<UILabel> si vous voulez afficher un texte sur plusieurs lignes.
+// Les Font doivent être définies dans View pour être accessible par tout le monde.
 public class UILabel extends UIComponent {
 
 	private Color fontColor;

@@ -15,7 +15,6 @@ public abstract class View {
 
 	protected int window_width;
 	protected int window_height;
-
 	protected Color c1;
 	protected Color c2;
 	protected Color c3;
@@ -24,7 +23,6 @@ public abstract class View {
 	protected static final Font FONT2 = new Font("IMPACT", Font.BOLD, 100);
 
 	public View(GameView gv) {
-
 		window_width = 1024;
 		window_height = 768;
 		c1 = new Color(255, 100, 100);
