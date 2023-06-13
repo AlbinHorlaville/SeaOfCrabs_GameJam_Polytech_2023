@@ -13,14 +13,7 @@ import info3.game.modele.map.MapSection;
 import info3.game.modele.map.Tiles;
 
 public class MapRepresentation {
-	MapSection[] map; // The map itself
-
-	/*
-	 * Map parameters
-	 */
-	int nbSection;
-	int sectionWidth;
-	int sectionHeight;
+	Map map; // The map itself
 
 	/*
 	 * Save images for only one loading
@@ -28,6 +21,7 @@ public class MapRepresentation {
 	private BufferedImage grassImage;
 	private BufferedImage sandImage;
 	private BufferedImage waterImage;
+	private BufferedImage sandWaterImage;
 
 	/*
 	 * The representation of the map, it's here that we paint the map
@@ -52,16 +46,17 @@ public class MapRepresentation {
 			this.waterImage = ImageIO.read(imageFile);
 		}
 
+		imageFile = new File("assets/img/tiles/sand_water.png");
+		if (imageFile.exists()) {
+			this.sandWaterImage = ImageIO.read(imageFile);
+		}
+
 		/*
 		 * Set the coordinate of each tiles
 		 */
 		m.setCoordiate(this.waterImage.getWidth(), this.waterImage.getHeight());
 
-		this.map = m.getMap();
-
-		this.nbSection = map.length;
-		this.sectionHeight = this.map[0].getSectionHeight();
-		this.sectionWidth = this.map[0].getSectionWidth();
+		this.map = m;
 	}
 
 	/*
@@ -86,10 +81,12 @@ public class MapRepresentation {
 		/*
 		 * Draw each tiles of the map
 		 */
-		for (int i = 0; i < this.nbSection; i++) {
-			section = this.map[i].getTiles();
-			for (int j = 0; j < this.sectionHeight; j++) {
-				for (int k = 0; k < this.sectionWidth; k++) {
+		boolean sandWater;
+		for (int i = 0; i < this.map.getNbSection(); i++) {
+			section = this.map.getMap()[i].getTiles();
+			for (int j = 0; j < this.map.getSectionHeight(); j++) {
+				for (int k = 0; k < this.map.getSectionWidth(); k++) {
+					sandWater = false;
 					switch (section[j][k].getType()) {
 					case CALM_WATER:
 						img = waterImage;
@@ -100,6 +97,10 @@ public class MapRepresentation {
 					case GRASS:
 						img = grassImage;
 						break;
+					case SAND_WATER:
+						img = sandImage;
+						sandWater = true;
+						break;
 					default:
 						img = waterImage;
 						break;
@@ -107,8 +108,42 @@ public class MapRepresentation {
 
 					// Only drawing the tiles on screen
 					if (!(section[j][k].getX() + playerX > width) && !(section[j][k].getY() + playerY > height)) {
-						g.drawImage(img, section[j][k].getX() + playerX, section[j][k].getY() + playerY, imgWidth,
-								imgHeight, null);
+						// If the tile to be drawed is sand water (special case since it is composed of
+						// 2 tiles, a static sand and a moving half transparent water)
+						if (sandWater) {
+							// If the sand is on top of the water
+							if (section[j][k].getY() + playerY > map.transpoYCoordinateToIsometric(img.getWidth(),
+									img.getHeight(), k, i * this.map.getSectionHeight() + j) + playerY) {
+								// We only draw the sand since the water is under
+								// We have to recalculate the coordinate to remove the wave offset since the
+								// sand is not moving and this offset is only applied to the transparent water
+								// when she is on top of the sand
+								g.drawImage(img,
+										map.transpoXCoordinateToIsometric(img.getWidth(), img.getHeight(), k,
+												i * this.map.getSectionHeight() + j) + playerX,
+										map.transpoYCoordinateToIsometric(img.getWidth(), img.getHeight(), k,
+												i * this.map.getSectionHeight() + j) + playerY,
+										imgWidth, imgHeight, null);
+							} else { // If the water is on top of the sand
+								// We first draw the sand and then the water (which is on top)
+								g.drawImage(img,
+										map.transpoXCoordinateToIsometric(img.getWidth(), img.getHeight(), k,
+												i * this.map.getSectionHeight() + j) + playerX,
+										map.transpoYCoordinateToIsometric(img.getWidth(), img.getHeight(), k,
+												i * this.map.getSectionHeight() + j) + playerY,
+										imgWidth, imgHeight, null);
+
+								img = sandWaterImage;
+
+								g.drawImage(img, section[j][k].getX() + playerX, section[j][k].getY() + playerY,
+										imgWidth, imgHeight, null);
+
+							}
+						} else {
+							// We can directly draw the tiles
+							g.drawImage(img, section[j][k].getX() + playerX, section[j][k].getY() + playerY, imgWidth,
+									imgHeight, null);
+						}
 					}
 				}
 			}
