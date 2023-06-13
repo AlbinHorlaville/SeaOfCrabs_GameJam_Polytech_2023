@@ -215,8 +215,10 @@ public class MapSection {
 		}
 		for (int i = 0; i < islandSize; i++) {
 			for (int j = 0; j < islandSize; j++) {
-				if (island[i][j] * 255 < 20) {
+				if (island[i][j] * 255 < 0) {
 					this.tiles[i + offsetY][j + offsetX].setType(EnumTiles.CALM_WATER);
+				} else if (island[i][j] * 255 < 30) {
+					this.tiles[i + offsetY][j + offsetX].setType(EnumTiles.SAND_WATER);
 				} else if (island[i][j] * 255 < 50) {
 					this.tiles[i + offsetY][j + offsetX].setType(EnumTiles.SAND);
 				} else {

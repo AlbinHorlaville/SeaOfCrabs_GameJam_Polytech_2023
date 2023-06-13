@@ -89,6 +89,9 @@ public class Map {
 					if (this.map[i].getTiles()[j][k].getType() == EnumTiles.CALM_WATER) {
 						this.map[i].getTiles()[j][k].setCoordinate(this.map[i].getTiles()[j][k].getX(),
 								this.map[i].getTiles()[j][k].getY() - (int) (this.wave[i * this.sectionHeight + j][k]));
+					} else if (this.map[i].getTiles()[j][k].getType() == EnumTiles.SAND_WATER) {
+						this.map[i].getTiles()[j][k].setCoordinate(this.map[i].getTiles()[j][k].getX(),
+								this.map[i].getTiles()[j][k].getY() - (int) ((this.wave[i * this.sectionHeight + j][k]) / 3));
 					}
 				}
 			}
@@ -105,6 +108,9 @@ public class Map {
 					if (this.map[i].getTiles()[j][k].getType() == EnumTiles.CALM_WATER) {
 						this.map[i].getTiles()[j][k].setCoordinate(this.map[i].getTiles()[j][k].getX(),
 								this.map[i].getTiles()[j][k].getY() + (int) (this.wave[i * this.sectionHeight + j][k]));
+					} else if (this.map[i].getTiles()[j][k].getType() == EnumTiles.SAND_WATER) {
+						this.map[i].getTiles()[j][k].setCoordinate(this.map[i].getTiles()[j][k].getX(),
+								this.map[i].getTiles()[j][k].getY() + (int) ((this.wave[i * this.sectionHeight + j][k]) / 3));
 					}
 				}
 			}
@@ -183,15 +189,15 @@ public class Map {
 			int waveRange;
 			switch (this.map[i].getSeaType()) {
 			case CALM_SEA:
-				waveRange = 40;
+				waveRange = 25;
 				break;
 			case STORMY_SEA:
-				waveRange = 70;
+				waveRange = 35;
 				break;
 			case RAGING_SEA:
 			case CRAB_KING_SEA:
 			case KRAKEN_SEA:
-				waveRange = 100;
+				waveRange = 45;
 				break;
 			default:
 				waveRange = 0;
