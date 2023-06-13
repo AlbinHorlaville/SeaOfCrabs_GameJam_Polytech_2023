@@ -1,5 +1,7 @@
 package automate;
 
+import info3.game.modele.Entity;
+
 public class Conjonction extends BinaryOp{
 	
 	public Conjonction(String name, FunCall l, FunCall r) {
