@@ -16,6 +16,7 @@ import info3.game.GameState;
 import info3.game.graphics.GameCanvas;
 import info3.game.modele.GameModele;
 import info3.game.sound.RandomFileInputStream;
+import info3.game.sound.SoundTool;
 import info3.game.vue.avatar.Avatar;
 import info3.game.vue.view.CreditsView;
 import info3.game.vue.view.MenuView;
@@ -43,7 +44,7 @@ public class GameView {
 			this.controller = controller;
 			canvas = new GameCanvas(controller);
 			
-			
+			SoundTool.initSoundTool(canvas); // INITIALISATION DE L OUTILS DE SON
 
 			// creating the game canvas to render the game,
 			// that would be a part of the view in the MVC pattern
@@ -138,54 +139,4 @@ public class GameView {
 
 		this.currentView.paint(g, width, height);
 	}
-
-	/*
-	 * ================================================================ All the
-	 * methods below are invoked from the GameModeleCanvas listener, once the window
-	 * is visible on the screen.
-	 * ==============================================================
-	 */
-
-	/*
-	 * Called from the GameModeleCanvas listener when the frame
-	 */
-	String m_musicName;
-
-	public void loadMusic() {
-		m_musicName = m_musicNames[m_musicIndex];
-		String filename = "resources/" + m_musicName + ".ogg";
-		m_musicIndex = (m_musicIndex + 1) % m_musicNames.length;
-		try {
-			RandomAccessFile file = new RandomAccessFile(filename, "r");
-			RandomFileInputStream fis = new RandomFileInputStream(file);
-			canvas.playMusic(fis, 0, 1.0F);
-		} catch (Throwable th) {
-			th.printStackTrace(System.err);
-			System.exit(-1);
-		}
-	}
-
-	private int m_musicIndex = 0;
-	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" };
-
-	public void inputAvatar(Avatar avatar) {
-		((PlayingView) this.all_views.get(GameState.Jeu)).addAvatar(avatar);
-	}
-
-	public View getCurrentView() {
-		return currentView;
-	}
-
-	public GameModele getGame() {
-		return game;
-	}
-
-	public int getWidthCanvas() {
-		return this.canvas.getWidth();
-	}
-	
-	public int getHeightCanvas() {
-		return this.canvas.getHeight();
-	}
-
 }

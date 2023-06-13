@@ -10,7 +10,7 @@ public class CowboyAvatar extends Avatar {
 
 	public CowboyAvatar(Entity cowboy) throws IOException {
 		super(cowboy);
-		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+		m_images = loadSprite("assets/img/player/" + "winchester-4x6.png", 4, 6);
 	}
 
 	/*

@@ -27,6 +27,8 @@ import java.io.IOException;
 
 import info3.game.graphics.GameCanvasListener;
 import info3.game.modele.GameModele;
+import info3.game.sound.BackgroundMusic;import info3.game.sound.SoundEffect;
+import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIComponent;
 
@@ -126,10 +128,7 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void windowOpened() {
-		if (gameModele != null && gameView != null) {
-			gameView.loadMusic();
-			// game.m_canvas.setTimer(6000);
-		}
+		SoundTool.playBackgroundMusic();
 	}
 
 	@Override
@@ -141,11 +140,7 @@ public class Controller implements GameCanvasListener {
 	// boolean m_expired;
 	@Override
 	public void endOfPlay(String name) {
-		if (gameModele != null && gameView != null) {
-			// if (!m_expired) // only reload if it was a forced reload by timer
-			gameView.loadMusic();
-			// m_expired = false;
-		}
+		if (SoundTool.is_background(name)) SoundTool.playBackgroundMusic();
 	}
 
 	@Override
@@ -158,7 +153,7 @@ public class Controller implements GameCanvasListener {
 		}
 	}
 
-	public void start() throws IOException {
+	private void start() throws Exception {
 		this.gameModele.start();
 	}
 
