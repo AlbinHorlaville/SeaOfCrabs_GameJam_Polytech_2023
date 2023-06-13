@@ -80,6 +80,7 @@ public class Controller implements GameCanvasListener {
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		UIComponent newFocus = gameView.getCurrentView().getHoveredComponent(e.getX(), e.getY());
+		
 		if (focus != newFocus) {
 			if (focus != null) {
 				focus.mouseOut();
