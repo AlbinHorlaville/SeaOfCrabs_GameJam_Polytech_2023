@@ -28,8 +28,13 @@ public class MapRepresentation {
 	private BufferedImage waterImage;
 	private BufferedImage sandWaterImage;
 
+	private BufferedImage[] grassTransitionOneSide;
+	private BufferedImage[] grassTransitionTwoSide;
+	private BufferedImage[] grassTransitionThreeSide;
+	private BufferedImage[] grassTransitionAngle;
+
 	private int scale;
-	
+
 	private int imgWidth;
 	private int imgHeight;
 
@@ -49,7 +54,7 @@ public class MapRepresentation {
 			this.grassImage = resize(this.grassImage, this.grassImage.getWidth() * scale,
 					this.grassImage.getHeight() * scale);
 		}
-		
+
 		this.imgWidth = this.grassImage.getWidth();
 		this.imgHeight = this.grassImage.getHeight();
 
@@ -74,6 +79,104 @@ public class MapRepresentation {
 					this.sandWaterImage.getHeight() * scale);
 		}
 
+		this.grassTransitionAngle = new BufferedImage[4];
+
+		imageFile = new File("assets/img/tiles/grassBottomLeftSand.png");
+		if (imageFile.exists()) {
+			grassTransitionAngle[0] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/grassBottomRightSand.png");
+		if (imageFile.exists()) {
+			grassTransitionAngle[1] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/grassTopLeftSand.png");
+		if (imageFile.exists()) {
+			grassTransitionAngle[2] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/grassTopRightSand.png");
+		if (imageFile.exists()) {
+			grassTransitionAngle[3] = ImageIO.read(imageFile);
+		}
+
+		this.grassTransitionOneSide = new BufferedImage[4];
+
+		imageFile = new File("assets/img/tiles/grassOnTopOfSand.png");
+		if (imageFile.exists()) {
+			grassTransitionOneSide[0] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/grassOnLeftOfSand.png");
+		if (imageFile.exists()) {
+			grassTransitionOneSide[1] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/grassOnRightOfSand.png");
+		if (imageFile.exists()) {
+			grassTransitionOneSide[2] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/grassUnderOfSand.png");
+		if (imageFile.exists()) {
+			grassTransitionOneSide[3] = ImageIO.read(imageFile);
+		}
+
+		this.grassTransitionTwoSide = new BufferedImage[6];
+
+		imageFile = new File("assets/img/tiles/grassOnLeftAndOnRightOfSand.png");
+		if (imageFile.exists()) {
+			grassTransitionTwoSide[0] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/grassOnTopAndOnLeftOfSand.png");
+		if (imageFile.exists()) {
+			grassTransitionTwoSide[1] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/grassOnTopAndOnRightOfSand.png");
+		if (imageFile.exists()) {
+			grassTransitionTwoSide[2] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/grassOnTopAndUnderSand.png");
+		if (imageFile.exists()) {
+			grassTransitionTwoSide[3] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/grassUnderAndOnLeftOfSand.png");
+		if (imageFile.exists()) {
+			grassTransitionTwoSide[4] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/grassUnderAndOnRightOfSand.png");
+		if (imageFile.exists()) {
+			grassTransitionTwoSide[5] = ImageIO.read(imageFile);
+		}
+
+		this.grassTransitionThreeSide = new BufferedImage[4];
+
+		imageFile = new File("assets/img/tiles/grassOnTopAndOnLeftAndOnRightOfSand.png");
+		if (imageFile.exists()) {
+			grassTransitionThreeSide[0] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/grassUnderAndOnLeftAndOnRightOfSand.png");
+		if (imageFile.exists()) {
+			grassTransitionThreeSide[1] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/grassUnderAndOnLeftAndOnTopOfSand.png");
+		if (imageFile.exists()) {
+			grassTransitionThreeSide[2] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/grassUnderAndOnRightAndOnTopOfSand.png");
+		if (imageFile.exists()) {
+			grassTransitionThreeSide[3] = ImageIO.read(imageFile);
+		}
+
 		/*
 		 * Set the coordinate of each tiles
 		 */
@@ -89,7 +192,9 @@ public class MapRepresentation {
 
 	/*
 	 * Resize an image to the new dimension
+	 * 
 	 * @param img : the image to resize
+	 * 
 	 * @param newWidth and newHeight : The new dimension of the images
 	 */
 	private BufferedImage resize(BufferedImage img, int newWidth, int newHeight) throws IOException {
@@ -122,11 +227,6 @@ public class MapRepresentation {
 		int imgWidth = img.getWidth();
 		int imgHeight = img.getHeight();
 
-		int playerStartX = this.map[0].getTiles()[this.sectionHeight - 5][this.sectionWidth / 2]
-				.getX();
-		int playerStartY = this.map[0].getTiles()[this.sectionHeight - 5][this.sectionWidth / 2]
-				.getY();
-
 		int tileX;
 		int tileY;
 		int positionX;
@@ -149,14 +249,14 @@ public class MapRepresentation {
 					currentTile = section[j][k];
 
 					tileX = currentTile.getX();
-					positionX = tileX + playerX;// - playerStartX;
+					positionX = tileX + playerX;
 
 					tileY = currentTile.getY();
-					positionY = tileY + playerY;// - playerStartY;
+					positionY = tileY + playerY;
 
 					// Only drawing the tiles on screen
-					if (positionX < width + imgWidth && positionX > 0 - imgWidth
-							&& positionY < height + imgHeight && positionY > 0 - imgHeight) {
+					if (positionX < width + imgWidth && positionX > 0 - imgWidth && positionY < height + imgHeight
+							&& positionY > 0 - imgHeight) {
 
 						waveOffset = this.wave[i * this.sectionHeight + j][k];
 
@@ -177,6 +277,62 @@ public class MapRepresentation {
 							img = sandImage;
 							sandWater = true;
 							break;
+						case TRANSITION_GRASS_ANGLE_SAND_TOP_RIGHT:
+							img = this.grassTransitionAngle[0];
+							break;
+						case TRANSITION_GRASS_ANGLE_SAND_BOTTOM_RIGHT:
+							img = this.grassTransitionAngle[1];
+							break;
+						case TRANSITION_GRASS_ANGLE_SAND_TOP_LEFT:
+							img = this.grassTransitionAngle[2];
+							break;
+						case TRANSITION_GRASS_ANGLE_SAND_BOTTOM_LEFT:
+							img = this.grassTransitionAngle[3];
+							break;
+						case TRANSITION_GRASS_ON_RIGHT_AND_ON_LEFT_AND_ON_TOP_OF_SAND:
+							img = this.grassTransitionThreeSide[0];// grassOnTopAndOnLeftAndOnRightOfSand
+							break;
+						case TRANSITION_GRASS_UNDER_AND_ON_LEFT_AND_ON_RIGHT_OF_SAND:
+							img = this.grassTransitionThreeSide[1];// grassUnderAndOnLeftAndOnRightOfSand
+							break;
+						case TRANSITION_GRASS_UNDER_AND_ON_LEFT_AND_ON_TOP_OF_SAND:
+							img = this.grassTransitionThreeSide[2];// grassUnderAndOnLeftAndOnTopOfSand
+							break;
+						case TRANSITION_GRASS_UNDER_AND_ON_RIGHT_AND_ON_TOP_OF_SAND:
+							img = this.grassTransitionThreeSide[3];// grassUnderAndOnRightAndOnTopOfSand
+							break;
+						case TRANSITION_GRASS_ON_TOP_OF_SAND:
+							img = this.grassTransitionOneSide[0];// grassOnTopOfSand
+							break;
+						case TRANSITION_GRASS_ON_LEFT_OF_SAND:
+							img = this.grassTransitionOneSide[1];// grassOnLeftOfSand
+							break;
+						case TRANSITION_GRASS_ON_RIGHT_OF_SAND:
+							img = this.grassTransitionOneSide[2];// grassOnRightOfSand
+							break;
+						case TRANSITION_GRASS_UNDER_SAND:
+							img = this.grassTransitionOneSide[3];// grassUnderOfSand
+							break;
+
+						///////
+						case TRANSITION_GRASS_ON_LEFT_AND_ON_RIGHT_OF_SAND:
+							img = this.grassTransitionTwoSide[0];// grassOnLeftAndOnRightOfSand
+							break;
+						case TRANSITION_GRASS_ON_TOP_AND_ON_LEFT_OF_SAND:
+							img = this.grassTransitionTwoSide[1];// grassOnTopAndOnLeftOfSand
+							break;
+						case TRANSITION_GRASS_ON_TOP_AND_ON_RIGHT_OF_SAND:
+							img = this.grassTransitionTwoSide[2];// grassOnTopAndOnRightOfSand
+							break;
+						case TRANSITION_GRASS_ON_TOP_AND_UNDER_OF_SAND:
+							img = this.grassTransitionTwoSide[3];// grassOnTopAndUnderSand
+							break;
+						case TRANSITION_GRASS_UNDER_AND_ON_LEFT_OF_SAND:
+							img = this.grassTransitionTwoSide[4];// grassUnderAndOnLeftOfSand
+							break;
+						case TRANSITION_GRASS_UNDER_AND_ON_RIGHT_OF_SAND:
+							img = this.grassTransitionTwoSide[5];// grassUnderAndOnRightOfSand
+							break;
 						default:
 							img = waterImage;
 							break;
@@ -195,12 +351,12 @@ public class MapRepresentation {
 			}
 		}
 	}
-	
-	public int getImageWidth () {
+
+	public int getImageWidth() {
 		return this.imgWidth;
 	}
-	
-	public int getImageHeight () {
+
+	public int getImageHeight() {
 		return this.imgHeight;
 	}
 }
