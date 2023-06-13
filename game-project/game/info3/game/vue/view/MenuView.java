@@ -49,7 +49,7 @@ public class MenuView extends View {
 			public void onComponentClicked() {
 				try {
 					gameView.getGame().start();
-				} catch (IOException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

@@ -20,6 +20,7 @@
  */
 package info3.game.modele;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import info3.game.GameState;

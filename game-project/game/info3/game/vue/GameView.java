@@ -40,10 +40,10 @@ public class GameView {
 	public GameView(GameModele game, Controller controller) throws IOException {
 		try {
 			this.game = game;
-			
+
 			this.controller = controller;
 			canvas = new GameCanvas(controller);
-			
+
 			SoundTool.initSoundTool(canvas); // INITIALISATION DE L OUTILS DE SON
 
 			// creating the game canvas to render the game,
@@ -55,13 +55,29 @@ public class GameView {
 
 			System.out.println("  - setting up the frame...");
 			setupFrame();
-			
+
 			System.out.println("  - Init the view...");
 			init_view();
 			update_view(game.getCurrentState());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public GameModele getGame() {
+		return game;
+	}
+
+	public void setGame(GameModele game) {
+		this.game = game;
+	}
+
+	public View getCurrentView() {
+		return currentView;
+	}
+
+	public void setCurrentView(View currentView) {
+		this.currentView = currentView;
 	}
 
 	private void init_view() throws IOException {
@@ -139,4 +155,13 @@ public class GameView {
 
 		this.currentView.paint(g, width, height);
 	}
+
+	public int getWidthCanvas() {
+		return canvas.getWidth();
+	}
+
+	public int getHeightCanvas() {
+		return canvas.getHeight();
+	}
+
 }
