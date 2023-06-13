@@ -63,9 +63,16 @@ Controlez 2 valeureux pirates: Häag and Azs dans leur quête, mais gare aux nav
 - Automates : `Tous les ennemis ont des automates`. Les boss ont des automates plus complexes que les bateaux et crabes
 - Niveau: `Plus on avance en tronçons, plus les ennemis sont forts` (statistiques plus élevées)
 <br>
+
+### Comportement Ennemis
+
+- Cavernes à crabes : Créer des crabes qui nous attaquerons (Via Egg )
+- Crabes : Nous cours dessus pour nous attaquer aux corps à corps.
+- Roi des Crabes : Des crabes avec une IA plus intelligente. 
+- Bateaux ennemis : S'approche de nous et nous tirent dessus quand il est proche
+- Kraken : 4 tentacules qui ne bougent pas mais nous attaques avec ces tentacules.
 <br>
-
-
+<br>
 
 ## Spécificités affichage et configuration :
 - Ecran de démarrage
@@ -81,9 +88,6 @@ Controlez 2 valeureux pirates: Häag and Azs dans leur quête, mais gare aux nav
 - Un jeu en `2D isométrique`
 - Un `gameplay différent` sur mer et sur terre
 - `Viewport commun` pour les deux joueurs
-
-
-
 
 
 ---
