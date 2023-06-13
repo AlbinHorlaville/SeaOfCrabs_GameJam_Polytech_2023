@@ -63,19 +63,19 @@ public class GameModele {
 			this.gameview.inputAvatar(cowboy.getAvatar());
 		}
 	}
-	
+
 	public void param() throws IOException {
 		if (currentState == GameState.Menu) {
 			setCurrentState(GameState.Parametre);
 		}
 	}
-	
+
 	public void credits() throws IOException {
 		if (currentState == GameState.Menu) {
 			setCurrentState(GameState.Credits);
 		}
 	}
-	
+
 	public void score() throws IOException {
 		if (currentState == GameState.Menu) {
 			setCurrentState(GameState.Score);

@@ -13,21 +13,25 @@ import info3.game.vue.toolkitUI.UICursor;
 import info3.game.vue.toolkitUI.UILabel;
 import info3.game.vue.toolkitUI.UITitle;
 
-public class SettingsView extends View{
+public class SettingsView extends View {
 	UIButton buttonRetour;
 	UICursor cursorVolume;
 	UITitle title;
 	UILabel Volume;
 	UIChecker checkerMute;
-	
+
 	public SettingsView(GameView gv) {
 		super(gv);
-		title = new UITitle(1024, 768, "Paramètres", FONT2, Color.white);
-		buttonRetour = new UIButton(100, 600, 200,  new UILabel(0, 0, "Retour", FONT1, c1), c2);
+		
+		int windowWidth = (int) gameView.getWidthCanvas();
+		int windowHeight = (int) gameView.getHeightCanvas();
+		
+		title = new UITitle(windowWidth, windowHeight, "Paramètres", FONT2, Color.white);
+		buttonRetour = new UIButton(100, 600, 200, new UILabel(0, 0, "Retour", FONT1, c1), c2);
 		cursorVolume = new UICursor(300, 300, 200, 20, c2, c3);
 		checkerMute = new UIChecker(600, 400, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
-		Volume = new UILabel(260, 250, "Volume : "+cursorVolume.getValue(), FONT1, c3);
-		
+		Volume = new UILabel(260, 250, "Volume : " + cursorVolume.getValue(), FONT1, c3);
+
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
 			public void onComponentClicked() {
@@ -51,12 +55,12 @@ public class SettingsView extends View{
 			};
 
 		});
-		
+
 		cursorVolume.setUIComponentListener(new UIComponentListener() {
 
 			public void onComponentPressed(int x, int y) {
 				cursorVolume.move(x, y);
-				Volume.setText("Volume :"+cursorVolume.getValue());
+				Volume.setText("Volume : " + cursorVolume.getValue());
 			}
 
 			public void onComponentClicked() {
@@ -75,40 +79,39 @@ public class SettingsView extends View{
 
 			};
 		});
-		
+
 		checkerMute.setUIComponentListener(new UIComponentListener() {
 
-		public void onComponentPressed(int x, int y) {
-		}
+			public void onComponentPressed(int x, int y) {
+			}
 
-		public void onComponentClicked() {
-			checkerMute.check();
-		}
+			public void onComponentClicked() {
+				checkerMute.check();
+			}
 
-		@Override
-		public void onComponentMouseIn() {
-			// TODO Auto-generated method stub
-		}
+			@Override
+			public void onComponentMouseIn() {
+				// TODO Auto-generated method stub
+			}
 
-		@Override
-		public void onComponentMouseOut() {
-			// TODO Auto-generated method stub
-		};
-	});
-		
-		
+			@Override
+			public void onComponentMouseOut() {
+				// TODO Auto-generated method stub
+			};
+		});
+
 		addComponent(buttonRetour);
 		addComponent(cursorVolume);
 		addComponent(checkerMute);
 		addComponent(title);
 		addComponent(Volume);
-		
+
 	}
 
 	@Override
 	public void tick(long elapsed) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

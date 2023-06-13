@@ -12,7 +12,8 @@ public class UIButton extends UIComponent {
 	private UILabel label;
 	private Color backgroundColor;
 	private Color foregroundColor;
-
+	
+	// Implémente un bouton de taille, label et couleur adaptable
 	public UIButton(int x, int y, int w, UILabel l, Color bg) {
 		super(x, y, 0, w);
 		label = l;
@@ -20,6 +21,7 @@ public class UIButton extends UIComponent {
 		foregroundColor = label.getFontColor();
 	}
 
+	// Le texte est centré sur le bouton
 	@Override
 	public void paint(Graphics g) {
 		g.setColor(backgroundColor);
@@ -27,9 +29,9 @@ public class UIButton extends UIComponent {
 		int labelWidth = g.getFontMetrics().stringWidth(label.getText());
 		int labelHeight = g.getFontMetrics().getHeight();
 		int rectHeight = labelHeight + 2 * label.getFont().getSize();
-		//int rectWidth = 200;//labelWidth + 3 * label.getFont().getSize();
+		// int rectWidth = 200;//labelWidth + 3 * label.getFont().getSize();
 		this.setHeight(rectHeight);
-		//this.setWidth(rectWidth);
+		// this.setWidth(rectWidth);
 		g.fillRect(super.getPositionX(), super.getPositionY(), getWidth(), rectHeight);
 		g.setColor(foregroundColor);
 		int centerX = this.getPositionX() + (getWidth() - labelWidth) / 2;
@@ -52,11 +54,13 @@ public class UIButton extends UIComponent {
 	public Color getForegroundColor() {
 		return foregroundColor;
 	}
-
+	
+	// Change la couleur de fond du bouton
 	public void setBackgroundColor(Color backgroundColor) {
 		this.backgroundColor = backgroundColor;
 	}
-
+	
+	// Change la couleur du texte
 	public void setForegroundColor(Color foregroundColor) {
 		this.label.setFontColor(foregroundColor);
 		this.foregroundColor = foregroundColor;

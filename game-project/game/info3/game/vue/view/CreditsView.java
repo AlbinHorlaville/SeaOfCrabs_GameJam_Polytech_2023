@@ -13,8 +13,8 @@ import info3.game.vue.toolkitUI.UIComponentListener;
 import info3.game.vue.toolkitUI.UILabel;
 import info3.game.vue.toolkitUI.UITitle;
 
-public class CreditsView extends View{
-	
+public class CreditsView extends View {
+
 	UIButton buttonRetour;
 	UITitle title;
 	ArrayList<UILabel> listCredits;
@@ -23,20 +23,20 @@ public class CreditsView extends View{
 	public CreditsView(GameView gv) {
 		super(gv);
 		
-		buttonRetour = new UIButton(100, 600, 200, new UILabel(0, 0, "Retour", FONT1, c1), c2);
-		title = new UITitle(1024, 768, "Credits", FONT2, Color.white);
-		/*noms1 = new UILabel(200, 250, 
-				"Romain MIRAS,"
-				+ " Albin HORLAVILLE,"
-				+ " Axel COLE, "
-				+ " Brice DECURNINGE,", FONT1, Color.white);
-		noms2 = new UILabel(250, 300, 
-				" Alexandre ARLE,"
-				+ " Rémi DEL MEDICO,"
-				+ " Emineh GUNDOGAN", FONT1, Color.white);*/
-		//credits = new String(new File());
-		listCredits = readCreditsFile();
+		int windowWidth = (int) gameView.getWidthCanvas();
+		int windowHeight = (int) gameView.getHeightCanvas();
 		
+		buttonRetour = new UIButton(100, 600, 200, new UILabel(0, 0, "Retour", FONT1, c1), c2);
+		title = new UITitle(windowWidth, windowHeight, "Credits", FONT2, Color.white);
+		/*
+		 * noms1 = new UILabel(200, 250, "Romain MIRAS," + " Albin HORLAVILLE," +
+		 * " Axel COLE, " + " Brice DECURNINGE,", FONT1, Color.white); noms2 = new
+		 * UILabel(250, 300, " Alexandre ARLE," + " Rémi DEL MEDICO," +
+		 * " Emineh GUNDOGAN", FONT1, Color.white);
+		 */
+		// credits = new String(new File());
+		listCredits = readCreditsFile();
+
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
 			public void onComponentClicked() {
@@ -60,40 +60,40 @@ public class CreditsView extends View{
 			};
 
 		});
-		
+
 		addComponent(buttonRetour);
 		addComponent(title);
 		for (UILabel x : listCredits) {
 			addComponent(x);
 		}
 	}
-	
+
 	ArrayList<UILabel> readCreditsFile() {
 		try {
-		      File credits = new File("resources/Credits");
-		      Scanner myReader = new Scanner(credits);
-		      ArrayList<UILabel> listeCredits = new ArrayList<UILabel>();
-		      int i=0;
-		      while (myReader.hasNextLine()) {
-		        String line = myReader.nextLine();
-		        UILabel lineLabel = new UILabel(250, 250+i, line, FONT1, Color.white);
-		        i+=50;
-		        listeCredits.add(lineLabel);
-		      }
-		      myReader.close();
-		      
-		      return listeCredits;
-	    } catch (FileNotFoundException e) {
-	      System.out.println("An error occurred.");
-	      e.printStackTrace();
-	    }
+			File credits = new File("resources/Credits");
+			Scanner myReader = new Scanner(credits);
+			ArrayList<UILabel> listeCredits = new ArrayList<UILabel>();
+			int i = 0;
+			while (myReader.hasNextLine()) {
+				String line = myReader.nextLine();
+				UILabel lineLabel = new UILabel(250, 250 + i, line, FONT1, Color.white);
+				i += 50;
+				listeCredits.add(lineLabel);
+			}
+			myReader.close();
+
+			return listeCredits;
+		} catch (FileNotFoundException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public void tick(long elapsed) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

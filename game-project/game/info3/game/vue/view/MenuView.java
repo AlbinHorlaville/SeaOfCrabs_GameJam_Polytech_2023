@@ -28,16 +28,19 @@ public class MenuView extends View {
 
 	public MenuView(GameView gv) {
 		super(gv);
+		
+		int windowWidth = (int) gameView.getWidthCanvas();
+		int windowHeight = (int) gameView.getHeightCanvas();
+		int widthButton = 200;
+		int xButton = (windowWidth - widthButton)/2;
+		int SpaceBetweenYButton = 100;
+		int yButton = 300;
+		buttonPlay = new UIButton(xButton, yButton, widthButton, new UILabel(0, 0, "Play", FONT1, c1), c2);
+		buttonSettings = new UIButton(xButton, yButton+=SpaceBetweenYButton, widthButton, new UILabel(0, 0, "Settings", FONT1, c1), c2);
+		buttonScore = new UIButton(xButton, yButton+=SpaceBetweenYButton, widthButton, new UILabel(0, 0, "Score", FONT1, c1), c2);
+		buttonCredits = new UIButton(xButton, yButton+=SpaceBetweenYButton, widthButton, new UILabel(0, 0, "Credits", FONT1, c1), c2);
 
-		buttonPlay = new UIButton(412, 300, 200, new UILabel(0, 0, "Play", FONT1, c1), c2);
-		buttonSettings = new UIButton(412, 400, 200, new UILabel(0, 0, "Settings", FONT1, c1), c2);
-		buttonScore = new UIButton(412, 500, 200, new UILabel(0, 0, "Score", FONT1, c1), c2);
-		buttonCredits = new UIButton(412, 600, 200, new UILabel(0, 0, "Credits", FONT1, c1), c2);
-
-		// cursor = new UICursor(300, 300, 100, 400, Color.black, Color.red);
-		title = new UITitle(1024, 768, "SEA OF CRABS", FONT2, Color.white);
-		// checker = new UIChecker(400, 400, new UILabel(0, 0, "Checker", FONT1,
-		// Color.white), Color.black);
+		title = new UITitle(windowWidth, windowHeight, "SEA OF CRABS", FONT2, Color.white);
 
 		buttonPlay.setUIComponentListener(new UIComponentListener() {
 			@Override
