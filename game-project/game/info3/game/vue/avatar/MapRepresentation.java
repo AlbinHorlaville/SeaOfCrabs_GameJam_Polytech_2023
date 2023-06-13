@@ -37,17 +37,17 @@ public class MapRepresentation {
 		/*
 		 * Load tiles images
 		 */
-		File imageFile = new File("resources/tiles/grass.png");
+		File imageFile = new File("assets/img/tiles/grass.png");
 		if (imageFile.exists()) {
 			this.grassImage = ImageIO.read(imageFile);
 		}
 
-		imageFile = new File("resources/tiles/sand.png");
+		imageFile = new File("assets/img/tiles/sand.png");
 		if (imageFile.exists()) {
 			this.sandImage = ImageIO.read(imageFile);
 		}
 
-		imageFile = new File("resources/tiles/water.png");
+		imageFile = new File("assets/img/tiles/water.png");
 		if (imageFile.exists()) {
 			this.waterImage = ImageIO.read(imageFile);
 		}

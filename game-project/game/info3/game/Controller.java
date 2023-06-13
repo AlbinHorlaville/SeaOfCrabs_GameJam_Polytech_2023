@@ -100,7 +100,7 @@ public class Controller implements GameCanvasListener {
 		System.out.println("Key pressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
 		try {
 			this.start();
-		} catch (IOException e1) {
+		}  catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -143,7 +143,7 @@ public class Controller implements GameCanvasListener {
 		// will force a change of music, after 6s of play
 	}
 
-	private void start() throws IOException {
+	private void start() throws Exception {
 		this.gameModele.start();
 	}
 
