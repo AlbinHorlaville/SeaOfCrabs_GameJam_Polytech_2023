@@ -1,4 +1,4 @@
-package info3.game.modele;
+package info3.game.modele.map;
 
 import java.util.Random;
 
@@ -18,7 +18,7 @@ public class MapSection {
 	private Random randomGenerator; // The random generator initialized based on the seed of the map the section is
 							// in
 
-	private final static int NB_TILE_MIN_PER_ISLAND = 0; // The number of tiles an island must be composed to be valid
+	private final static int NB_TILE_MIN_PER_ISLAND = 230; // The number of tiles an island must be composed to be valid
 
 	/*
 	 * @param seaType : The type of sea
@@ -277,5 +277,9 @@ public class MapSection {
 
 	public void setSeaType(EnumSectionType seaType) {
 		this.seaType = seaType;
+	}
+	
+	public Tiles[][] getTiles() {
+		return this.tiles;
 	}
 }

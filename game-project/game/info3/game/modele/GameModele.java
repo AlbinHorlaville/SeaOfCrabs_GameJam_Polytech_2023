@@ -25,9 +25,10 @@ import java.util.ArrayList;
 
 import info3.game.GameState;
 import info3.game.sound.BackgroundMusic;
-import info3.game.sound.Sound;
 import info3.game.sound.SoundTool;
+import info3.game.modele.map.Map;
 import info3.game.vue.GameView;
+import info3.game.vue.avatar.MapRepresentation;
 import info3.game.vue.view.PlayingView;
 
 public class GameModele {
@@ -38,6 +39,10 @@ public class GameModele {
 	Sound music;
 	
 	public static ArrayList<Entity> entities = new ArrayList<>();
+	
+	public static Map map;
+	
+	int waveTick = 0;
 
 	GameState currentState;
 
@@ -53,6 +58,13 @@ public class GameModele {
 
 
 	public void tick(long elapsed) {
+		if (currentState == GameState.Jeu) {
+			waveTick++;
+			if (waveTick == 1) {
+				map.cicleWaveNorth();
+			}
+			waveTick = waveTick%10;
+		}
 	}
 
 
@@ -65,12 +77,13 @@ public class GameModele {
 		this.gameview.update_view(state);
 	}
 
-	public void start() throws IOException {
+	public void start() throws Exception {
 		if (currentState == GameState.Menu) {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
 			Cowboy cowboy = new Cowboy();
 			GameModele.entities.add(cowboy);
+			map = new Map(100, 3, 96, 48);
 		}
 	}
 

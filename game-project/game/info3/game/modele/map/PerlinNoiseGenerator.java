@@ -1,5 +1,6 @@
-package info3.game.modele;
+package info3.game.modele.map;
 
+//Concept and idea behind the function perlinNoise2d : https://www.youtube.com/watch?v=iW4nFygKAjw
 public class PerlinNoiseGenerator {
 
 	/*

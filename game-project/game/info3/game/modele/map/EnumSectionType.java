@@ -1,4 +1,4 @@
-package info3.game.modele;
+package info3.game.modele.map;
 
 /*
  * Enumeration of every different type of sea
