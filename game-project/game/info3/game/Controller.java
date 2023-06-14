@@ -162,13 +162,6 @@ public class Controller implements GameCanvasListener {
 		if (gameModele != null && gameView != null) {
 		}
 	}
-
-	public static char getBuffer() {
-		return Controller.buffer;
-
-	private void start() throws Exception {
-		this.gameModele.start();
-	}
 	
 	public static boolean[] getBuffer() {
 		return buffer;
