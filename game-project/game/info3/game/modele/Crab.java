@@ -14,14 +14,13 @@ public class Crab extends Ennemy {
 	}
 
 	@Override
-	public void takeDamage() {
-		// TODO Auto-generated method stub
+	public void takeDamage(int damage) {
+		this.lifePoint -= damage;
 		
 	}
 	
 	public void move() {
 		//TODO
 	}
-	
 
 }
