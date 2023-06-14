@@ -19,7 +19,6 @@ public class RedCross extends StillEntity {
 		// TODO Auto-generated method stub
 
 	}
-
 	/*
 	 * Si le joueur touche la croix, elle disparait et laisse place à son trésor
 	 */
