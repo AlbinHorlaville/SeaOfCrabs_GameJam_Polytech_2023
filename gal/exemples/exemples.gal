@@ -77,19 +77,13 @@ Escape(Init){
 
 Player(Init){
   * (Init):
+  | Key(FR) & Key(FU) ? Move(NE) :(Init)
+  | Key(FR) & Key(FD) ? Move(SE) :(Init)
+  | Key(FL) & Key(FU) ? Move(NW) :(Init)
+  | Key(FL) & Key(FD) ? Move(SW) :(Init)
   | Key(FU) ? Move(N) :(Init)
   | Key(FD) ? Move(S) :(Init)
   | Key(FL) ? Move(W) :(Init)
   | Key(FR) ? Move(E) :(Init)
-  | Key(SPACE) ? Hit  :(Init)
-  | Key(ENTER) ? Jump :(Init)
-  | Key(b)  ? Jump(B) :(Init)
-  | Key(d)  ? Move(D) :(Init)
-  | Key(e)  ? Move(E) :(Init)
-  | Key(f)  ? Turn(B) :(Init)
-  | Key(p)  ? Pop     :(Init)
-  | Key(w)  ? Wizz    :(Init)
-  | Key(g)  ? Get     :(Init)
-  | Key(t)  ? Throw   :(Init)
-  | True    ? Power   :(Init)
+
 }

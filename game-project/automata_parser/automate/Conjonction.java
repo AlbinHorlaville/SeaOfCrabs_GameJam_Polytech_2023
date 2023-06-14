@@ -8,9 +8,9 @@ public class Conjonction extends BinaryOp{
 		super(name, "&",l, r);
 	}
 	
-	@Override
-	public boolean eval(Entity e) {
-		return f.eval(e) && right.eval(e);
-	}
+//	@Override
+//	public boolean eval(Entity e) {
+//		return left.eval(e) && right.eval(e);
+//	}
 
 }
