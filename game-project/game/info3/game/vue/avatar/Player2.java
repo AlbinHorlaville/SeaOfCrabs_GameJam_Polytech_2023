@@ -9,8 +9,8 @@ import info3.game.Controller;
 import info3.game.modele.Entity;
 import info3.game.modele.PiratePlayer;
 
-public class Player1 extends Avatar {
-	
+public class Player2 extends Avatar {
+
 	BufferedImage[] m_images_back;
 	BufferedImage[] m_images_face;
 	BufferedImage[] m_images_left;
@@ -18,7 +18,7 @@ public class Player1 extends Avatar {
 	
 	public final static int SCALE_IMG = 4;
 	
-	public Player1(Entity entity) {
+	public Player2(Entity entity) {
 		super(entity);
 		try {
 			m_images = loadSprite("assets/img/player/" + "J1.png", 5, 4);
