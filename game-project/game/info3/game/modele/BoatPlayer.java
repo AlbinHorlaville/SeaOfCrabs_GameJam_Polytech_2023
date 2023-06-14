@@ -2,6 +2,9 @@ package info3.game.modele;
 
 import java.util.ArrayList;
 
+import automate.AutomateLoader;
+import automate.EnumDirection;
+
 public class BoatPlayer extends Player {
 
 	ArrayList<CannonBall> bouletDeCannon;
@@ -15,8 +18,14 @@ public class BoatPlayer extends Player {
 	
 	public BoatPlayer() {
 		super(DEFAULT_BOATPLAYER_LIFE_POINT, DEFAULT_BOATPLAYER_ATTACK, DEFAULT_BOATPLAYER_SPEED);
+		
 		bouletDeCannon = new ArrayList<>();
 		this.current_ball = new BasicCannonBall();
+		
+		this.automate = AutomateLoader.findAutomate("Player");
+		this.current_state = automate.initial_state;
+		
+		this.facing = EnumDirection.N;
 	}
 	
 	@Override
@@ -36,6 +45,12 @@ public class BoatPlayer extends Player {
 	 */
 	public void addBoulet(CannonBall boulet) {
 		this.bouletDeCannon.add(boulet);
+	}
+	
+	@Override
+	public void move(EnumDirection eval) {
+		facing = eval;
+		this.moveEntity(eval, DEFAULT_BOATPLAYER_SPEED);
 	}
 
 }
