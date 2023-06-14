@@ -103,6 +103,12 @@ public class GameModele {
 		}
 	}
 	
+	public void commandes() throws IOException {
+		if (currentState == GameState.AvantJeu) {
+			setCurrentState(GameState.Commandes);
+		}
+	}
+
 	public void beforePlaying() throws IOException {
 		if (currentState == GameState.Menu) {
 			setCurrentState(GameState.AvantJeu);
