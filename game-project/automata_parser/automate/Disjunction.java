@@ -7,8 +7,8 @@ public class Disjunction extends BinaryOp{
 
 	}
 	
-	@Override
-	public boolean eval(Entity e) {
-		return f.eval(e) || right.eval(e);
-	}
+//	@Override
+//	public boolean eval(Entity e) {
+//		return f.eval(e) || right.eval(e);
+//	}
 }

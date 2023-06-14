@@ -66,22 +66,28 @@ public class MapSection {
 	/*
 	 * Initialize the section with only water based on the seaType
 	 */
-	private void initSection() {
+	private void initSection() throws Exception {
+		EnumTiles tilesType;
+		
+		switch (this.seaType) {
+		case CALM_SEA:
+			tilesType = EnumTiles.CALM_WATER;
+			break;
+		case STORMY_SEA:
+			tilesType = EnumTiles.STORMY_WATER;
+			break;
+		case RAGING_SEA:
+		case KRAKEN_SEA:
+		case CRAB_KING_SEA:
+			tilesType = EnumTiles.RAGING_WATER;
+			break;
+		default:
+			throw new Exception("Type de section inexistante");
+		}
+		
 		for (int i = 0; i < sectionHeight; i++) {
 			for (int j = 0; j < sectionWidth; j++) {
-				switch (this.seaType) {
-				case CALM_SEA:
-					tiles[i][j] = new Tiles(EnumTiles.CALM_WATER);
-					break;
-				case STORMY_SEA:
-					tiles[i][j] = new Tiles(EnumTiles.STORMY_WATER);
-					break;
-				case RAGING_SEA:
-				case KRAKEN_SEA:
-				case CRAB_KING_SEA:
-					tiles[i][j] = new Tiles(EnumTiles.RAGING_WATER);
-					break;
-				}
+				tiles[i][j] = new Tiles(tilesType);
 			}
 		}
 	}

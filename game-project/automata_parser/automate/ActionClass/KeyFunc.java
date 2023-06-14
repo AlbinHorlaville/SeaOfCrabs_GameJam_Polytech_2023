@@ -16,10 +16,9 @@ public class KeyFunc extends FunCall{
 	
 	public boolean eval(Entity e) {
 		Key k = (Key)parameters.get(0);
-		String s = String.valueOf(Controller.getBuffer());
-		System.out.println(s);
-		boolean b = k.eval().equals(s);
-		return b;
+		//System.out.println(s);
+		Integer code = (Integer) k.eval();
+		return Controller.getBuffer()[code];
 	}
 
 	@Override

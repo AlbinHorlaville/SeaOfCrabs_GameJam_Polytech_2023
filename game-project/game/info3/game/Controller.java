@@ -23,12 +23,9 @@ package info3.game;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 
 import info3.game.graphics.GameCanvasListener;
 import info3.game.modele.GameModele;
-import info3.game.sound.BackgroundMusic;
-import info3.game.sound.SoundEffect;
 import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIComponent;
@@ -37,7 +34,7 @@ public class Controller implements GameCanvasListener {
 
 	GameModele gameModele;
 	GameView gameView;
-	static char buffer = '\0';
+	static boolean[] buffer = new boolean[400]; // Variable indiquant les inputs du clavier actif ( Pour chaque index == le code le touche )
 	UIComponent focus; // focus is the UIComponent currently hovered on the game canvas
 
 	public Controller() throws Exception {
@@ -107,7 +104,7 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		Controller.buffer = e.getKeyChar();
+		Controller.buffer[e.getKeyCode()] = true; 
 		if (focus != null) {
 			focus.keyPressed(e); // calls to the focus'keyPressed behavior
 		}
@@ -115,7 +112,7 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		Controller.buffer = '\0';
+		Controller.buffer[e.getKeyCode()] = false; 
 	}
 
 	@Override
@@ -138,6 +135,7 @@ public class Controller implements GameCanvasListener {
 		if (gameModele != null && gameView != null) {
 			SoundTool.playBackgroundMusic();
 		}
+		
 	}
 
 	@Override
@@ -167,6 +165,13 @@ public class Controller implements GameCanvasListener {
 
 	public static char getBuffer() {
 		return Controller.buffer;
-	}
 
+	private void start() throws Exception {
+		this.gameModele.start();
+	}
+	
+	public static boolean[] getBuffer() {
+		return buffer;
+	}
+	
 }
