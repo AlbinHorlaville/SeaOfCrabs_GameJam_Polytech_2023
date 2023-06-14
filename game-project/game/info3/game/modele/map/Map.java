@@ -72,8 +72,10 @@ public class Map {
 			for (int j = 0; j < this.sectionHeight; j++) {
 				for (int k = 0; k < this.sectionWidth; k++) {
 					section[j][k].setCoordinate(
-							transpoXCoordinateToIsometric(tileWidth, tileHeight, k, i * this.sectionHeight + j),
-							transpoYCoordinateToIsometric(tileWidth, tileHeight, k, i * this.sectionHeight + j));
+							transpoXCoordinateToIsometric(tileWidth, tileHeight, k,
+									(this.nbSection - i - 1) * this.sectionHeight + j),
+							transpoYCoordinateToIsometric(tileWidth, tileHeight, k,
+									(this.nbSection - i - 1) * this.sectionHeight + j));
 				}
 			}
 		}
@@ -91,6 +93,37 @@ public class Map {
 	 */
 	public int transpoYCoordinateToIsometric(int tileWidth, int tileHeight, int tileX, int tileY) {
 		return (tileX * (tileHeight / 4)) + (tileY * (tileHeight / 4));
+	}
+
+	/*
+	 * Convert normal (x,y) coordinate to isometric x coordinate
+	 */
+	public int transpoXCoordinateToTile(int tileWidth, int tileHeight, int xPos, int yPos) {
+		int xNoIso = 0;
+
+		double det = determinant(tileWidth, tileHeight);
+
+		xNoIso = (int)Math.ceil(((xPos * (det * (tileHeight / 4))) + (yPos * (det * (tileWidth / 2)))));
+
+		return -xNoIso + 7;
+	}
+
+	/*
+	 * Convert normal (x,y) coordinate to isometric y coordinate
+	 */
+	public int transpoYCoordinateToTile(int tileWidth, int tileHeight, int xPos, int yPos) {
+		int yNoIso = 0;
+
+		  double det = determinant(tileWidth, tileHeight);
+
+		  yNoIso = (int)Math.ceil(((xPos * (det * ((-tileHeight) / 4))) + (yPos * (det * (tileWidth / 2)))));
+
+		  return yNoIso - 2;
+	}
+
+	double determinant(int tileWidth, int tileHeight) {
+		float bottom = ((tileWidth * tileHeight) / 4);
+		return (1 / bottom);
 	}
 
 	/*
@@ -249,9 +282,9 @@ public class Map {
 	 */
 	public void cicleWaveNorth() {
 		double temp[] = new double[this.sectionWidth];
-		
+
 		int maxX = this.nbSection * this.sectionHeight - 1;
-		
+
 		for (int i = 0; i < this.sectionWidth; i++) {
 			temp[i] = this.wave[maxX][i];
 		}
@@ -285,7 +318,7 @@ public class Map {
 				}
 			}
 		}
-		
+
 		int maxX = this.nbSection * this.sectionHeight - 1;
 
 		for (int i = 0; i < this.sectionWidth; i++) {
