@@ -24,6 +24,9 @@ public class Map {
 
 	private MiniMap miniMap; // The graphic representation of the map
 
+	private int tileWidth;
+	private int tileHeight;
+
 	/*
 	 * @param seed : the seed of the map
 	 * 
@@ -62,6 +65,11 @@ public class Map {
 		}
 	}
 
+	public void setImageSize(int width, int height) {
+		this.tileWidth = width;
+		this.tileHeight = height;
+	}
+
 	/*
 	 * Set the coordonate of each tiles
 	 */
@@ -72,10 +80,8 @@ public class Map {
 			for (int j = 0; j < this.sectionHeight; j++) {
 				for (int k = 0; k < this.sectionWidth; k++) {
 					section[j][k].setCoordinate(
-							transpoXCoordinateToIsometric(tileWidth, tileHeight, k,
-									(this.nbSection - i - 1) * this.sectionHeight + j),
-							transpoYCoordinateToIsometric(tileWidth, tileHeight, k,
-									(this.nbSection - i - 1) * this.sectionHeight + j));
+							transpoXCoordinateToIsometric(k, (this.nbSection - i - 1) * this.sectionHeight + j),
+							transpoYCoordinateToIsometric(k, (this.nbSection - i - 1) * this.sectionHeight + j));
 				}
 			}
 		}
@@ -84,26 +90,26 @@ public class Map {
 	/*
 	 * Convert normal (x,y) coordinate to isometric x coordinate
 	 */
-	public int transpoXCoordinateToIsometric(int tileWidth, int tileHeight, int tileX, int tileY) {
-		return (tileX * (tileWidth / 2)) + ((-tileY) * (tileWidth / 2));
+	public int transpoXCoordinateToIsometric(int tileX, int tileY) {
+		return (tileX * (this.tileWidth / 2)) + ((-tileY) * (this.tileWidth / 2));
 	}
 
 	/*
 	 * Convert normal (x,y) coordinate to isometric y coordinate
 	 */
-	public int transpoYCoordinateToIsometric(int tileWidth, int tileHeight, int tileX, int tileY) {
-		return (tileX * (tileHeight / 4)) + (tileY * (tileHeight / 4));
+	public int transpoYCoordinateToIsometric(int tileX, int tileY) {
+		return (tileX * (this.tileHeight / 4)) + (tileY * (this.tileHeight / 4));
 	}
 
 	/*
 	 * Convert normal (x,y) coordinate to isometric x coordinate
 	 */
-	public int transpoXCoordinateToTile(int tileWidth, int tileHeight, int xPos, int yPos) {
+	public int transpoYCoordinateToTile(int xPos, int yPos) {
 		int xNoIso = 0;
 
-		double det = determinant(tileWidth, tileHeight);
+		double det = determinant();
 
-		xNoIso = (int)Math.ceil(((xPos * (det * (tileHeight / 4))) + (yPos * (det * (tileWidth / 2)))));
+		xNoIso = (int) Math.ceil(((xPos * (det * (this.tileHeight / 4))) + (yPos * (det * (this.tileWidth / 2)))));
 
 		return -xNoIso + 7;
 	}
@@ -111,18 +117,34 @@ public class Map {
 	/*
 	 * Convert normal (x,y) coordinate to isometric y coordinate
 	 */
-	public int transpoYCoordinateToTile(int tileWidth, int tileHeight, int xPos, int yPos) {
+	public int transpoXCoordinateToTile(int xPos, int yPos) {
 		int yNoIso = 0;
 
-		  double det = determinant(tileWidth, tileHeight);
+		double det = determinant();
 
-		  yNoIso = (int)Math.ceil(((xPos * (det * ((-tileHeight) / 4))) + (yPos * (det * (tileWidth / 2)))));
+		yNoIso = (int) Math.ceil(((xPos * (det * ((-this.tileHeight) / 4))) + (yPos * (det * (this.tileWidth / 2)))));
 
-		  return yNoIso - 2;
+		return -yNoIso + 2;
 	}
 
-	double determinant(int tileWidth, int tileHeight) {
-		float bottom = ((tileWidth * tileHeight) / 4);
+	public Tiles getTileUnderEntity(int xPos, int yPos) {
+		int x = transpoXCoordinateToTile(xPos, yPos);
+		int y = transpoYCoordinateToTile(xPos, yPos);
+
+		int numSection = this.nbSection;
+
+		while (y >= 0) {
+			y -= this.sectionHeight;
+			numSection--;
+		}
+
+		y += this.sectionHeight;
+
+		return this.map[numSection].getTiles()[x][y];
+	}
+
+	double determinant() {
+		float bottom = ((this.tileWidth * this.tileHeight) / 4);
 		return (1 / bottom);
 	}
 
@@ -131,8 +153,9 @@ public class Map {
 	 */
 	public void printMap() {
 		for (int i = 0; i < this.nbSection; i++) {
+			System.out.print("\n----" + i + "----\n");
 			this.map[i].printSection();
-			System.out.print("\n--------\n");
+			
 		}
 	}
 
