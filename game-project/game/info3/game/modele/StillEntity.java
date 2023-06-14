@@ -1,6 +1,7 @@
 package info3.game.modele;
 
 public abstract class StillEntity extends Entity {
+	
 	public StillEntity() {
 		super();
 	}

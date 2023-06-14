@@ -30,8 +30,8 @@ public class MapRepresentation {
 
 	private int scale;
 	
-	public int imgWidth;
-	public int imgHeight;
+	private int imgWidth;
+	private int imgHeight;
 
 	/*
 	 * The representation of the map, it's here that we paint the map
@@ -49,6 +49,7 @@ public class MapRepresentation {
 			this.grassImage = resize(this.grassImage, this.grassImage.getWidth() * scale,
 					this.grassImage.getHeight() * scale);
 		}
+		
 		this.imgWidth = this.grassImage.getWidth();
 		this.imgHeight = this.grassImage.getHeight();
 
@@ -76,6 +77,7 @@ public class MapRepresentation {
 		/*
 		 * Set the coordinate of each tiles
 		 */
+		m.setImageSize(this.imgWidth, this.imgHeight);
 		m.setCoordiate(this.waterImage.getWidth(), this.waterImage.getHeight());
 
 		this.map = m.getMap();
@@ -192,5 +194,13 @@ public class MapRepresentation {
 				}
 			}
 		}
+	}
+	
+	public int getImageWidth () {
+		return this.imgWidth;
+	}
+	
+	public int getImageHeight () {
+		return this.imgHeight;
 	}
 }

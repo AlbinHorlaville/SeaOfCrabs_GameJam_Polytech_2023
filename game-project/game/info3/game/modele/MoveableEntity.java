@@ -1,24 +1,40 @@
 package info3.game.modele;
 
+import automate.Category;
 import automate.EnumDirection;
 
 public abstract class MoveableEntity extends Entity{
-	protected int lifePoint;
 	protected int attackCoeff;
+	protected int lifePoint;
 	protected int speedCoeff;
 	EnumDirection facing;
 
 	public MoveableEntity(int lifePoint, int attackCoeff,int speedCoeff) {
 		super();
-		this.attackCoeff = attackCoeff;
 		this.lifePoint = lifePoint;
+		this.attackCoeff = attackCoeff;
 		this.speedCoeff = speedCoeff;
 	}
 
 
 	public abstract void attack();
 
-	public abstract void takeDamage();
+	public abstract void takeDamage(int damage);
+	
+	public abstract boolean closeTo(Direction d, Category c);
+	
+	public abstract boolean closest(Direction d, Category c);
+	
+	public abstract boolean gotStuff();
+	
+	public abstract boolean cell(Direction d, Category c);
+	
+	public abstract void hit(Direction d, Category c);
+	
+	
+	public boolean gotPower() {
+		return lifePoint <= 0;
+	}
 
 	public void die() {
 		GameModele.entities.remove(this);

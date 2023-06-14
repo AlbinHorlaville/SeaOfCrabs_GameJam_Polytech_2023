@@ -29,12 +29,21 @@ import info3.game.sound.BackgroundMusic;
 import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 import info3.game.vue.avatar.Player1;
+import info3.game.vue.avatar.Player2;
 
 public class GameModele {
 
 	GameView gameview;
 	
 	public static ArrayList<Entity> entities = new ArrayList<>();
+	
+	public static PiratePlayer player1;
+	
+	public static PiratePlayer player2;
+
+	public static BoatPlayer pirateBoat;
+	
+	public static boolean onSea = true;
 	
 	public static Map map;
 	
@@ -73,14 +82,19 @@ public class GameModele {
 		this.gameview.update_view(state);
 	}
 
-	public void start() throws Exception {
-		if (currentState == GameState.Menu) {
+	public void start(int s) throws Exception {
+		if (currentState == GameState.AvantJeu) {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
-			PiratePlayer player1 = new PiratePlayer();
+			player1 = new PiratePlayer();
 			player1.setAvatar(new Player1(player1));
+			player2 = new PiratePlayer();
+			player2.setAvatar(new Player2(player2));
+			pirateBoat = new BoatPlayer();
 			GameModele.entities.add(player1);
-			map = new Map(100, 3, 96, 48);
+			//GameModele.entities.add(player2);
+			//GameModele.entities.add(pirateBoat);
+			map = new Map(s, 3, 96, 48);
 		}
 	}
 
@@ -100,6 +114,31 @@ public class GameModele {
 		if (currentState == GameState.Menu) {
 			setCurrentState(GameState.Score);
 		}
+	}
+	
+	public void commandes() throws IOException {
+		if (currentState == GameState.AvantJeu) {
+			setCurrentState(GameState.Commandes);
+		}
+	}
+
+	public void beforePlaying() throws IOException {
+		if (currentState == GameState.Menu) {
+			setCurrentState(GameState.AvantJeu);
+		}
+	}
+	
+	public static void switchSeaToEarth() {
+		if (onSea) {
+			entities.remove(pirateBoat);
+			entities.add(player1);
+			entities.add(player2);
+		} else {
+			entities.add(pirateBoat);
+			entities.remove(player1);
+			entities.remove(player2);
+		}
+		onSea = !onSea;
 	}
 
 }
