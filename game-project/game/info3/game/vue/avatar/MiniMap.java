@@ -32,7 +32,7 @@ public class MiniMap {
 		//We paint the island
 		for (int i = 0; i < this.sectionHeight; i++) {
 			for (int j = 0; j < this.sectionWidth; j++) {
-				switch (this.map[this.nbSection].getTiles()[i][j].getType()) {
+				switch (this.map[currentSection].getTiles()[i][j].getType()) {
 				case CALM_WATER:
 					break;
 				case SAND_WATER:
