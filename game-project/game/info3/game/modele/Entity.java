@@ -67,35 +67,38 @@ public abstract class Entity {
 	 * L'implémentation initial est pour le déplacement du joueur sur terre
 	 */
 	public void move(EnumDirection eval) {
-		System.out.println(eval);
-		switch (eval) {
+		moveEntity(eval,1);
+	}
+	
+	protected void moveEntity(EnumDirection direction, int speed) {
+		switch (direction) {
 		case W:
-			x += 1;
+			x += speed;
 			break;
 		case E:
-			x -= 1;
+			x -= speed;
 			break;
 		case N:
-			y += 1;
+			y += speed;
 			break;
 		case S:
-			y -= 1;
+			y -= speed;
 			break;
 		case SE:
-			y -= 1;
-			x -= 1;
+			y -= speed;
+			x -= speed;
 			break;
 		case NE:
-			y += 1;
-			x -= 1;
+			y += speed;
+			x -= speed;
 			break;
 		case SW:
-			y -= 1;
-			x += 1;
+			y -= speed;
+			x += speed;
 			break;
 		case NW:
-			y += 1;
-			x += 1;
+			y += speed;
+			x += speed;
 			break;
 		default:
 			break;
