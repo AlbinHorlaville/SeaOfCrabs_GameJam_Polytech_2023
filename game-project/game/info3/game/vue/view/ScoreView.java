@@ -32,19 +32,19 @@ public class ScoreView extends View {
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
-			public void onComponentClicked() {
+			public void onComponentClicked(int x, int y) {
 				gameView.update_view(GameState.Menu);
 				gameView.getGame().setCurrentState(GameState.Menu);
 			}
 
 			@Override
-			public void onComponentMouseIn() {
+			public void onComponentMouseIn(int x, int y) {
 				buttonRetour.setBackgroundColor(c1);
 				buttonRetour.setForegroundColor(c2);
 			}
 
 			@Override
-			public void onComponentMouseOut() {
+			public void onComponentMouseOut(int x, int y) {
 				buttonRetour.setBackgroundColor(c2);
 				buttonRetour.setForegroundColor(c1);
 			}

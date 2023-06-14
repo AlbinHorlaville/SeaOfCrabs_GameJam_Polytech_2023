@@ -46,9 +46,9 @@ public class MenuView extends View {
 		buttonPlay.setUIComponentListener(new UIComponentListener() {
 
 			@Override
-			public void onComponentClicked() {
+			public void onComponentClicked(int x, int y) {
 				try {
-					gameView.getGame().start();
+					gameView.getGame().beforePlaying();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -56,13 +56,13 @@ public class MenuView extends View {
 			}
 
 			@Override
-			public void onComponentMouseIn() {
+			public void onComponentMouseIn(int x, int y) {
 				buttonPlay.setBackgroundColor(c1);
 				buttonPlay.setForegroundColor(c2);
 			}
 
 			@Override
-			public void onComponentMouseOut() {
+			public void onComponentMouseOut(int x, int y) {
 				buttonPlay.setBackgroundColor(c2);
 				buttonPlay.setForegroundColor(c1);
 			}
@@ -80,7 +80,7 @@ public class MenuView extends View {
 
 		buttonSettings.setUIComponentListener(new UIComponentListener() {
 			@Override
-			public void onComponentClicked() {
+			public void onComponentClicked(int x, int y) {
 				// gameView.update_view(GameState.Parametre);
 				// gameView.getGame().setCurrentState(GameState.Parametre);
 				try {
@@ -92,13 +92,13 @@ public class MenuView extends View {
 			}
 
 			@Override
-			public void onComponentMouseIn() {
+			public void onComponentMouseIn(int x, int y) {
 				buttonSettings.setBackgroundColor(c1);
 				buttonSettings.setForegroundColor(c2);
 			}
 
 			@Override
-			public void onComponentMouseOut() {
+			public void onComponentMouseOut(int x, int y) {
 				buttonSettings.setBackgroundColor(c2);
 				buttonSettings.setForegroundColor(c1);
 			}
@@ -116,7 +116,7 @@ public class MenuView extends View {
 
 		buttonScore.setUIComponentListener(new UIComponentListener() {
 			@Override
-			public void onComponentClicked() {
+			public void onComponentClicked(int x, int y) {
 				// gameView.update_view(GameState.Score);
 				// gameView.getGame().setCurrentState(GameState.Score);
 				try {
@@ -129,13 +129,13 @@ public class MenuView extends View {
 			}
 
 			@Override
-			public void onComponentMouseIn() {
+			public void onComponentMouseIn(int x, int y) {
 				buttonScore.setBackgroundColor(c1);
 				buttonScore.setForegroundColor(c2);
 			}
 
 			@Override
-			public void onComponentMouseOut() {
+			public void onComponentMouseOut(int x, int y) {
 				buttonScore.setBackgroundColor(c2);
 				buttonScore.setForegroundColor(c1);
 			}
@@ -152,7 +152,7 @@ public class MenuView extends View {
 
 		buttonCredits.setUIComponentListener(new UIComponentListener() {
 			@Override
-			public void onComponentClicked() {
+			public void onComponentClicked(int x, int y) {
 				// gameView.update_view(GameState.Credits);
 				// gameView.getGame().setCurrentState(GameState.Credits);
 				try {
@@ -165,13 +165,13 @@ public class MenuView extends View {
 			}
 
 			@Override
-			public void onComponentMouseIn() {
+			public void onComponentMouseIn(int x, int y) {
 				buttonCredits.setBackgroundColor(c1);
 				buttonCredits.setForegroundColor(c2);
 			}
 
 			@Override
-			public void onComponentMouseOut() {
+			public void onComponentMouseOut(int x, int y) {
 				buttonCredits.setBackgroundColor(c2);
 				buttonCredits.setForegroundColor(c1);
 			}

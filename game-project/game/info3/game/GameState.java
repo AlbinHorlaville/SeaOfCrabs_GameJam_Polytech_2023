@@ -5,5 +5,6 @@ public enum GameState {
 	Jeu, 
 	Parametre,
 	Score,
-	Credits
+	Credits,
+	AvantJeu
 }

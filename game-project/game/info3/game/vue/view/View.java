@@ -21,6 +21,7 @@ public abstract class View {
 
 	protected static final Font FONT1 = new Font("TimesRoman", Font.BOLD, 20);
 	protected static final Font FONT2 = new Font("IMPACT", Font.BOLD, 100);
+	protected static final Font FONT3 = new Font("TimesRoman", Font.BOLD, 12);
 
 	public View(GameView gv) {
 		window_width = 1024;

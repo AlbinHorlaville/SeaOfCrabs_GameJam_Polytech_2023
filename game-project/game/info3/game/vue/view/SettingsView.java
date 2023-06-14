@@ -35,19 +35,19 @@ public class SettingsView extends View {
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
-			public void onComponentClicked() {
+			public void onComponentClicked(int x, int y) {
 				gameView.update_view(GameState.Menu);
 				gameView.getGame().setCurrentState(GameState.Menu);
 			}
 
 			@Override
-			public void onComponentMouseIn() {
+			public void onComponentMouseIn(int x, int y) {
 				buttonRetour.setBackgroundColor(c1);
 				buttonRetour.setForegroundColor(c2);
 			}
 
 			@Override
-			public void onComponentMouseOut() {
+			public void onComponentMouseOut(int x, int y) {
 				buttonRetour.setBackgroundColor(c2);
 				buttonRetour.setForegroundColor(c1);
 			}
@@ -70,17 +70,17 @@ public class SettingsView extends View {
 				Volume.setText("Volume : " + cursorVolume.getValue());
 			}
 
-			public void onComponentClicked() {
+			public void onComponentClicked(int x, int y) {
 			}
 
 			@Override
-			public void onComponentMouseIn() {
+			public void onComponentMouseIn(int x, int y) {
 				// TODO Auto-generated method stub
 				cursorVolume.setColorCursor(c1);
 			}
 
 			@Override
-			public void onComponentMouseOut() {
+			public void onComponentMouseOut(int x, int y) {
 				// TODO Auto-generated method stub
 				cursorVolume.setColorCursor(c2);
 
@@ -98,17 +98,17 @@ public class SettingsView extends View {
 			public void onComponentPressed(int x, int y) {
 			}
 
-			public void onComponentClicked() {
+			public void onComponentClicked(int x, int y) {
 				checkerMute.check();
 			}
 
 			@Override
-			public void onComponentMouseIn() {
+			public void onComponentMouseIn(int x, int y) {
 				// TODO Auto-generated method stub
 			}
 
 			@Override
-			public void onComponentMouseOut() {
+			public void onComponentMouseOut(int x, int y) {
 				// TODO Auto-generated method stub
 			}
 

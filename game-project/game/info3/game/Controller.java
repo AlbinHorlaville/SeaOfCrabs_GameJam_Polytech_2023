@@ -53,7 +53,7 @@ public class Controller implements GameCanvasListener {
 	@Override
 	public void mouseClicked(MouseEvent e) { // when the mouse is clicked
 		if (focus != null) {
-			focus.clicked(); // calls to the focus'clicked behavior
+			focus.clicked(e.getX(), e.getY()); // calls to the focus'clicked behavior
 		}
 	}
 
@@ -87,10 +87,10 @@ public class Controller implements GameCanvasListener {
 
 		if (focus != newFocus) {
 			if (focus != null) {
-				focus.mouseOut(); // calls to the focus'mouseOut behavior
+				focus.mouseOut(e.getX(), e.getY()); // calls to the focus'mouseOut behavior
 			}
 			if (newFocus != null) {
-				newFocus.mouseIn(); // calls to the focus'mouseIn behavior
+				newFocus.mouseIn(e.getX(), e.getY()); // calls to the focus'mouseIn behavior
 			}
 			focus = newFocus;
 		}
@@ -161,10 +161,6 @@ public class Controller implements GameCanvasListener {
 		}
 	}
 
-	private void start() throws Exception {
-		this.gameModele.start();
-	}
-	
 	public static char getBuffer() {
 		return Controller.buffer;
 	}
