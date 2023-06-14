@@ -20,5 +20,9 @@ public class Ship extends Ennemy {
 	public void  move() {
 		// TODO
 	}
+	
+	public void  getLife(int healthPoints) {
+		this.lifePoint += healthPoints;
+	}
 
 }
