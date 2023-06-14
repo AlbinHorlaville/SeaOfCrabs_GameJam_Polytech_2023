@@ -7,8 +7,14 @@ public class BoatPlayer extends Player {
 	ArrayList<CannonBall> bouletDeCannon;
 	CannonBall current_ball;
 	
-	public BoatPlayer(int lifePoint, int attackCoeff, int speedCoeff) {
-		super(lifePoint, attackCoeff, speedCoeff);
+	private static final int DEFAULT_BOATPLAYER_LIFE_POINT = 100;
+
+	private static final int DEFAULT_BOATPLAYER_ATTACK = 2;
+
+	private static final int DEFAULT_BOATPLAYER_SPEED = 1;
+	
+	public BoatPlayer() {
+		super(DEFAULT_BOATPLAYER_LIFE_POINT, DEFAULT_BOATPLAYER_ATTACK, DEFAULT_BOATPLAYER_SPEED);
 		bouletDeCannon = new ArrayList<>();
 		this.current_ball = new BasicCannonBall();
 	}

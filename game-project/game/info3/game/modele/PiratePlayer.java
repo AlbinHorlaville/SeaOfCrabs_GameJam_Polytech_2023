@@ -5,11 +5,15 @@ import automate.EnumDirection;
 
 public class PiratePlayer extends Player {
 	
-	private static final int DEFAULT_PIRATEPLAYER_LIFE_POINT =100;
+	private static final int DEFAULT_PIRATEPLAYER_LIFE_POINT = 100;
 
 	private static final int DEFAULT_PIRATEPLAYER_ATTACK = 2;
 
 	private static final int DEFAULT_PIRATEPLAYER_SPEED = 1;
+	
+	public static final int MAX_PLAYERS_LIFE = 100;
+	
+	public static final int PLAYERS_LIFE = 100;
 			
 	Weapon weapon;
 
