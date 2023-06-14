@@ -16,10 +16,8 @@ public class UIBox extends UIComponent {
 
 	private static final Font FONT = new Font("TimesRoman", Font.PLAIN, 12);
 
-	public UIBox(int c, Weapon w, UIImage im, Color bg, Color br) {
+	public UIBox(int c, Weapon w, UIImage im) {
 		super(0, 0, c, c);
-		borderColor = br;
-		backgroundColor = bg;
 		image = im;
 		weapon = w;
 	}
@@ -39,20 +37,18 @@ public class UIBox extends UIComponent {
 		}
 	}
 
-	public Color getBorderColor() {
-		return borderColor;
+	public Color getBackgroundColor() {
+		return backgroundColor;
 	}
 
-	public void setBorderColor(Color borderColor) {
-		this.borderColor = borderColor;
+	public void setBackgroundColor(Color backgroundColor) {
+		this.backgroundColor = backgroundColor;
 	}
 
 	@Override
 	public void paint(Graphics g) {
-		g.setColor(borderColor);
-		g.drawRect(getPositionX() + 2, getPositionY() + 2, getWidth() - 4, getHeight() - 4);
 		g.setColor(backgroundColor);
-		g.drawRect(getPositionX(), getPositionY(), getWidth(), getHeight());
+		g.fillRect(getPositionX()+4, getPositionY()+4, getWidth()-4, getHeight()-4);
 
 		int imageWidth = image.getWidth();
 		int imageHeight = image.getHeight();
@@ -61,7 +57,6 @@ public class UIBox extends UIComponent {
 		image.setPositionX(centerX + imageWidth + 16);
 		image.setPositionY(centerY + imageHeight + 16);
 		image.paint(g);
-
 	}
 
 }

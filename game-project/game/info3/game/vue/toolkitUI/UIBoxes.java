@@ -10,11 +10,51 @@ public class UIBoxes extends UIComponent {
 	private ArrayList<UIBox> boxes;
 	private UIBox selectedBox;
 	private UILabel label;
+	
+	private static final Color BG_INITIAL = new Color(0,0,0,128);
+	private static final Color BG_SELECTED = new Color(0,0,0,64);
 
 	public UIBoxes(int x, int y, UILabel l) {
 		super(x, y, 0, 0);
 		boxes = new ArrayList<>();
 		label = l;
+		this.setUIComponentListener(new UIComponentListener() {
+
+			@Override
+			public void onComponentClicked(int x, int y) {
+				if (getSelectedBox(x, y) != null) {
+					setSelectedBox(getSelectedBox(x, y));
+				}
+			}
+
+			@Override
+			public void onComponentMouseIn(int x, int y) {
+
+			}
+
+			@Override
+			public void onComponentMouseOut(int x, int y) {
+
+			}
+
+			@Override
+			public void onComponentPressed(int x, int y) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onKeyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+	}
+
+	public UIBoxes(int x, int y) {
+		super(x, y, 0, 0);
+		boxes = new ArrayList<>();
 		this.setUIComponentListener(new UIComponentListener() {
 
 			@Override
@@ -64,7 +104,9 @@ public class UIBoxes extends UIComponent {
 
 	public void setSelectedBox(UIBox selectedBox) {
 		this.selectedBox = selectedBox;
-		this.label.setText(getSelectedBox().getStringWeapon());
+		if (this.label != null) {
+			this.label.setText(getSelectedBox().getStringWeapon());
+		}
 	}
 
 	public void addBox(UIBox b) {
@@ -79,15 +121,15 @@ public class UIBoxes extends UIComponent {
 		for (UIBox b : boxes) {
 			if (selectedBox != null) {
 				if (b == selectedBox) {
-					b.setBorderColor(Color.green);
+					b.setBackgroundColor(BG_INITIAL);
 				} else {
-					b.setBorderColor(Color.black);
+					b.setBackgroundColor(BG_SELECTED);
 				}
 			} else {
 				if (i == 0) {
-					b.setBorderColor(Color.green);
+					b.setBackgroundColor(BG_INITIAL);
 				} else {
-					b.setBorderColor(Color.black);
+					b.setBackgroundColor(BG_SELECTED);
 				}
 			}
 			b.setPositionX(this.getPositionX() + i * b.getWidth());
@@ -97,7 +139,9 @@ public class UIBoxes extends UIComponent {
 			heightCounter = b.getHeight();
 			i += 1;
 		}
-		label.paint(g);
+		if (label != null) {
+			label.paint(g);
+		}
 		this.setWidth(widthCounter);
 		this.setHeight(heightCounter);
 	}
