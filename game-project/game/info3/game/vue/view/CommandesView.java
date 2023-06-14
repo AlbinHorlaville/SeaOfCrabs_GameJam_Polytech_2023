@@ -16,7 +16,7 @@ import info3.game.vue.toolkitUI.UIImage;
 import info3.game.vue.toolkitUI.UILabel;
 import info3.game.vue.toolkitUI.UITitle;
 
-public class CommandesView extends View {
+public class CommandesView extends View{
 
 	UIButton buttonRetour;
 	UIImage imageCJ;
@@ -38,6 +38,7 @@ public class CommandesView extends View {
 		File fileCJ1 = new File("resources/img/CommandesJoueur1.png");
 		File fileCJ2 = new File("resources/img/CommandesJoueur2.png");
 		File fileCG = new File("resources/img/CommandesGenerales.png");
+
 		try {
 			imageCJ1 = ImageIO.read(fileCJ1);
 			imageCJ2 = ImageIO.read(fileCJ2);
@@ -185,7 +186,6 @@ public class CommandesView extends View {
 	@Override
 	public void tick(long elapsed) {
 		// TODO Auto-generated method stub
-
 	}
 
 }
