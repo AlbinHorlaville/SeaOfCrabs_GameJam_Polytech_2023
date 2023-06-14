@@ -33,8 +33,8 @@ public class AffichageImage extends JFrame {
 		try {
 			
 			SpriteLoader.initAllSprites();
-        	BufferedImage [] tileSprites = SpriteLoader.TypeSpritesMap.get(SpriteType.Tile);
-        	image = tileSprites[1];
+        	BufferedImage [] cowboySprites = SpriteLoader.get(SpriteType.Cowboy);
+        	image = cowboySprites[15];
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
