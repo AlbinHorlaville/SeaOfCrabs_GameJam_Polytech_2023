@@ -15,7 +15,7 @@ public class PiratePlayer extends Player {
 
 	public PiratePlayer() {
 		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_PIRATEPLAYER_ATTACK, DEFAULT_PIRATEPLAYER_SPEED);
-		this.automate = AutomateLoader.getPiratePlayerAutomate();
+		this.automate = AutomateLoader.findAutomate("Player");
 		this.current_state = automate.initial_state;
 		facing = EnumDirection.N;
 	}

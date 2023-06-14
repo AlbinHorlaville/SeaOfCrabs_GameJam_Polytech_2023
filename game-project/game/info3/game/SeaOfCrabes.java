@@ -13,7 +13,7 @@ public class SeaOfCrabes {
 	public static void main(String[] args) {
 		try {
 			System.out.println("Game starting...");
-			AutomateLoader.initAutomateLoader();
+			AutomateLoader loader = new AutomateLoader();
 			controller = new Controller();
 			System.out.println("Game started.");
 		} catch (Throwable th) {

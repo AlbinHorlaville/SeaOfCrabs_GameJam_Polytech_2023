@@ -17,7 +17,6 @@ public abstract class Entity {
 	State current_state;
 
 	public Entity() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public void initAvatar(Avatar avatar) {
@@ -63,8 +62,8 @@ public abstract class Entity {
 	}
 	
 	/*
-	 * Déplacement de l'entité en coordonée absolue
-	 * L'implémentation initial est pour le déplacement du joueur sur terre
+	 * Dï¿½placement de l'entitï¿½ en coordonï¿½e absolue
+	 * L'implï¿½mentation initial est pour le dï¿½placement du joueur sur terre
 	 */
 	public void move(EnumDirection eval) {
 		moveEntity(eval,1);
@@ -106,8 +105,8 @@ public abstract class Entity {
 	}
 	
 	/*
-	 * Déplacement de l'entité en coordonée relatif
-	 * L'implémentation initial est pour le déplacement du joueur sur terre
+	 * Dï¿½placement de l'entitï¿½ en coordonï¿½e relatif
+	 * L'implï¿½mentation initial est pour le dï¿½placement du joueur sur terre
 	 */
 	public void move(EnumCategory eval) {
 		
