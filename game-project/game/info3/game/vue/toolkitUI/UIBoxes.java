@@ -7,18 +7,20 @@ import java.util.ArrayList;
 
 public class UIBoxes extends UIComponent {
 
-	ArrayList<UIBox> boxes;
-	UIBox selectedBox;
+	private ArrayList<UIBox> boxes;
+	private UIBox selectedBox;
+	private UILabel label;
 
-	public UIBoxes(int x, int y) {
+	public UIBoxes(int x, int y, UILabel l) {
 		super(x, y, 0, 0);
 		boxes = new ArrayList<>();
+		label = l;
 		this.setUIComponentListener(new UIComponentListener() {
 
 			@Override
 			public void onComponentClicked(int x, int y) {
 				if (getSelectedBox(x, y) != null) {
-					selectedBox = getSelectedBox(x, y);
+					setSelectedBox(getSelectedBox(x, y));
 				}
 			}
 
@@ -56,6 +58,15 @@ public class UIBoxes extends UIComponent {
 		return null;
 	}
 
+	public UIBox getSelectedBox() {
+		return selectedBox;
+	}
+
+	public void setSelectedBox(UIBox selectedBox) {
+		this.selectedBox = selectedBox;
+		this.label.setText(getSelectedBox().getStringWeapon());
+	}
+
 	public void addBox(UIBox b) {
 		boxes.add(b);
 	}
@@ -86,6 +97,7 @@ public class UIBoxes extends UIComponent {
 			heightCounter = b.getHeight();
 			i += 1;
 		}
+		label.paint(g);
 		this.setWidth(widthCounter);
 		this.setHeight(heightCounter);
 	}

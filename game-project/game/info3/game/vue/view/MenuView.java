@@ -29,17 +29,20 @@ public class MenuView extends View {
 
 	public MenuView(GameView gv) {
 		super(gv);
-		
+
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
 		int widthButton = 200;
-		int xButton = (windowWidth - widthButton)/2;
+		int xButton = (windowWidth - widthButton) / 2;
 		int SpaceBetweenYButton = 100;
 		int yButton = 300;
-		buttonPlay = new UIButton(xButton, yButton, widthButton, new UILabel(0, 0, "Play", FONT1, c1), c2);
-		buttonSettings = new UIButton(xButton, yButton+=SpaceBetweenYButton, widthButton, new UILabel(0, 0, "Settings", FONT1, c1), c2);
-		buttonScore = new UIButton(xButton, yButton+=SpaceBetweenYButton, widthButton, new UILabel(0, 0, "Score", FONT1, c1), c2);
-		buttonCredits = new UIButton(xButton, yButton+=SpaceBetweenYButton, widthButton, new UILabel(0, 0, "Credits", FONT1, c1), c2);
+		buttonPlay = new UIButton(xButton, yButton, widthButton, new UILabel(0, 0, "Jouer", FONT1, c1), c2);
+		buttonSettings = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,
+				new UILabel(0, 0, "Paramètres", FONT1, c1), c2);
+		buttonScore = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,
+				new UILabel(0, 0, "Score", FONT1, c1), c2);
+		buttonCredits = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,
+				new UILabel(0, 0, "Crédits", FONT1, c1), c2);
 
 		title = new UITitle(windowWidth, windowHeight, "SEA OF CRABS", FONT2, Color.white);
 

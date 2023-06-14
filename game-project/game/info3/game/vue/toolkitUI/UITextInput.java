@@ -18,9 +18,10 @@ public class UITextInput extends UIComponent {
 	private Color savedBackgroundColor;
 
 	private static final Font FONT = new Font("TimesRoman", Font.PLAIN, 12);
-	
+
 	/**
-	 * The UITextInput is an text input 
+	 * The UITextInput is an text input
+	 * 
 	 * @param x
 	 * @param y
 	 * @param w
@@ -89,9 +90,9 @@ public class UITextInput extends UIComponent {
 																											// border
 		g.setColor(backgroundColor);
 		g.fillRect(super.getPositionX(), super.getPositionY(), this.getWidth(), rectHeight); // then we draw the
-																				// rectangle
+		// rectangle
 		g.setColor(backgroundColor);
-		g.drawString("Click to erase", super.getPositionX(), super.getPositionY()+rectHeight+20);
+		g.drawString("Cliquer pour effacer", super.getPositionX(), super.getPositionY() + rectHeight + 20);
 		g.setColor(foregroundColor);
 		int centerX = this.getPositionX() + 20; // the text input string is not centered but starts from the x-position
 												// of the rectangle + 20 (margin)

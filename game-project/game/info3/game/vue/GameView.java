@@ -103,7 +103,7 @@ public class GameView {
 	 */
 	private void setupFrame() {
 
-		frame.setTitle("GameModele");
+		frame.setTitle("SeaOfCrabs");
 		frame.setLayout(new BorderLayout());
 
 		frame.add(canvas, BorderLayout.CENTER);

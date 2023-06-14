@@ -26,7 +26,7 @@ public class CreditsView extends View {
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
 		
-		buttonRetour = new UIButton(100, 600, 200, new UILabel(0, 0, "Retour", FONT1, c1), c2);
+		buttonRetour = new UIButton(50, windowHeight - 100, 200, new UILabel(0, 0, "Retour", FONT1, c1), c2);
 		title = new UITitle(windowWidth, windowHeight, "Credits", FONT2, Color.white);
 		/*
 		 * noms1 = new UILabel(200, 250, "Romain MIRAS," + " Albin HORLAVILLE," +

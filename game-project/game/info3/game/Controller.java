@@ -90,10 +90,10 @@ public class Controller implements GameCanvasListener {
 		
 			if (focus != newFocus) {
 				if (focus != null) {
-					focus.mouseOut(); // calls to the focus'mouseOut behavior
+					focus.mouseOut(e.getX(), e.getY()); // calls to the focus'mouseOut behavior
 				}
 				if (newFocus != null) {
-					newFocus.mouseIn(); // calls to the focus'mouseIn behavior
+					newFocus.mouseIn(e.getX(), e.getY()); // calls to the focus'mouseIn behavior
 				}
 				focus = newFocus;
 			}
