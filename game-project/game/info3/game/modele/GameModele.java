@@ -75,13 +75,13 @@ public class GameModele {
 		this.gameview.update_view(state);
 	}
 
-	public void start() throws Exception {
-		if (currentState == GameState.Menu) {
+	public void start(int s) throws Exception {
+		if (currentState == GameState.AvantJeu) {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
 			Cowboy cowboy = new Cowboy();
 			GameModele.entities.add(cowboy);
-			map = new Map(100, 3, 96, 48);
+			map = new Map(s, 3, 96, 48);
 		}
 	}
 
@@ -104,9 +104,15 @@ public class GameModele {
 	}
 	
 	public void commandes() throws IOException {
-	//	if (currentState == GameState.Menu) {
-	//		setCurrentState(GameState.Commandes);
-	//	}
+		if (currentState == GameState.AvantJeu) {
+			setCurrentState(GameState.Commandes);
+		}
+	}
+
+	public void beforePlaying() throws IOException {
+		if (currentState == GameState.Menu) {
+			setCurrentState(GameState.AvantJeu);
+		}
 	}
 
 }

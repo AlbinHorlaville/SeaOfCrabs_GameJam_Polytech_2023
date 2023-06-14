@@ -53,7 +53,7 @@ public class Controller implements GameCanvasListener {
 	@Override
 	public void mouseClicked(MouseEvent e) { // when the mouse is clicked
 		if (focus != null) {
-			focus.clicked(); // calls to the focus'clicked behavior
+			focus.clicked(e.getX(), e.getY()); // calls to the focus'clicked behavior
 		}
 	}
 
@@ -165,10 +165,6 @@ public class Controller implements GameCanvasListener {
 		}
 	}
 
-	private void start() throws Exception {
-		this.gameModele.start();
-	}
-	
 	public static char getBuffer() {
 		return Controller.buffer;
 	}

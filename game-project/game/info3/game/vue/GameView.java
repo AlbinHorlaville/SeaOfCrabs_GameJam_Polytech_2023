@@ -18,6 +18,7 @@ import info3.game.modele.GameModele;
 import info3.game.sound.RandomFileInputStream;
 import info3.game.sound.SoundTool;
 import info3.game.vue.avatar.Avatar;
+import info3.game.vue.view.BeforePlayingView;
 import info3.game.vue.view.CreditsView;
 import info3.game.vue.view.MenuView;
 import info3.game.vue.view.PlayingView;
@@ -89,6 +90,7 @@ public class GameView {
 		this.all_views.put(GameState.Score, new ScoreView(this));
 		this.all_views.put(GameState.Credits, new CreditsView(this));
 		this.all_views.put(GameState.Commandes, new CommandesView(this));
+		this.all_views.put(GameState.AvantJeu, new BeforePlayingView(this));
 	}
 
 	public void update_view(GameState state) {
