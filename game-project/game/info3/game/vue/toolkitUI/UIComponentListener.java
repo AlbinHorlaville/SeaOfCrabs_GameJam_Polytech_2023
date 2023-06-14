@@ -10,11 +10,11 @@ import java.awt.event.KeyEvent;
 
 public interface UIComponentListener {
 
-	void onComponentClicked(); // when the UIComponent is clicked
+	void onComponentClicked(int x, int y); // when the UIComponent is clicked
 
-	void onComponentMouseIn(); // when the UICompoent is entered
+	void onComponentMouseIn(int x, int y); // when the UICompoent is entered
 
-	void onComponentMouseOut(); // when the UIComponent is exited
+	void onComponentMouseOut(int x, int y); // when the UIComponent is exited
 
 	void onComponentPressed(int x, int y); // when the UIComponent is pressed
 

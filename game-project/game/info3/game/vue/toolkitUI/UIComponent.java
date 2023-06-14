@@ -70,22 +70,22 @@ public abstract class UIComponent {
 	/**
 	 * This function calls the listener when the needed UIComponent's behavior is Clicked event
 	 */
-	public void clicked() {
-		componentListener.onComponentClicked();
+	public void clicked(int x, int y) {
+		componentListener.onComponentClicked(x, y);
 	}
 
 	/**
 	 * This function calls the listener when the needed UIComponent's behavior is mouseIn event
 	 */
-	public void mouseIn() {
-		componentListener.onComponentMouseIn();
+	public void mouseIn(int x, int y) {
+		componentListener.onComponentMouseIn(x, y);
 	}
 
 	/**
 	 * This function calls the listener when the needed UIComponent's behavior is mouseOut event
 	 */
-	public void mouseOut() {
-		componentListener.onComponentMouseOut();
+	public void mouseOut(int x, int y) {
+		componentListener.onComponentMouseOut(x, y);
 	}
 
 	/**

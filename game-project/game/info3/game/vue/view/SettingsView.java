@@ -28,26 +28,26 @@ public class SettingsView extends View {
 		int windowHeight = (int) gameView.getHeightCanvas();
 
 		title = new UITitle(windowWidth, windowHeight, "Paramètres", FONT2, Color.white);
-		buttonRetour = new UIButton(100, 600, 200, new UILabel(0, 0, "Retour", FONT1, c1), c2);
+		buttonRetour = new UIButton(50, windowHeight - 100, 200, new UILabel(0, 0, "Retour", FONT1, c1), c2);
 		cursorVolume = new UICursor(300, 300, 200, 20, c2, c3);
 		checkerMute = new UIChecker(600, 400, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
 		Volume = new UILabel(260, 250, "Volume : " + cursorVolume.getValue(), FONT1, c3);
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
-			public void onComponentClicked() {
+			public void onComponentClicked(int x, int y) {
 				gameView.update_view(GameState.Menu);
 				gameView.getGame().setCurrentState(GameState.Menu);
 			}
 
 			@Override
-			public void onComponentMouseIn() {
+			public void onComponentMouseIn(int x, int y) {
 				buttonRetour.setBackgroundColor(c1);
 				buttonRetour.setForegroundColor(c2);
 			}
 
 			@Override
-			public void onComponentMouseOut() {
+			public void onComponentMouseOut(int x, int y) {
 				buttonRetour.setBackgroundColor(c2);
 				buttonRetour.setForegroundColor(c1);
 			}
@@ -70,17 +70,17 @@ public class SettingsView extends View {
 				Volume.setText("Volume : " + cursorVolume.getValue());
 			}
 
-			public void onComponentClicked() {
+			public void onComponentClicked(int x, int y) {
 			}
 
 			@Override
-			public void onComponentMouseIn() {
+			public void onComponentMouseIn(int x, int y) {
 				// TODO Auto-generated method stub
 				cursorVolume.setColorCursor(c1);
 			}
 
 			@Override
-			public void onComponentMouseOut() {
+			public void onComponentMouseOut(int x, int y) {
 				// TODO Auto-generated method stub
 				cursorVolume.setColorCursor(c2);
 
@@ -98,17 +98,17 @@ public class SettingsView extends View {
 			public void onComponentPressed(int x, int y) {
 			}
 
-			public void onComponentClicked() {
+			public void onComponentClicked(int x, int y) {
 				checkerMute.check();
 			}
 
 			@Override
-			public void onComponentMouseIn() {
+			public void onComponentMouseIn(int x, int y) {
 				// TODO Auto-generated method stub
 			}
 
 			@Override
-			public void onComponentMouseOut() {
+			public void onComponentMouseOut(int x, int y) {
 				// TODO Auto-generated method stub
 			}
 

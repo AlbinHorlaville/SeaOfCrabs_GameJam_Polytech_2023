@@ -26,25 +26,25 @@ public class ScoreView extends View {
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
 
-		buttonRetour = new UIButton(100, 600, 200, new UILabel(0, 0, "Retour", FONT1, c1), c2);
+		buttonRetour = new UIButton(50, windowHeight - 100, 200, new UILabel(0, 0, "Retour", FONT1, c1), c2);
 		title = new UITitle(windowWidth, windowHeight, "Score", FONT2, Color.white);
 		listScore = readScoreFile();
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
-			public void onComponentClicked() {
+			public void onComponentClicked(int x, int y) {
 				gameView.update_view(GameState.Menu);
 				gameView.getGame().setCurrentState(GameState.Menu);
 			}
 
 			@Override
-			public void onComponentMouseIn() {
+			public void onComponentMouseIn(int x, int y) {
 				buttonRetour.setBackgroundColor(c1);
 				buttonRetour.setForegroundColor(c2);
 			}
 
 			@Override
-			public void onComponentMouseOut() {
+			public void onComponentMouseOut(int x, int y) {
 				buttonRetour.setBackgroundColor(c2);
 				buttonRetour.setForegroundColor(c1);
 			}
