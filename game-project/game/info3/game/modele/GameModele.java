@@ -55,11 +55,10 @@ public class GameModele {
 
 	public void tick(long elapsed) {
 		if (currentState == GameState.Jeu) {
-			waveTick++;
-			if (waveTick == 1) {
+			if (waveTick++ == 10) {
 				map.cicleWaveNorth();
+				waveTick = 0;
 			}
-			waveTick = waveTick%10;
 		}
 		for(Entity entity : entities) {
 			entity.step();
