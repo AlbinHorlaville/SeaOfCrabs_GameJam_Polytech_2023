@@ -102,5 +102,11 @@ public class GameModele {
 			setCurrentState(GameState.Score);
 		}
 	}
+	
+	public void commandes() throws IOException {
+	//	if (currentState == GameState.Menu) {
+	//		setCurrentState(GameState.Commandes);
+	//	}
+	}
 
 }
