@@ -18,9 +18,10 @@ public class UITextInput extends UIComponent {
 	private Color savedBackgroundColor;
 
 	private static final Font FONT = new Font("TimesRoman", Font.PLAIN, 12);
-	
+
 	/**
-	 * The UITextInput is an text input 
+	 * The UITextInput is an text input
+	 * 
 	 * @param x
 	 * @param y
 	 * @param w
@@ -29,13 +30,13 @@ public class UITextInput extends UIComponent {
 	 * @param fg
 	 */
 
-	public UITextInput(int x, int y, int w, Color bg, Color br, Color fg) {
+	public UITextInput(int x, int y, int w, String placeholder, Color bg, Color br, Color fg) {
 		super(x, y, 0, w);
 		backgroundColor = bg;
 		savedBackgroundColor = bg;
 		borderColor = br;
 		foregroundColor = fg;
-		inputText = new String("Enter text");
+		inputText = placeholder;
 		charCounter = inputText.length();
 		label = new UILabel(0, 0, inputText, FONT, foregroundColor);
 
@@ -44,20 +45,18 @@ public class UITextInput extends UIComponent {
 		this.setUIComponentListener(new UIComponentListener() {
 
 			@Override
-			public void onComponentClicked() {
+			public void onComponentClicked(int x, int y) {
 				eraseText(); // when clicked, the text input erase its contents
 			}
 
 			@Override
-			public void onComponentMouseIn() {
+			public void onComponentMouseIn(int x, int y) {
 				isSelected = true;
-				setBackgroundColor(borderColor);
 			}
 
 			@Override
-			public void onComponentMouseOut() {
+			public void onComponentMouseOut(int x, int y) {
 				isSelected = false;
-				setBackgroundColor(savedBackgroundColor);
 			}
 
 			@Override
@@ -91,7 +90,9 @@ public class UITextInput extends UIComponent {
 																											// border
 		g.setColor(backgroundColor);
 		g.fillRect(super.getPositionX(), super.getPositionY(), this.getWidth(), rectHeight); // then we draw the
-																								// rectangle
+		// rectangle
+		g.setColor(backgroundColor);
+		g.drawString("Cliquer pour effacer", super.getPositionX(), super.getPositionY() + rectHeight + 20);
 		g.setColor(foregroundColor);
 		int centerX = this.getPositionX() + 20; // the text input string is not centered but starts from the x-position
 												// of the rectangle + 20 (margin)

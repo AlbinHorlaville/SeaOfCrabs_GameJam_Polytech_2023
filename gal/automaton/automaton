@@ -1,0 +1,71 @@
+Tree(Init){
+ * (Init):
+ | !GotPower ? : ()
+ | True ? : (Init)
+ * ()
+ }
+ 
+CrabsLair(Init){
+ * (Init) :
+ 	| Closest ? Egg : (Spawn)
+ 	| True ? : (Init)
+ * (Spawn) : 
+ 	| GotStuff ? Egg : (Init)
+ 	| True ? : ()
+ * ()
+ }
+  
+Crabs(Init){
+ * (Init) : 
+ | Closest ? : (MovingToAdversary)
+ | ! Cell(F,T) ? : (MovingToTeam)
+ | True ? : (Init)
+ * (MovingToAdversary) :
+ | Cell(F,O) ? 50%Move(L,A) / 50%Move(R,A) : (Moving)
+ | Cell(F,A) ? Hit(F) : (Chasing)
+ | Cell(F,V) ? Move(F,A) : (Init)
+ | True ? : (Init)
+ * (MovingToTeam)
+ | Cell(F,O) ? 50%Move(L,T) / 50%Move(R,T) : (Moving)
+ | Cell(F,V) ? Move(T) : (Init)
+ | True ? : (Init)
+ * (Chasing) :
+ | ! GotPower ? : ()
+ | Cell(F,A) ? Hit(F) : (Moving)
+ | True ? : (Init)
+ * ()
+}
+ 
+Ships(Init){
+ * (Init) :
+ | Closest(A) ? Move(A) : (Chasing)
+ | True ? : (Init) 
+ * (Chasing) :
+ | ! GotPower ? : ()
+ | Closest (D) ? Hit(A) : (Chasing)
+ | True ? Move(A) : (Init)
+ * ()
+}
+
+CannonBall(Init){
+ * (Init) : 
+ | GotPower ? : (Shoot)
+ | True ? : () 
+ * (Shoot):
+ | True ? Move(F) : (Init)
+ * ()
+}
+
+Bonus(Init){
+ * (Init) :
+ | Cell(H,T) ? Power(T) : ()
+ | True ? : (Init)
+ * ()
+}
+
+Treasure(Init){
+ * (Init) : 
+ | Cell(H,T) ? Egg : ()
+ | True ? : (Init)
+ * ()
+}

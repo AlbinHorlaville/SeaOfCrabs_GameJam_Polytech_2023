@@ -18,12 +18,14 @@ import info3.game.modele.GameModele;
 import info3.game.sound.RandomFileInputStream;
 import info3.game.sound.SoundTool;
 import info3.game.vue.avatar.Avatar;
+import info3.game.vue.view.BeforePlayingView;
 import info3.game.vue.view.CreditsView;
 import info3.game.vue.view.MenuView;
 import info3.game.vue.view.PlayingView;
 import info3.game.vue.view.ScoreView;
 import info3.game.vue.view.SettingsView;
 import info3.game.vue.view.View;
+import info3.game.vue.view.CommandesView;
 
 public class GameView {
 	JFrame frame;
@@ -87,6 +89,8 @@ public class GameView {
 		this.all_views.put(GameState.Parametre, new SettingsView(this));
 		this.all_views.put(GameState.Score, new ScoreView(this));
 		this.all_views.put(GameState.Credits, new CreditsView(this));
+		this.all_views.put(GameState.Commandes, new CommandesView(this));
+		this.all_views.put(GameState.AvantJeu, new BeforePlayingView(this));
 	}
 
 	public void update_view(GameState state) {
@@ -99,7 +103,7 @@ public class GameView {
 	 */
 	private void setupFrame() {
 
-		frame.setTitle("GameModele");
+		frame.setTitle("SeaOfCrabs");
 		frame.setLayout(new BorderLayout());
 
 		frame.add(canvas, BorderLayout.CENTER);

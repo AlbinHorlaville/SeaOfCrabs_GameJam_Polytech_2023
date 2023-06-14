@@ -29,13 +29,16 @@ public class MapRepresentation {
 	private BufferedImage sandWaterImage;
 
 	private int scale;
+	
+	public int imgWidth;
+	public int imgHeight;
 
 	/*
 	 * The representation of the map, it's here that we paint the map
 	 */
 	public MapRepresentation(Map m) throws IOException {
 
-		this.scale = 4;
+		this.scale = 6;
 
 		/*
 		 * Load tiles images
@@ -46,6 +49,8 @@ public class MapRepresentation {
 			this.grassImage = resize(this.grassImage, this.grassImage.getWidth() * scale,
 					this.grassImage.getHeight() * scale);
 		}
+		this.imgWidth = this.grassImage.getWidth();
+		this.imgHeight = this.grassImage.getHeight();
 
 		imageFile = new File("assets/img/tiles/sand.png");
 		if (imageFile.exists()) {
@@ -115,9 +120,9 @@ public class MapRepresentation {
 		int imgWidth = img.getWidth();
 		int imgHeight = img.getHeight();
 
-		int playerStartX = this.map[this.nbSection - 1].getTiles()[this.sectionHeight - 5][this.sectionWidth / 2]
+		int playerStartX = this.map[0].getTiles()[this.sectionHeight - 5][this.sectionWidth / 2]
 				.getX();
-		int playerStartY = this.map[this.nbSection - 1].getTiles()[this.sectionHeight - 5][this.sectionWidth / 2]
+		int playerStartY = this.map[0].getTiles()[this.sectionHeight - 5][this.sectionWidth / 2]
 				.getY();
 
 		int tileX;
@@ -135,23 +140,23 @@ public class MapRepresentation {
 		boolean sandWater;
 
 		for (int i = 0; i < this.nbSection; i++) {
-			section = this.map[i].getTiles();
+			section = this.map[(this.nbSection - i - 1)].getTiles();
 			for (int j = 0; j < this.sectionHeight; j++) {
 				for (int k = 0; k < this.sectionWidth; k++) {
 
 					currentTile = section[j][k];
 
 					tileX = currentTile.getX();
-					positionX = tileX + playerX - playerStartX;
+					positionX = tileX + playerX;// - playerStartX;
 
 					tileY = currentTile.getY();
-					positionY = tileY + playerY - playerStartY;
+					positionY = tileY + playerY;// - playerStartY;
 
 					// Only drawing the tiles on screen
-					if (!(positionX >= width + imgWidth || positionX <= 0 - imgWidth)
-							&& !(positionY >= height + imgHeight || positionY <= 0 - imgHeight)) {
+					if (positionX < width + imgWidth && positionX > 0 - imgWidth
+							&& positionY < height + imgHeight && positionY > 0 - imgHeight) {
 
-						waveOffset = this.wave[i * this.nbSection + j][k];
+						waveOffset = this.wave[i * this.sectionHeight + j][k];
 
 						sandWater = false;
 

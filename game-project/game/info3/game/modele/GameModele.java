@@ -22,18 +22,17 @@ package info3.game.modele;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import info3.game.GameState;
 import info3.game.modele.map.Map;
 import info3.game.sound.BackgroundMusic;
 import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
+import info3.game.vue.avatar.Player1;
 
 public class GameModele {
 
 	GameView gameview;
-	Cowboy cowboy;
 	
 	public static ArrayList<Entity> entities = new ArrayList<>();
 	
@@ -74,13 +73,14 @@ public class GameModele {
 		this.gameview.update_view(state);
 	}
 
-	public void start() throws Exception {
-		if (currentState == GameState.Menu) {
+	public void start(int s) throws Exception {
+		if (currentState == GameState.AvantJeu) {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
-			Cowboy cowboy = new Cowboy();
-			GameModele.entities.add(cowboy);
-			map = new Map(100, 3, 96, 48);
+			PiratePlayer player1 = new PiratePlayer();
+			player1.setAvatar(new Player1(player1));
+			GameModele.entities.add(player1);
+			map = new Map(s, 3, 96, 48);
 		}
 	}
 
@@ -99,6 +99,18 @@ public class GameModele {
 	public void score() throws IOException {
 		if (currentState == GameState.Menu) {
 			setCurrentState(GameState.Score);
+		}
+	}
+	
+	public void commandes() throws IOException {
+		if (currentState == GameState.AvantJeu) {
+			setCurrentState(GameState.Commandes);
+		}
+	}
+
+	public void beforePlaying() throws IOException {
+		if (currentState == GameState.Menu) {
+			setCurrentState(GameState.AvantJeu);
 		}
 	}
 
