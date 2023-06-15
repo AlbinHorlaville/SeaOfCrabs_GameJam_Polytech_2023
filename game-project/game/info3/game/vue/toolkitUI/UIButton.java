@@ -34,8 +34,8 @@ public class UIButton extends UIComponent {
 	
 	
 	// Implémente un bouton de taille, label et couleur adaptable
-	public UIButton(int x, int y, int w, UILabel l, int bg) {
-		super(x, y, 0, w);
+	public UIButton(int x, int y, int w, int h, UILabel l, int bg) {
+		super(x, y, h, w);
 		label = l;
 		foregroundColor = label.getFontColor();
 		backgroundColor = bg;
@@ -45,20 +45,37 @@ public class UIButton extends UIComponent {
 	@Override
 	public void paint(Graphics g) {
 		BufferedImage[] i = SpriteLoader.get(SpriteType.Buttons);
-		g.drawImage(i[backgroundColor], this.getPositionX(), this.getPositionY(), 200, 70,null);
-		g.setColor(Color.black);
+		g.drawImage(i[backgroundColor], this.getPositionX(), this.getPositionY(), this.getWidth(), this.getHeight(), null);
 		g.setFont(label.getFont());
-		int labelWidth = g.getFontMetrics().stringWidth(label.getText());
-		int labelHeight = g.getFontMetrics().getHeight();
-		int rectHeight = labelHeight + 2 * label.getFont().getSize();
-		// int rectWidth = 200;//labelWidth + 3 * label.getFont().getSize();
-		this.setHeight(rectHeight);
-		// this.setWidth(rectWidth);
-		//g.fillRect(super.getPositionX(), super.getPositionY(), getWidth(), rectHeight);
+	
 		g.setColor(foregroundColor);
-		int centerX = this.getPositionX() + (getWidth() - labelWidth) / 2;
-		int centerY = this.getPositionY() + rectHeight - labelHeight;
-		g.drawString(label.getText(), centerX, centerY);
+		
+		if (label.getText().contains("\n")) {
+			int marginY = 0;
+			for (String line : label.getText().split("\n")) {
+				int labelHeight = g.getFontMetrics().getHeight();
+				int labelWidth = g.getFontMetrics().stringWidth(line);
+				int rectHeight = labelHeight + 2 * label.getFont().getSize();
+				int centerX = this.getPositionX() + (getWidth() - labelWidth) / 2;
+				int centerY = this.getPositionY() + rectHeight - labelHeight + marginY *30;
+				g.drawString(line, centerX, centerY);
+				marginY++;
+			}
+		} else {
+			int labelHeight = g.getFontMetrics().getHeight();
+			int labelWidth = g.getFontMetrics().stringWidth(label.getText());
+			int rectHeight = labelHeight + 2 * label.getFont().getSize();
+			int centerX = this.getPositionX() + (getWidth() - labelWidth) / 2;
+			int centerY = this.getPositionY() + rectHeight - labelHeight;
+			g.drawString(label.getText(), centerX, centerY);
+		}
+		
+		//g.drawString(label.getText(), centerX, centerY);
+	}
+	
+	void drawString(Graphics g, String text, int x, int y) {
+	    for (String line : text.split("\n"))
+	        g.drawString(line, x, y += g.getFontMetrics().getHeight());
 	}
 
 	public UILabel getLabel() {

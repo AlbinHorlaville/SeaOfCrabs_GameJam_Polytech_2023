@@ -1,44 +1,41 @@
 package info3.game.vue.view;
 
 import java.awt.Color;
-import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+
 import info3.game.GameState;
-import info3.game.sound.BackgroundMusic;
-import info3.game.sound.SoundTool;
+import info3.game.modele.GameModele;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIButton;
-import info3.game.vue.toolkitUI.UIChecker;
 import info3.game.vue.toolkitUI.UIComponentListener;
-import info3.game.vue.toolkitUI.UICursor;
+import info3.game.vue.toolkitUI.UIImage;
 import info3.game.vue.toolkitUI.UILabel;
 import info3.game.vue.toolkitUI.UITitle;
 
-public class SettingsView extends View {
-	UIButton buttonRetour;
-	UITitle title;
-	UILabel backgroundSoundVolumeLabel;
-	UILabel effectSoundVolumeLabel;
-	UIChecker backgroundSoundChecker, effectSoundChecker;
-	BackgroundMusic current;
+public class ChoiceGameplayView extends View {
 
-	public SettingsView(GameView gv) {
+	UIButton buttonRetour, buttonSolo, buttonCoop;
+	UITitle title;
+
+	public ChoiceGameplayView(GameView gv) throws IOException {
 		super(gv);
 
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
 
-		title = new UITitle(windowWidth, windowHeight, "Paramètres", FONT2, Color.white);
+		title = new UITitle(windowWidth, windowHeight, "Choisissez un mode de jeu", FONT4, Color.white);
+
 		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Retour", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_RED);
 
-		backgroundSoundChecker = new UIChecker(300, 230, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
-		effectSoundChecker = new UIChecker(300, 280, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
-
-		backgroundSoundVolumeLabel = new UILabel(50, 250, "Musique de fond : ", FONT1, Color.black);
-		effectSoundVolumeLabel = new UILabel(50, 300, "Effets sonores : ", FONT1, Color.black);
+		buttonSolo = new UIButton(74, 300, 400,120, new UILabel(0, 0, "Solo\n(1 joueur)", FONT5, Color.black), UIButton.BACKGROUND_COLOR_GREEN);
+		buttonCoop = new UIButton(548, 300, 400,120, new UILabel(0, 0, "Coopération\n(2 joueurs)", FONT5, Color.black), UIButton.BACKGROUND_COLOR_CYAN);
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
@@ -68,67 +65,76 @@ public class SettingsView extends View {
 
 		});
 
-		backgroundSoundChecker.setUIComponentListener(new UIComponentListener() {
-
-			public void onComponentPressed(int x, int y) {
-			}
-
+		buttonSolo.setUIComponentListener(new UIComponentListener() {
+			@Override
 			public void onComponentClicked(int x, int y) {
-				backgroundSoundChecker.check();
-				if (!backgroundSoundChecker.isState()) {
-					current = SoundTool.stopBackgroundMusic();
-				} else {
-					SoundTool.playBackgroundMusic();
+				try {
+					GameModele.solo = true;
+					gameView.getGame().beforePlaying();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 
 			@Override
 			public void onComponentMouseIn(int x, int y) {
-				// TODO Auto-generated method stub
+				buttonSolo.setBackgroundColor(UIButton.BACKGROUND_COLOR_GREEN_HOVER);
 			}
 
 			@Override
 			public void onComponentMouseOut(int x, int y) {
-				// TODO Auto-generated method stub
+				buttonSolo.setBackgroundColor(UIButton.BACKGROUND_COLOR_GREEN);
 			}
-
-			@Override
-			public void onKeyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-			};
-		});
-
-		effectSoundChecker.setUIComponentListener(new UIComponentListener() {
 
 			public void onComponentPressed(int x, int y) {
 			}
 
+			@Override
+			public void onKeyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			};
+
+		});
+
+		buttonCoop.setUIComponentListener(new UIComponentListener() {
+			@Override
 			public void onComponentClicked(int x, int y) {
-				effectSoundChecker.check();
+				try {
+					GameModele.solo = false;
+					gameView.getGame().beforePlaying();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 			@Override
 			public void onComponentMouseIn(int x, int y) {
-				// TODO Auto-generated method stub
+				buttonCoop.setBackgroundColor(UIButton.BACKGROUND_COLOR_CYAN_HOVER);
 			}
 
 			@Override
 			public void onComponentMouseOut(int x, int y) {
-				// TODO Auto-generated method stub
+				buttonCoop.setBackgroundColor(UIButton.BACKGROUND_COLOR_CYAN);
+			}
+
+			public void onComponentPressed(int x, int y) {
 			}
 
 			@Override
 			public void onKeyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
+
 			};
+
 		});
 
 		addComponent(buttonRetour);
-		addComponent(backgroundSoundChecker);
 		addComponent(title);
-		addComponent(backgroundSoundVolumeLabel);
-		addComponent(effectSoundVolumeLabel);
-		addComponent(effectSoundChecker);
+		addComponent(buttonSolo);
+		addComponent(buttonCoop);
 	}
 
 	@Override

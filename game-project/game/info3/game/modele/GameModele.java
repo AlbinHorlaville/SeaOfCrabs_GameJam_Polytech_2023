@@ -134,8 +134,14 @@ public class GameModele {
 	}
 
 	public void beforePlaying() throws IOException {
-		if (currentState == GameState.Menu) {
+		if (currentState == GameState.ChoixGameplay) {
 			setCurrentState(GameState.AvantJeu);
+		}
+	}
+	
+	public void choiceGameplay() throws IOException {
+		if (currentState == GameState.Menu) {
+			setCurrentState(GameState.ChoixGameplay);
 		}
 	}
 
