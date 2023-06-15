@@ -1,6 +1,8 @@
 package info3.game.modele;
 
 import java.util.ArrayList;
+
+import automate.AutomateLoader;
 import info3.game.modele.map.Tiles;
 import info3.game.modele.map.MapSection;
 
@@ -21,7 +23,7 @@ public class CrabLair extends StillEntity{
 		this.lifePoint = lifePoint;
 		this.crabs = new ArrayList<Crab>();
 		this.section = section;
-
+		this.automate = AutomateLoader.findAutomate("Philosopher");
 	}
 
 	@Override
