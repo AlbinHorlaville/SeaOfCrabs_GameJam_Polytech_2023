@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import info3.game.Controller;
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
 import info3.game.modele.Scythe;
@@ -90,8 +91,10 @@ public class PlayingView extends View {
 
 		life.paint(g);
 		weapons.paint(g);
-
-		// GameModele.map.getMiniMap().paint(g, width, height, 0);
+		
+		if(Controller.getBuffer()[77]) { // Quand M push
+			GameModele.map.getMiniMap().paint(g, width, height, 0);
+		}
 	}
 
 }
