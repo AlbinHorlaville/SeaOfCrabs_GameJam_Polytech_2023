@@ -33,7 +33,6 @@ public class PiratePlayer extends Player {
 	@Override
 	public void takeDamage() {
 		// TODO Auto-generated method stub
-
 	}
 	
 	public void setWeapon(Weapon weapon) {

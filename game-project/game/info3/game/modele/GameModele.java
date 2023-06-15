@@ -95,8 +95,6 @@ public class GameModele {
 			//pirateBoat = new BoatPlayer();
 			GameModele.entities.add(player1);
 			GameModele.entities.add(player2);
-			System.out.println("Player1 " + player1.x + player1.y);
-			System.out.println("Player2 " + player2.x + " " + player2.y);
 			//GameModele.entities.add(pirateBoat);
 			map = new Map(s, 3, 96, 48);
 		}

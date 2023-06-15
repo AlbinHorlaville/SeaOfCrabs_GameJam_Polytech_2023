@@ -1,5 +1,6 @@
 package info3.game.vue.view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -55,7 +56,6 @@ public class PlayingView extends View {
 		}
 		
 		life.paint(g);
-		
 		//GameModele.map.getMiniMap().paint(g, width, height, 0);
 		
 		
