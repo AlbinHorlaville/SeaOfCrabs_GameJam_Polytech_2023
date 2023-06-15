@@ -24,13 +24,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import info3.game.GameState;
+import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Map;
+import info3.game.modele.map.Tiles;
 import info3.game.sound.BackgroundMusic;
 import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 import info3.game.vue.avatar.BoatPlayerAvatar;
+import info3.game.vue.avatar.CrabslairAvatar;
 import info3.game.vue.avatar.Player1;
 import info3.game.vue.avatar.Player2;
+import info3.game.vue.avatar.TreasureAvatar;
+import info3.game.vue.avatar.TreeAvatar;
 
 public class GameModele {
 
@@ -106,6 +111,7 @@ public class GameModele {
 			GameModele.entities.add(pirateBoat);
 			
 			map = new Map(s, 3, 96, 48);
+			genereEntity(map);
 		}
 	}
 
@@ -136,6 +142,50 @@ public class GameModele {
 	public void beforePlaying() throws IOException {
 		if (currentState == GameState.Menu) {
 			setCurrentState(GameState.AvantJeu);
+		}
+	}
+	
+	void genereEntity(Map map) {
+		
+		int nbSection = map.getNbSection();
+		int mapWidth = map.getSectionWidth();
+		int mapHeight = map.getSectionHeight();
+		for (int k=0; k<nbSection; k++) {
+			for(int i=0; i<mapWidth; i++) {
+				for(int j=0; j<mapHeight; j++) {
+					Tiles Current = map.getMap()[k].getTiles()[i][j];
+					Entity newEntity;
+					if (Current.getType() == EnumTiles.TREASUR) {
+						newEntity = new RedCross(map.getMap()[k]);
+						newEntity.setAvatar(new TreasureAvatar(newEntity));
+						newEntity.setX(i);
+						newEntity.setY(j);
+						entities.add(newEntity);
+					}
+					else if (Current.getType() == EnumTiles.CRAB_SPAWNER) {
+						newEntity = new CrabLair(10, k, 20, map.getMap()[k]); // Créer 10 crabes de niveau k (le numéro de section) avec 20 points de vie
+						newEntity.setAvatar(new CrabslairAvatar(newEntity));
+						newEntity.setX(i);
+						newEntity.setY(j);
+						entities.add(newEntity);
+						System.out.println("CHECK");
+					}
+					else if (Current.getType() == EnumTiles.TREE) {
+						newEntity = new Tree();
+						newEntity.setAvatar(new TreeAvatar(newEntity));
+						newEntity.setX(i);
+						newEntity.setY(j);
+						entities.add(newEntity);
+					}
+					else if (Current.getType() == EnumTiles.SEA_CHEST) {
+						newEntity = new Tree();
+						newEntity.setAvatar(new TreeAvatar(newEntity));
+						newEntity.setX(i);
+						newEntity.setY(j);
+						entities.add(newEntity);
+					}
+				}
+			}
 		}
 	}
 
