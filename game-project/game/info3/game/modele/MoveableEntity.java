@@ -1,26 +1,19 @@
 package info3.game.modele;
 
-import automate.Category;
 import automate.EnumCategory;
 import automate.EnumDirection;
 
 public abstract class MoveableEntity extends Entity{
 	protected int lifePoint;
 	protected float maxLifePointsCoeff;
-	protected float attackSpeedCoeff;
-	protected float speedCoeff;
-	protected float damageCoeff;
-	protected float rangeCoeff;
+
 	EnumDirection facing;
 
-	public MoveableEntity(int lifePoint, int maxLifePointsCoeff, int attackSpeedCoeff, int speedCoeff, int damageCoeff, int rangeCoeff) {
+	public MoveableEntity(int lifePoint, int maxLifePointsCoeff) {
 		super();
 		this.lifePoint = lifePoint;
 		this.maxLifePointsCoeff = maxLifePointsCoeff;
-		this.attackSpeedCoeff = attackSpeedCoeff;
-		this.speedCoeff = speedCoeff;
-		this.damageCoeff = damageCoeff;
-		this.rangeCoeff = rangeCoeff;
+
 	}
 
 	public abstract void takeDamage(int damage);
@@ -54,25 +47,7 @@ public abstract class MoveableEntity extends Entity{
 	}
 
 
-	public float getDamageCoeff() {
-		return this.damageCoeff;
-	}
-
-
-	public void addDamageCoeff(float f) {
-		this.damageCoeff += f;
-	}
-
-
-	public float getSpeedCoeff() {
-		return speedCoeff;
-	}
-
-
-	public void addSpeedCoeff(float f) {
-		this.speedCoeff =+ f;
-	}
-
+	
 
 	public EnumDirection getFacing() {
 		return facing;
@@ -94,24 +69,7 @@ public abstract class MoveableEntity extends Entity{
 	}
 
 
-	public float getAttackSpeedCoeff() {
-		return attackSpeedCoeff;
-	}
-
-
-	public void addAttackSpeedCoeff(float attackSpeedCoeff) {
-		this.attackSpeedCoeff += attackSpeedCoeff;
-	}
-
-
-	public float getRangeCoeff() {
-		return rangeCoeff;
-	}
-
-
-	public void addRangeCoeff(float rangeCoeff) {
-		this.rangeCoeff += rangeCoeff;
-	}
+	
 	
 	//public abstract void move(EnumDirection eval);
 	

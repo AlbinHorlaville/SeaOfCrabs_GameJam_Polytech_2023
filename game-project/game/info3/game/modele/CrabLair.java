@@ -6,7 +6,7 @@ import info3.game.modele.map.MapSection;
 
 public class CrabLair extends StillEntity{
 	
-	public final int SCRAB_SPANWING_RANGE = GameModele.map.getSectionHeight() * GameModele.map.getTileHeigth();
+	//public final int SCRAB_SPANWING_RANGE = GameModele.map.getSectionHeight();
 	
 	protected int nbCrabs;
 	protected int crabsLvl;
@@ -20,13 +20,10 @@ public class CrabLair extends StillEntity{
 		this.crabsLvl = crabsLvl;
 		this.lifePoint = lifePoint;
 		this.crabs = new ArrayList<Crab>();
-	}
-	
-	public ArrayList<Crab> getCrabs(){
-		return this.crabs;
 		this.section = section;
+
 	}
-	
+
 	@Override
 	public void move() {
 		//entity doesn't move

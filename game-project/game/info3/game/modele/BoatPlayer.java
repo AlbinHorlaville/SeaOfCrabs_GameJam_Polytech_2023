@@ -17,7 +17,7 @@ public class BoatPlayer extends Player {
 	private static final int DEFAULT_BOATPLAYER_SPEED = 1;
 	
 	public BoatPlayer() {
-		super(DEFAULT_BOATPLAYER_LIFE_POINT, DEFAULT_BOATPLAYER_ATTACK, DEFAULT_BOATPLAYER_SPEED);
+		super(DEFAULT_BOATPLAYER_LIFE_POINT, DEFAULT_BOATPLAYER_ATTACK);
 		
 		bouletDeCannon = new ArrayList<>();
 		this.current_ball = new BasicCannonBall();
