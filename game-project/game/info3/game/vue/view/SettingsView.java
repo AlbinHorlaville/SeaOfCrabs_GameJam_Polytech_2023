@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import info3.game.GameState;
+import info3.game.sound.BackgroundMusic;
 import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIButton;
@@ -17,11 +18,11 @@ import info3.game.vue.toolkitUI.UITitle;
 
 public class SettingsView extends View {
 	UIButton buttonRetour;
-	UICursor cursorVolume;
 	UITitle title;
 	UILabel backgroundSoundVolumeLabel;
 	UILabel effectSoundVolumeLabel;
-	UIChecker checkerMute;
+	UIChecker backgroundSoundChecker, effectSoundChecker;
+	BackgroundMusic current;
 
 	public SettingsView(GameView gv) {
 		super(gv);
@@ -30,11 +31,14 @@ public class SettingsView extends View {
 		int windowHeight = (int) gameView.getHeightCanvas();
 
 		title = new UITitle(windowWidth, windowHeight, "Paramètres", FONT2, Color.white);
-		buttonRetour = new UIButton(50, windowHeight - 100, 200, new UILabel(0, 0, "Retour", FONT1, Color.black),UIButton.BACKGROUND_COLOR_RED);
-		cursorVolume = new UICursor(300, 300, 20, 200, c2, c3);
-		checkerMute = new UIChecker(600, 400, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
-		backgroundSoundVolumeLabel = new UILabel(50, 250, "Volume de la musique de fond : " + this.formatFloatVolumeToString(SoundTool.getBackgroundSoundVolume())+ " %", FONT1, Color.black);
-		effectSoundVolumeLabel = new UILabel(50, 300, "Volume des effets sonores : " + this.formatFloatVolumeToString(SoundTool.getEffectSoundVolume())+ " %", FONT1, Color.black);
+		buttonRetour = new UIButton(50, windowHeight - 100, 200, new UILabel(0, 0, "Retour", FONT1, Color.black),
+				UIButton.BACKGROUND_COLOR_RED);
+
+		backgroundSoundChecker = new UIChecker(300, 230, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
+		effectSoundChecker = new UIChecker(300, 280, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
+
+		backgroundSoundVolumeLabel = new UILabel(50, 250, "Musique de fond : ", FONT1, Color.black);
+		effectSoundVolumeLabel = new UILabel(50, 300, "Effets sonores : ", FONT1, Color.black);
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
@@ -64,43 +68,43 @@ public class SettingsView extends View {
 
 		});
 
-		cursorVolume.setUIComponentListener(new UIComponentListener() {
+		backgroundSoundChecker.setUIComponentListener(new UIComponentListener() {
 
 			public void onComponentPressed(int x, int y) {
-				cursorVolume.move(x, y);
-				Volume.setText("Volume : " + cursorVolume.getValue());
 			}
 
 			public void onComponentClicked(int x, int y) {
+				backgroundSoundChecker.check();
+				if (!backgroundSoundChecker.isState()) {
+					current = SoundTool.stopBackgroundMusic();
+				} else {
+					SoundTool.playBackgroundMusic();
+				}
 			}
 
 			@Override
 			public void onComponentMouseIn(int x, int y) {
 				// TODO Auto-generated method stub
-				cursorVolume.setColorCursor(c1);
 			}
 
 			@Override
 			public void onComponentMouseOut(int x, int y) {
 				// TODO Auto-generated method stub
-				cursorVolume.setColorCursor(c2);
-
 			}
 
 			@Override
 			public void onKeyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
-
 			};
 		});
 
-		checkerMute.setUIComponentListener(new UIComponentListener() {
+		effectSoundChecker.setUIComponentListener(new UIComponentListener() {
 
 			public void onComponentPressed(int x, int y) {
 			}
 
 			public void onComponentClicked(int x, int y) {
-				checkerMute.check();
+				effectSoundChecker.check();
 			}
 
 			@Override
@@ -120,17 +124,11 @@ public class SettingsView extends View {
 		});
 
 		addComponent(buttonRetour);
-		addComponent(cursorVolume);
-		addComponent(checkerMute);
+		addComponent(backgroundSoundChecker);
 		addComponent(title);
 		addComponent(backgroundSoundVolumeLabel);
 		addComponent(effectSoundVolumeLabel);
-	}
-	
-	public String formatFloatVolumeToString(float v) {
-		v = v*100f;
-		Integer i = (int) v;
-		return i.toString();
+		addComponent(effectSoundChecker);
 	}
 
 	@Override
