@@ -176,7 +176,6 @@ public class GameModele {
 					} 
 					else if (Current.getType() == EnumTiles.CRAB_SPAWNER) {
 						newEntity = new CrabLair(10, k, 20, map.getMap()[k]); // Créer 10 crabes de niveau k (le numéro																				// de section) avec 20 points de vie
-						newEntity.setAvatar(new CrabslairAvatar(newEntity));
 						newEntity.setLocation(Current.getX(),Current.getY());
 						entities.add(newEntity);
 					}

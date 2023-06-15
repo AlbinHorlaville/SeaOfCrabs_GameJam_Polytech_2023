@@ -26,7 +26,6 @@ public class CrabslairAvatar extends Avatar{
 	@Override
 	public void paint(Graphics g, int width, int height) {
 		BufferedImage img = m_images[imageIndex];
-		
 		int width_painted = SCALE_IMG * img.getWidth();
 		int heigth_painted = SCALE_IMG * img.getHeight();
 		

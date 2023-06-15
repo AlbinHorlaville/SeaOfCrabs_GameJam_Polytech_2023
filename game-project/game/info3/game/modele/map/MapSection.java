@@ -70,7 +70,7 @@ public class MapSection {
 			throw new Exception("Type de section inexistante");
 		}
 
-		if (seaType == EnumSectionType.CALM_SEA) {
+		if (seaType != EnumSectionType.HARBOR && seaType != EnumSectionType.KRAKEN_SEA) {
 			addSandToGrassTransition();
 
 			generateCrabsLair();

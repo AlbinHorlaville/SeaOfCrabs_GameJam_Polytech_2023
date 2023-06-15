@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import automate.AutomateLoader;
 import info3.game.modele.map.Tiles;
+import info3.game.vue.avatar.CrabslairAvatar;
 import info3.game.modele.map.MapSection;
 
 public class CrabLair extends StillEntity{
@@ -26,6 +27,7 @@ public class CrabLair extends StillEntity{
 		this.section = section;
 		this.automate = AutomateLoader.findAutomate("Philosopher");
 		this.current_state = automate.initial_state;
+		this.avatar = new CrabslairAvatar(this);
 	}
 
 	@Override
