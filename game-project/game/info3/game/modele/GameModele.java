@@ -40,21 +40,21 @@ import info3.game.vue.avatar.TreeAvatar;
 public class GameModele {
 
 	GameView gameview;
-	
+
 	public static ArrayList<Entity> entities = new ArrayList<>();
-	
+
 	public static PiratePlayer player1;
-	
+
 	public static PiratePlayer player2;
 
 	public static BoatPlayer pirateBoat;
-	
+
 	public static boolean onSea = true;
-	
+
 	public static boolean solo = true;
-	
+
 	public static Map map;
-	
+
 	int waveTick = 0;
 
 	GameState currentState;
@@ -76,7 +76,7 @@ public class GameModele {
 				waveTick = 0;
 			}
 		}
-		for(Entity entity : entities) {
+		for (Entity entity : entities) {
 			entity.step();
 		}
 	}
@@ -94,22 +94,21 @@ public class GameModele {
 		if (currentState == GameState.AvantJeu) {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
-			
 
 			player1 = new PiratePlayer("Player1");
 			player1.setAvatar(new Player1(player1));
-			//GameModele.entities.add(player1);
+			// GameModele.entities.add(player1);
 
 			if (!solo) {
 				player2 = new PiratePlayer("Player2");
 				player2.setAvatar(new Player2(player2));
-				//GameModele.entities.add(player2);
+				// GameModele.entities.add(player2);
 			}
 
 			pirateBoat = new BoatPlayer();
 			pirateBoat.setAvatar(new BoatPlayerAvatar(pirateBoat));
 			GameModele.entities.add(pirateBoat);
-			
+
 			map = new Map(s, 3, 96, 48);
 			genereEntity(map);
 		}
@@ -132,7 +131,7 @@ public class GameModele {
 			setCurrentState(GameState.Score);
 		}
 	}
-	
+
 	public void commandes() throws IOException {
 		if (currentState == GameState.AvantJeu) {
 			setCurrentState(GameState.Commandes);
@@ -144,20 +143,21 @@ public class GameModele {
 			setCurrentState(GameState.AvantJeu);
 		}
 	}
-	
-<<<<<<< HEAD
+
 	public void choiceGameplay() throws IOException {
 		if (currentState == GameState.Menu) {
 			setCurrentState(GameState.ChoixGameplay);
-=======
+		}
+	}
+
 	void genereEntity(Map map) {
-		
+
 		int nbSection = map.getNbSection();
 		int mapWidth = map.getSectionWidth();
 		int mapHeight = map.getSectionHeight();
-		for (int k=0; k<nbSection; k++) {
-			for(int i=0; i<mapWidth; i++) {
-				for(int j=0; j<mapHeight; j++) {
+		for (int k = 0; k < nbSection; k++) {
+			for (int i = 0; i < mapWidth; i++) {
+				for (int j = 0; j < mapHeight; j++) {
 					Tiles Current = map.getMap()[k].getTiles()[i][j];
 					Entity newEntity;
 					if (Current.getType() == EnumTiles.TREASUR) {
@@ -166,23 +166,21 @@ public class GameModele {
 						newEntity.setX(i);
 						newEntity.setY(j);
 						entities.add(newEntity);
-					}
-					else if (Current.getType() == EnumTiles.CRAB_SPAWNER) {
-						newEntity = new CrabLair(10, k, 20, map.getMap()[k]); // Créer 10 crabes de niveau k (le numéro de section) avec 20 points de vie
+					} else if (Current.getType() == EnumTiles.CRAB_SPAWNER) {
+						newEntity = new CrabLair(10, k, 20, map.getMap()[k]); // Créer 10 crabes de niveau k (le numéro
+																				// de section) avec 20 points de vie
 						newEntity.setAvatar(new CrabslairAvatar(newEntity));
 						newEntity.setX(i);
 						newEntity.setY(j);
 						entities.add(newEntity);
 						System.out.println("CHECK");
-					}
-					else if (Current.getType() == EnumTiles.TREE) {
+					} else if (Current.getType() == EnumTiles.TREE) {
 						newEntity = new Tree();
 						newEntity.setAvatar(new TreeAvatar(newEntity));
 						newEntity.setX(i);
 						newEntity.setY(j);
 						entities.add(newEntity);
-					}
-					else if (Current.getType() == EnumTiles.SEA_CHEST) {
+					} else if (Current.getType() == EnumTiles.SEA_CHEST) {
 						newEntity = new Tree();
 						newEntity.setAvatar(new TreeAvatar(newEntity));
 						newEntity.setX(i);
@@ -191,7 +189,6 @@ public class GameModele {
 					}
 				}
 			}
->>>>>>> 62b4118a248fcb2ed23b7acb1177e7664208d699
 		}
 	}
 
