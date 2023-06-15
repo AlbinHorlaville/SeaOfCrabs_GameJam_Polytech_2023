@@ -80,13 +80,13 @@ public class BeforePlayingView extends View {
 				try {
 					if (!seedInput.isTextEmpty()) {
 						try {
-							Integer.valueOf(seedInput.getInputText());
+							i = Integer.valueOf(seedInput.getInputText());
 						} catch (NumberFormatException e) {
+							i = r.nextInt();
 							seedInput.setInputText(Integer.toString(i));
-							gameView.getGame().start(i);
 						}
 						// TODO : relier la vue au modele avant d'appeler start
-						gameView.getGame().start(Integer.valueOf(seedInput.getInputText()));
+						gameView.getGame().start(i);
 					} else {
 						seedInput.setInputText(Integer.toString(i));
 						// TODO : relier la vue au modele avant d'appeler start

@@ -110,7 +110,6 @@ public class MapSection {
 				tiles[i][j] = new Tiles(tilesType);
 			}
 		}
-		System.out.print(false);
 	}
 
 	/*
