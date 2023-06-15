@@ -73,10 +73,13 @@ public class Player1 extends Avatar {
 		int width_painted = SCALE_IMG * img.getWidth();
 		int heigth_painted = SCALE_IMG * img.getHeight();
 		
-		int posX = (entity.getX() + ((width-(GameModele.player1.getX()+GameModele.player2.getX()))/2)) - (width_painted/2);
-		int posY = (entity.getY() + ((height-(GameModele.player1.getY()+GameModele.player2.getY()))/2)) - (heigth_painted/2);
-		//g.drawImage(img, width/2-width_painted/2,height/2-heigth_painted/2, width_painted, heigth_painted, null);
-		g.drawImage(img, posX,posY, width_painted, heigth_painted, null);
+		if (GameModele.solo) {
+			g.drawImage(img, width/2-width_painted/2,height/2-heigth_painted/2, width_painted, heigth_painted, null);
+		} else {
+			int posX = (entity.getX() + ((width-(GameModele.player1.getX()+GameModele.player2.getX()))/2)) - (width_painted/2);
+			int posY = (entity.getY() + ((height-(GameModele.player1.getY()+GameModele.player2.getY()))/2)) - (heigth_painted/2);
+			g.drawImage(img, posX,posY, width_painted, heigth_painted, null);
+		}
 	}
 	
 	/**

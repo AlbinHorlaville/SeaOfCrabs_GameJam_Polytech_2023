@@ -61,46 +61,34 @@ public class PlayingView extends View {
 		if (life.getValue() == 0) {
 			life.updateLifePoint(100);
 		}
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/horlavia.collisions
 	}
 
 	@Override
 	public void paint(Graphics g, int width, int height) {
-<<<<<<< HEAD
 		if (GameModele.onSea) {
 			GameModele.map.getRepresentation().paint(g, width, height, GameModele.pirateBoat.getX(),
 					 GameModele.pirateBoat.getY());
 		} else {
-			GameModele.map.getRepresentation().paint(g, width, height, GameModele.player1.getX(),
-					 GameModele.player1.getY());
-		}
+			if (GameModele.solo) {
+				GameModele.map.getRepresentation().paint(g, width, height, GameModele.player1.getX(),
+						 GameModele.player1.getY());
+			} else {
+		 		GameModele.map.getRepresentation().paint(g, width, height,(GameModele.player1.getX() + width + GameModele.player2.getX())/2,
+						(GameModele.player1.getY() + height + GameModele.player2.getY())/2); 
+			}
 
-=======
-		//GameModele.map.getRepresentation().paint(g, width, height, GameModele.player2.getX(),
-		//		 GameModele.player2.getY());
+		}
 		
-		GameModele.map.getRepresentation().paint(g, width, height,(GameModele.player1.getX() + width + GameModele.player2.getX())/2,
-						(GameModele.player1.getY() + height + GameModele.player2.getY())/2);
-		
->>>>>>> origin/horlavia.collisions
+
 		//uiMap.paint(g);
 		for (Entity entity : GameModele.entities) {
 			entity.getAvatar().paint(g, width, height);
 		}
 
 		life.paint(g);
-<<<<<<< HEAD
 		weapons.paint(g);
 
 		// GameModele.map.getMiniMap().paint(g, width, height, 0);
-=======
-		//GameModele.map.getMiniMap().paint(g, width, height, 0);
-		
-		
->>>>>>> origin/horlavia.collisions
 	}
 
 }

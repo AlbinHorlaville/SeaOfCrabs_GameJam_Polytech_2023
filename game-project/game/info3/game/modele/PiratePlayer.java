@@ -26,19 +26,6 @@ public class PiratePlayer extends Player {
 		facing = EnumDirection.N;
 		r = 100;
 	}
-<<<<<<< HEAD
-=======
-
-	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void takeDamage() {
-		// TODO Auto-generated method stub
-	}
->>>>>>> origin/horlavia.collisions
 	
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
