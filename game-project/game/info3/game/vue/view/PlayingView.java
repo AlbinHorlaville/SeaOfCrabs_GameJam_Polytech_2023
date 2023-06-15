@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import info3.game.modele.CrabLair;
+import info3.game.Controller;
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
 import info3.game.modele.Scythe;
@@ -66,6 +66,10 @@ public class PlayingView extends View {
 
 	@Override
 	public void paint(Graphics g, int width, int height) {
+		g.setColor(Color.gray);
+		g.fillRect(0, 0, width, height);
+		GameModele.map.getRepresentation().paint(g, width, height, GameModele.player1.getX(),
+				 GameModele.player1.getY());
 		if (GameModele.onSea) {
 			GameModele.map.getRepresentation().paint(g, width, height, GameModele.pirateBoat.getX(),
 					 GameModele.pirateBoat.getY());
@@ -80,19 +84,17 @@ public class PlayingView extends View {
 
 		}
 		
-
 		//uiMap.paint(g);
 		for (Entity entity : GameModele.entities) {
 			entity.getAvatar().paint(g, width, height);
-			if (entity instanceof CrabLair) {
-				System.out.println("CHECK");
-			}
 		}
 
 		life.paint(g);
 		weapons.paint(g);
-
-		// GameModele.map.getMiniMap().paint(g, width, height, 0);
+		
+		if(Controller.getBuffer()[77]) { // Quand M push
+			GameModele.map.getMiniMap().paint(g, width, height, 0);
+		}
 	}
 
 }

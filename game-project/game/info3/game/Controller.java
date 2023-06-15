@@ -133,7 +133,6 @@ public class Controller implements GameCanvasListener {
 	@Override
 	public void windowOpened() {
 		if (gameModele != null && gameView != null) {
-			SoundTool.playBackgroundMusic();
 		}
 		
 	}

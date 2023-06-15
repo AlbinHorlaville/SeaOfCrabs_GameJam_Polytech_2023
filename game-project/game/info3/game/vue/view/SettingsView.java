@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import info3.game.GameState;
+import info3.game.sound.BackgroundMusic;
+import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIButton;
 import info3.game.vue.toolkitUI.UIChecker;
@@ -16,10 +18,11 @@ import info3.game.vue.toolkitUI.UITitle;
 
 public class SettingsView extends View {
 	UIButton buttonRetour;
-	UICursor cursorVolume;
 	UITitle title;
-	UILabel Volume;
-	UIChecker checkerMute;
+	UILabel backgroundSoundVolumeLabel;
+	UILabel effectSoundVolumeLabel;
+	UIChecker backgroundSoundChecker, effectSoundChecker;
+	BackgroundMusic current;
 
 	public SettingsView(GameView gv) {
 		super(gv);
@@ -28,10 +31,14 @@ public class SettingsView extends View {
 		int windowHeight = (int) gameView.getHeightCanvas();
 
 		title = new UITitle(windowWidth, windowHeight, "Paramètres", FONT2, Color.white);
-		buttonRetour = new UIButton(50, windowHeight - 100, 200, new UILabel(0, 0, "Retour", FONT1, c1), c2);
-		cursorVolume = new UICursor(300, 300, 200, 20, c2, c3);
-		checkerMute = new UIChecker(600, 400, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
-		Volume = new UILabel(260, 250, "Volume : " + cursorVolume.getValue(), FONT1, c3);
+		buttonRetour = new UIButton(50, windowHeight - 100, 200, new UILabel(0, 0, "Retour", FONT1, Color.black),
+				UIButton.BACKGROUND_COLOR_RED);
+
+		backgroundSoundChecker = new UIChecker(300, 230, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
+		effectSoundChecker = new UIChecker(300, 280, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
+
+		backgroundSoundVolumeLabel = new UILabel(50, 250, "Musique de fond : ", FONT1, Color.black);
+		effectSoundVolumeLabel = new UILabel(50, 300, "Effets sonores : ", FONT1, Color.black);
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
@@ -42,14 +49,12 @@ public class SettingsView extends View {
 
 			@Override
 			public void onComponentMouseIn(int x, int y) {
-				buttonRetour.setBackgroundColor(c1);
-				buttonRetour.setForegroundColor(c2);
+				buttonRetour.setBackgroundColor(UIButton.BACKGROUND_COLOR_RED_HOVER);
 			}
 
 			@Override
 			public void onComponentMouseOut(int x, int y) {
-				buttonRetour.setBackgroundColor(c2);
-				buttonRetour.setForegroundColor(c1);
+				buttonRetour.setBackgroundColor(UIButton.BACKGROUND_COLOR_RED);
 			}
 
 			public void onComponentPressed(int x, int y) {
@@ -63,43 +68,43 @@ public class SettingsView extends View {
 
 		});
 
-		cursorVolume.setUIComponentListener(new UIComponentListener() {
+		backgroundSoundChecker.setUIComponentListener(new UIComponentListener() {
 
 			public void onComponentPressed(int x, int y) {
-				cursorVolume.move(x, y);
-				Volume.setText("Volume : " + cursorVolume.getValue());
 			}
 
 			public void onComponentClicked(int x, int y) {
+				backgroundSoundChecker.check();
+				if (!backgroundSoundChecker.isState()) {
+					current = SoundTool.stopBackgroundMusic();
+				} else {
+					SoundTool.playBackgroundMusic();
+				}
 			}
 
 			@Override
 			public void onComponentMouseIn(int x, int y) {
 				// TODO Auto-generated method stub
-				cursorVolume.setColorCursor(c1);
 			}
 
 			@Override
 			public void onComponentMouseOut(int x, int y) {
 				// TODO Auto-generated method stub
-				cursorVolume.setColorCursor(c2);
-
 			}
 
 			@Override
 			public void onKeyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
-
 			};
 		});
 
-		checkerMute.setUIComponentListener(new UIComponentListener() {
+		effectSoundChecker.setUIComponentListener(new UIComponentListener() {
 
 			public void onComponentPressed(int x, int y) {
 			}
 
 			public void onComponentClicked(int x, int y) {
-				checkerMute.check();
+				effectSoundChecker.check();
 			}
 
 			@Override
@@ -119,11 +124,11 @@ public class SettingsView extends View {
 		});
 
 		addComponent(buttonRetour);
-		addComponent(cursorVolume);
-		addComponent(checkerMute);
+		addComponent(backgroundSoundChecker);
 		addComponent(title);
-		addComponent(Volume);
-
+		addComponent(backgroundSoundVolumeLabel);
+		addComponent(effectSoundVolumeLabel);
+		addComponent(effectSoundChecker);
 	}
 
 	@Override
