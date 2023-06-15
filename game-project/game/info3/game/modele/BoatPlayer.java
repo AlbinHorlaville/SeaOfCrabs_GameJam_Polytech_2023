@@ -39,6 +39,10 @@ public class BoatPlayer extends Player {
 
 	}
 	
+	public void addHealthPoints(int healthPoints) {
+		this.lifePoint += healthPoints;
+	}
+	
 	/**
 	 * Cette m�thode doit �tre changer et permettra d'ajouter un boulet quand ramasser
 	 * @param boulet
