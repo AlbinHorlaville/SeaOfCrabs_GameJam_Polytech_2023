@@ -28,10 +28,6 @@ public class PlayingView extends View {
 
 	public PlayingView(GameView gv) {
 		super(gv);
-		// uiMap = new UIMap(GameModele.map.getRepresentation(), window_width,
-		// window_height) ;
-
-		// addComponent(uiMap);
 
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
@@ -81,10 +77,8 @@ public class PlayingView extends View {
 		 		GameModele.map.getRepresentation().paint(g, width, height,(GameModele.player1.getX() + width + GameModele.player2.getX())/2,
 						(GameModele.player1.getY() + height + GameModele.player2.getY())/2); 
 			}
-
 		}
-		
-		//uiMap.paint(g);
+
 		for (Entity entity : GameModele.entities) {
 			entity.getAvatar().paint(g, width, height);
 		}

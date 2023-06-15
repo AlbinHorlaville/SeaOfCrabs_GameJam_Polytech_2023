@@ -91,6 +91,7 @@ public class GameModele {
 	}
 
 	public void start(int s) throws Exception {
+		System.out.println("SOLO = "+solo);
 		if (currentState == GameState.AvantJeu) {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
@@ -109,7 +110,7 @@ public class GameModele {
 			pirateBoat.setAvatar(new BoatPlayerAvatar(pirateBoat));
 			GameModele.entities.add(pirateBoat);
 			map = new Map(s);
-			genereEntity(map);
+			//genereEntity(map);
 		}
 	}
 
