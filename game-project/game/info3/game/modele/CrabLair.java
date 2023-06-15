@@ -25,6 +25,7 @@ public class CrabLair extends StillEntity{
 		this.crabs = new ArrayList<Crab>();
 		this.section = section;
 		this.automate = AutomateLoader.findAutomate("Philosopher");
+		this.current_state = automate.initial_state;
 	}
 
 	@Override

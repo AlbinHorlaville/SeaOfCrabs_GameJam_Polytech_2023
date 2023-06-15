@@ -172,8 +172,8 @@ public class GameModele {
 						newEntity.setX(i);
 						newEntity.setY(j);
 						entities.add(newEntity);
-						System.out.println("CHECK");
-					} else if (Current.getType() == EnumTiles.TREE) {
+					}
+					else if (Current.getType() == EnumTiles.TREE) {
 						newEntity = new Tree();
 						newEntity.setAvatar(new TreeAvatar(newEntity));
 						newEntity.setX(i);
