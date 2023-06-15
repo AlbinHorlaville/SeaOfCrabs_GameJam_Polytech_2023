@@ -9,6 +9,7 @@ public abstract class UIComponent {
 	private int positionY;
 	private int height;
 	private int width;
+	private boolean visible;
 	private UIComponentListener componentListener;
 
 	public UIComponent(int x, int y, int h, int w) {
@@ -100,6 +101,14 @@ public abstract class UIComponent {
 	 */
 	public void keyPressed(KeyEvent e) {
 		componentListener.onKeyPressed(e);
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 
 }

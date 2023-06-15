@@ -36,13 +36,13 @@ public class MenuView extends View {
 		int xButton = (windowWidth - widthButton) / 2;
 		int SpaceBetweenYButton = 100;
 		int yButton = 300;
-		buttonPlay = new UIButton(xButton, yButton, widthButton, new UILabel(0, 0, "Jouer", FONT1, c1), c2);
-		buttonSettings = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,
-				new UILabel(0, 0, "Paramètres", FONT1, c1), c2);
-		buttonScore = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,
-				new UILabel(0, 0, "Score", FONT1, c1), c2);
-		buttonCredits = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,
-				new UILabel(0, 0, "Crédits", FONT1, c1), c2);
+		buttonPlay = new UIButton(xButton, yButton, widthButton,70, new UILabel(0, 0, "Jouer", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
+		buttonSettings = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,70,
+				new UILabel(0, 0, "Paramètres", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
+		buttonScore = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,70,
+				new UILabel(0, 0, "Score", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
+		buttonCredits = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,70,
+				new UILabel(0, 0, "Crédits", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
 
 		title = new UITitle(windowWidth, windowHeight, "SEA OF CRABS", FONT2, Color.white);
 
@@ -51,7 +51,7 @@ public class MenuView extends View {
 			@Override
 			public void onComponentClicked(int x, int y) {
 				try {
-					gameView.getGame().beforePlaying();
+					gameView.getGame().choiceGameplay();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -60,14 +60,12 @@ public class MenuView extends View {
 
 			@Override
 			public void onComponentMouseIn(int x, int y) {
-				buttonPlay.setBackgroundColor(c1);
-				buttonPlay.setForegroundColor(c2);
+				buttonPlay.setBackgroundColor(UIButton.BACKGROUND_COLOR_BLUE_HOVER);
 			}
 
 			@Override
 			public void onComponentMouseOut(int x, int y) {
-				buttonPlay.setBackgroundColor(c2);
-				buttonPlay.setForegroundColor(c1);
+				buttonPlay.setBackgroundColor(UIButton.BACKGROUND_COLOR_BLUE);
 			}
 
 			public void onComponentPressed(int x, int y) {
@@ -96,14 +94,12 @@ public class MenuView extends View {
 
 			@Override
 			public void onComponentMouseIn(int x, int y) {
-				buttonSettings.setBackgroundColor(c1);
-				buttonSettings.setForegroundColor(c2);
+				buttonSettings.setBackgroundColor(UIButton.BACKGROUND_COLOR_BLUE_HOVER);
 			}
 
 			@Override
 			public void onComponentMouseOut(int x, int y) {
-				buttonSettings.setBackgroundColor(c2);
-				buttonSettings.setForegroundColor(c1);
+				buttonSettings.setBackgroundColor(UIButton.BACKGROUND_COLOR_BLUE);
 			}
 
 			public void onComponentPressed(int x, int y) {
@@ -133,14 +129,12 @@ public class MenuView extends View {
 
 			@Override
 			public void onComponentMouseIn(int x, int y) {
-				buttonScore.setBackgroundColor(c1);
-				buttonScore.setForegroundColor(c2);
+				buttonScore.setBackgroundColor(UIButton.BACKGROUND_COLOR_BLUE_HOVER);
 			}
 
 			@Override
 			public void onComponentMouseOut(int x, int y) {
-				buttonScore.setBackgroundColor(c2);
-				buttonScore.setForegroundColor(c1);
+				buttonScore.setBackgroundColor(UIButton.BACKGROUND_COLOR_BLUE);
 			}
 
 			public void onComponentPressed(int x, int y) {
@@ -169,14 +163,12 @@ public class MenuView extends View {
 
 			@Override
 			public void onComponentMouseIn(int x, int y) {
-				buttonCredits.setBackgroundColor(c1);
-				buttonCredits.setForegroundColor(c2);
+				buttonCredits.setBackgroundColor(UIButton.BACKGROUND_COLOR_BLUE_HOVER);
 			}
 
 			@Override
 			public void onComponentMouseOut(int x, int y) {
-				buttonCredits.setBackgroundColor(c2);
-				buttonCredits.setForegroundColor(c1);
+				buttonCredits.setBackgroundColor(UIButton.BACKGROUND_COLOR_BLUE);
 			}
 
 			public void onComponentPressed(int x, int y) {

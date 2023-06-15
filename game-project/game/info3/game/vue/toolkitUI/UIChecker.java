@@ -9,7 +9,7 @@ public class UIChecker extends UIButton {
 	private boolean state;
 
 	public UIChecker(int x, int y, UILabel l, Color c, boolean baseState) {
-		super(x, y, 0, l, c);
+		super(x, y, 0, 0, l,0);
 		this.state = baseState;
 		setHeight(30);
 		setWidth(30);
@@ -32,19 +32,19 @@ public class UIChecker extends UIButton {
 	// son état.
 	// Un lizeré de 2 pixel entoure le rectangle.
 	public void paint(Graphics g) {
-		g.setColor(new Color(90, 90, 255));
+		g.setColor(Color.black);
 		g.fillRect(getPositionX(), getPositionY(), getWidth(), getHeight());
 		if (state) {
-			g.setColor(new Color(90, 255, 90));
+			g.setColor(Color.green);
 		} else {
-			g.setColor(new Color(255, 90, 90));
+			g.setColor(Color.red);
 		}
 		g.fillRect(getPositionX() + 2, getPositionY() + 2, getWidth() - 4, getHeight() - 4);
-		g.setColor(Color.WHITE);
+		g.setColor(Color.black);
 		if (state) {
-			g.drawString("ON", getPositionX() + 2 * getWidth(), getPositionY() + getWidth() * 4 / 5);
+			g.drawString("Activé", getPositionX() + 2 * getWidth(), getPositionY() + getWidth() * 4 / 5);
 		} else {
-			g.drawString("OFF", getPositionX() + 2 * getWidth(), getPositionY() + getWidth() * 4 / 5);
+			g.drawString("Désactivé", getPositionX() + 2 * getWidth(), getPositionY() + getWidth() * 4 / 5);
 		}
 	}
 

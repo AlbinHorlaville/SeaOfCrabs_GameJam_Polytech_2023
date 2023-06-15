@@ -1,6 +1,7 @@
 package info3.game.vue.view;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,8 +10,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import info3.game.GameState;
+import info3.game.modele.GameModele;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIButton;
+import info3.game.vue.toolkitUI.UIComponent;
 import info3.game.vue.toolkitUI.UIComponentListener;
 import info3.game.vue.toolkitUI.UIImage;
 import info3.game.vue.toolkitUI.UILabel;
@@ -56,8 +59,8 @@ public class CommandesView extends View{
 		
 		labelCmdGenerales = new UILabel(460, 490, "Commandes générales", FONT1, Color.white);
 
-		buttonRetour = new UIButton(50, windowHeight - 100, 200, new UILabel(0, 0, "Retour", FONT1, c1), c2);
-		switchCommand = new UIButton(50, windowHeight - 200, 200, new UILabel(0, 0, "Voir joueur n°2", FONT1, c1), c2);
+		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Retour", FONT1, Color.black),UIButton.BACKGROUND_COLOR_RED);
+		switchCommand = new UIButton(50, windowHeight - 200, 200,70, new UILabel(0, 0, "Voir joueur n°2", FONT1, Color.black),UIButton.BACKGROUND_COLOR_YELLOW);
 
 		imageCJ = new UIImage((windowWidth - imageCJ1.getWidth()) / 2, 125, "resources/img/CommandesJoueur1.png", 1);
 		uiImageCG = new UIImage(400, 500, "resources/img/CommandesGenerales.png", 1);
@@ -71,14 +74,12 @@ public class CommandesView extends View{
 
 			@Override
 			public void onComponentMouseIn(int x, int y) {
-				buttonRetour.setBackgroundColor(c1);
-				buttonRetour.setForegroundColor(c2);
+				buttonRetour.setBackgroundColor(UIButton.BACKGROUND_COLOR_RED_HOVER);
 			}
 
 			@Override
 			public void onComponentMouseOut(int x, int y) {
-				buttonRetour.setBackgroundColor(c2);
-				buttonRetour.setForegroundColor(c1);
+				buttonRetour.setBackgroundColor(UIButton.BACKGROUND_COLOR_RED);
 			}
 
 			public void onComponentPressed(int x, int y) {
@@ -110,14 +111,12 @@ public class CommandesView extends View{
 
 			@Override
 			public void onComponentMouseIn(int x, int y) {
-				switchCommand.setBackgroundColor(c1);
-				switchCommand.setForegroundColor(c2);
+				switchCommand.setBackgroundColor(UIButton.BACKGROUND_COLOR_YELLOW_HOVER);
 			}
 
 			@Override
 			public void onComponentMouseOut(int x, int y) {
-				switchCommand.setBackgroundColor(c2);
-				switchCommand.setForegroundColor(c1);
+				switchCommand.setBackgroundColor(UIButton.BACKGROUND_COLOR_YELLOW);
 			}
 
 			public void onComponentPressed(int x, int y) {
@@ -181,6 +180,17 @@ public class CommandesView extends View{
 		addComponent(switchCommand);
 		addComponent(title);
 		addComponent(labelCmdGenerales);
+	}
+	
+	@Override
+	public void paint(Graphics g, int width, int height) {
+		if (GameModele.solo) {
+			title.setText("Commandes");
+		}
+		for (UIComponent c : components) {
+			if (c == switchCommand  && GameModele.solo) continue;
+			c.paint(g);
+		}
 	}
 
 	@Override
