@@ -133,18 +133,5 @@ public class GameModele {
 			setCurrentState(GameState.AvantJeu);
 		}
 	}
-	
-	public static void switchSeaToEarth() {
-		if (onSea) {
-			entities.remove(pirateBoat);
-			entities.add(player1);
-			//entities.add(player2);
-		} else {
-			entities.add(pirateBoat);
-			entities.remove(player1);
-			//entities.remove(player2);
-		}
-		onSea = !onSea;
-	}
 
 }

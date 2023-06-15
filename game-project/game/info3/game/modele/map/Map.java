@@ -158,6 +158,33 @@ public class Map {
 			
 		}
 	}
+	
+	/**
+	 * Get the Wave Offset for a pos
+	 * @param xPos
+	 * @param yPos
+	 * @return
+	 */
+	public double getWaveOffset(int xPos, int yPos) {
+		if (getTileUnderEntity(xPos, yPos).getType() == EnumTiles.CALM_WATER) {
+			int x = transpoXCoordinateToTile(xPos, yPos);
+			int y = transpoYCoordinateToTile(xPos, yPos);
+
+			int numSection = this.nbSection;
+
+			while (y >= 0) {
+				y -= this.sectionHeight;
+				numSection--;
+			}
+
+			y += this.sectionHeight;
+
+			return this.wave[numSection*this.sectionHeight + x][y];
+		} else {
+			return 0;
+		}
+	}
+
 
 	/*
 	 * Print the waveMap, usefull for debbuging

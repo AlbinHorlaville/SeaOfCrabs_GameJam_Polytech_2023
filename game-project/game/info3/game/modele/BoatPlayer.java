@@ -51,6 +51,19 @@ public class BoatPlayer extends Player {
 	public void move(EnumDirection eval) {
 		facing = eval;
 		this.moveEntity(eval, DEFAULT_BOATPLAYER_SPEED);
+		switch (GameModele.map.getTileUnderEntity(this.x, this.y).getType()) {
+		case SAND:
+		case SAND_WATER:
+		case GRASS:
+			GameModele.entities.remove(this);
+			GameModele.player1.setLocation(x, y);
+			GameModele.player1.facing = this.facing;
+			GameModele.entities.add(GameModele.player1);
+			GameModele.onSea = !GameModele.onSea;
+			break;
+		default:
+			break;
+		}
 	}
 
 }

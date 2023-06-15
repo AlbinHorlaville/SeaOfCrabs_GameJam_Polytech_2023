@@ -43,6 +43,19 @@ public class PiratePlayer extends Player {
 	public void move(EnumDirection eval) {
 		facing = eval;
 		this.moveEntity(eval, DEFAULT_PIRATEPLAYER_SPEED);
+		switch (GameModele.map.getTileUnderEntity(this.x, this.y).getType()) {
+		case CALM_WATER:
+		case STORMY_WATER:
+		case RAGING_WATER:
+			GameModele.entities.remove(this);
+			GameModele.pirateBoat.setLocation(x, y);
+			GameModele.pirateBoat.facing = this.facing;
+			GameModele.entities.add(GameModele.pirateBoat);
+			GameModele.onSea = !GameModele.onSea;
+			break;
+		default:
+			break;
+		}
 	}
 
 }

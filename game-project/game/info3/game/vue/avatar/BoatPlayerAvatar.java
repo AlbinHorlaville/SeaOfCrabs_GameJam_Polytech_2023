@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import info3.game.modele.BoatPlayer;
 import info3.game.modele.Entity;
+import info3.game.modele.GameModele;
 import info3.game.modele.PiratePlayer;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
@@ -41,7 +42,7 @@ public class BoatPlayerAvatar extends Avatar {
 		BufferedImage img = m_images[imageIndex];
 		int width_painted = SCALE_IMG * img.getWidth();
 		int heigth_painted = SCALE_IMG * img.getHeight();
-		g.drawImage(img, width/2-width_painted/2,height/2-heigth_painted/2, width_painted, heigth_painted, null);
+		g.drawImage(img, width/2-width_painted/2,(int) ((height/2-heigth_painted/2)+GameModele.map.getWaveOffset(entity.getX(), entity.getY())), width_painted, heigth_painted, null);
 	}
 
 }
