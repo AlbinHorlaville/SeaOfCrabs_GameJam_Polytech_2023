@@ -105,7 +105,7 @@ public class GameModele {
 			pirateBoat.setAvatar(new BoatPlayerAvatar(pirateBoat));
 			GameModele.entities.add(pirateBoat);
 			
-			map = new Map(s, 3, 96, 48);
+			map = new Map(s);
 		}
 	}
 

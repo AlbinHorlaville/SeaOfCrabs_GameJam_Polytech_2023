@@ -47,6 +47,35 @@ public class Map {
 
 		this.wave = new double[this.sectionHeight * this.nbSection][this.sectionWidth];
 
+		generateBaseMap();
+
+		generateWave();
+
+		this.mapRepres = new MapRepresentation(this);
+
+		this.miniMap = new MiniMap(this);
+	}
+
+	/*
+	 * @param seed : the seed of the map
+	 * 
+	 * @param nbSection : the number of section in the map
+	 * 
+	 * @param sectionWidth and sectionHeight : the dimension of a section
+	 * 
+	 */
+	public Map(int seed) throws Exception {
+		this.seed = seed;
+		this.rand = new Random(this.seed);
+
+		this.sectionHeight = 48;
+		this.sectionWidth = 96;
+		this.nbSection = 9;
+
+		this.map = new MapSection[this.nbSection];
+
+		this.wave = new double[this.sectionHeight * this.nbSection][this.sectionWidth];
+
 		generateMap();
 
 		generateWave();
@@ -59,10 +88,30 @@ public class Map {
 	/*
 	 * Generate a map based on the seed and the section parameters
 	 */
-	public void generateMap() throws Exception {
+	public void generateBaseMap() throws Exception {
 		for (int i = 0; i < this.nbSection; i++) {
 			this.map[i] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
 		}
+	}
+
+	/*
+	 * Generate a map based on the seed and the section parameters
+	 */
+	public void generateMap() throws Exception {
+		this.map[0] = new MapSection(EnumSectionType.HARBOR, this.sectionWidth, this.sectionHeight, this.rand);
+		
+		this.map[1] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		this.map[2] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		
+		this.map[3] = new MapSection(EnumSectionType.STORMY_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		this.map[4] = new MapSection(EnumSectionType.STORMY_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		
+		this.map[5] = new MapSection(EnumSectionType.RAGING_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		this.map[6] = new MapSection(EnumSectionType.RAGING_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		
+		this.map[7] = new MapSection(EnumSectionType.CRAB_KING_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+	
+		this.map[8] = new MapSection(EnumSectionType.KRAKEN_SEA, this.sectionWidth, this.sectionHeight, this.rand);
 	}
 
 	public void setImageSize(int width, int height) {
@@ -104,7 +153,7 @@ public class Map {
 	/*
 	 * Convert normal (x,y) coordinate to isometric x coordinate
 	 */
-	public int transpoYCoordinateToTile(int xPos, int yPos) {
+	public int transpoXCoordinateToTile(int xPos, int yPos) {
 		int xNoIso = 0;
 
 		double det = determinant();
@@ -117,7 +166,7 @@ public class Map {
 	/*
 	 * Convert normal (x,y) coordinate to isometric y coordinate
 	 */
-	public int transpoXCoordinateToTile(int xPos, int yPos) {
+	public int transpoYCoordinateToTile(int xPos, int yPos) {
 		int yNoIso = 0;
 
 		double det = determinant();
@@ -140,7 +189,7 @@ public class Map {
 
 		y += this.sectionHeight;
 
-		return this.map[numSection].getTiles()[x][y];
+		return this.map[numSection].getTiles()[y][x];
 	}
 
 	double determinant() {
@@ -155,12 +204,13 @@ public class Map {
 		for (int i = 0; i < this.nbSection; i++) {
 			System.out.print("\n----" + i + "----\n");
 			this.map[i].printSection();
-			
+
 		}
 	}
-	
+
 	/**
 	 * Get the Wave Offset for a pos
+	 * 
 	 * @param xPos
 	 * @param yPos
 	 * @return
@@ -179,12 +229,11 @@ public class Map {
 
 			y += this.sectionHeight;
 
-			return this.wave[numSection*this.sectionHeight + x][y];
+			return this.wave[numSection * this.sectionHeight + y][x];
 		} else {
 			return 0;
 		}
 	}
-
 
 	/*
 	 * Print the waveMap, usefull for debbuging

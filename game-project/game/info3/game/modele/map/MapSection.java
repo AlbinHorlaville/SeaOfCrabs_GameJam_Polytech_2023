@@ -49,6 +49,9 @@ public class MapSection {
 		initSection();
 
 		switch (seaType) {
+		case HARBOR:
+			generateHarbor();
+			break;
 		case CALM_SEA:
 			generateCalmSea();
 			break;
@@ -62,15 +65,17 @@ public class MapSection {
 			generateKingCrabSea();
 			break;
 		case KRAKEN_SEA:
-			generateKrakenSea();
 			break;
 		default:
 			throw new Exception("Type de section inexistante");
 		}
 
-		addSandToGrassTransition();
+		if (seaType == EnumSectionType.CALM_SEA) {
+			addSandToGrassTransition();
 
-		generateCrabsLair();
+			generateCrabsLair();
+		}
+
 	}
 
 	/*
@@ -80,6 +85,7 @@ public class MapSection {
 		EnumTiles tilesType;
 
 		switch (this.seaType) {
+		case HARBOR:
 		case CALM_SEA:
 			tilesType = EnumTiles.CALM_WATER;
 			break;
@@ -87,7 +93,11 @@ public class MapSection {
 			tilesType = EnumTiles.STORMY_WATER;
 			break;
 		case RAGING_SEA:
+			tilesType = EnumTiles.RAGING_WATER;
+			break;
 		case KRAKEN_SEA:
+			tilesType = EnumTiles.KRAKEN_WATER;
+			break;
 		case CRAB_KING_SEA:
 			tilesType = EnumTiles.RAGING_WATER;
 			break;
@@ -100,6 +110,7 @@ public class MapSection {
 				tiles[i][j] = new Tiles(tilesType);
 			}
 		}
+		System.out.print(false);
 	}
 
 	/*
@@ -121,6 +132,48 @@ public class MapSection {
 			generateCalmSea();
 		} else { // Otherwise, we insert the island in the section
 			insertIslandInSection(tempPerlinNoiseIsland, islandSize);
+		}
+	}
+	
+	private void generateHarbor() {
+
+		// Generation of perlin noise for the island
+		double[][] harborSection = new double[this.sectionHeight][this.sectionWidth];
+
+		harborSection = generateHarborGradient(harborSection);
+
+		insertHarborInSection(harborSection);
+	}
+	
+	private double[][] generateHarborGradient(double[][] harbor) {
+		double value;
+		for (int i = 4; i >= 0; i--) {
+			value = i * 0.2;
+			for (int j = 0; j < this.sectionWidth; j++) {
+				harbor[this.sectionHeight - 1 - i][j] = 1;
+			}
+		}
+
+		for (int i = this.sectionHeight - 6; i >= 0; i--) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				harbor[i][j] = 0;
+			}
+		}
+
+		return harbor;
+	}
+	
+	private void insertHarborInSection(double[][] harbor) {
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if ((i == this.sectionHeight  - 6 || i == this.sectionHeight  - 7) && j == this.sectionWidth / 2) {
+					this.tiles[i][j].setType(EnumTiles.PONTOON);
+				} else if (harbor[i][j] == 0) {
+					this.tiles[i][j].setType(EnumTiles.CALM_WATER);
+				} else if (harbor[i][j] > 0) {
+					this.tiles[i][j].setType(EnumTiles.SAND);
+				}
+			}
 		}
 	}
 
@@ -156,17 +209,7 @@ public class MapSection {
 	 * TODO
 	 */
 	private void generateKingCrabSea() {
-	}
-
-	/*
-	 * Generate a sea of the type krakenSea, no island, only raging water.
-	 */
-	private void generateKrakenSea() {
-		for (int i = 0; i < sectionHeight; i++) {
-			for (int j = 0; j < sectionWidth; j++) {
-				this.tiles[i][j].setType(EnumTiles.RAGING_WATER);
-			}
-		}
+		generateRagingSea();
 	}
 
 	/*
@@ -535,11 +578,11 @@ public class MapSection {
 	public Tiles[][] getTiles() {
 		return this.tiles;
 	}
-	
+
 	public RedCross getRedCross() {
 		return this.redCross;
 	}
-	
+
 	public CrabLair getCrabLair() {
 		return this.crabLair;
 	}
