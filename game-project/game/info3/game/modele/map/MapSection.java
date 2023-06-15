@@ -2,6 +2,9 @@ package info3.game.modele.map;
 
 import java.util.Random;
 
+import info3.game.modele.CrabLair;
+import info3.game.modele.RedCross;
+
 /*
  * Contain the reprensation of a section of the map
  */
@@ -19,6 +22,9 @@ public class MapSection {
 	// in
 
 	private final static int NB_TILE_MIN_PER_ISLAND = 230; // The number of tiles an island must be composed to be valid
+
+	private RedCross redCross;
+	private CrabLair crabLair;
 
 	/*
 	 * @param seaType : The type of sea
@@ -63,6 +69,8 @@ public class MapSection {
 		}
 
 		addSandToGrassTransition();
+
+		generateCrabsLair();
 	}
 
 	/*
@@ -435,6 +443,57 @@ public class MapSection {
 			double transformedRangeMax) {
 		return transformedRangeMin + ((transformedRangeMax - transformedRangeMin) / (initialRangeMax - initialRangeMin))
 				* (value - initialRangeMin);
+	}
+
+	private void generateCrabsLair() {
+		int rand;
+		boolean added = false;
+		for (int i = 0; i < this.sectionHeight - 1 && !added; i++) {
+			for (int j = 0; j < this.sectionWidth - 2 && !added; j++) {
+				if (!added && this.tiles[i][j].getType() == EnumTiles.GRASS
+						&& this.tiles[i][j + 1].getType() == EnumTiles.GRASS
+						&& this.tiles[i][j + 2].getType() == EnumTiles.GRASS
+						&& this.tiles[i + 1][j].getType() == EnumTiles.GRASS
+						&& this.tiles[i + 1][j + 1].getType() == EnumTiles.GRASS
+						&& this.tiles[i + 1][j + 2].getType() == EnumTiles.GRASS) {
+					rand = this.randomGenerator.nextInt(100);
+					if (rand == 50) {
+						this.tiles[i][j].setType(EnumTiles.CRAB_SPAWNER);
+						this.tiles[i][j + 1].setType(EnumTiles.CRAB_SPAWNER);
+						this.tiles[i][j + 2].setType(EnumTiles.CRAB_SPAWNER);
+						this.tiles[i + 1][j].setType(EnumTiles.CRAB_SPAWNER);
+						this.tiles[i + 1][j + 1].setType(EnumTiles.CRAB_SPAWNER);
+						this.tiles[i + 1][j + 2].setType(EnumTiles.CRAB_SPAWNER);
+						this.crabLair = new CrabLair(10, 1, 10, this);
+						added = true;
+					}
+				}
+			}
+		}
+
+		if (!added) {
+			generateCrabsLair();
+		}
+	}
+
+	public void generateRedCross() {
+		int rand;
+		boolean added = false;
+		for (int i = 0; i < this.sectionHeight - 1 && !added; i++) {
+			for (int j = 0; j < this.sectionWidth - 2 && !added; j++) {
+				if (!added && this.tiles[i][j].getType() == EnumTiles.SAND) {
+					rand = this.randomGenerator.nextInt(300);
+					if (rand == 150) {
+						this.tiles[i][j].setType(EnumTiles.TREASUR);
+						this.redCross = new RedCross(this);
+						added = true;
+					}
+				}
+			}
+		}
+		if (!added) {
+			generateRedCross();
+		}
 	}
 
 	/*

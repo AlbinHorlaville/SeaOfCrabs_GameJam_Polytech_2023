@@ -27,6 +27,8 @@ public class MapRepresentation {
 	private BufferedImage sandImage;
 	private BufferedImage waterImage;
 	private BufferedImage sandWaterImage;
+	private BufferedImage stoneImage;
+	private BufferedImage treasurImage;
 
 	private BufferedImage[] grassTransitionOneSide;
 	private BufferedImage[] grassTransitionTwoSide;
@@ -77,6 +79,20 @@ public class MapRepresentation {
 			this.sandWaterImage = ImageIO.read(imageFile);
 			this.sandWaterImage = resize(this.sandWaterImage, this.sandWaterImage.getWidth() * scale,
 					this.sandWaterImage.getHeight() * scale);
+		}
+		
+		imageFile = new File("assets/img/tiles/stone.png");
+		if (imageFile.exists()) {
+			this.stoneImage = ImageIO.read(imageFile);
+			this.stoneImage = resize(this.stoneImage, this.stoneImage.getWidth() * scale,
+					this.stoneImage.getHeight() * scale);
+		}
+
+		imageFile = new File("assets/img/tiles/treasur.png");
+		if (imageFile.exists()) {
+			this.treasurImage = ImageIO.read(imageFile);
+			this.treasurImage = resize(this.treasurImage, this.treasurImage.getWidth() * scale,
+					this.treasurImage.getHeight() * scale);
 		}
 
 		this.grassTransitionAngle = new BufferedImage[4];
@@ -277,6 +293,12 @@ public class MapRepresentation {
 							img = sandImage;
 							sandWater = true;
 							break;
+						case TREASUR:
+							img = this.treasurImage;
+							break;
+						case CRAB_SPAWNER:
+							img = this.stoneImage;
+							break;
 						case TRANSITION_GRASS_ANGLE_SAND_TOP_RIGHT:
 							img = this.grassTransitionAngle[0];
 							break;
@@ -313,8 +335,6 @@ public class MapRepresentation {
 						case TRANSITION_GRASS_UNDER_SAND:
 							img = this.grassTransitionOneSide[3];// grassUnderOfSand
 							break;
-
-						///////
 						case TRANSITION_GRASS_ON_LEFT_AND_ON_RIGHT_OF_SAND:
 							img = this.grassTransitionTwoSide[0];// grassOnLeftAndOnRightOfSand
 							break;
