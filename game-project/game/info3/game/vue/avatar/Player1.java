@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import info3.game.Controller;
 import info3.game.modele.Entity;
+import info3.game.modele.GameModele;
 import info3.game.modele.PiratePlayer;
 
 public class Player1 extends Avatar {
@@ -65,6 +66,9 @@ public class Player1 extends Avatar {
 		} else {
 			imageIndex = 0;
 		}
+		
+		System.out.println("Player1 " + GameModele.player1.getX()+ " " + GameModele.player1.getY());
+		System.out.println("Player2 " + GameModele.player2.getX()+ " " + GameModele.player2.getY());
 		
 
 	}

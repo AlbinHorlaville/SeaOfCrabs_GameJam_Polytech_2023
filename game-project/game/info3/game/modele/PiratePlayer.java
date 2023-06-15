@@ -22,6 +22,7 @@ public class PiratePlayer extends Player {
 		this.automate = AutomateLoader.findAutomate("Player");
 		this.current_state = automate.initial_state;
 		facing = EnumDirection.N;
+		r = 100;
 	}
 
 	@Override
