@@ -535,4 +535,12 @@ public class MapSection {
 	public Tiles[][] getTiles() {
 		return this.tiles;
 	}
+	
+	public RedCross getRedCross() {
+		return this.redCross;
+	}
+	
+	public CrabLair getCrabLair() {
+		return this.crabLair;
+	}
 }
