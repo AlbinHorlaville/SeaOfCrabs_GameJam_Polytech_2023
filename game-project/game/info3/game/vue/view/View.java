@@ -2,7 +2,11 @@ package info3.game.vue.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import info3.game.vue.GameView;
@@ -18,7 +22,7 @@ public abstract class View {
 	protected Color c1;
 	protected Color c2;
 	protected Color c3;
-
+	
 	protected static final Font FONT1 = new Font("TimesRoman", Font.BOLD, 20);
 	protected static final Font FONT2 = new Font("IMPACT", Font.BOLD, 100);
 	protected static final Font FONT3 = new Font("TimesRoman", Font.BOLD, 12);
@@ -33,6 +37,7 @@ public abstract class View {
 
 		gameView = gv;
 		components = new ArrayList<>();
+
 	}
 
 	public abstract void tick(long elapsed);

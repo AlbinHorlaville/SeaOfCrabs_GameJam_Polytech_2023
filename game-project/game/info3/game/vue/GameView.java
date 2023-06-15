@@ -3,11 +3,18 @@ package info3.game.vue;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.util.HashMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -37,6 +44,8 @@ public class GameView {
 
 	HashMap<GameState, View> all_views;
 
+	BufferedImage backgroundImage;
+
 	private long m_textElapsed;
 
 	public GameView(GameModele game, Controller controller) throws IOException {
@@ -47,6 +56,7 @@ public class GameView {
 			canvas = new GameCanvas(controller);
 
 			SoundTool.initSoundTool(canvas); // INITIALISATION DE L OUTILS DE SON
+			SoundTool.playBackgroundMusic();
 
 			// creating the game canvas to render the game,
 			// that would be a part of the view in the MVC pattern
@@ -56,6 +66,14 @@ public class GameView {
 			frame = canvas.createFrame(d);
 
 			System.out.println("  - setting up the frame...");
+			File backgroundImageFile = new File("resources/img/background.jpg");
+			try {
+				backgroundImage = ImageIO.read(backgroundImageFile);
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			setupFrame();
 
 			System.out.println("  - Init the view...");
@@ -153,9 +171,12 @@ public class GameView {
 		// get the size of the canvas
 		int width = canvas.getWidth();
 		int height = canvas.getHeight();
-		// erase background
+
 		g.setColor(Color.gray);
 		g.fillRect(0, 0, width, height);
+		/*if (this.game.getCurrentState() != GameState.Jeu) {
+			g.drawImage(backgroundImage, 0, 0, 1024, 768, null);
+		}*/
 
 		this.currentView.paint(g, width, height);
 	}
