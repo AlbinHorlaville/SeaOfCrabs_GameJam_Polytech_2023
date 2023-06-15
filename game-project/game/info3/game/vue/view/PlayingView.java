@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
+import info3.game.modele.Scythe;
+import info3.game.modele.Sword;
 import info3.game.modele.Weapon;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIBarrePointDeVie;
@@ -36,8 +38,8 @@ public class PlayingView extends View {
 		life = new UIBarrePointDeVie();
 
 		weapons = new UIBoxes((windowWidth - 100) / 2, windowHeight - 114);
-		boxSword = new UIBox(64, Weapon.Sword, new UIImage(0, 0, "resources/img/Sword.png", 1F));
-		boxScythe = new UIBox(64, Weapon.Scythe, new UIImage(0, 0, "resources/img/Scythe.png", 1F));
+		boxSword = new UIBox(64, Sword.getInstance(), new UIImage(0, 0, "resources/img/Sword.png", 1F));
+		boxScythe = new UIBox(64, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 1F));
 		weapons.addBox(boxSword);
 		weapons.addBox(boxScythe);
 

@@ -77,13 +77,13 @@ Escape(Init){
 
 Player(Init){
   * (Init):
-  | Key(FR) & Key(FU) ? Move(NE) :(Init)
-  | Key(FR) & Key(FD) ? Move(SE) :(Init)
-  | Key(FL) & Key(FU) ? Move(NW) :(Init)
-  | Key(FL) & Key(FD) ? Move(SW) :(Init)
-  | Key(FU) ? Move(N) :(Init)
-  | Key(FD) ? Move(S) :(Init)
-  | Key(FL) ? Move(W) :(Init)
-  | Key(FR) ? Move(E) :(Init)
+  | Key(FR) & Key(FU) & !Cell(NE,O) ? Move(NE) :(Init)
+  | Key(FR) & Key(FD) & !Cell(SE,O) ? Move(SE) :(Init)
+  | Key(FL) & Key(FU) & !Cell(NW,O) ? Move(NW) :(Init)
+  | Key(FL) & Key(FD) & !Cell(SW,O) ? Move(SW) :(Init)
+  | Key(FU) & !Cell(N,O) ? Move(N) :(Init)
+  | Key(FD) & !Cell(S,O) ? Move(S) :(Init)
+  | Key(FL) & !Cell(W,O) ? Move(W) :(Init)
+  | Key(FR) & !Cell(E,O) ? Move(E) :(Init)
 
 }

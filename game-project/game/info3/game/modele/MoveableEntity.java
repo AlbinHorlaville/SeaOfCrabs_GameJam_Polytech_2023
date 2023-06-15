@@ -1,6 +1,7 @@
 package info3.game.modele;
 
 import automate.Category;
+import automate.EnumCategory;
 import automate.EnumDirection;
 
 public abstract class MoveableEntity extends Entity{
@@ -16,20 +17,17 @@ public abstract class MoveableEntity extends Entity{
 		this.speedCoeff = speedCoeff;
 	}
 
-
-	public abstract void attack();
-
 	public abstract void takeDamage(int damage);
 	
-	public abstract boolean closeTo(Direction d, Category c);
+	public abstract boolean closeTo(EnumDirection d, EnumCategory c);
 	
-	public abstract boolean closest(Direction d, Category c);
+	public abstract boolean closest(EnumDirection d, EnumCategory c);
 	
 	public abstract boolean gotStuff();
 	
-	public abstract boolean cell(Direction d, Category c);
+	public abstract boolean cell(EnumDirection d, EnumCategory c);
 	
-	public abstract void hit(Direction d, Category c);
+	public abstract void hit(EnumDirection d, EnumCategory c);
 	
 	
 	public boolean gotPower() {
