@@ -21,7 +21,13 @@ public class Cell extends FunCall {
 
 	@Override
 	public boolean eval(Entity e) {
-		return ((MoveableEntity)e).cell((EnumDirection)direction.eval(), (EnumCategory)categorie.eval());
+		try {
+			return ((MoveableEntity)e).cell((EnumDirection)direction.eval(), (EnumCategory)categorie.eval());
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override
