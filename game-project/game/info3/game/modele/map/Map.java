@@ -192,6 +192,111 @@ public class Map {
 		return this.map[numSection].getTiles()[y][x];
 	}
 	
+	public Tiles getTileNorthOfEntity(int xPos, int yPos) {
+		int x = transpoXCoordinateToTile(xPos, yPos);
+		int y = transpoYCoordinateToTile(xPos, yPos);
+
+		int numSection = this.nbSection;
+
+		while (y >= 0) {
+			y -= this.sectionHeight;
+			numSection--;
+		}
+
+		y += this.sectionHeight;
+		
+		if (y > 0) {
+			return this.map[numSection].getTiles()[y-1][x];
+		} else {
+			if (numSection < this.nbSection - 1) {
+				return this.map[numSection + 1].getTiles()[this.sectionHeight - 1][x];
+			}
+			return null;
+		}
+	}
+	
+	public Tiles getTileSouthOfEntity(int xPos, int yPos) {
+		int x = transpoXCoordinateToTile(xPos, yPos);
+		int y = transpoYCoordinateToTile(xPos, yPos);
+
+		int numSection = this.nbSection;
+
+		while (y >= 0) {
+			y -= this.sectionHeight;
+			numSection--;
+		}
+
+		y += this.sectionHeight;
+		
+		if (y < this.sectionHeight - 1) {
+			return this.map[numSection].getTiles()[y+1][x];
+		} else {
+			if (numSection > 0) {
+				return this.map[numSection - 1].getTiles()[0][x];
+			}
+			return null;
+		}
+	}
+	
+	public Tiles getTileWestOfEntity(int xPos, int yPos) {
+		int x = transpoXCoordinateToTile(xPos, yPos);
+		int y = transpoYCoordinateToTile(xPos, yPos);
+
+		int numSection = this.nbSection;
+
+		while (y >= 0) {
+			y -= this.sectionHeight;
+			numSection--;
+		}
+
+		y += this.sectionHeight;
+		
+		if (y > 0) {
+			return this.map[numSection].getTiles()[y][x-1];
+		} else {
+			return null;
+		}
+	}
+	
+	public Tiles getTileEastOfEntity(int xPos, int yPos) {
+		int x = transpoXCoordinateToTile(xPos, yPos);
+		int y = transpoYCoordinateToTile(xPos, yPos);
+
+		int numSection = this.nbSection;
+
+		while (y >= 0) {
+			y -= this.sectionHeight;
+			numSection--;
+		}
+
+		y += this.sectionHeight;
+		
+		if (y < this.sectionWidth - 1) {
+			return this.map[numSection].getTiles()[y][x+1];
+		} else {
+			return null;
+		}
+	}
+	
+	/*
+	 * Return the tiles around an entity in an array (clockwise) with at the index
+	 * 0 : the tiles at North
+	 * 1 : the tiles at East
+	 * 2 : the tiles at South
+	 * 3 : the tiles at West
+	 * 
+	 */
+	public Tiles[] getTilesAroundEntity(int xPos, int yPos) {
+		Tiles[] around = new Tiles[4];
+		
+		around[0] = getTileNorthOfEntity(xPos, yPos);
+		around[1] = getTileEastOfEntity(xPos, yPos);
+		around[2] = getTileSouthOfEntity(xPos, yPos);
+		around[3] = getTileEastOfEntity(xPos, yPos);
+		
+		return around;
+	}
+	
 	public int getSectionOfEntity(int xPos, int yPos) {
 		int y = transpoYCoordinateToTile(xPos, yPos);
 
