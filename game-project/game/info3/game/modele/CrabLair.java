@@ -17,15 +17,13 @@ public class CrabLair extends StillEntity{
 	private ArrayList<Crab> crabs; 
 	private ArrayList<Tiles> tilesForCrabSpanwing;
 	private MapSection section;
-	private int level;
 	
-	public CrabLair(int nbCrabs, int crabsLvl, int lifePoint, int level, MapSection section) {
+	public CrabLair(int nbCrabs, int crabsLvl, int lifePoint, MapSection section) {
 		this.nbCrabs = nbCrabs;
 		this.crabsLvl = crabsLvl;
 		this.lifePoint = lifePoint;
 		this.crabs = new ArrayList<Crab>();
 		this.section = section;
-		this.level = level;
 		this.automate = AutomateLoader.findAutomate("Philosopher");
 	}
 
@@ -57,7 +55,7 @@ public class CrabLair extends StillEntity{
 		Tiles tile = this.tilesForCrabSpanwing.get(rand);
 		
 		//Create crab and addint it to the List
-		Crab crab = new Crab(this.level, this);
+		Crab crab = new Crab(this.crabsLvl, this);
 		crab.setLocation(tile.getX(), tile.getY());
 		this.crabs.add(crab);
 		
