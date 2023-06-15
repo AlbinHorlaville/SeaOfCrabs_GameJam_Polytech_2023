@@ -61,7 +61,6 @@ public class PlayingView extends View {
 		if (life.getValue() == 0) {
 			life.updateLifePoint(100);
 		}
-
 	}
 
 	@Override
@@ -70,9 +69,16 @@ public class PlayingView extends View {
 			GameModele.map.getRepresentation().paint(g, width, height, GameModele.pirateBoat.getX(),
 					 GameModele.pirateBoat.getY());
 		} else {
-			GameModele.map.getRepresentation().paint(g, width, height, GameModele.player1.getX(),
-					 GameModele.player1.getY());
+			if (GameModele.solo) {
+				GameModele.map.getRepresentation().paint(g, width, height, GameModele.player1.getX(),
+						 GameModele.player1.getY());
+			} else {
+		 		GameModele.map.getRepresentation().paint(g, width, height,(GameModele.player1.getX() + width + GameModele.player2.getX())/2,
+						(GameModele.player1.getY() + height + GameModele.player2.getY())/2); 
+			}
+
 		}
+		
 
 		//uiMap.paint(g);
 		for (Entity entity : GameModele.entities) {

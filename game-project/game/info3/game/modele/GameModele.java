@@ -46,6 +46,8 @@ public class GameModele {
 	
 	public static boolean onSea = true;
 	
+	public static boolean solo = true;
+	
 	public static Map map;
 	
 	int waveTick = 0;
@@ -88,13 +90,16 @@ public class GameModele {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
 			
-			player1 = new PiratePlayer();
+
+			player1 = new PiratePlayer("Player1");
 			player1.setAvatar(new Player1(player1));
 			//GameModele.entities.add(player1);
 
-			player2 = new PiratePlayer();
-			player2.setAvatar(new Player2(player2));
-			//GameModele.entities.add(player2);
+			if (!solo) {
+				player2 = new PiratePlayer("Player2");
+				player2.setAvatar(new Player2(player2));
+				//GameModele.entities.add(player2);
+			}
 
 			pirateBoat = new BoatPlayer();
 			pirateBoat.setAvatar(new BoatPlayerAvatar(pirateBoat));
