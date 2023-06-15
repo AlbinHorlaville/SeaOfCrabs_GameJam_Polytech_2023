@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.Random;
 
 import info3.game.GameState;
+import info3.game.modele.Scythe;
+import info3.game.modele.Sword;
 import info3.game.modele.Weapon;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIBox;
@@ -43,14 +45,10 @@ public class BeforePlayingView extends View {
 		weaponLabelPlayer1 = new UILabel(50, 221, "Arme du joueur n°1 : ", FONT1, c2);
 		weaponLabelPlayer2 = new UILabel(50, 321, "Arme du joueur n°2 : ", FONT1, c2);
 
-		boxSwordPlayer1 = new UIBox(96, Weapon.Sword, new UIImage(0, 0, "resources/img/Sword.png", 2F), Color.gray,
-				Color.black);
-		boxScythePlayer1 = new UIBox(96, Weapon.Scythe, new UIImage(0, 0, "resources/img/Scythe.png", 2F), Color.gray,
-				Color.black);
-		boxSwordPlayer2 = new UIBox(96, Weapon.Sword, new UIImage(0, 0, "resources/img/Sword.png", 2F), Color.gray,
-				Color.black);
-		boxScythePlayer2 = new UIBox(96, Weapon.Scythe, new UIImage(0, 0, "resources/img/Scythe.png", 2F), Color.gray,
-				Color.black);
+		boxSwordPlayer1 = new UIBox(96, Sword.getInstance(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
+		boxScythePlayer1 = new UIBox(96, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 2F));
+		boxSwordPlayer2 = new UIBox(96, Sword.getInstance(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
+		boxScythePlayer2 = new UIBox(96, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 2F));
 
 		weaponSelectedLabel1 = new UILabel(550, 221, "", FONT1, Color.black);
 		weaponSelectedLabel2 = new UILabel(550, 321, "", FONT1, Color.black);

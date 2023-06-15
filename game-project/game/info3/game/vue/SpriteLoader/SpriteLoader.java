@@ -39,8 +39,9 @@ public class SpriteLoader {
 		 * Exemple pour les sprites cowboy : winchester-4x6.png contient 24 sprites, 4
 		 * lignes de 6 colonnes de sprites
 		 */
-		load(SpriteType.Cowboy, "assets/img/player/winchester-4x6.png", 4, 6);
-
+		load(SpriteType.Player1, "assets/img/player/" + "J1.png", 5, 4);
+		load(SpriteType.Player2, "assets/img/player/" + "J1.png", 5, 4);
+		load(SpriteType.PirateBoat, "assets/img/player/" + "Boat.png", 1, 2);
 	}
 
 	/*

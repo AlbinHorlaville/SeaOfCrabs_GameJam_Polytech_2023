@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import info3.game.Controller;
 import info3.game.modele.Entity;
+import info3.game.modele.GameModele;
 import info3.game.modele.PiratePlayer;
 
 public class Player2 extends Avatar {
@@ -75,7 +76,10 @@ public class Player2 extends Avatar {
 		BufferedImage img = m_images[imageIndex];
 		int width_painted = SCALE_IMG * img.getWidth();
 		int heigth_painted = SCALE_IMG * img.getHeight();
-		g.drawImage(img, width/2-width_painted/2,height/2-heigth_painted/2, width_painted, heigth_painted, null);
+		int posX = (entity.getX() + ((width-(GameModele.player1.getX()+GameModele.player2.getX()))/2)) - (width_painted/2);
+		int posY = (entity.getY() + ((height-(GameModele.player1.getY()+GameModele.player2.getY()))/2)) - (heigth_painted/2);
+		//g.drawImage(img, width/2-width_painted/2,height/2-heigth_painted/2, width_painted, heigth_painted, null);
+		g.drawImage(img, posX,posY, width_painted, heigth_painted, null);
 	}
 	
 	/**

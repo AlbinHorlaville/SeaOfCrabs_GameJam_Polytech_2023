@@ -2,6 +2,9 @@ package info3.game.modele.map;
 
 import java.util.Random;
 
+import info3.game.modele.CrabLair;
+import info3.game.modele.RedCross;
+
 /*
  * Contain the reprensation of a section of the map
  */
@@ -16,9 +19,12 @@ public class MapSection {
 	private EnumSectionType seaType; // The type of sea
 
 	private Random randomGenerator; // The random generator initialized based on the seed of the map the section is
-							// in
+	// in
 
 	private final static int NB_TILE_MIN_PER_ISLAND = 230; // The number of tiles an island must be composed to be valid
+
+	private RedCross redCross;
+	private CrabLair crabLair;
 
 	/*
 	 * @param seaType : The type of sea
@@ -61,6 +67,10 @@ public class MapSection {
 		default:
 			throw new Exception("Type de section inexistante");
 		}
+
+		addSandToGrassTransition();
+
+		generateCrabsLair();
 	}
 
 	/*
@@ -68,7 +78,7 @@ public class MapSection {
 	 */
 	private void initSection() throws Exception {
 		EnumTiles tilesType;
-		
+
 		switch (this.seaType) {
 		case CALM_SEA:
 			tilesType = EnumTiles.CALM_WATER;
@@ -84,7 +94,7 @@ public class MapSection {
 		default:
 			throw new Exception("Type de section inexistante");
 		}
-		
+
 		for (int i = 0; i < sectionHeight; i++) {
 			for (int j = 0; j < sectionWidth; j++) {
 				tiles[i][j] = new Tiles(tilesType);
@@ -204,6 +214,190 @@ public class MapSection {
 		return island;
 	}
 
+	private boolean oneSideGrass(Tiles tile) {
+		return tile.getType() == EnumTiles.TRANSITION_GRASS_ON_LEFT_OF_SAND
+				|| tile.getType() == EnumTiles.TRANSITION_GRASS_ON_RIGHT_OF_SAND
+				|| tile.getType() == EnumTiles.TRANSITION_GRASS_UNDER_SAND
+				|| tile.getType() == EnumTiles.TRANSITION_GRASS_ON_TOP_OF_SAND;
+	}
+
+	private boolean twoSideGrass(Tiles tile) {
+		return tile.getType() == EnumTiles.TRANSITION_GRASS_ON_TOP_AND_UNDER_OF_SAND
+				|| tile.getType() == EnumTiles.TRANSITION_GRASS_UNDER_AND_ON_LEFT_OF_SAND
+				|| tile.getType() == EnumTiles.TRANSITION_GRASS_UNDER_AND_ON_RIGHT_OF_SAND
+				|| tile.getType() == EnumTiles.TRANSITION_GRASS_ON_TOP_AND_ON_LEFT_OF_SAND
+				|| tile.getType() == EnumTiles.TRANSITION_GRASS_ON_TOP_AND_ON_RIGHT_OF_SAND
+				|| tile.getType() == EnumTiles.TRANSITION_GRASS_ON_LEFT_AND_ON_RIGHT_OF_SAND;
+	}
+
+	private void addSandToGrassTransition() {
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (i > 0) {
+					if ((this.tiles[i - 1][j].getType() == EnumTiles.SAND
+							|| this.tiles[i - 1][j].getType() == EnumTiles.SAND_WATER)
+							&& this.tiles[i][j].getType() == EnumTiles.GRASS) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_UNDER_SAND);
+					}
+				}
+				if (i < this.sectionHeight - 1) {
+					if ((this.tiles[i + 1][j].getType() == EnumTiles.SAND
+							|| this.tiles[i + 1][j].getType() == EnumTiles.SAND_WATER)
+							&& this.tiles[i][j].getType() == EnumTiles.GRASS) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_ON_TOP_OF_SAND);
+					}
+				}
+				if (j > 0) {
+					if ((this.tiles[i][j - 1].getType() == EnumTiles.SAND
+							|| this.tiles[i][j - 1].getType() == EnumTiles.SAND_WATER)
+							&& this.tiles[i][j].getType() == EnumTiles.GRASS) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_ON_RIGHT_OF_SAND);
+					}
+				}
+
+				if (j < this.sectionWidth - 1) {
+					if ((this.tiles[i][j + 1].getType() == EnumTiles.SAND
+							|| this.tiles[i][j + 1].getType() == EnumTiles.SAND_WATER)
+							&& this.tiles[i][j].getType() == EnumTiles.GRASS) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_ON_LEFT_OF_SAND);
+					}
+				}
+
+				if (i > 0 && j > 0) {
+					if ((this.tiles[i - 1][j].getType() == EnumTiles.SAND
+							|| this.tiles[i - 1][j].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j - 1].getType() == EnumTiles.SAND
+									|| this.tiles[i][j - 1].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j].getType() == EnumTiles.GRASS || oneSideGrass(this.tiles[i][j]))) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_UNDER_AND_ON_RIGHT_OF_SAND);
+					}
+				}
+
+				if (i > 0 && j < this.sectionWidth - 1) {
+					if ((this.tiles[i - 1][j].getType() == EnumTiles.SAND
+							|| this.tiles[i - 1][j].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j + 1].getType() == EnumTiles.SAND
+									|| this.tiles[i][j + 1].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j].getType() == EnumTiles.GRASS || oneSideGrass(this.tiles[i][j]))) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_UNDER_AND_ON_LEFT_OF_SAND);
+					}
+				}
+
+				if (i < this.sectionHeight - 1 && j > 0) {
+					if ((this.tiles[i + 1][j].getType() == EnumTiles.SAND
+							|| this.tiles[i + 1][j].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j - 1].getType() == EnumTiles.SAND
+									|| this.tiles[i][j - 1].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j].getType() == EnumTiles.GRASS || oneSideGrass(this.tiles[i][j]))) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_ON_TOP_AND_ON_RIGHT_OF_SAND);
+					}
+				}
+
+				if (i < this.sectionHeight - 1 && j < this.sectionWidth - 1) {
+					if ((this.tiles[i + 1][j].getType() == EnumTiles.SAND
+							|| this.tiles[i + 1][j].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j + 1].getType() == EnumTiles.SAND
+									|| this.tiles[i][j + 1].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j].getType() == EnumTiles.GRASS || oneSideGrass(this.tiles[i][j]))) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_ON_TOP_AND_ON_LEFT_OF_SAND);
+					}
+				}
+
+				if (i > 0 && i < this.sectionHeight - 1) {
+					if ((this.tiles[i - 1][j].getType() == EnumTiles.SAND
+							|| this.tiles[i - 1][j].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i + 1][j].getType() == EnumTiles.SAND
+									|| this.tiles[i + 1][j].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j].getType() == EnumTiles.GRASS || oneSideGrass(this.tiles[i][j]))) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_ON_TOP_AND_UNDER_OF_SAND);
+					}
+				}
+
+				if (j > 0 && j < this.sectionWidth - 1) {
+					if ((this.tiles[i][j - 1].getType() == EnumTiles.SAND
+							|| this.tiles[i][j - 1].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j + 1].getType() == EnumTiles.SAND
+									|| this.tiles[i][j + 1].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j].getType() == EnumTiles.GRASS || oneSideGrass(this.tiles[i][j]))) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_ON_LEFT_AND_ON_RIGHT_OF_SAND);
+					}
+				}
+
+				if (j > 0 && j < this.sectionWidth - 1 && i > 0) {
+					if ((this.tiles[i][j - 1].getType() == EnumTiles.SAND
+							|| this.tiles[i][j - 1].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j + 1].getType() == EnumTiles.SAND
+									|| this.tiles[i][j + 1].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i - 1][j].getType() == EnumTiles.SAND
+									|| this.tiles[i - 1][j].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j].getType() == EnumTiles.GRASS || oneSideGrass(this.tiles[i][j])
+									|| twoSideGrass(this.tiles[i][j]))) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_UNDER_AND_ON_LEFT_AND_ON_RIGHT_OF_SAND);
+					}
+				}
+
+				if (j > 0 && j < this.sectionWidth - 1 && i < this.sectionHeight - 1) {
+					if ((this.tiles[i][j - 1].getType() == EnumTiles.SAND
+							|| this.tiles[i][j - 1].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j + 1].getType() == EnumTiles.SAND
+									|| this.tiles[i][j + 1].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i + 1][j].getType() == EnumTiles.SAND
+									|| this.tiles[i + 1][j].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j].getType() == EnumTiles.GRASS || oneSideGrass(this.tiles[i][j])
+									|| twoSideGrass(this.tiles[i][j]))) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_ON_RIGHT_AND_ON_LEFT_AND_ON_TOP_OF_SAND);
+					}
+				}
+
+				if (i > 0 && j < this.sectionWidth - 1 && i < this.sectionHeight - 1) {
+					if ((this.tiles[i - 1][j].getType() == EnumTiles.SAND
+							|| this.tiles[i - 1][j].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j + 1].getType() == EnumTiles.SAND
+									|| this.tiles[i][j + 1].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i + 1][j].getType() == EnumTiles.SAND
+									|| this.tiles[i + 1][j].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j].getType() == EnumTiles.GRASS || oneSideGrass(this.tiles[i][j])
+									|| twoSideGrass(this.tiles[i][j]))) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_UNDER_AND_ON_RIGHT_AND_ON_TOP_OF_SAND);
+					}
+				}
+
+				if (i > 0 && j > 0 && i < this.sectionHeight - 1) {
+					if ((this.tiles[i - 1][j].getType() == EnumTiles.SAND
+							|| this.tiles[i - 1][j].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j - 1].getType() == EnumTiles.SAND
+									|| this.tiles[i][j - 1].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i + 1][j].getType() == EnumTiles.SAND
+									|| this.tiles[i + 1][j].getType() == EnumTiles.SAND_WATER)
+							&& (this.tiles[i][j].getType() == EnumTiles.GRASS || oneSideGrass(this.tiles[i][j])
+									|| twoSideGrass(this.tiles[i][j]))) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_UNDER_AND_ON_LEFT_AND_ON_TOP_OF_SAND);
+					}
+				}
+
+				if (i > 0 && j > 0 && i < this.sectionHeight - 1 && j < this.sectionWidth - 1) {
+					if (this.tiles[i][j].getType() == EnumTiles.GRASS
+							&& (this.tiles[i - 1][j - 1].getType() == EnumTiles.SAND
+									|| this.tiles[i - 1][j - 1].getType() == EnumTiles.SAND_WATER)) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_ANGLE_SAND_TOP_LEFT);
+					} else if (this.tiles[i][j].getType() == EnumTiles.GRASS
+							&& (this.tiles[i + 1][j - 1].getType() == EnumTiles.SAND
+									|| this.tiles[i + 1][j - 1].getType() == EnumTiles.SAND_WATER)) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_ANGLE_SAND_TOP_RIGHT);
+					} else if (this.tiles[i][j].getType() == EnumTiles.GRASS
+							&& (this.tiles[i + 1][j + 1].getType() == EnumTiles.SAND
+									|| this.tiles[i + 1][j + 1].getType() == EnumTiles.SAND_WATER)) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_ANGLE_SAND_BOTTOM_RIGHT);
+					} else if (this.tiles[i][j].getType() == EnumTiles.GRASS
+							&& (this.tiles[i - 1][j + 1].getType() == EnumTiles.SAND
+									|| this.tiles[i - 1][j + 1].getType() == EnumTiles.SAND_WATER)) {
+						this.tiles[i][j].setType(EnumTiles.TRANSITION_GRASS_ANGLE_SAND_BOTTOM_LEFT);
+					}
+				}
+			}
+		}
+	}
+
 	/*
 	 * Insert an island in the section map
 	 * 
@@ -251,6 +445,57 @@ public class MapSection {
 				* (value - initialRangeMin);
 	}
 
+	private void generateCrabsLair() {
+		int rand;
+		boolean added = false;
+		for (int i = 0; i < this.sectionHeight - 1 && !added; i++) {
+			for (int j = 0; j < this.sectionWidth - 2 && !added; j++) {
+				if (!added && this.tiles[i][j].getType() == EnumTiles.GRASS
+						&& this.tiles[i][j + 1].getType() == EnumTiles.GRASS
+						&& this.tiles[i][j + 2].getType() == EnumTiles.GRASS
+						&& this.tiles[i + 1][j].getType() == EnumTiles.GRASS
+						&& this.tiles[i + 1][j + 1].getType() == EnumTiles.GRASS
+						&& this.tiles[i + 1][j + 2].getType() == EnumTiles.GRASS) {
+					rand = this.randomGenerator.nextInt(100);
+					if (rand == 50) {
+						this.tiles[i][j].setType(EnumTiles.CRAB_SPAWNER);
+						this.tiles[i][j + 1].setType(EnumTiles.CRAB_SPAWNER);
+						this.tiles[i][j + 2].setType(EnumTiles.CRAB_SPAWNER);
+						this.tiles[i + 1][j].setType(EnumTiles.CRAB_SPAWNER);
+						this.tiles[i + 1][j + 1].setType(EnumTiles.CRAB_SPAWNER);
+						this.tiles[i + 1][j + 2].setType(EnumTiles.CRAB_SPAWNER);
+						this.crabLair = new CrabLair(10, 1, 10, this);
+						added = true;
+					}
+				}
+			}
+		}
+
+		if (!added) {
+			generateCrabsLair();
+		}
+	}
+
+	public void generateRedCross() {
+		int rand;
+		boolean added = false;
+		for (int i = 0; i < this.sectionHeight - 1 && !added; i++) {
+			for (int j = 0; j < this.sectionWidth - 2 && !added; j++) {
+				if (!added && this.tiles[i][j].getType() == EnumTiles.SAND) {
+					rand = this.randomGenerator.nextInt(300);
+					if (rand == 150) {
+						this.tiles[i][j].setType(EnumTiles.TREASUR);
+						this.redCross = new RedCross(this);
+						added = true;
+					}
+				}
+			}
+		}
+		if (!added) {
+			generateRedCross();
+		}
+	}
+
 	/*
 	 * Print the section, usefull for debugging
 	 */
@@ -286,7 +531,7 @@ public class MapSection {
 	public void setSeaType(EnumSectionType seaType) {
 		this.seaType = seaType;
 	}
-	
+
 	public Tiles[][] getTiles() {
 		return this.tiles;
 	}

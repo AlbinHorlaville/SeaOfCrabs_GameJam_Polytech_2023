@@ -1,8 +1,8 @@
 package info3.game.modele;
 
 import java.util.ArrayList;
-
 import info3.game.modele.map.Tiles;
+import info3.game.modele.map.MapSection;
 
 public class CrabLair extends StillEntity{
 	
@@ -13,8 +13,9 @@ public class CrabLair extends StillEntity{
 	protected int lifePoint;
 	protected boolean isDead = false;
 	private ArrayList<Crab> crabs; 
+	private MapSection section;
 	
-	public CrabLair(int nbCrabs, int crabsLvl, int lifePoint) {
+	public CrabLair(int nbCrabs, int crabsLvl, int lifePoint, MapSection section) {
 		this.nbCrabs = nbCrabs;
 		this.crabsLvl = crabsLvl;
 		this.lifePoint = lifePoint;
@@ -23,10 +24,8 @@ public class CrabLair extends StillEntity{
 	
 	public ArrayList<Crab> getCrabs(){
 		return this.crabs;
+		this.section = section;
 	}
-	
-	
-	
 	
 	@Override
 	public void move() {
