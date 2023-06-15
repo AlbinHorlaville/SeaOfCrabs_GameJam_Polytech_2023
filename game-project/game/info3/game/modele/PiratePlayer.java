@@ -30,7 +30,7 @@ public class PiratePlayer extends Player {
 	}
 
 	@Override
-	public void takeDamage() {
+	public void takeDamage(int damage) {
 		// TODO Auto-generated method stub
 
 	}
