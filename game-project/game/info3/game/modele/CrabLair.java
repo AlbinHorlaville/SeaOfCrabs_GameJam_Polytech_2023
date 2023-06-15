@@ -1,27 +1,31 @@
 package info3.game.modele;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 import info3.game.modele.map.Tiles;
 import info3.game.modele.map.MapSection;
 
 public class CrabLair extends StillEntity{
 	
-	//public final int SCRAB_SPANWING_RANGE = GameModele.map.getSectionHeight();
+	public static final int SCRAB_SPANWING_RANGE = 400;
 	
 	protected int nbCrabs;
 	protected int crabsLvl;
 	protected int lifePoint;
 	protected boolean isDead = false;
 	private ArrayList<Crab> crabs; 
+	private ArrayList<Tiles> tilesForCrabSpanwing;
 	private MapSection section;
+	private int level;
 	
-	public CrabLair(int nbCrabs, int crabsLvl, int lifePoint, MapSection section) {
+	public CrabLair(int nbCrabs, int crabsLvl, int lifePoint, int level, MapSection section) {
 		this.nbCrabs = nbCrabs;
 		this.crabsLvl = crabsLvl;
 		this.lifePoint = lifePoint;
 		this.crabs = new ArrayList<Crab>();
 		this.section = section;
-
+		this.level = level;
 	}
 
 	@Override
@@ -47,16 +51,73 @@ public class CrabLair extends StillEntity{
 	}
 	
 	public void egg() {
-//		Crab crab = new Crab(100, 1, 1, 1, this);
-//		this.crabs.add(crab);
-//		Tiles crabLairTile = GameModele.map.getTileUnderEntity(this.x, this.y);
-//		int initX = crabLairTile.getX();
-//		int initY = crabLairTile.getY();
-//		ArrayList<Tiles> tilesWhreCrabsCouldSpawn = new ArrayList<Tiles>();
-//		tilesWhreCrabsCouldSpawn.add(GameModele.map.);
+		
+		int rand = new Random().nextInt(this.crabs.size());
+		Tiles tile = this.tilesForCrabSpanwing.get(rand);
+		
+		//Create crab and addint it to the List
+		Crab crab = new Crab(this.level, this);
+		crab.setLocation(tile.getX(), tile.getY());
+		this.crabs.add(crab);
+		
+		
+		
+		
 		
 		//à terminer avec l'accès çà la maps section pour trouver toutes les tiles sur lequel le brabe peut spawn e
 	
+	}
+	
+	private void getTilesWhreCrabsCouldSpawn() {
+		
+		//get coordinates of the crabsLair (Top left hand corner)
+		Tiles crabLairTile = GameModele.map.getTileUnderEntity(this.x, this.y);
+		int initX = crabLairTile.getX();
+		int initY = crabLairTile.getY();
+		
+		//adding all the tiles around the CrabsLair to an arrayList
+		ArrayList<Tiles> tilesWhreCrabsCouldSpawn = new ArrayList<Tiles>();
+		
+			//All the tiles above the crabs lair
+			for(int i = 0; i < 5; i++) {
+				Tiles tile = section.getTiles()[initY-1][initX-1+i];
+				if(tile.isIsland()) {
+					tilesWhreCrabsCouldSpawn.add(tile);
+				}
+			}
+			
+			//All the tiles below the crabs lair
+			for(int i = 0; i < 5; i++) {
+				Tiles tile = section.getTiles()[initY+2][initX+i];
+				if(tile.isIsland()) {
+					tilesWhreCrabsCouldSpawn.add(tile);
+				}
+			}
+			
+			//All the tiles on the left  the crabs lair
+			for(int i = 0; i < 2; i++) {
+				Tiles tile = section.getTiles()[initY+i][initX-1];
+				if(tile.isIsland()) {
+					tilesWhreCrabsCouldSpawn.add(tile);
+				}
+			}
+			
+			//All the tiles on the left  the crabs lair
+			for(int i = 0; i < 2; i++) {
+				Tiles tile = section.getTiles()[initY+i][initX+3];
+				if(tile.isIsland()) {
+					tilesWhreCrabsCouldSpawn.add(tile);
+				}
+			}
+		
+	}
+
+	public ArrayList<Crab> getCrabs() {
+		return crabs;
+	}
+
+	public void setCrabs(ArrayList<Crab> crabs) {
+		this.crabs = crabs;
 	}
 	
 	

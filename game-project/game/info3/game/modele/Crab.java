@@ -2,17 +2,22 @@ package info3.game.modele;
 
 import java.lang.Math;
 
+import automate.EnumCategory;
+import automate.EnumDirection;
 import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Tiles;
 
 public class Crab extends Ennemy {
 	
-	private static final int DAMAGE = 10;
+	public final static int HEALTH_POINTS = 100;
+	public final static int DAMAGE_COEFF = 1;
+	public final static int DAMAGE = 20;
+
 	private CrabLair crabLair;
 
-	public Crab(int lifePoint, int attackCoeff, int speedCoeff, int level, CrabLair crabLair) {
-		super(lifePoint, attackCoeff, speedCoeff, level);
-		// TODO Auto-generated constructor stub
+	public Crab(int level, CrabLair crabLair) {
+		super(HEALTH_POINTS, DAMAGE_COEFF, level);
+		this.crabLair = crabLair;
 	}
 
 	public void hit() {
@@ -34,17 +39,12 @@ public class Crab extends Ennemy {
 		
 		//Can the the tile be moved on buy a crab
 		Tiles tile = GameModele.map.getTileUnderEntity(nextX,nextY);
-		EnumTiles type;// = //not yet implemented
-		if(type == Grass) {
+		if(tile.isIsland()) {
 			this.x = nextX;
 			this.y = nextY;
 		}		
 	}
-	
-	private void addCoordinate(int x, int y) {
-		this.x += x;
-		this.y += y;
-	}
+
 	
 	private PiratePlayer closestPirateToMe() {
 		double distanceP1 = Math.sqrt(Math.pow(this.x - GameModele.player1.x,2) + Math.pow(this.y - GameModele.player1.y,2));
@@ -62,6 +62,36 @@ public class Crab extends Ennemy {
 	
 	public void die() {
 		this.crabLair.getCrabs().remove(this);
+	}
+
+	@Override
+	public boolean closeTo(EnumDirection d, EnumCategory c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean closest(EnumDirection d, EnumCategory c) {
+		return (GameModele.map.getTileUnderEntity(GameModele.player1.x, GameModele.player1.y).isIsland() 
+				&& GameModele.map.getTileUnderEntity(GameModele.player1.x, GameModele.player1.y).isIsland());
+	}
+
+	@Override
+	public boolean gotStuff() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean cell(EnumDirection d, EnumCategory c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void hit(EnumDirection d, EnumCategory c) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
