@@ -26,6 +26,7 @@ import info3.game.sound.RandomFileInputStream;
 import info3.game.sound.SoundTool;
 import info3.game.vue.avatar.Avatar;
 import info3.game.vue.view.BeforePlayingView;
+import info3.game.vue.view.ChoiceGameplayView;
 import info3.game.vue.view.CreditsView;
 import info3.game.vue.view.MenuView;
 import info3.game.vue.view.PlayingView;
@@ -109,6 +110,7 @@ public class GameView {
 		this.all_views.put(GameState.Credits, new CreditsView(this));
 		this.all_views.put(GameState.Commandes, new CommandesView(this));
 		this.all_views.put(GameState.AvantJeu, new BeforePlayingView(this));
+		this.all_views.put(GameState.ChoixGameplay, new ChoiceGameplayView(this));
 	}
 
 	public void update_view(GameState state) {
@@ -174,9 +176,10 @@ public class GameView {
 
 		g.setColor(Color.gray);
 		g.fillRect(0, 0, width, height);
-		/*if (this.game.getCurrentState() != GameState.Jeu) {
-			g.drawImage(backgroundImage, 0, 0, 1024, 768, null);
-		}*/
+		/*
+		 * if (this.game.getCurrentState() != GameState.Jeu) {
+		 * g.drawImage(backgroundImage, 0, 0, 1024, 768, null); }
+		 */
 
 		this.currentView.paint(g, width, height);
 	}

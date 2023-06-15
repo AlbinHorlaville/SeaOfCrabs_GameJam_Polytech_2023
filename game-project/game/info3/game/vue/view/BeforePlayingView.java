@@ -1,11 +1,13 @@
 package info3.game.vue.view;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Random;
 
 import info3.game.GameState;
+import info3.game.modele.GameModele;
 import info3.game.modele.Scythe;
 import info3.game.modele.Sword;
 import info3.game.modele.Weapon;
@@ -13,6 +15,7 @@ import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIBox;
 import info3.game.vue.toolkitUI.UIBoxes;
 import info3.game.vue.toolkitUI.UIButton;
+import info3.game.vue.toolkitUI.UIComponent;
 import info3.game.vue.toolkitUI.UIComponentListener;
 import info3.game.vue.toolkitUI.UIImage;
 import info3.game.vue.toolkitUI.UILabel;
@@ -34,11 +37,15 @@ public class BeforePlayingView extends View {
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
 
-		buttonRetour = new UIButton(50, windowHeight - 100, 200, new UILabel(0, 0, "Retour", FONT1, Color.black), UIButton.BACKGROUND_COLOR_RED);
+		buttonRetour = new UIButton(50, windowHeight - 100, 200, 70, new UILabel(0, 0, "Retour", FONT1, Color.black),
+				UIButton.BACKGROUND_COLOR_RED);
 
-		buttonPlay = new UIButton(774, windowHeight - 100, 200, new UILabel(0, 0, "Jouer", FONT1, Color.black), UIButton.BACKGROUND_COLOR_GREEN);
-		buttonCmd = new UIButton(400, windowHeight - 100, 200, new UILabel(0, 0, "Commandes", FONT1, Color.black), UIButton.BACKGROUND_COLOR_YELLOW);
-		buttonRandomSeed = new UIButton(774, 65, 200, new UILabel(0, 0, "Graine aléatoire", FONT1, Color.black),UIButton.BACKGROUND_COLOR_PURPLE);
+		buttonPlay = new UIButton(774, windowHeight - 100, 200, 70, new UILabel(0, 0, "Jouer", FONT1, Color.black),
+				UIButton.BACKGROUND_COLOR_GREEN);
+		buttonCmd = new UIButton(400, windowHeight - 100, 200, 70, new UILabel(0, 0, "Commandes", FONT1, Color.black),
+				UIButton.BACKGROUND_COLOR_YELLOW);
+		buttonRandomSeed = new UIButton(774, 65, 200, 70, new UILabel(0, 0, "Graine aléatoire", FONT1, Color.black),
+				UIButton.BACKGROUND_COLOR_PURPLE);
 		seedLabel = new UILabel(50, 107, "Graine pour la génération du monde :", FONT1, c2);
 		seedInput = new UITextInput(500, 65, 200, "Entrer un nombre", UIButton.BACKGROUND_COLOR_YELLOW, Color.black);
 
@@ -119,8 +126,8 @@ public class BeforePlayingView extends View {
 
 			@Override
 			public void onComponentClicked(int x, int y) {
-				gameView.update_view(GameState.AvantJeu);
-				gameView.getGame().setCurrentState(GameState.Menu);
+				gameView.update_view(GameState.ChoixGameplay);
+				gameView.getGame().setCurrentState(GameState.ChoixGameplay);
 			}
 
 			@Override
@@ -290,12 +297,23 @@ public class BeforePlayingView extends View {
 		addComponent(seedLabel);
 		addComponent(seedInput);
 		addComponent(buttonRandomSeed);
+
 		addComponent(weaponLabelPlayer1);
-		addComponent(weaponLabelPlayer2);
 		addComponent(weaponsBoxesPlayer1);
-		addComponent(weaponsBoxesPlayer2);
 		addComponent(weaponSelectedLabel1);
+
+		addComponent(weaponLabelPlayer2);
+		addComponent(weaponsBoxesPlayer2);
 		addComponent(weaponSelectedLabel2);
+
+	}
+
+	@Override
+	public void paint(Graphics g, int width, int height) {
+		for (UIComponent c : components) {
+			if ((c == weaponLabelPlayer2 || c == weaponsBoxesPlayer2 || c == weaponSelectedLabel2) && GameModele.solo) continue;
+			c.paint(g);
+		}
 	}
 
 	@Override

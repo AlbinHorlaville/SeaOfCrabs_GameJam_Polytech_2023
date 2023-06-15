@@ -25,10 +25,14 @@ public class MapRepresentation {
 	 */
 	private BufferedImage grassImage;
 	private BufferedImage sandImage;
-	private BufferedImage waterImage;
+	private BufferedImage calmWaterImage;
+	private BufferedImage stormyWaterImage;
+	private BufferedImage ragingWaterImage;
+	private BufferedImage krakenWaterImage;
 	private BufferedImage sandWaterImage;
 	private BufferedImage stoneImage;
 	private BufferedImage treasurImage;
+	private BufferedImage pontoonImage;
 
 	private BufferedImage[] grassTransitionOneSide;
 	private BufferedImage[] grassTransitionTwoSide;
@@ -69,9 +73,29 @@ public class MapRepresentation {
 
 		imageFile = new File("assets/img/tiles/water.png");
 		if (imageFile.exists()) {
-			this.waterImage = ImageIO.read(imageFile);
-			this.waterImage = resize(this.waterImage, this.waterImage.getWidth() * scale,
-					this.waterImage.getHeight() * scale);
+			this.calmWaterImage = ImageIO.read(imageFile);
+			this.calmWaterImage = resize(this.calmWaterImage, this.calmWaterImage.getWidth() * scale,
+					this.calmWaterImage.getHeight() * scale);
+		}
+		
+		imageFile = new File("assets/img/tiles/stormy_water.png");
+		if (imageFile.exists()) {
+			this.stormyWaterImage = ImageIO.read(imageFile);
+		}
+		
+		imageFile = new File("assets/img/tiles/pontoon.png");
+		if (imageFile.exists()) {
+			this.pontoonImage = ImageIO.read(imageFile);
+		}
+		
+		imageFile = new File("assets/img/tiles/raging_water.png");
+		if (imageFile.exists()) {
+			this.ragingWaterImage = ImageIO.read(imageFile);
+		}
+		
+		imageFile = new File("assets/img/tiles/kraken_water.png");
+		if (imageFile.exists()) {
+			this.krakenWaterImage = ImageIO.read(imageFile);
 		}
 
 		imageFile = new File("assets/img/tiles/sand_water.png");
@@ -197,7 +221,7 @@ public class MapRepresentation {
 		 * Set the coordinate of each tiles
 		 */
 		m.setImageSize(this.imgWidth, this.imgHeight);
-		m.setCoordiate(this.waterImage.getWidth(), this.waterImage.getHeight());
+		m.setCoordiate(this.imgWidth, this.imgHeight);
 
 		this.map = m.getMap();
 		this.nbSection = m.getNbSection();
@@ -234,7 +258,7 @@ public class MapRepresentation {
 	 * @param playerX and playerY : player position
 	 */
 	public void paint(Graphics g, int width, int height, int playerX, int playerY) {
-		BufferedImage img = waterImage; // Save the currentImage
+		BufferedImage img = calmWaterImage; // Save the currentImage
 		Tiles[][] section; // Save the section beeing treated
 
 		/*
@@ -280,7 +304,19 @@ public class MapRepresentation {
 
 						switch (currentTile.getType()) {
 						case CALM_WATER:
-							img = waterImage;
+							img = calmWaterImage;
+							positionY += (int) waveOffset;
+							break;
+						case STORMY_WATER:
+							img = stormyWaterImage;
+							positionY += (int) waveOffset;
+							break;
+						case RAGING_WATER:
+							img = ragingWaterImage;
+							positionY += (int) waveOffset;
+							break;
+						case KRAKEN_WATER:
+							img = krakenWaterImage;
 							positionY += (int) waveOffset;
 							break;
 						case GRASS:
@@ -298,6 +334,9 @@ public class MapRepresentation {
 							break;
 						case CRAB_SPAWNER:
 							img = this.stoneImage;
+							break;
+						case PONTOON:
+							img = this.pontoonImage;
 							break;
 						case TRANSITION_GRASS_ANGLE_SAND_TOP_RIGHT:
 							img = this.grassTransitionAngle[0];
@@ -354,7 +393,7 @@ public class MapRepresentation {
 							img = this.grassTransitionTwoSide[5];// grassUnderAndOnRightOfSand
 							break;
 						default:
-							img = waterImage;
+							img = calmWaterImage;
 							break;
 						}
 

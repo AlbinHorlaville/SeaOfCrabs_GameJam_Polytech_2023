@@ -9,7 +9,7 @@ public class UIChecker extends UIButton {
 	private boolean state;
 
 	public UIChecker(int x, int y, UILabel l, Color c, boolean baseState) {
-		super(x, y, 0, l,0);
+		super(x, y, 0, 0, l,0);
 		this.state = baseState;
 		setHeight(30);
 		setWidth(30);

@@ -36,12 +36,12 @@ public class MenuView extends View {
 		int xButton = (windowWidth - widthButton) / 2;
 		int SpaceBetweenYButton = 100;
 		int yButton = 300;
-		buttonPlay = new UIButton(xButton, yButton, widthButton, new UILabel(0, 0, "Jouer", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
-		buttonSettings = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,
+		buttonPlay = new UIButton(xButton, yButton, widthButton,70, new UILabel(0, 0, "Jouer", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
+		buttonSettings = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,70,
 				new UILabel(0, 0, "Paramètres", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
-		buttonScore = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,
+		buttonScore = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,70,
 				new UILabel(0, 0, "Score", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
-		buttonCredits = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,
+		buttonCredits = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,70,
 				new UILabel(0, 0, "Crédits", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
 
 		title = new UITitle(windowWidth, windowHeight, "SEA OF CRABS", FONT2, Color.white);
@@ -51,7 +51,7 @@ public class MenuView extends View {
 			@Override
 			public void onComponentClicked(int x, int y) {
 				try {
-					gameView.getGame().beforePlaying();
+					gameView.getGame().choiceGameplay();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
