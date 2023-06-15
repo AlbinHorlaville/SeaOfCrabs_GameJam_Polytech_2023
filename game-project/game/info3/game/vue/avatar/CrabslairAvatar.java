@@ -20,9 +20,6 @@ public class CrabslairAvatar extends Avatar{
 
 	@Override
 	public void tick(long elapsed) {
-		if (true) { // Tous les crabes sont morts
-			imageIndex = 1;
-		}
 		
 	}
 
