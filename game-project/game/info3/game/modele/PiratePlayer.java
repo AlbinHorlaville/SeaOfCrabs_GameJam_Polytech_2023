@@ -38,6 +38,17 @@ public class PiratePlayer extends Player {
 		this.rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
 	}
 	
+	public PiratePlayer(String string, int x, int y) {
+		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_MAX_PLAYERS_LIFE_COEFF, x, y);
+		this.automate = AutomateLoader.findAutomate(string);
+		this.current_state = automate.initial_state;
+		facing = EnumDirection.N;
+		this.attackSpeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
+		this.speedCoeff = DEFAULT_PIRATEPLAYER_SPEED_COEFF;
+		this.damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
+		this.rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
+	}
+	
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
 		//weapon.setPlayer(this);

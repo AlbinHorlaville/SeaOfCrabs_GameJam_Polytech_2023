@@ -70,10 +70,15 @@ public class MapSection {
 			throw new Exception("Type de section inexistante");
 		}
 
-		if (seaType == EnumSectionType.CALM_SEA) {
+		if (seaType == EnumSectionType.CALM_SEA || seaType == EnumSectionType.STORMY_SEA
+				|| seaType == EnumSectionType.RAGING_SEA || seaType == EnumSectionType.CRAB_KING_SEA) {
 			addSandToGrassTransition();
 
 			generateCrabsLair();
+
+			generateFlower();
+			generateRock();
+			generateShellfish();
 		}
 
 	}
@@ -133,40 +138,47 @@ public class MapSection {
 			insertIslandInSection(tempPerlinNoiseIsland, islandSize);
 		}
 	}
-	
+
 	private void generateHarbor() {
 
 		// Generation of perlin noise for the island
 		double[][] harborSection = new double[this.sectionHeight][this.sectionWidth];
 
+		harborSection = this.noiseGenerator.generateNoiseArray(this.sectionHeight, this.sectionWidth,
+				this.randomGenerator.nextDouble() * 10000, this.randomGenerator.nextDouble() * 10000);
+
 		harborSection = generateHarborGradient(harborSection);
 
 		insertHarborInSection(harborSection);
 	}
-	
+
 	private double[][] generateHarborGradient(double[][] harbor) {
 		double value;
-		for (int i = 4; i >= 0; i--) {
-			value = i * 0.2;
+		for (int i = 0; i < 5; i++) {
+			value = (5 - i) * 0.1;
 			for (int j = 0; j < this.sectionWidth; j++) {
-				harbor[this.sectionHeight - 1 - i][j] = 1;
+				harbor[this.sectionHeight - 1 - i][j] += value;
 			}
 		}
 
 		for (int i = this.sectionHeight - 6; i >= 0; i--) {
 			for (int j = 0; j < this.sectionWidth; j++) {
-				harbor[i][j] = 0;
+				harbor[i][j] -= 1;
 			}
 		}
 
 		return harbor;
 	}
-	
+
 	private void insertHarborInSection(double[][] harbor) {
 		for (int i = 0; i < this.sectionHeight; i++) {
 			for (int j = 0; j < this.sectionWidth; j++) {
-				if ((i == this.sectionHeight  - 6 || i == this.sectionHeight  - 7) && j == this.sectionWidth / 2) {
+				if ((i == this.sectionHeight - 6 || i == this.sectionHeight - 7) && j == this.sectionWidth / 2) {
 					this.tiles[i][j].setType(EnumTiles.PONTOON);
+				} else if ((j == this.sectionWidth / 2 && i > this.sectionHeight - 6)
+						|| (j == this.sectionWidth / 2 + 1 && i > this.sectionHeight - 5)
+						|| (j == this.sectionWidth / 2 - 1 && i > this.sectionHeight - 5)) {
+					this.tiles[i][j].setType(EnumTiles.SAND);
 				} else if (harbor[i][j] == 0) {
 					this.tiles[i][j].setType(EnumTiles.CALM_WATER);
 				} else if (harbor[i][j] > 0) {
@@ -521,8 +533,8 @@ public class MapSection {
 	public void generateRedCross() {
 		int rand;
 		boolean added = false;
-		for (int i = 0; i < this.sectionHeight - 1 && !added; i++) {
-			for (int j = 0; j < this.sectionWidth - 2 && !added; j++) {
+		for (int i = 0; i < this.sectionHeight && !added; i++) {
+			for (int j = 0; j < this.sectionWidth && !added; j++) {
 				if (!added && this.tiles[i][j].getType() == EnumTiles.SAND) {
 					rand = this.randomGenerator.nextInt(300);
 					if (rand == 150) {
@@ -535,6 +547,81 @@ public class MapSection {
 		}
 		if (!added) {
 			generateRedCross();
+		}
+	}
+
+	public void generateFlower() {
+		int rand;
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (this.tiles[i][j].getType() == EnumTiles.GRASS) {
+					rand = this.randomGenerator.nextInt(12);
+					if (rand == 5) {
+						rand = this.randomGenerator.nextInt(3);
+						switch (rand) {
+						case 1:
+							this.tiles[i][j].setType(EnumTiles.YELLOW_FLOWER);
+							break;
+						case 2:
+							this.tiles[i][j].setType(EnumTiles.BLUE_FLOWER);
+							break;
+						default:
+							this.tiles[i][j].setType(EnumTiles.RED_FLOWER);
+							break;
+						}
+
+					}
+				}
+			}
+		}
+	}
+	
+	public void generateRock() {
+		int rand;
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (this.tiles[i][j].getType() == EnumTiles.GRASS) {
+					rand = this.randomGenerator.nextInt(12);
+					if (rand == 5) {
+						rand = this.randomGenerator.nextInt(2);
+						switch (rand) {
+						case 1:
+							this.tiles[i][j].setType(EnumTiles.GRASS_WITH_ROCK_1);
+							break;
+						default:
+							this.tiles[i][j].setType(EnumTiles.GRASS_WITH_ROCK_2);
+							break;
+						}
+
+					}
+				}
+			}
+		}
+	}
+	
+	public void generateShellfish() {
+		int rand;
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (this.tiles[i][j].getType() == EnumTiles.SAND) {
+					rand = this.randomGenerator.nextInt(5);
+					if (rand == 3) {
+						rand = this.randomGenerator.nextInt(3);
+						switch (rand) {
+						case 1:
+							this.tiles[i][j].setType(EnumTiles.SHELLFISH_1);
+							break;
+						case 2:
+							this.tiles[i][j].setType(EnumTiles.SHELLFISH_2);
+							break;
+						default:
+							this.tiles[i][j].setType(EnumTiles.SHELLFISH_3);
+							break;
+						}
+
+					}
+				}
+			}
 		}
 	}
 

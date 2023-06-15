@@ -41,7 +41,7 @@ public class PlayingView extends View {
 		weapons.addBox(boxScythe);
 
 		k = 0;
-		
+
 		addComponent(weapons);
 	}
 
@@ -66,14 +66,15 @@ public class PlayingView extends View {
 		g.fillRect(0, 0, width, height);
 		if (GameModele.onSea) {
 			GameModele.map.getRepresentation().paint(g, width, height, GameModele.pirateBoat.getX(),
-					 GameModele.pirateBoat.getY());
+					GameModele.pirateBoat.getY());
 		} else {
 			if (GameModele.solo) {
 				GameModele.map.getRepresentation().paint(g, width, height, GameModele.player1.getX(),
-						 GameModele.player1.getY());
+						GameModele.player1.getY());
 			} else {
-		 		GameModele.map.getRepresentation().paint(g, width, height,(GameModele.player1.getX() + width + GameModele.player2.getX())/2,
-						(GameModele.player1.getY() + height + GameModele.player2.getY())/2); 
+				GameModele.map.getRepresentation().paint(g, width, height,
+						(GameModele.player1.getX() + width + GameModele.player2.getX()) / 2,
+						(GameModele.player1.getY() + height + GameModele.player2.getY()) / 2);
 			}
 		}
 
@@ -83,9 +84,12 @@ public class PlayingView extends View {
 
 		life.paint(g);
 		weapons.paint(g);
-		
-		if(Controller.getBuffer()[77]) { // Quand M push
-			GameModele.map.getMiniMap().paint(g, width, height, 0);
+
+		if (Controller.getBuffer()[77]) { // Quand M push
+			GameModele.map.getMiniMap().paint(g, width, height,
+					GameModele.map.getSectionOfEntity(GameModele.pirateBoat.getX(), GameModele.pirateBoat.getY()),
+					GameModele.map.transpoXCoordinateToTile(GameModele.pirateBoat.getX(),
+							GameModele.pirateBoat.getY()), GameModele.map.transpoYCoordinateToTile(GameModele.pirateBoat.getX(), GameModele.pirateBoat.getY()));
 		}
 	}
 
