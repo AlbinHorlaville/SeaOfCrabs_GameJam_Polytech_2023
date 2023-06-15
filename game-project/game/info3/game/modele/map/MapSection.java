@@ -138,6 +138,9 @@ public class MapSection {
 
 		// Generation of perlin noise for the island
 		double[][] harborSection = new double[this.sectionHeight][this.sectionWidth];
+		
+		harborSection = this.noiseGenerator.generateNoiseArray(this.sectionHeight, this.sectionWidth,
+				this.randomGenerator.nextDouble() * 10000, this.randomGenerator.nextDouble() * 10000);
 
 		harborSection = generateHarborGradient(harborSection);
 
@@ -146,16 +149,16 @@ public class MapSection {
 	
 	private double[][] generateHarborGradient(double[][] harbor) {
 		double value;
-		for (int i = 4; i >= 0; i--) {
-			value = i * 0.2;
+		for (int i = 0; i < 5; i++) {
+			value = (5-i) * 0.1;
 			for (int j = 0; j < this.sectionWidth; j++) {
-				harbor[this.sectionHeight - 1 - i][j] = 1;
+				harbor[this.sectionHeight - 1 - i][j] += value;
 			}
 		}
 
 		for (int i = this.sectionHeight - 6; i >= 0; i--) {
 			for (int j = 0; j < this.sectionWidth; j++) {
-				harbor[i][j] = 0;
+				harbor[i][j] -= 1;
 			}
 		}
 
@@ -167,7 +170,9 @@ public class MapSection {
 			for (int j = 0; j < this.sectionWidth; j++) {
 				if ((i == this.sectionHeight  - 6 || i == this.sectionHeight  - 7) && j == this.sectionWidth / 2) {
 					this.tiles[i][j].setType(EnumTiles.PONTOON);
-				} else if (harbor[i][j] == 0) {
+				} else if ((j == this.sectionWidth / 2 && i > this.sectionHeight  - 6) || (j == this.sectionWidth / 2 + 1 && i > this.sectionHeight  - 5) || (j == this.sectionWidth / 2 - 1 && i > this.sectionHeight  - 5)) { 
+					this.tiles[i][j].setType(EnumTiles.SAND);
+				}else if (harbor[i][j] == 0) {
 					this.tiles[i][j].setType(EnumTiles.CALM_WATER);
 				} else if (harbor[i][j] > 0) {
 					this.tiles[i][j].setType(EnumTiles.SAND);
