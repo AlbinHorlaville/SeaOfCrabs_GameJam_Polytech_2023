@@ -18,25 +18,24 @@ public class PiratePlayer extends Player {
 	private static final int DEFAULT_PIRATEPLAYER_DAMAGE_COEFF = 1;
 	
 	private static final int DEFAULT_PIRATEPLAYER_RANGE_COEFF = 1;
+	
+	protected float attackSpeedCoeff;
+	protected float speedCoeff;
+	protected float damageCoeff;
+	protected float rangeCoeff;
 
 			
 	Weapon weapon;
 
-	public PiratePlayer() {
-		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_MAX_PLAYERS_LIFE_COEFF, DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF, DEFAULT_PIRATEPLAYER_SPEED_COEFF, DEFAULT_PIRATEPLAYER_DAMAGE_COEFF, DEFAULT_PIRATEPLAYER_RANGE_COEFF);
-		this.automate = AutomateLoader.findAutomate("Player");
+	public PiratePlayer(String string) {
+		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_MAX_PLAYERS_LIFE_COEFF);
+		this.automate = AutomateLoader.findAutomate(string);
 		this.current_state = automate.initial_state;
 		facing = EnumDirection.N;
-	}
-
-	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void takeDamage(int damage) {
-		// TODO Auto-generated method stub
+		this.attackSpeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
+		this.speedCoeff = DEFAULT_PIRATEPLAYER_SPEED_COEFF;
+		this.damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
+		this.rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
 	}
 	
 	public void setWeapon(Weapon weapon) {
@@ -87,7 +86,7 @@ public class PiratePlayer extends Player {
 		switch(d) {
 			case N:
 				
-				tempY = this.y - this.speedCoeff;
+				tempY = (int) ((float)this.y * this.speedCoeff);
 				t = GameModele.map.getTileUnderEntity(this.x, tempY);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
@@ -102,7 +101,7 @@ public class PiratePlayer extends Player {
 				return true;
 				
 			case S:
-				tempY = this.y + this.speedCoeff;
+				tempY = (int) ((float)this.y + this.speedCoeff);
 				t = GameModele.map.getTileUnderEntity(this.x, tempY);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
@@ -120,7 +119,7 @@ public class PiratePlayer extends Player {
 				return true;
 				
 			case E:
-				tempX = this.x + this.speedCoeff;
+				tempX = (int) ((float)this.x + this.speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, y);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
@@ -136,7 +135,7 @@ public class PiratePlayer extends Player {
 				return true;
 				
 			case W:
-				tempX = this.x - this.speedCoeff;
+				tempX = (int) ((float)this.x - this.speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, y);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
@@ -152,8 +151,8 @@ public class PiratePlayer extends Player {
 				return true;
 				
 			case NE:
-				tempX = this.x + this.speedCoeff;
-				tempY = this.y - this.speedCoeff;
+				tempX = (int) ((float)this.x + this.speedCoeff);
+				tempY = (int) ((float)this.y - this.speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, tempY);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
@@ -169,8 +168,8 @@ public class PiratePlayer extends Player {
 				return true;
 				
 			case NW:
-				tempX = this.x - this.speedCoeff;
-				tempY = this.y - this.speedCoeff;
+				tempX = (int) ((float)this.x - this.speedCoeff);
+				tempY = (int) ((float)this.y - this.speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, tempY);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
@@ -186,8 +185,8 @@ public class PiratePlayer extends Player {
 				return true;
 				
 			case SE:
-				tempX = this.x + this.speedCoeff;
-				tempY = this.y + this.speedCoeff;
+				tempX = (int) ((float)this.x + this.speedCoeff);
+				tempY = (int) ((float)this.y + this.speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, y);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
@@ -203,8 +202,8 @@ public class PiratePlayer extends Player {
 				return true;
 				
 			case SW:
-				tempX = this.x - this.speedCoeff;
-				tempY = this.y + this.speedCoeff;
+				tempX = (int) ((float)this.x - this.speedCoeff);
+				tempY = (int) ((float)this.y + this.speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, y);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
@@ -229,11 +228,50 @@ public class PiratePlayer extends Player {
 		//weapon.hit();
 		
 	}
+	
+	public float getDamageCoeff() {
+		return this.damageCoeff;
+	}
+
+
+	public void addDamageCoeff(float f) {
+		this.damageCoeff += f;
+	}
+
+
+	public float getSpeedCoeff() {
+		return speedCoeff;
+	}
+
+
+	public void addSpeedCoeff(float f) {
+		this.speedCoeff =+ f;
+	}
+
 
 	@Override
 	public boolean gotStuff() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public float getAttackSpeedCoeff() {
+		return attackSpeedCoeff;
+	}
+
+
+	public void addAttackSpeedCoeff(float attackSpeedCoeff) {
+		this.attackSpeedCoeff += attackSpeedCoeff;
+	}
+
+
+	public float getRangeCoeff() {
+		return rangeCoeff;
+	}
+
+
+	public void addRangeCoeff(float rangeCoeff) {
+		this.rangeCoeff += rangeCoeff;
 	}
 
 }
