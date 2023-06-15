@@ -79,6 +79,15 @@ public class GameModele {
 		for (Entity entity : entities) {
 			entity.step();
 		}
+		// System.out.print("\n\n x : " +
+		// -map.getMap()[0].getTiles()[26][map.getSectionWidth() / 2].getX() + "\n\n");
+		/*System.out.print("\n\n x : "
+				+ this.map.transpoXCoordinateToTile(this.pirateBoat.getX(), this.pirateBoat.getY())
+				+ "\n\n");
+		System.out.print("tt:" + this.map.getSectionWidth()/2);
+		System.out.print("\n\n YYYY : "
+				+ this.map.transpoYCoordinateToTile(this.pirateBoat.getX(), this.pirateBoat.getY())
+				+ "\n\n");*/
 	}
 
 	public GameState getCurrentState() {
@@ -91,26 +100,30 @@ public class GameModele {
 	}
 
 	public void start(int s) throws Exception {
-		System.out.println("SOLO = "+solo);
+		System.out.println("SOLO = " + solo);
 		if (currentState == GameState.AvantJeu) {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
 
-			player1 = new PiratePlayer("Player1");
+			map = new Map(s);
+
+			player1 = new PiratePlayer("Player1", 1000, 1000);
 			player1.setAvatar(new Player1(player1));
 			// GameModele.entities.add(player1);
 
 			if (!solo) {
-				player2 = new PiratePlayer("Player2");
+				player2 = new PiratePlayer("Player2", 1000, 1000);
 				player2.setAvatar(new Player2(player2));
 				// GameModele.entities.add(player2);
 			}
 
-			pirateBoat = new BoatPlayer();
+			pirateBoat = new BoatPlayer(
+					-map.getMap()[0].getTiles()[this.map.getSectionHeight() - 10][map.getSectionWidth() / 2 -6].getX(),
+					-map.getMap()[0].getTiles()[this.map.getSectionHeight() - 10][map.getSectionWidth() / 2 -6].getY());
 			pirateBoat.setAvatar(new BoatPlayerAvatar(pirateBoat));
 			GameModele.entities.add(pirateBoat);
-			map = new Map(s);
-			//genereEntity(map);
+
+			// genereEntity(map);
 		}
 	}
 
@@ -173,8 +186,7 @@ public class GameModele {
 						newEntity.setX(i);
 						newEntity.setY(j);
 						entities.add(newEntity);
-					}
-					else if (Current.getType() == EnumTiles.TREE) {
+					} else if (Current.getType() == EnumTiles.TREE) {
 						newEntity = new Tree();
 						newEntity.setAvatar(new TreeAvatar(newEntity));
 						newEntity.setX(i);

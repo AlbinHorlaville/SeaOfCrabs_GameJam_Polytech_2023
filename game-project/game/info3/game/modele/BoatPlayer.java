@@ -28,6 +28,18 @@ public class BoatPlayer extends Player {
 		this.facing = EnumDirection.N;
 	}
 	
+	public BoatPlayer(int x, int y) {
+		super(DEFAULT_BOATPLAYER_LIFE_POINT, DEFAULT_BOATPLAYER_ATTACK, x, y);
+		
+		bouletDeCannon = new ArrayList<>();
+		this.current_ball = new BasicCannonBall();
+		
+		this.automate = AutomateLoader.findAutomate("PlayerBoat");
+		this.current_state = automate.initial_state;
+		
+		this.facing = EnumDirection.N;
+	}
+	
 	@Override
 	public void attack() {
 		// TODO Auto-generated method stub

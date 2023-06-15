@@ -19,6 +19,11 @@ public abstract class Entity {
 
 	public Entity() {
 	}
+	
+	public Entity(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 
 	public void initAvatar(Avatar avatar) {
 		this.avatar = avatar;
