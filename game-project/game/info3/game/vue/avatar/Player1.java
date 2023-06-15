@@ -20,7 +20,7 @@ public class Player1 extends Avatar {
 	BufferedImage[] m_images_left;
 	BufferedImage[] m_images_right;
 	
-	public final static int SCALE_IMG = 6;
+	
 	
 	public Player1(Entity entity) {
 		super(entity);

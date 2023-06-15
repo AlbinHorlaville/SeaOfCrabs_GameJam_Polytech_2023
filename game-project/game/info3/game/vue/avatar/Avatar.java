@@ -18,6 +18,8 @@ public abstract class Avatar {
 	int width;
 
 	Entity entity;
+	
+	public final static int SCALE_IMG = 6;
 
 	public Avatar(Entity entity) {
 		this.entity = entity;

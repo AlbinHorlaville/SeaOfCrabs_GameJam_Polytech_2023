@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import info3.game.modele.CrabLair;
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
 import info3.game.modele.Scythe;
@@ -83,6 +84,9 @@ public class PlayingView extends View {
 		//uiMap.paint(g);
 		for (Entity entity : GameModele.entities) {
 			entity.getAvatar().paint(g, width, height);
+			if (entity instanceof CrabLair) {
+				System.out.println("CHECK");
+			}
 		}
 
 		life.paint(g);
