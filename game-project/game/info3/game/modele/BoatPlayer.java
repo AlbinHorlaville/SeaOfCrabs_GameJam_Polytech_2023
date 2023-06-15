@@ -22,7 +22,7 @@ public class BoatPlayer extends Player {
 		bouletDeCannon = new ArrayList<>();
 		this.current_ball = new BasicCannonBall();
 		
-		this.automate = AutomateLoader.findAutomate("Player");
+		this.automate = AutomateLoader.findAutomate("PlayerBoat");
 		this.current_state = automate.initial_state;
 		
 		this.facing = EnumDirection.N;
@@ -40,7 +40,7 @@ public class BoatPlayer extends Player {
 	}
 	
 	/**
-	 * Cette méthode doit être changer et permettra d'ajouter un boulet quand ramasser
+	 * Cette mï¿½thode doit ï¿½tre changer et permettra d'ajouter un boulet quand ramasser
 	 * @param boulet
 	 */
 	public void addBoulet(CannonBall boulet) {
