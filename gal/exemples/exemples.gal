@@ -87,3 +87,16 @@ Player(Init){
   | Key(FR) & !Cell(E,O) ? Move(E) :(Init)
 
 }
+
+PlayerBoat(Init){
+  * (Init):
+  | Key(FR) & Key(FU) ? Move(NE) :(Init)
+  | Key(FR) & Key(FD) ? Move(SE) :(Init)
+  | Key(FL) & Key(FU) ? Move(NW) :(Init)
+  | Key(FL) & Key(FD) ? Move(SW) :(Init)
+  | Key(FU) ? Move(N) :(Init)
+  | Key(FD) ? Move(S) :(Init)
+  | Key(FL) ? Move(W) :(Init)
+  | Key(FR) ? Move(E) :(Init)
+
+}
