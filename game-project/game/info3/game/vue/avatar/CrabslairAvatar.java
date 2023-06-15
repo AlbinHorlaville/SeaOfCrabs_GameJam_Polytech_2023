@@ -33,7 +33,7 @@ public class CrabslairAvatar extends Avatar{
 		int width_painted = SCALE_IMG * img.getWidth();
 		int heigth_painted = SCALE_IMG * img.getHeight();
 		
-		g.drawImage(img,100, 100, 1000, 1000, null);
+		g.drawImage(img,entity.getX(), entity.getY(), width_painted, heigth_painted, null);
 		
 	}
 
