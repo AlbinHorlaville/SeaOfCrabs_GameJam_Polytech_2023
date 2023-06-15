@@ -17,14 +17,18 @@ public abstract class MoveableEntity extends Entity{
 	}
 
 	public abstract void takeDamage(int damage);
+		
+	public boolean closest() throws Exception {
+		throw new Exception("Closest Method is not implemented in the entity");
+	}
 	
-	public abstract boolean closeTo(EnumDirection d, EnumCategory c);
+	public boolean gotStuff() throws Exception{
+		throw new Exception("GotStuff Method is not implemented in the entity");
+	}
 	
-	public abstract boolean closest(EnumDirection d, EnumCategory c);
-	
-	public abstract boolean gotStuff();
-	
-	public abstract boolean cell(EnumDirection d, EnumCategory c);
+	public boolean cell(EnumDirection d, EnumCategory c) throws Exception {
+		throw new Exception("Cell Method is not implemented in the entity");
+	}
 	
 	public abstract void hit(EnumDirection d, EnumCategory c);
 	
