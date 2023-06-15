@@ -191,6 +191,19 @@ public class Map {
 
 		return this.map[numSection].getTiles()[y][x];
 	}
+	
+	public int getSectionOfEntity(int xPos, int yPos) {
+		int y = transpoYCoordinateToTile(xPos, yPos);
+
+		int numSection = this.nbSection;
+
+		while (y >= 0) {
+			y -= this.sectionHeight;
+			numSection--;
+		}
+
+		return numSection;
+	}
 
 	double determinant() {
 		float bottom = ((this.tileWidth * this.tileHeight) / 4);
@@ -519,5 +532,9 @@ public class Map {
 
 	public MiniMap getMiniMap() {
 		return this.miniMap;
+	}
+	
+	public Random getRand() {
+		return this.rand;
 	}
 }

@@ -11,16 +11,14 @@ public class MiniMap {
 	private MapSection[] map; // The map
 	private int sectionWidth; //The map dimension
 	private int sectionHeight; //The map dimension
-	private int nbSection; //The number of section
 
 	public MiniMap(Map m) {
 		this.map = m.getMap();
 		this.sectionWidth = m.getSectionWidth();
 		this.sectionHeight = m.getSectionHeight();
-		this.nbSection = m.getNbSection();
 	}
 
-	public void paint(Graphics g, int width, int height, int currentSection) {
+	public void paint(Graphics g, int width, int height, int currentSection, int tilesX, int tilesY) {
 		int mapPixelSize = 10;
 
 		//We paint the background of the minimap (the water) for optimisation we don't draw each water tile individually
@@ -28,28 +26,38 @@ public class MiniMap {
 		g.fillRect(width / 2 - (this.sectionWidth * mapPixelSize) / 2,
 				height / 2 - (this.sectionHeight * mapPixelSize) / 2, this.sectionWidth * mapPixelSize,
 				this.sectionHeight * mapPixelSize);
+		
+		System.out.print("\n\n x : " + tilesX + " y : " + tilesY + "\n\n");
 
 		//We paint the island
 		for (int i = 0; i < this.sectionHeight; i++) {
 			for (int j = 0; j < this.sectionWidth; j++) {
-				switch (this.map[currentSection].getTiles()[i][j].getType()) {
-				case CALM_WATER:
-					break;
-				case SAND_WATER:
-				case SAND:
-					g.setColor(Color.yellow);
+				if (i == tilesY%this.sectionHeight && j == tilesX) {
+					g.setColor(Color.red);
 					g.fillRect(width / 2 - (this.sectionWidth * mapPixelSize) / 2 + j * mapPixelSize,
 							height / 2 - (this.sectionHeight * mapPixelSize) / 2 + i * mapPixelSize, mapPixelSize,
 							mapPixelSize);
-					break;
-				case GRASS:
-				default:
-					g.setColor(Color.green);
-					g.fillRect(width / 2 - (this.sectionWidth * mapPixelSize) / 2 + j * mapPixelSize,
-							height / 2 - (this.sectionHeight * mapPixelSize) / 2 + i * mapPixelSize, mapPixelSize,
-							mapPixelSize);
-					break;
+				} else {
+					switch (this.map[currentSection].getTiles()[i][j].getType()) {
+					case CALM_WATER:
+						break;
+					case SAND_WATER:
+					case SAND:
+						g.setColor(Color.yellow);
+						g.fillRect(width / 2 - (this.sectionWidth * mapPixelSize) / 2 + j * mapPixelSize,
+								height / 2 - (this.sectionHeight * mapPixelSize) / 2 + i * mapPixelSize, mapPixelSize,
+								mapPixelSize);
+						break;
+					case GRASS:
+					default:
+						g.setColor(Color.green);
+						g.fillRect(width / 2 - (this.sectionWidth * mapPixelSize) / 2 + j * mapPixelSize,
+								height / 2 - (this.sectionHeight * mapPixelSize) / 2 + i * mapPixelSize, mapPixelSize,
+								mapPixelSize);
+						break;
+					}
 				}
+				
 			}
 		}
 	}

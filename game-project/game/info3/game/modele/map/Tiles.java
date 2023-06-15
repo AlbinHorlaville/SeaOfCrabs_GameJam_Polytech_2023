@@ -69,6 +69,10 @@ public class Tiles {
 
 	public boolean isIsland() {
 		return this.type == EnumTiles.SAND_WATER || this.type == EnumTiles.SAND || this.type == EnumTiles.GRASS
+				|| this.type == EnumTiles.BLUE_FLOWER || this.type == EnumTiles.YELLOW_FLOWER
+				|| this.type == EnumTiles.SHELLFISH_1 || this.type == EnumTiles.SHELLFISH_2
+				|| this.type == EnumTiles.SHELLFISH_3 || this.type == EnumTiles.GRASS_WITH_ROCK_1
+				|| this.type == EnumTiles.GRASS_WITH_ROCK_2 || this.type == EnumTiles.RED_FLOWER
 				|| this.type == EnumTiles.TRANSITION_GRASS_UNDER_SAND
 				|| this.type == EnumTiles.TRANSITION_GRASS_ON_TOP_OF_SAND
 				|| this.type == EnumTiles.TRANSITION_GRASS_ON_LEFT_OF_SAND

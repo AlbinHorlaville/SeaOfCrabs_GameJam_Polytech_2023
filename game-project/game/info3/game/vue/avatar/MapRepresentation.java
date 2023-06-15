@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -19,6 +20,7 @@ public class MapRepresentation {
 	private int sectionHeight;
 	private int nbSection;
 	private double[][] wave;
+	private Random rand;
 
 	/*
 	 * Save images for only one loading
@@ -38,6 +40,8 @@ public class MapRepresentation {
 	private BufferedImage[] grassTransitionTwoSide;
 	private BufferedImage[] grassTransitionThreeSide;
 	private BufferedImage[] grassTransitionAngle;
+	private BufferedImage[] grassVariante;
+	private BufferedImage[] sandVariante;
 
 	private int scale;
 
@@ -50,6 +54,8 @@ public class MapRepresentation {
 	public MapRepresentation(Map m) throws IOException {
 
 		this.scale = 6;
+
+		this.rand = m.getRand();
 
 		/*
 		 * Load tiles images
@@ -77,22 +83,22 @@ public class MapRepresentation {
 			this.calmWaterImage = resize(this.calmWaterImage, this.calmWaterImage.getWidth() * scale,
 					this.calmWaterImage.getHeight() * scale);
 		}
-		
+
 		imageFile = new File("assets/img/tiles/stormy_water.png");
 		if (imageFile.exists()) {
 			this.stormyWaterImage = ImageIO.read(imageFile);
 		}
-		
+
 		imageFile = new File("assets/img/tiles/pontoon.png");
 		if (imageFile.exists()) {
 			this.pontoonImage = ImageIO.read(imageFile);
 		}
-		
+
 		imageFile = new File("assets/img/tiles/raging_water.png");
 		if (imageFile.exists()) {
 			this.ragingWaterImage = ImageIO.read(imageFile);
 		}
-		
+
 		imageFile = new File("assets/img/tiles/kraken_water.png");
 		if (imageFile.exists()) {
 			this.krakenWaterImage = ImageIO.read(imageFile);
@@ -104,7 +110,7 @@ public class MapRepresentation {
 			this.sandWaterImage = resize(this.sandWaterImage, this.sandWaterImage.getWidth() * scale,
 					this.sandWaterImage.getHeight() * scale);
 		}
-		
+
 		imageFile = new File("assets/img/tiles/stone.png");
 		if (imageFile.exists()) {
 			this.stoneImage = ImageIO.read(imageFile);
@@ -215,6 +221,50 @@ public class MapRepresentation {
 		imageFile = new File("assets/img/tiles/grassUnderAndOnRightAndOnTopOfSand.png");
 		if (imageFile.exists()) {
 			grassTransitionThreeSide[3] = ImageIO.read(imageFile);
+		}
+
+		this.grassVariante = new BufferedImage[5];
+
+		imageFile = new File("assets/img/tiles/blue_flower.png");
+		if (imageFile.exists()) {
+			grassVariante[0] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/yellow_flower.png");
+		if (imageFile.exists()) {
+			grassVariante[1] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/red_flower.png");
+		if (imageFile.exists()) {
+			grassVariante[2] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/grass_rock_1.png");
+		if (imageFile.exists()) {
+			grassVariante[3] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/grass_rock_2.png");
+		if (imageFile.exists()) {
+			grassVariante[4] = ImageIO.read(imageFile);
+		}
+
+		this.sandVariante = new BufferedImage[3];
+
+		imageFile = new File("assets/img/tiles/shellfish1.png");
+		if (imageFile.exists()) {
+			sandVariante[0] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/shellfish2.png");
+		if (imageFile.exists()) {
+			sandVariante[1] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/shellfish3.png");
+		if (imageFile.exists()) {
+			sandVariante[2] = ImageIO.read(imageFile);
 		}
 
 		/*
@@ -337,6 +387,30 @@ public class MapRepresentation {
 							break;
 						case PONTOON:
 							img = this.pontoonImage;
+							break;
+						case BLUE_FLOWER:
+							img = this.grassVariante[0];
+							break;
+						case YELLOW_FLOWER:
+							img = this.grassVariante[1];
+							break;
+						case RED_FLOWER:
+							img = this.grassVariante[2];
+							break;
+						case GRASS_WITH_ROCK_1:
+							img = this.grassVariante[3];
+							break;
+						case GRASS_WITH_ROCK_2:
+							img = this.grassVariante[4];
+							break;
+						case SHELLFISH_1:
+							img = this.sandVariante[0];
+							break;
+						case SHELLFISH_2:
+							img = this.sandVariante[1];
+							break;
+						case SHELLFISH_3:
+							img = this.sandVariante[2];
 							break;
 						case TRANSITION_GRASS_ANGLE_SAND_TOP_RIGHT:
 							img = this.grassTransitionAngle[0];
