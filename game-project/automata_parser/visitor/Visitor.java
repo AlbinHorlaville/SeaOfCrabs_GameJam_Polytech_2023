@@ -38,13 +38,9 @@ import info3.game.automata.ast.UnaryOp;
 
 
 public class Visitor implements IVisitor{
-	private ArrayList<Automate> automates;
-	
-	private Automaton current;
 	private ArrayList<automate.State> states_done;
 	
 	public Visitor() {
-		automates = new ArrayList<>();
 	}
 	
 	public automate.State stateDone(State state) {
@@ -268,7 +264,6 @@ public class Visitor implements IVisitor{
 	public void enter(Automaton automaton) {
 		// TODO Auto-generated method stub
 		System.out.println("I enter automaton " + automaton.toString());
-		current = automaton;
 		states_done = new ArrayList<>();
 		
 	}

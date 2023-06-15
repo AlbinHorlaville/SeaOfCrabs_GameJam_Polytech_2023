@@ -27,14 +27,7 @@ public class UIBox extends UIComponent {
 	}
 
 	public String getStringWeapon() {
-		switch (weapon) {
-		case Sword:
-			return "Epée";
-		case Scythe:
-			return "Faux";
-		default:
-			return "";
-		}
+		return weapon.getName();
 	}
 
 	public Color getBackgroundColor() {
