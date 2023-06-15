@@ -64,8 +64,14 @@ public class PlayingView extends View {
 
 	@Override
 	public void paint(Graphics g, int width, int height) {
-		GameModele.map.getRepresentation().paint(g, width, height, GameModele.player1.getX(),
-				 GameModele.player1.getY());
+		if (GameModele.onSea) {
+			GameModele.map.getRepresentation().paint(g, width, height, GameModele.pirateBoat.getX(),
+					 GameModele.pirateBoat.getY());
+		} else {
+			GameModele.map.getRepresentation().paint(g, width, height, GameModele.player1.getX(),
+					 GameModele.player1.getY());
+		}
+
 		//uiMap.paint(g);
 		for (Entity entity : GameModele.entities) {
 			entity.getAvatar().paint(g, width, height);

@@ -34,7 +34,7 @@ public class Controller implements GameCanvasListener {
 
 	GameModele gameModele;
 	GameView gameView;
-	static boolean[] buffer = new boolean[400]; // Variable indiquant les inputs du clavier actif ( Pour chaque index == le code le touche )
+	static boolean[] buffer = new boolean[600]; // Variable indiquant les inputs du clavier actif ( Pour chaque index == le code le touche )
 	UIComponent focus; // focus is the UIComponent currently hovered on the game canvas
 
 	public Controller() throws Exception {
