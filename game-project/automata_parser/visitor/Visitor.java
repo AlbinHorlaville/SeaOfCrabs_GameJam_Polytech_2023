@@ -6,9 +6,12 @@ import java.util.Random;
 
 import automate.*;
 import automate.ActionClass.Cell;
+import automate.ActionClass.Closest;
 import automate.ActionClass.Egg;
 import automate.ActionClass.Explode;
 import automate.ActionClass.Get;
+import automate.ActionClass.GotPower;
+import automate.ActionClass.GotStuff;
 import automate.ActionClass.Hit;
 import automate.ActionClass.Jump;
 import automate.ActionClass.KeyFunc;
@@ -141,6 +144,12 @@ public class Visitor implements IVisitor{
 			return new Cell(l);
 		else if(funcall.name.equals("True"))
 			return new True();
+		else if(funcall.name.equals("Closest"))
+			return new Closest();
+		else if(funcall.name.equals("GotPower"))
+			return new GotPower();
+		else if(funcall.name.equals("GotStuff"))
+			return new GotStuff();
 		else {
 			return null;
 		}
