@@ -75,7 +75,7 @@ Escape(Init){
   | Cell(B,V) ? Move(B) :(Init)
 }
 
-Player(Init){
+Player1(Init){
   * (Init):
   | Key(FR) & Key(FU) ? Move(NE) :(Init)
   | Key(FR) & Key(FD) ? Move(SE) :(Init)
@@ -86,4 +86,16 @@ Player(Init){
   | Key(FL) ? Move(W) :(Init)
   | Key(FR) ? Move(E) :(Init)
 
+}
+
+Player2(Init){
+  * (Init):
+  | Key(d) & Key(z) ? Move(NE) :(Init)
+  | Key(d) & Key(s) ? Move(SE) :(Init)
+  | Key(q) & Key(z) ? Move(NW) :(Init)
+  | Key(q) & Key(s) ? Move(SW) :(Init)
+  | Key(z) ? Move(N) :(Init)
+  | Key(s) ? Move(S) :(Init)
+  | Key(q) ? Move(W) :(Init)
+  | Key(d) ? Move(E) :(Init)
 }

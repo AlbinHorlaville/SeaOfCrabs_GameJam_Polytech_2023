@@ -17,9 +17,9 @@ public class PiratePlayer extends Player {
 			
 	Weapon weapon;
 
-	public PiratePlayer() {
+	public PiratePlayer(String aut) {
 		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_PIRATEPLAYER_ATTACK, DEFAULT_PIRATEPLAYER_SPEED);
-		this.automate = AutomateLoader.findAutomate("Player");
+		this.automate = AutomateLoader.findAutomate(aut);
 		this.current_state = automate.initial_state;
 		facing = EnumDirection.N;
 		r = 100;

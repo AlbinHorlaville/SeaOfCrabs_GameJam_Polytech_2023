@@ -79,7 +79,8 @@ public class Player1 extends Avatar {
 		BufferedImage img = m_images[imageIndex];
 		int width_painted = SCALE_IMG * img.getWidth();
 		int heigth_painted = SCALE_IMG * img.getHeight();
-		g.drawImage(img, width/2-width_painted/2,height/2-heigth_painted/2, width_painted, heigth_painted, null);
+		//g.drawImage(img, width/2-width_painted/2,height/2-heigth_painted/2, width_painted, heigth_painted, null);
+		g.drawImage(img, (width-width_painted)-GameModele.player1.getX(), (height-heigth_painted)-GameModele.player1.getY(), width_painted, heigth_painted, null);
 	}
 	
 	/**

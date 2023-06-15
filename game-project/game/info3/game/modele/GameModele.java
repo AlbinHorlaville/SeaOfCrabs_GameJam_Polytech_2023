@@ -86,17 +86,17 @@ public class GameModele {
 		if (currentState == GameState.AvantJeu) {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
-			player1 = new PiratePlayer();
+			player1 = new PiratePlayer("Player1");
 			player1.setAvatar(new Player1(player1));
-			player2 = new PiratePlayer();
-			player2.setAvatar(new Player1(player2));
-			player2.setX(100);
-			player2.setY(100);
+			player2 = new PiratePlayer("Player2");
+			player2.setAvatar(new Player2(player2));
+			//player2.setX(100);
+			//player2.setY(100);
 			//pirateBoat = new BoatPlayer();
 			GameModele.entities.add(player1);
 			GameModele.entities.add(player2);
 			System.out.println("Player1 " + player1.x + player1.y);
-			System.out.println("Player1 " + player2.x + player2.y);
+			System.out.println("Player2 " + player2.x + " " + player2.y);
 			//GameModele.entities.add(pirateBoat);
 			map = new Map(s, 3, 96, 48);
 		}
