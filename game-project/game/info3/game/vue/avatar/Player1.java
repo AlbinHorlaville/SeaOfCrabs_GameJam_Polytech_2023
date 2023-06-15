@@ -1,5 +1,6 @@
 package info3.game.vue.avatar;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -7,7 +8,10 @@ import java.util.Arrays;
 
 import info3.game.Controller;
 import info3.game.modele.Entity;
+import info3.game.modele.GameModele;
 import info3.game.modele.PiratePlayer;
+import info3.game.vue.SpriteLoader.SpriteLoader;
+import info3.game.vue.SpriteLoader.SpriteType;
 
 public class Player1 extends Avatar {
 	
@@ -16,16 +20,11 @@ public class Player1 extends Avatar {
 	BufferedImage[] m_images_left;
 	BufferedImage[] m_images_right;
 	
-	public final static int SCALE_IMG = 4;
+	public final static int SCALE_IMG = 6;
 	
 	public Player1(Entity entity) {
 		super(entity);
-		try {
-			m_images = loadSprite("assets/img/player/" + "J1.png", 5, 4);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		m_images = SpriteLoader.get(SpriteType.Player1);
 		
 		m_images_face = Arrays.copyOfRange(this.m_images, 0, 3);
 		m_images_back = Arrays.copyOfRange(this.m_images, 4, 7);
@@ -64,9 +63,7 @@ public class Player1 extends Avatar {
 			}
 		} else {
 			imageIndex = 0;
-		}
-		
-
+		}		
 	}
 
 	@Override
@@ -75,7 +72,14 @@ public class Player1 extends Avatar {
 		BufferedImage img = m_images[imageIndex];
 		int width_painted = SCALE_IMG * img.getWidth();
 		int heigth_painted = SCALE_IMG * img.getHeight();
-		g.drawImage(img, width/2-width_painted/2,height/2-heigth_painted/2, width_painted, heigth_painted, null);
+		
+		if (GameModele.solo) {
+			g.drawImage(img, width/2-width_painted/2,height/2-heigth_painted/2, width_painted, heigth_painted, null);
+		} else {
+			int posX = (entity.getX() + ((width-(GameModele.player1.getX()+GameModele.player2.getX()))/2)) - (width_painted/2);
+			int posY = (entity.getY() + ((height-(GameModele.player1.getY()+GameModele.player2.getY()))/2)) - (heigth_painted/2);
+			g.drawImage(img, posX,posY, width_painted, heigth_painted, null);
+		}
 	}
 	
 	/**

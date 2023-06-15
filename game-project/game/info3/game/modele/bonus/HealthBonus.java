@@ -1,6 +1,7 @@
 package info3.game.modele.bonus;
 
 import info3.game.modele.Bonus;
+import info3.game.modele.GameModele;
 
 public class HealthBonus extends Bonus {
 	
@@ -9,9 +10,8 @@ public class HealthBonus extends Bonus {
 	}
 
 	@Override
-	public void apply() {
-		// TODO Auto-generated method stub
-		
+	public void power() {
+		GameModele.player1.addMaxLifePointsCoeff(this.BONUS_APPLIED);
 	}
 
 }

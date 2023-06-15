@@ -9,6 +9,7 @@ import info3.game.vue.avatar.Avatar;
 public abstract class Entity {
 
 	protected int x, y;
+	protected int r; // Radius for draw hitbox
 	protected boolean valid;
 
 	Avatar avatar;
@@ -61,12 +62,58 @@ public abstract class Entity {
 		this.automate.step(this, current_state);
 	}
 	
+	public boolean checkCollision(EnumDirection direction, int speed) {
+		int X = x;
+		int Y = y;
+		switch (direction) {
+		case W:
+			X += speed;
+			break;
+		case E:
+			X -= speed;
+			break;
+		case N:
+			Y += speed;
+			break;
+		case S:
+			Y -= speed;
+			break;
+		case SE:
+			Y -= speed;
+			X -= speed;
+			break;
+		case NE:
+			Y += speed;
+			X -= speed;
+			break;
+		case SW:
+			Y -= speed;
+			X += speed;
+			break;
+		case NW:
+			Y += speed;
+			X += speed;
+			break;
+		default:
+			break;
+		}
+		for (Entity e :GameModele.entities) {
+			// Calcul de la distance entre les hitboxs de cette entity et des autres
+			int distanceBetweenIandE = (int) java.lang.Math.sqrt(java.lang.Math.pow(X-e.x, 2)+java.lang.Math.pow(Y-e.y, 2)) - r - e.r;
+			if (distanceBetweenIandE<0)
+				System.out.println("COLLISION");
+				return false;
+		}
+		return true;
+	}
 	/*
 	 * D�placement de l'entit� en coordon�e absolue
 	 * L'impl�mentation initial est pour le d�placement du joueur sur terre
 	 */
 	public void move(EnumDirection eval) {
-		moveEntity(eval,1);
+		int speed = 1;
+		if (checkCollision(eval, speed))
+			moveEntity(eval,speed);
 	}
 	
 	protected void moveEntity(EnumDirection direction, int speed) {

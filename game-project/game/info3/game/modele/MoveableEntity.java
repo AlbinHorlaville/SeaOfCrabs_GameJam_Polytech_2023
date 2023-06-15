@@ -1,35 +1,32 @@
 package info3.game.modele;
 
-import automate.Category;
+import automate.EnumCategory;
 import automate.EnumDirection;
 
 public abstract class MoveableEntity extends Entity{
-	protected int attackCoeff;
 	protected int lifePoint;
-	protected int speedCoeff;
+	protected float maxLifePointsCoeff;
+
 	EnumDirection facing;
 
-	public MoveableEntity(int lifePoint, int attackCoeff,int speedCoeff) {
+	public MoveableEntity(int lifePoint, int maxLifePointsCoeff) {
 		super();
 		this.lifePoint = lifePoint;
-		this.attackCoeff = attackCoeff;
-		this.speedCoeff = speedCoeff;
+		this.maxLifePointsCoeff = maxLifePointsCoeff;
+
 	}
-
-
-	public abstract void attack();
 
 	public abstract void takeDamage(int damage);
 	
-	public abstract boolean closeTo(Direction d, Category c);
+	public abstract boolean closeTo(EnumDirection d, EnumCategory c);
 	
-	public abstract boolean closest(Direction d, Category c);
+	public abstract boolean closest(EnumDirection d, EnumCategory c);
 	
 	public abstract boolean gotStuff();
 	
-	public abstract boolean cell(Direction d, Category c);
+	public abstract boolean cell(EnumDirection d, EnumCategory c);
 	
-	public abstract void hit(Direction d, Category c);
+	public abstract void hit(EnumDirection d, EnumCategory c);
 	
 	
 	public boolean gotPower() {
@@ -45,30 +42,12 @@ public abstract class MoveableEntity extends Entity{
 	}
 
 
-	public void setLifePoint(int lifePoint) {
-		this.lifePoint = lifePoint;
+	public void addLifePoint(int lifePoint) {
+		this.lifePoint += lifePoint;
 	}
 
 
-	public int getAttackCoeff() {
-		return attackCoeff;
-	}
-
-
-	public void setAttackCoeff(int attackCoeff) {
-		this.attackCoeff = attackCoeff;
-	}
-
-
-	public int getSpeedCoeff() {
-		return speedCoeff;
-	}
-
-
-	public void setSpeedCoeff(int speedCoeff) {
-		this.speedCoeff = speedCoeff;
-	}
-
+	
 
 	public EnumDirection getFacing() {
 		return facing;
@@ -78,6 +57,19 @@ public abstract class MoveableEntity extends Entity{
 	public void setFacing(EnumDirection facing) {
 		this.facing = facing;
 	}
+
+
+	public float getMaxLifePointsCoeff() {
+		return maxLifePointsCoeff;
+	}
+
+
+	public void addMaxLifePointsCoeff(float maxLifePointsCoeff) {
+		this.maxLifePointsCoeff += maxLifePointsCoeff;
+	}
+
+
+	
 	
 	//public abstract void move(EnumDirection eval);
 	

@@ -1,6 +1,7 @@
 package info3.game.modele.bonus;
 
 import info3.game.modele.Bonus;
+import info3.game.modele.GameModele;
 
 public class SpeedBonus extends Bonus {
 
@@ -9,8 +10,8 @@ public class SpeedBonus extends Bonus {
 	}
 
 	@Override
-	public void apply() {
-		
+	public void power() {
+		GameModele.player1.addSpeedCoeff(this.BONUS_APPLIED);
 	}
 
 }

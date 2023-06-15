@@ -1,11 +1,14 @@
 package info3.game.modele;
 
+import info3.game.modele.map.MapSection;
+
 public class RedCross extends StillEntity {
 	protected Treasure treasure;
+	private MapSection section;
 
-	public RedCross(Treasure treasure) {
+	public RedCross(MapSection section) {
 		super();
-		this.treasure = treasure;
+		this.section = section;
 	}
 
 	@Override

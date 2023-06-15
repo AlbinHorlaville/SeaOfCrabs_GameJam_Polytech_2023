@@ -2,6 +2,7 @@ package info3.game;
 
 import automate.AutomateLoader;
 import info3.game.modele.GameModele;
+import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 
@@ -14,7 +15,7 @@ public class SeaOfCrabes {
 	public static void main(String[] args) {
 		try {
 			System.out.println("Game starting...");
-			AutomateLoader loader = new AutomateLoader();
+			AutomateLoader loader = new AutomateLoader(); // Initialisation des automates
 			SpriteLoader.initAllSprites();
 			controller = new Controller();
 			System.out.println("Game started.");
