@@ -2,13 +2,15 @@ package info3.game.modele;
 
 import java.lang.Math;
 
+import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Tiles;
 
 public class Crab extends Ennemy {
 	
 	private static final int DAMAGE = 10;
+	private CrabLair crabLair;
 
-	public Crab(int lifePoint, int attackCoeff, int speedCoeff, int level) {
+	public Crab(int lifePoint, int attackCoeff, int speedCoeff, int level, CrabLair crabLair) {
 		super(lifePoint, attackCoeff, speedCoeff, level);
 		// TODO Auto-generated constructor stub
 	}
@@ -20,7 +22,6 @@ public class Crab extends Ennemy {
 	@Override
 	public void takeDamage(int damage) {
 		this.lifePoint -= damage;
-		
 	}
 	
 	public void move() {
@@ -33,14 +34,11 @@ public class Crab extends Ennemy {
 		
 		//Can the the tile be moved on buy a crab
 		Tiles tile = GameModele.map.getTileUnderEntity(nextX,nextY);
-		tile.
-		
-		
-		this.addCoordinate((closestPlayer.x - this.x) * 1, (closestPlayer.y - this.y) * 1);
-		
-		
-		Tiles tile = GameModele.map.getTileUnderEntity(this.x,this.y);
-		
+		EnumTiles type;// = //not yet implemented
+		if(type == Grass) {
+			this.x = nextX;
+			this.y = nextY;
+		}		
 	}
 	
 	private void addCoordinate(int x, int y) {
@@ -56,9 +54,16 @@ public class Crab extends Ennemy {
 			return GameModele.player1;
 		}
 		return GameModele.player2;
-
 	}
 	
-	private 
+	public CrabLair getCrabLair() {
+		return this.crabLair;
+	}
+	
+	public void die() {
+		this.crabLair.getCrabs().remove(this);
+	}
+	
+	
 
 }

@@ -8,7 +8,7 @@ public class Tree extends MoveableEntity {
 	public static final int HEALTHPOINTSPERBOARD = 100;
 	
 	public Tree() {
-		super(1,0,0);
+		super(1,0,0, 0, 0, 0);
 	}
 
 	public void move() {
