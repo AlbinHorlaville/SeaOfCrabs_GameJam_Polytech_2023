@@ -87,6 +87,7 @@ public class GameModele {
 		if (currentState == GameState.AvantJeu) {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
+<<<<<<< HEAD
 			
 			player1 = new PiratePlayer();
 			player1.setAvatar(new Player1(player1));
@@ -100,6 +101,18 @@ public class GameModele {
 			pirateBoat.setAvatar(new BoatPlayerAvatar(pirateBoat));
 			GameModele.entities.add(pirateBoat);
 			
+=======
+			player1 = new PiratePlayer("Player1");
+			player1.setAvatar(new Player1(player1));
+			player2 = new PiratePlayer("Player2");
+			player2.setAvatar(new Player2(player2));
+			//player2.setX(100);
+			//player2.setY(100);
+			//pirateBoat = new BoatPlayer();
+			GameModele.entities.add(player1);
+			GameModele.entities.add(player2);
+			//GameModele.entities.add(pirateBoat);
+>>>>>>> origin/horlavia.collisions
 			map = new Map(s, 3, 96, 48);
 		}
 	}

@@ -19,12 +19,26 @@ public class PiratePlayer extends Player {
 			
 	Weapon weapon;
 
-	public PiratePlayer() {
+	public PiratePlayer(String aut) {
 		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_PIRATEPLAYER_ATTACK, DEFAULT_PIRATEPLAYER_SPEED);
-		this.automate = AutomateLoader.findAutomate("Player");
+		this.automate = AutomateLoader.findAutomate(aut);
 		this.current_state = automate.initial_state;
 		facing = EnumDirection.N;
+		r = 100;
 	}
+<<<<<<< HEAD
+=======
+
+	@Override
+	public void attack() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void takeDamage() {
+		// TODO Auto-generated method stub
+	}
+>>>>>>> origin/horlavia.collisions
 	
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
