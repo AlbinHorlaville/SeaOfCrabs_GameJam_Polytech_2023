@@ -4,11 +4,15 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+
+import info3.game.vue.SpriteLoader.SpriteLoader;
+import info3.game.vue.SpriteLoader.SpriteType;
 
 public class UITextInput extends UIComponent {
 
 	private UILabel label;
-	private Color backgroundColor;
+	private int backgroundColor;
 	private Color borderColor;
 	private Color foregroundColor;
 	private String inputText;
@@ -17,7 +21,8 @@ public class UITextInput extends UIComponent {
 	private boolean isSelected;
 	private Color savedBackgroundColor;
 
-	private static final Font FONT = new Font("TimesRoman", Font.PLAIN, 12);
+	private static final Font FONT = new Font("TimesRoman", Font.BOLD, 20);
+	private static final Font FONT_SUB = new Font("TimesRoman", Font.PLAIN, 12);
 
 	/**
 	 * The UITextInput is an text input
@@ -30,14 +35,12 @@ public class UITextInput extends UIComponent {
 	 * @param fg
 	 */
 
-	public UITextInput(int x, int y, int w, String placeholder, Color bg, Color br, Color fg) {
+	public UITextInput(int x, int y, int w, String placeholder, int bg, Color fg) {
 		super(x, y, 0, w);
 		backgroundColor = bg;
-		savedBackgroundColor = bg;
-		borderColor = br;
-		foregroundColor = fg;
 		inputText = placeholder;
 		charCounter = inputText.length();
+		foregroundColor = fg;
 		label = new UILabel(0, 0, inputText, FONT, foregroundColor);
 
 		// The UITextInput's behavior is implemented here because it has a only and
@@ -77,22 +80,24 @@ public class UITextInput extends UIComponent {
 
 	@Override
 	public void paint(Graphics g) {
-		g.setColor(backgroundColor);
-		g.setFont(label.getFont());
+		g.setFont(FONT);
+		BufferedImage[] i = SpriteLoader.get(SpriteType.Buttons);
+		g.drawImage(i[backgroundColor], this.getPositionX(), this.getPositionY(), 200, 70,null);
 		int labelWidth = g.getFontMetrics().stringWidth(label.getText()); // the width of the label (text input string)
 		int labelHeight = g.getFontMetrics().getHeight(); // the height of the label (text input string)
 		int rectHeight = labelHeight + 2 * label.getFont().getSize(); // the height of the input rectangle is calculated
 																		// from the size of the font of the text input
 		this.setHeight(rectHeight);
-		g.setColor(borderColor);
-		g.fillRect(this.getPositionX() - 2, this.getPositionY() - 2, this.getWidth() + 4, rectHeight + 4); // we first
+		//g.setColor(borderColor);
+		//g.fillRect(this.getPositionX() - 2, this.getPositionY() - 2, this.getWidth() + 4, rectHeight + 4); // we first
 																											// draw a
 																											// border
-		g.setColor(backgroundColor);
-		g.fillRect(super.getPositionX(), super.getPositionY(), this.getWidth(), rectHeight); // then we draw the
+		//g.setColor(backgroundColor);
+		//g.fillRect(super.getPositionX(), super.getPositionY(), this.getWidth(), rectHeight); // then we draw the
 		// rectangle
-		g.setColor(backgroundColor);
-		g.drawString("Cliquer pour effacer", super.getPositionX(), super.getPositionY() + rectHeight + 20);
+		//g.setColor(backgroundColor);
+		g.setFont(FONT_SUB);
+		g.drawString("Cliquer pour effacer", super.getPositionX()+35, super.getPositionY() + rectHeight + 20);
 		g.setColor(foregroundColor);
 		int centerX = this.getPositionX() + 20; // the text input string is not centered but starts from the x-position
 												// of the rectangle + 20 (margin)
@@ -111,7 +116,7 @@ public class UITextInput extends UIComponent {
 		this.label = label;
 	}
 
-	public Color getBackgroundColor() {
+	public int getBackgroundColor() {
 		return backgroundColor;
 	}
 
@@ -119,7 +124,7 @@ public class UITextInput extends UIComponent {
 		return foregroundColor;
 	}
 
-	public void setBackgroundColor(Color backgroundColor) {
+	public void setBackgroundColor(int backgroundColor) {
 		this.backgroundColor = backgroundColor;
 	}
 

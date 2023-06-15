@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import info3.game.GameState;
+import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIButton;
 import info3.game.vue.toolkitUI.UIChecker;
@@ -18,7 +19,8 @@ public class SettingsView extends View {
 	UIButton buttonRetour;
 	UICursor cursorVolume;
 	UITitle title;
-	UILabel Volume;
+	UILabel backgroundSoundVolumeLabel;
+	UILabel effectSoundVolumeLabel;
 	UIChecker checkerMute;
 
 	public SettingsView(GameView gv) {
@@ -28,10 +30,11 @@ public class SettingsView extends View {
 		int windowHeight = (int) gameView.getHeightCanvas();
 
 		title = new UITitle(windowWidth, windowHeight, "Paramètres", FONT2, Color.white);
-		buttonRetour = new UIButton(50, windowHeight - 100, 200, new UILabel(0, 0, "Retour", FONT1, c1), c2);
-		cursorVolume = new UICursor(300, 300, 200, 20, c2, c3);
+		buttonRetour = new UIButton(50, windowHeight - 100, 200, new UILabel(0, 0, "Retour", FONT1, Color.black),UIButton.BACKGROUND_COLOR_RED);
+		cursorVolume = new UICursor(300, 300, 20, 200, c2, c3);
 		checkerMute = new UIChecker(600, 400, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
-		Volume = new UILabel(260, 250, "Volume : " + cursorVolume.getValue(), FONT1, c3);
+		backgroundSoundVolumeLabel = new UILabel(50, 250, "Volume de la musique de fond : " + this.formatFloatVolumeToString(SoundTool.getBackgroundSoundVolume())+ " %", FONT1, Color.black);
+		effectSoundVolumeLabel = new UILabel(50, 300, "Volume des effets sonores : " + this.formatFloatVolumeToString(SoundTool.getEffectSoundVolume())+ " %", FONT1, Color.black);
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
@@ -42,14 +45,12 @@ public class SettingsView extends View {
 
 			@Override
 			public void onComponentMouseIn(int x, int y) {
-				buttonRetour.setBackgroundColor(c1);
-				buttonRetour.setForegroundColor(c2);
+				buttonRetour.setBackgroundColor(UIButton.BACKGROUND_COLOR_RED_HOVER);
 			}
 
 			@Override
 			public void onComponentMouseOut(int x, int y) {
-				buttonRetour.setBackgroundColor(c2);
-				buttonRetour.setForegroundColor(c1);
+				buttonRetour.setBackgroundColor(UIButton.BACKGROUND_COLOR_RED);
 			}
 
 			public void onComponentPressed(int x, int y) {
@@ -122,8 +123,14 @@ public class SettingsView extends View {
 		addComponent(cursorVolume);
 		addComponent(checkerMute);
 		addComponent(title);
-		addComponent(Volume);
-
+		addComponent(backgroundSoundVolumeLabel);
+		addComponent(effectSoundVolumeLabel);
+	}
+	
+	public String formatFloatVolumeToString(float v) {
+		v = v*100f;
+		Integer i = (int) v;
+		return i.toString();
 	}
 
 	@Override

@@ -10,6 +10,26 @@ public class SoundTool {
 	
 	static GameCanvas canvas;
 	
+	static float backgroundSoundVolume = 0.75f;
+	
+	public static float getBackgroundSoundVolume() {
+		return backgroundSoundVolume;
+	}
+
+	public static void setBackgroundSoundVolume(float backgroundSoundVolume) {
+		SoundTool.backgroundSoundVolume = backgroundSoundVolume;
+	}
+
+	static float effectSoundVolume = 0.75f;
+	
+	public static float getEffectSoundVolume() {
+		return effectSoundVolume;
+	}
+
+	public static void setEffectSoundVolume(float effectSoundVolume) {
+		SoundTool.effectSoundVolume = effectSoundVolume;
+	}
+
 	static BackgroundMusic currenBackgroundSound = BackgroundMusic.MainMenu;
 	
 	public final static String path = "assets/audio/";
@@ -33,21 +53,21 @@ public class SoundTool {
 	 * @param volume
 	 * @throws FileNotFoundException
 	 */
-	public static void playSoundEffect(SoundEffect se, long duration, float volume) throws FileNotFoundException {
+	public static void playSoundEffect(SoundEffect se, long duration) throws FileNotFoundException {
 		String filename = path + "se/" + soundEffects.get(se);
-		System.out.println("TRIGGER");
 		try { 
 			RandomAccessFile file = new RandomAccessFile(filename,"r");
 			RandomFileInputStream fis = new RandomFileInputStream(file);
-			canvas.playSound(filename, fis, duration, volume);
+			canvas.playSound(filename, fis, duration, effectSoundVolume);
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 			System.exit(-1);
 		}
 	}
 	
+	
 	/**
-	 * Fonction jouant la musique de background en répétion
+	 * Fonction jouant la musique de background en rï¿½pï¿½tion
 	 * Use changeBackgroundMusic() pour changer la musique
 	 */
 	public static void playBackgroundMusic() {
@@ -55,7 +75,7 @@ public class SoundTool {
 		try { 
 			RandomAccessFile file = new RandomAccessFile(filename,"r");
 			RandomFileInputStream fis = new RandomFileInputStream(file);
-			canvas.playMusic(fis, 0, 1.0F);
+			canvas.playMusic(fis, 0, backgroundSoundVolume);
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 			System.exit(-1);
@@ -85,7 +105,7 @@ public class SoundTool {
 		 */
 		backgroundSounds = new HashMap<>();
 		SoundTool.backgroundSounds.put(BackgroundMusic.Game,"Town1.ogg");
-		SoundTool.backgroundSounds.put(BackgroundMusic.MainMenu,"Runaway-Food-Truck.ogg");
+		SoundTool.backgroundSounds.put(BackgroundMusic.MainMenu,"Town8.ogg");
 	}
 	
 	/**

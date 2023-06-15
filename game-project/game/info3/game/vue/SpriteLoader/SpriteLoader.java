@@ -40,6 +40,7 @@ public class SpriteLoader {
 		 * lignes de 6 colonnes de sprites
 		 */
 		load(SpriteType.Cowboy, "assets/img/player/winchester-4x6.png", 4, 6);
+		load(SpriteType.Buttons, "assets/img/toolkit/buttons.png", 2, 6);
 
 	}
 

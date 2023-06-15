@@ -3,6 +3,7 @@ package info3.game;
 import automate.AutomateLoader;
 import info3.game.modele.GameModele;
 import info3.game.vue.GameView;
+import info3.game.vue.SpriteLoader.SpriteLoader;
 
 public class SeaOfCrabes {
 
@@ -14,6 +15,7 @@ public class SeaOfCrabes {
 		try {
 			System.out.println("Game starting...");
 			AutomateLoader loader = new AutomateLoader();
+			SpriteLoader.initAllSprites();
 			controller = new Controller();
 			System.out.println("Game started.");
 		} catch (Throwable th) {

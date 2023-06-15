@@ -32,13 +32,13 @@ public class BeforePlayingView extends View {
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
 
-		buttonRetour = new UIButton(50, windowHeight - 100, 200, new UILabel(0, 0, "Retour", FONT1, c1), c2);
+		buttonRetour = new UIButton(50, windowHeight - 100, 200, new UILabel(0, 0, "Retour", FONT1, Color.black), UIButton.BACKGROUND_COLOR_RED);
 
-		buttonPlay = new UIButton(774, windowHeight - 100, 200, new UILabel(0, 0, "Jouer", FONT1, c1), c2);
-		buttonCmd = new UIButton(400, windowHeight - 100, 200, new UILabel(0, 0, "Commandes", FONT1, c1), c2);
-		buttonRandomSeed = new UIButton(730, 75, 200, new UILabel(0, 0, "Graine aléatoire", FONT3, c1), c2);
-		seedLabel = new UILabel(50, 100, "Graine pour la génération du monde :", FONT1, c2);
-		seedInput = new UITextInput(500, 75, 200, "Entrer un nombre", c2, c1, c1);
+		buttonPlay = new UIButton(774, windowHeight - 100, 200, new UILabel(0, 0, "Jouer", FONT1, Color.black), UIButton.BACKGROUND_COLOR_GREEN);
+		buttonCmd = new UIButton(400, windowHeight - 100, 200, new UILabel(0, 0, "Commandes", FONT1, Color.black), UIButton.BACKGROUND_COLOR_YELLOW);
+		buttonRandomSeed = new UIButton(774, 65, 200, new UILabel(0, 0, "Graine aléatoire", FONT1, Color.black),UIButton.BACKGROUND_COLOR_PURPLE);
+		seedLabel = new UILabel(50, 107, "Graine pour la génération du monde :", FONT1, c2);
+		seedInput = new UITextInput(500, 65, 200, "Entrer un nombre", UIButton.BACKGROUND_COLOR_YELLOW, Color.black);
 
 		weaponLabelPlayer1 = new UILabel(50, 221, "Arme du joueur n°1 : ", FONT1, c2);
 		weaponLabelPlayer2 = new UILabel(50, 321, "Arme du joueur n°2 : ", FONT1, c2);
@@ -91,14 +91,12 @@ public class BeforePlayingView extends View {
 
 			@Override
 			public void onComponentMouseIn(int x, int y) {
-				buttonPlay.setBackgroundColor(c1);
-				buttonPlay.setForegroundColor(c2);
+				buttonPlay.setBackgroundColor(UIButton.BACKGROUND_COLOR_GREEN_HOVER);
 			}
 
 			@Override
 			public void onComponentMouseOut(int x, int y) {
-				buttonPlay.setBackgroundColor(c2);
-				buttonPlay.setForegroundColor(c1);
+				buttonPlay.setBackgroundColor(UIButton.BACKGROUND_COLOR_GREEN);
 			}
 
 			@Override
@@ -125,14 +123,12 @@ public class BeforePlayingView extends View {
 
 			@Override
 			public void onComponentMouseIn(int x, int y) {
-				buttonRetour.setBackgroundColor(c1);
-				buttonRetour.setForegroundColor(c2);
+				buttonRetour.setBackgroundColor(UIButton.BACKGROUND_COLOR_RED_HOVER);
 			}
 
 			@Override
 			public void onComponentMouseOut(int x, int y) {
-				buttonRetour.setBackgroundColor(c2);
-				buttonRetour.setForegroundColor(c1);
+				buttonRetour.setBackgroundColor(UIButton.BACKGROUND_COLOR_RED);
 			}
 
 			@Override
@@ -163,14 +159,12 @@ public class BeforePlayingView extends View {
 
 			@Override
 			public void onComponentMouseIn(int x, int y) {
-				buttonCmd.setBackgroundColor(c1);
-				buttonCmd.setForegroundColor(c2);
+				buttonCmd.setBackgroundColor(UIButton.BACKGROUND_COLOR_YELLOW_HOVER);
 			}
 
 			@Override
 			public void onComponentMouseOut(int x, int y) {
-				buttonCmd.setBackgroundColor(c2);
-				buttonCmd.setForegroundColor(c1);
+				buttonCmd.setBackgroundColor(UIButton.BACKGROUND_COLOR_YELLOW);
 			}
 
 			@Override
@@ -198,14 +192,12 @@ public class BeforePlayingView extends View {
 
 			@Override
 			public void onComponentMouseIn(int x, int y) {
-				buttonRandomSeed.setBackgroundColor(c1);
-				buttonRandomSeed.setForegroundColor(c2);
+				buttonRandomSeed.setBackgroundColor(UIButton.BACKGROUND_COLOR_PURPLE_HOVER);
 			}
 
 			@Override
 			public void onComponentMouseOut(int x, int y) {
-				buttonRandomSeed.setBackgroundColor(c2);
-				buttonRandomSeed.setForegroundColor(c1);
+				buttonRandomSeed.setBackgroundColor(UIButton.BACKGROUND_COLOR_PURPLE);
 			}
 
 			@Override
