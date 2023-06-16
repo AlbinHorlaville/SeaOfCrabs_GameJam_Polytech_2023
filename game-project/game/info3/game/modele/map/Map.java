@@ -99,7 +99,7 @@ public class Map {
 	 * Generate a map based on the seed and the section parameters
 	 */
 	public void generateMap() throws Exception {
-		this.map[0] = new MapSection(EnumSectionType.HARBOR, this.sectionWidth, this.sectionHeight, this.rand);
+		this.map[0] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
 
 		this.map[1] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
 		this.map[2] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);

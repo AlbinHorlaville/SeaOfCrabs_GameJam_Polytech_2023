@@ -30,9 +30,9 @@ public class CrabslairAvatar extends Avatar {
 		BufferedImage img = m_images[imageIndex];
 		int width_painted = SCALE_IMG * img.getWidth();
 		int heigth_painted = SCALE_IMG * img.getHeight();
-		int Decalage_Tiles_X = (int) -(32*6*0.5);
-		int Decalage_Tiles_Y = (int) -(32*6*0.5);
-		g.drawImage(img,-entity.getX()+GameModele.player1.getX()+width/2+Decalage_Tiles_X, -entity.getY()+GameModele.player1.getY()+height/2+Decalage_Tiles_Y, width_painted, heigth_painted, null);
+		int Decalage_Tiles_X = (int) -32*6+14*6;
+		int Decalage_Tiles_Y = (int) -32*6+6*6;
+		g.drawImage(img,-entity.getX()+GameModele.getCurrentPlayerX()+width/2+Decalage_Tiles_X, -entity.getY()+GameModele.getCurrentPlayerY()+height/2+Decalage_Tiles_Y, width_painted, heigth_painted, null);
 	}
 
 }
