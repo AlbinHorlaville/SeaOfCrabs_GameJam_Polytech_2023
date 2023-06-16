@@ -46,6 +46,7 @@ public class SpriteLoader {
 		load(SpriteType.PirateBoat, "assets/img/player/" + "Boat.png", 1, 2);
 		load(SpriteType.Crabslair, "assets/img/BadGuys/" + "Crabslair.png", 1, 2);
 		load(SpriteType.RedCross, "assets/img/autre/" + "Coffre.png", 1, 2);
+		load(SpriteType.Palmer, "assets/img/autre/" + "Palmer.png", 1, 1);
 	}
 
 	/*
