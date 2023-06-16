@@ -3,11 +3,12 @@ package info3.game.modele.MoveableEntityClass;
 import automate.AutomateLoader;
 import automate.EnumCategory;
 import automate.EnumDirection;
+import info3.game.vue.avatar.BasicCannonBallAvatar;
 
 public class BasicCannonBall extends CannonBall {
 	
 	static final int BASIC_DAMAGE = 1;
-	static final int BASIC_RANGE = 1;
+	static final int BASIC_RANGE = 2000;
 	static final int BASIC_RATE_OF_FIRE = 1;
 
 	public BasicCannonBall() {

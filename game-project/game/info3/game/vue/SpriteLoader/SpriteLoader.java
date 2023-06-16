@@ -48,8 +48,7 @@ public class SpriteLoader {
 		load(SpriteType.RedCross, "assets/img/autre/" + "RedCross.png", 1, 1);
 		load(SpriteType.Palmer, "assets/img/autre/" + "Palmer.png", 2, 2);
 		load(SpriteType.Cloud, "assets/img/autre/" + "Cloud.png", 1, 1);
-		load(SpriteType.BasicCannonBall, "assets/img/autre/" + "Cloud.png", 1, 1);
-
+		load(SpriteType.BasicCannonBall, "assets/img/utilities/" + "BouletDeCanon.png", 1, 1);
 	}
 
 	/*

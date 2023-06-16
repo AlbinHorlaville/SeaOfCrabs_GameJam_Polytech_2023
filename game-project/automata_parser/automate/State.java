@@ -7,10 +7,11 @@ import info3.game.modele.Entity;
 public class State {
 	private ArrayList<Transition> transitions;
 	protected String name;
-	protected boolean died = false;
+	protected boolean died;
 	
 	public State(String name){
 		this.name = name;
+		died = false;
 	}
 	
 	public void SetTransitions(ArrayList<Transition> T) {
