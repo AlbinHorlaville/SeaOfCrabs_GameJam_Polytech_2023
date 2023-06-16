@@ -19,6 +19,10 @@ public class PiratePlayer extends Player {
 	
 	private static final int DEFAULT_PIRATEPLAYER_RANGE_COEFF = 1;
 	
+	private static int CURRENT_LIFE_POINT = DEFAULT_MAX_PLAYERS_LIFE_COEFF;
+	
+	private static int CURRENT_MAX_LIFE_POINT = DEFAULT_MAX_PLAYERS_LIFE_COEFF;
+	
 	protected float attackSpeedCoeff;
 	protected float speedCoeff;
 	protected float damageCoeff;
@@ -74,7 +78,7 @@ public class PiratePlayer extends Player {
 	}
 	
 	public void takeDamage(int damage) {
-		this.lifePoint -= damage;
+		CURRENT_LIFE_POINT -= damage;
 	}
 
 	@Override
@@ -283,6 +287,14 @@ public class PiratePlayer extends Player {
 
 	public void addRangeCoeff(float rangeCoeff) {
 		this.rangeCoeff += rangeCoeff;
+	}
+	
+	public static int getCURRENT_LIFE_POINT() {
+		return CURRENT_LIFE_POINT;
+	}
+	
+	public static int getCURRENT_MAX_LIFE_POINT() {
+		return CURRENT_MAX_LIFE_POINT;
 	}
 
 }

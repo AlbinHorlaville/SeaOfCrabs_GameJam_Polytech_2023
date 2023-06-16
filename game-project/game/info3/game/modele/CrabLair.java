@@ -121,7 +121,5 @@ public class CrabLair extends StillEntity{
 	public void setCrabs(ArrayList<Crab> crabs) {
 		this.crabs = crabs;
 	}
-	
-	
 
 }
