@@ -28,9 +28,6 @@ public class Map {
 	private int tileWidth;
 	private int tileHeight;
 
-	private int screenWidth;
-	private int screenHeight;
-
 	/*
 	 * @param seed : the seed of the map
 	 * 
@@ -68,7 +65,7 @@ public class Map {
 	 * @param sectionWidth and sectionHeight : the dimension of a section
 	 * 
 	 */
-	public Map(int seed, int screenWidth, int screenHeight) throws Exception {
+	public Map(int seed) throws Exception {
 		this.seed = seed;
 		this.rand = new Random(this.seed);
 

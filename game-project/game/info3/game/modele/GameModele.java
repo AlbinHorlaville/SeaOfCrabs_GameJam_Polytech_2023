@@ -97,7 +97,7 @@ public class GameModele {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
 
-			map = new Map(s, this.gameview.getWidthCanvas(), this.gameview.getHeightCanvas());
+			map = new Map(s);
 
 			player1 = new PiratePlayer("Player1", 0, 0);
 			player1.setAvatar(new Player1(player1));
