@@ -9,5 +9,6 @@ public enum SpriteType {
 	RedCross,
 	Palmer,
 	Cloud,
-	BasicCannonBall
+	BasicCannonBall, 
+	Crab
 }

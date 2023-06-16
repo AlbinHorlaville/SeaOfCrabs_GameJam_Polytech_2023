@@ -7,6 +7,7 @@ import info3.game.modele.GameModele;
 import info3.game.modele.Level;
 import info3.game.modele.StillEntityClass.CrabLair;
 import info3.game.modele.map.Tiles;
+import info3.game.vue.avatar.CrabAvatar;
 
 public class Crab extends Ennemy {
 	
@@ -31,6 +32,7 @@ public class Crab extends Ennemy {
 	public Crab(int level, CrabLair crabLair, int x, int y) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE, x, y);
 		this.m_coeff = (new Level(level)).getCoeffBasedOnLevel();
+		this.avatar = new CrabAvatar(this);
 		this.m_healthPoints *= this.m_coeff;
 		this.m_damage *= this.m_coeff;
 		this.m_crabLair = crabLair;
