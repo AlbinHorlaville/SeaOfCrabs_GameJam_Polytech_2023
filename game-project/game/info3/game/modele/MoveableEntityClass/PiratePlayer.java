@@ -79,7 +79,6 @@ public class PiratePlayer extends Player {
 		Tiles t;
 		switch(d) {
 			case N:
-				
 				tempY = (int) ((float)this.y * this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(this.x, tempY);
 				if(t.isIsland() || debug) {
@@ -93,7 +92,6 @@ public class PiratePlayer extends Player {
 					return false;
 				}
 				return true;
-				
 			case S:
 				tempY = (int) ((float)this.y + this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(this.x, tempY);

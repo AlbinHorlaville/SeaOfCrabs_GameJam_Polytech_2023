@@ -10,5 +10,6 @@ public enum SpriteType {
 	Palmer,
 	Cloud,
 	BasicCannonBall, 
-	Crab
+	Crab, 
+	CrabKing
 }
