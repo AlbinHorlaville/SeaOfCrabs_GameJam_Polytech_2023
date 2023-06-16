@@ -162,17 +162,23 @@ public class GameModele {
 		int mapWidth = map.getSectionWidth();
 		int mapHeight = map.getSectionHeight();
 		for (int k = 0; k < nbSection; k++) {
+			boolean crab = false; // Boolean to spawn only once
+			boolean treasure = false; // Boolean to spawn only once
+			
 			for (int i = 0; i < mapHeight ; i++) {
 				for (int j = 0; j < mapWidth ; j++) {
 					Tiles Current = map.getMap()[k].getTiles()[i][j];
 					Entity newEntity;
-					if (Current.getType() == EnumTiles.TREASUR) {
+					if (Current.getType() == EnumTiles.TREASUR && treasure == false) {
+						treasure = true;
+						System.out.println("TRIGGER");
 						newEntity = new RedCross(map.getMap()[k]);
 						newEntity.setLocation(Current.getX(),Current.getY());
-						newEntity.setAvatar(new TreasureAvatar(newEntity));
+						newEntity.setAvatar(new TreasureAvatar(newEntity)); // TODO Mettre dans le constructeur
 						entities.add(newEntity);
 					} 
-					else if (Current.getType() == EnumTiles.CRAB_SPAWNER) {
+					else if (Current.getType() == EnumTiles.CRAB_SPAWNER && crab == false) {
+						crab = true;
 						newEntity = new CrabLair(10, k, 20, map.getMap()[k]); // Créer 10 crabes de niveau k (le numéro																				// de section) avec 20 points de vie
 						newEntity.setLocation(Current.getX(),Current.getY());
 						entities.add(newEntity);
