@@ -8,6 +8,4 @@ public abstract class StillEntity extends Entity {
 
 	public abstract void move();
 
-	public abstract void die();
-
 }

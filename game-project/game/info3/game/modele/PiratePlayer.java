@@ -9,7 +9,11 @@ public class PiratePlayer extends Player {
 	
 	private static final int DEFAULT_PIRATEPLAYER_LIFE_POINT = 100;
 	
-	public static final int DEFAULT_MAX_PLAYERS_LIFE_COEFF = 100;
+	private static final int DEFAULT_PIRATEPLAYER_DAMAGE = 25;
+
+	public static final int DEFAULT_MAX_PLAYERS_LIFE = 100;
+	
+	public static final int DEFAULT_MAX_PLAYERS_LIFE_COEFF = 1;
 	
 	private static final int DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF = 1;
 	
@@ -19,44 +23,54 @@ public class PiratePlayer extends Player {
 	
 	private static final int DEFAULT_PIRATEPLAYER_RANGE_COEFF = 1;
 	
-	private static int CURRENT_LIFE_POINT = DEFAULT_MAX_PLAYERS_LIFE_COEFF;
-	
-	private static int CURRENT_MAX_LIFE_POINT = DEFAULT_MAX_PLAYERS_LIFE_COEFF;
-	
-	protected float attackSpeedCoeff;
-	protected float speedCoeff;
-	protected float damageCoeff;
-	protected float rangeCoeff;
+	protected float m_attackspeedCoeff;
+	protected float m_speedCoeff;
+	protected float m_damageCoeff;
+	protected float m_rangeCoeff;
+	protected float m_maxHealthCoeff;
 
 			
 	Weapon weapon;
 
 	public PiratePlayer(String string) {
-		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_MAX_PLAYERS_LIFE_COEFF);
+		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_MAX_PLAYERS_LIFE_COEFF);		//TO DELETE
 		this.automate = AutomateLoader.findAutomate(string);
 		this.current_state = automate.initial_state;
 		facing = EnumDirection.N;
-		this.attackSpeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
-		this.speedCoeff = DEFAULT_PIRATEPLAYER_SPEED_COEFF;
-		this.damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
-		this.rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
+		this.m_attackspeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
+		this.m_speedCoeff = DEFAULT_PIRATEPLAYER_SPEED_COEFF;
+		this.m_damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
+		this.m_rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
 	}
 	
 	public PiratePlayer(String string, int x, int y) {
-		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_MAX_PLAYERS_LIFE_COEFF, x, y);
+		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_MAX_PLAYERS_LIFE_COEFF, x, y); //TO DELETE
 		this.automate = AutomateLoader.findAutomate(string);
 		this.current_state = automate.initial_state;
 		facing = EnumDirection.N;
-		this.attackSpeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
-		this.speedCoeff = DEFAULT_PIRATEPLAYER_SPEED_COEFF;
-		this.damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
-		this.rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
+		this.m_attackspeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
+		this.m_speedCoeff = DEFAULT_PIRATEPLAYER_SPEED_COEFF;
+		this.m_damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
+		this.m_rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
 	}
 	
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
 		//weapon.setPlayer(this);
 	}
+	
+//	public PiratePlayer(String string) {
+//		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_PIRATEPLAYER_DAMAGE, DEFAULT_MAX_PLAYERS_LIFE );		//The good one
+//		this.automate = AutomateLoader.findAutomate(string);
+//		this.current_state = automate.initial_state;
+//		facing = EnumDirection.N;
+//		this.m_attackspeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
+//		this.m_speedCoeff = DEFAULT_PIRATEPLAYER_SPEED_COEFF;
+//		this.m_damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
+//		this.m_rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
+//		this.m_maxHealthCoeff = DEFAULT_MAX_PLAYERS_LIFE_COEFF;
+//	}
+	
 	
 	@Override
 	public void move(EnumDirection eval) {
@@ -76,20 +90,6 @@ public class PiratePlayer extends Player {
 			break;
 		}
 	}
-	
-	public void takeDamage(int damage) {
-		CURRENT_LIFE_POINT -= damage;
-	}
-
-	@Override
-	public boolean closeTo(EnumDirection d, EnumCategory c) {
-		return false;
-	}
-
-	@Override
-	public boolean closest(EnumDirection d, EnumCategory c) {
-		return false;
-	}
 
 	@Override
 	public boolean cell(EnumDirection d, EnumCategory c) {
@@ -101,7 +101,7 @@ public class PiratePlayer extends Player {
 		switch(d) {
 			case N:
 				
-				tempY = (int) ((float)this.y * this.speedCoeff);
+				tempY = (int) ((float)this.y * this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(this.x, tempY);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
@@ -116,7 +116,7 @@ public class PiratePlayer extends Player {
 				return true;
 				
 			case S:
-				tempY = (int) ((float)this.y + this.speedCoeff);
+				tempY = (int) ((float)this.y + this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(this.x, tempY);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
@@ -134,7 +134,7 @@ public class PiratePlayer extends Player {
 				return true;
 				
 			case E:
-				tempX = (int) ((float)this.x + this.speedCoeff);
+				tempX = (int) ((float)this.x + this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, y);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
@@ -150,7 +150,7 @@ public class PiratePlayer extends Player {
 				return true;
 				
 			case W:
-				tempX = (int) ((float)this.x - this.speedCoeff);
+				tempX = (int) ((float)this.x - this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, y);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
@@ -166,8 +166,8 @@ public class PiratePlayer extends Player {
 				return true;
 				
 			case NE:
-				tempX = (int) ((float)this.x + this.speedCoeff);
-				tempY = (int) ((float)this.y - this.speedCoeff);
+				tempX = (int) ((float)this.x + this.m_speedCoeff);
+				tempY = (int) ((float)this.y - this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, tempY);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
@@ -183,8 +183,8 @@ public class PiratePlayer extends Player {
 				return true;
 				
 			case NW:
-				tempX = (int) ((float)this.x - this.speedCoeff);
-				tempY = (int) ((float)this.y - this.speedCoeff);
+				tempX = (int) ((float)this.x - this.m_speedCoeff);
+				tempY = (int) ((float)this.y - this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, tempY);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
@@ -200,8 +200,8 @@ public class PiratePlayer extends Player {
 				return true;
 				
 			case SE:
-				tempX = (int) ((float)this.x + this.speedCoeff);
-				tempY = (int) ((float)this.y + this.speedCoeff);
+				tempX = (int) ((float)this.x + this.m_speedCoeff);
+				tempY = (int) ((float)this.y + this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, y);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
@@ -217,8 +217,8 @@ public class PiratePlayer extends Player {
 				return true;
 				
 			case SW:
-				tempX = (int) ((float)this.x - this.speedCoeff);
-				tempY = (int) ((float)this.y + this.speedCoeff);
+				tempX = (int) ((float)this.x - this.m_speedCoeff);
+				tempY = (int) ((float)this.y + this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, y);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
@@ -245,56 +245,40 @@ public class PiratePlayer extends Player {
 	}
 	
 	public float getDamageCoeff() {
-		return this.damageCoeff;
+		return this.m_damageCoeff;
 	}
 
 
 	public void addDamageCoeff(float f) {
-		this.damageCoeff += f;
+		this.m_damageCoeff += f;
 	}
 
 
 	public float getSpeedCoeff() {
-		return speedCoeff;
+		return m_speedCoeff;
 	}
 
 
 	public void addSpeedCoeff(float f) {
-		this.speedCoeff =+ f;
-	}
-
-
-	@Override
-	public boolean gotStuff() {
-		// TODO Auto-generated method stub
-		return false;
+		this.m_speedCoeff =+ f;
 	}
 	
-	public float getAttackSpeedCoeff() {
-		return attackSpeedCoeff;
+	public float getAttackspeedCoeff() {
+		return m_attackspeedCoeff;
 	}
 
 
-	public void addAttackSpeedCoeff(float attackSpeedCoeff) {
-		this.attackSpeedCoeff += attackSpeedCoeff;
+	public void addAttackpeedCoeff(float m_attackm_speedCoeff) {
+		this.m_attackspeedCoeff += m_attackspeedCoeff;
 	}
 
 
 	public float getRangeCoeff() {
-		return rangeCoeff;
+		return m_rangeCoeff;
 	}
 
 
 	public void addRangeCoeff(float rangeCoeff) {
-		this.rangeCoeff += rangeCoeff;
+		this.m_rangeCoeff += rangeCoeff;
 	}
-	
-	public static int getCURRENT_LIFE_POINT() {
-		return CURRENT_LIFE_POINT;
-	}
-	
-	public static int getCURRENT_MAX_LIFE_POINT() {
-		return CURRENT_MAX_LIFE_POINT;
-	}
-
 }
