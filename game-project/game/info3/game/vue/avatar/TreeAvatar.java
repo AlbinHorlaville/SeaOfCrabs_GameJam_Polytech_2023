@@ -4,23 +4,30 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import info3.game.modele.Entity;
+import info3.game.modele.GameModele;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
 public class TreeAvatar extends Avatar {
 
 	BufferedImage[] m_images;
+	private int k;
 
 	public TreeAvatar(Entity entity) {
 		super(entity);
 		m_images = SpriteLoader.get(SpriteType.Palmer);
-		imageIndex = 0;
+		imageIndex = (int)(java.lang.Math.random()*4);
+		System.out.println(imageIndex);
 	}
 
 	@Override
 	public void tick(long elapsed) {
 		// TODO Auto-generated method stub
-
+		k++;
+		if (k%50==0) {
+			k = 0;
+			imageIndex = (imageIndex+1)%4>0 ? (imageIndex+1)%4 : -(imageIndex+1)%4;
+		}
 	}
 
 	@Override
@@ -29,7 +36,9 @@ public class TreeAvatar extends Avatar {
 		int width_painted = SCALE_IMG * img.getWidth();
 		int heigth_painted = SCALE_IMG * img.getHeight();
 
-		g.drawImage(img, entity.getX(), entity.getY(), width_painted, heigth_painted, null);
+		// Aligne a taton le sprite et la tile dedie
+		g.drawImage(img, -entity.getX() + GameModele.player1.getX() + width / 2 - 32*6 + 16*6 - 18,
+				-entity.getY() + GameModele.player1.getY() + height / 2-32*6 - 16*6 + 12, width_painted, heigth_painted, null);
 	}
 
 }

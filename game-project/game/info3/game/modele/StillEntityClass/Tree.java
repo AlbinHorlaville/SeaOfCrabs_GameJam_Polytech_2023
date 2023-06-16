@@ -1,5 +1,6 @@
 package info3.game.modele.StillEntityClass;
 
+import automate.AutomateLoader;
 import info3.game.modele.GameModele;
 import info3.game.modele.Level;
 import info3.game.modele.StillEntity;
@@ -17,6 +18,8 @@ public class Tree extends StillEntity {
 		super();
 		this.healthPoints = DEFAULT_HEALTH_POINTS;
 		this.healthPointsToHeal = DEFAULT_HEALTH_POINTS_T0_HEAL_PIRATEBOAT;
+		this.automate = AutomateLoader.findAutomate("Philosopher");
+		this.current_state = automate.initial_state;
 	}
 	
 	public Tree(int level) { // mettre le numéro du tronçon
