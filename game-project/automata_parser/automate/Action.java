@@ -24,7 +24,7 @@ public class Action {
 				total -= f.probability;
 			}
 		}
-		else {
+		else if(funcalls.size() == 1){
 			funcalls.get(0).exec(e);
 		}
 	}
