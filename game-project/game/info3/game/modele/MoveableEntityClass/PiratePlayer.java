@@ -18,7 +18,7 @@ public class PiratePlayer extends Player {
 	
 	private static final int DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF = 1;
 	
-	private static final int DEFAULT_PIRATEPLAYER_SPEED_COEFF = 1;
+	private static final int DEFAULT_PIRATEPLAYER_SPEED_COEFF = 6;
 
 	private static final int DEFAULT_PIRATEPLAYER_DAMAGE_COEFF = 1;
 	
