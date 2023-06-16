@@ -7,5 +7,6 @@ public enum SpriteType {
 	PirateBoat,
 	Crabslair,
 	RedCross,
-	Palmer
+	Palmer,
+	Cloud
 }
