@@ -112,13 +112,7 @@ public class GameModele {
 			GameModele.entities.add(pirateBoat);
 			map = new Map(s);
 			
-			//TODO ENLEVER POUR LES TESTES
-			for (info3.game.modele.map.MapSection section : map.getMap() ) {
-				if (section.getSeaType() != EnumSectionType.HARBOR && section.getSeaType() != EnumSectionType.KRAKEN_SEA)
-				section.generateRedCross();
-			}
-			
-			genereEntity(map);
+			//genereEntity(map);
 		}
 	}
 
