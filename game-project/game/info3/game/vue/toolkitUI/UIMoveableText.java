@@ -16,6 +16,7 @@ public class UIMoveableText extends UIComponent {
 		paragraph.setPositionY(y + getHeight());
 		paragraph.setWidth(w);
 		paragraph.setHeight(h);
+		paragraph.initLabels();
 		move = true;
 		this.setUIComponentListener(new UIComponentListener() {
 
@@ -56,10 +57,10 @@ public class UIMoveableText extends UIComponent {
 	public void paint(Graphics g) {
 		g.setColor(Color.black);
 		if (move) {
-			if (paragraph.getPositionY() < this.getPositionY() - paragraph.getHeight()) {
-				paragraph.setPositionY(this.getPositionY() + this.getHeight());
+			if (paragraph.getFirstLabelPositionY() < this.getPositionY() - paragraph.getHeight()) {
+				paragraph.setLabelsPositionsY(this.getPositionY() + this.getHeight());
 			} else {
-				paragraph.setPositionY(paragraph.getPositionY() - 1);
+				paragraph.updateLabelsPositionsY(1);
 			}
 			paragraph.paint(g);
 		} else {
