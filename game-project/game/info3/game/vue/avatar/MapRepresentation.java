@@ -370,6 +370,7 @@ public class MapRepresentation {
 							img = grassImage;
 							break;
 						case SAND:
+						case TREASUR:
 							img = sandImage;
 							break;
 						case SAND_WATER:
@@ -377,7 +378,6 @@ public class MapRepresentation {
 							sandWater = true;
 							break;
 						case CRAB_SPAWNER:
-						case TREASUR:
 							img = this.stoneImage;
 							break;
 						case PONTOON:
