@@ -80,15 +80,6 @@ public class GameModele {
 		for (Entity entity : entities) {
 			entity.step();
 		}
-		// System.out.print("\n\n x : " +
-		// -map.getMap()[0].getTiles()[26][map.getSectionWidth() / 2].getX() + "\n\n");
-		/*System.out.print("\n\n x : "
-				+ this.map.transpoXCoordinateToTile(this.pirateBoat.getX(), this.pirateBoat.getY())
-				+ "\n\n");
-		System.out.print("tt:" + this.map.getSectionWidth()/2);
-		System.out.print("\n\n YYYY : "
-				+ this.map.transpoYCoordinateToTile(this.pirateBoat.getX(), this.pirateBoat.getY())
-				+ "\n\n");*/
 	}
 
 	public GameState getCurrentState() {
@@ -106,21 +97,21 @@ public class GameModele {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
 
-			map = new Map(s);
+			map = new Map(s, this.gameview.getWidthCanvas(), this.gameview.getHeightCanvas());
 
-			player1 = new PiratePlayer("Player1", 1000, 1000);
+			player1 = new PiratePlayer("Player1", 0, 0);
 			player1.setAvatar(new Player1(player1));
 			// GameModele.entities.add(player1);
 
 			if (!solo) {
-				player2 = new PiratePlayer("Player2", 1000, 1000);
+				player2 = new PiratePlayer("Player2", 0, 0);
 				player2.setAvatar(new Player2(player2));
 				// GameModele.entities.add(player2);
 			}
 
 			pirateBoat = new BoatPlayer(
-					-map.getMap()[0].getTiles()[this.map.getSectionHeight() - 10][map.getSectionWidth() / 2 -6].getX(),
-					-map.getMap()[0].getTiles()[this.map.getSectionHeight() - 10][map.getSectionWidth() / 2 -6].getY());
+					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 10][map.getSectionWidth() / 2].getX(),
+					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 10][map.getSectionWidth() / 2].getY());
 			pirateBoat.setAvatar(new BoatPlayerAvatar(pirateBoat));
 			GameModele.entities.add(pirateBoat);
 			map = new Map(s);

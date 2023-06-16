@@ -2,6 +2,7 @@ package info3.game.modele.map;
 
 import java.util.Random;
 
+import info3.game.vue.GameView;
 import info3.game.vue.avatar.MapRepresentation;
 import info3.game.vue.avatar.MiniMap;
 
@@ -26,6 +27,9 @@ public class Map {
 
 	private int tileWidth;
 	private int tileHeight;
+
+	private int screenWidth;
+	private int screenHeight;
 
 	/*
 	 * @param seed : the seed of the map
@@ -64,7 +68,7 @@ public class Map {
 	 * @param sectionWidth and sectionHeight : the dimension of a section
 	 * 
 	 */
-	public Map(int seed) throws Exception {
+	public Map(int seed, int screenWidth, int screenHeight) throws Exception {
 		this.seed = seed;
 		this.rand = new Random(this.seed);
 
@@ -99,18 +103,18 @@ public class Map {
 	 */
 	public void generateMap() throws Exception {
 		this.map[0] = new MapSection(EnumSectionType.HARBOR, this.sectionWidth, this.sectionHeight, this.rand);
-		
+
 		this.map[1] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
 		this.map[2] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
-		
+
 		this.map[3] = new MapSection(EnumSectionType.STORMY_SEA, this.sectionWidth, this.sectionHeight, this.rand);
 		this.map[4] = new MapSection(EnumSectionType.STORMY_SEA, this.sectionWidth, this.sectionHeight, this.rand);
-		
+
 		this.map[5] = new MapSection(EnumSectionType.RAGING_SEA, this.sectionWidth, this.sectionHeight, this.rand);
 		this.map[6] = new MapSection(EnumSectionType.RAGING_SEA, this.sectionWidth, this.sectionHeight, this.rand);
-		
+
 		this.map[7] = new MapSection(EnumSectionType.CRAB_KING_SEA, this.sectionWidth, this.sectionHeight, this.rand);
-	
+
 		this.map[8] = new MapSection(EnumSectionType.KRAKEN_SEA, this.sectionWidth, this.sectionHeight, this.rand);
 	}
 
@@ -153,19 +157,6 @@ public class Map {
 	/*
 	 * Convert normal (x,y) coordinate to isometric x coordinate
 	 */
-	public int transpoXCoordinateToTile(int xPos, int yPos) {
-		int xNoIso = 0;
-
-		double det = determinant();
-
-		xNoIso = (int) Math.ceil(((xPos * (det * (this.tileHeight / 4))) + (yPos * (det * (this.tileWidth / 2)))));
-
-		return -xNoIso + 7;
-	}
-
-	/*
-	 * Convert normal (x,y) coordinate to isometric y coordinate
-	 */
 	public int transpoYCoordinateToTile(int xPos, int yPos) {
 		int yNoIso = 0;
 
@@ -173,134 +164,28 @@ public class Map {
 
 		yNoIso = (int) Math.ceil(((xPos * (det * ((-this.tileHeight) / 4))) + (yPos * (det * (this.tileWidth / 2)))));
 
-		return -yNoIso + 2;
+		return yNoIso;
+
 	}
 
-	public Tiles getTileUnderEntity(int xPos, int yPos) {
-		int x = transpoXCoordinateToTile(xPos, yPos);
-		int y = transpoYCoordinateToTile(xPos, yPos);
-
-		int numSection = this.nbSection;
-
-		while (y >= 0) {
-			y -= this.sectionHeight;
-			numSection--;
-		}
-
-		y += this.sectionHeight;
-
-		return this.map[numSection].getTiles()[y][x];
-	}
-	
-	public Tiles getTileNorthOfEntity(int xPos, int yPos) {
-		int x = transpoXCoordinateToTile(xPos, yPos);
-		int y = transpoYCoordinateToTile(xPos, yPos);
-
-		int numSection = this.nbSection;
-
-		while (y >= 0) {
-			y -= this.sectionHeight;
-			numSection--;
-		}
-
-		y += this.sectionHeight;
-		
-		if (y > 0) {
-			return this.map[numSection].getTiles()[y-1][x];
-		} else {
-			if (numSection < this.nbSection - 1) {
-				return this.map[numSection + 1].getTiles()[this.sectionHeight - 1][x];
-			}
-			return null;
-		}
-	}
-	
-	public Tiles getTileSouthOfEntity(int xPos, int yPos) {
-		int x = transpoXCoordinateToTile(xPos, yPos);
-		int y = transpoYCoordinateToTile(xPos, yPos);
-
-		int numSection = this.nbSection;
-
-		while (y >= 0) {
-			y -= this.sectionHeight;
-			numSection--;
-		}
-
-		y += this.sectionHeight;
-		
-		if (y < this.sectionHeight - 1) {
-			return this.map[numSection].getTiles()[y+1][x];
-		} else {
-			if (numSection > 0) {
-				return this.map[numSection - 1].getTiles()[0][x];
-			}
-			return null;
-		}
-	}
-	
-	public Tiles getTileWestOfEntity(int xPos, int yPos) {
-		int x = transpoXCoordinateToTile(xPos, yPos);
-		int y = transpoYCoordinateToTile(xPos, yPos);
-
-		int numSection = this.nbSection;
-
-		while (y >= 0) {
-			y -= this.sectionHeight;
-			numSection--;
-		}
-
-		y += this.sectionHeight;
-		
-		if (y > 0) {
-			return this.map[numSection].getTiles()[y][x-1];
-		} else {
-			return null;
-		}
-	}
-	
-	public Tiles getTileEastOfEntity(int xPos, int yPos) {
-		int x = transpoXCoordinateToTile(xPos, yPos);
-		int y = transpoYCoordinateToTile(xPos, yPos);
-
-		int numSection = this.nbSection;
-
-		while (y >= 0) {
-			y -= this.sectionHeight;
-			numSection--;
-		}
-
-		y += this.sectionHeight;
-		
-		if (y < this.sectionWidth - 1) {
-			return this.map[numSection].getTiles()[y][x+1];
-		} else {
-			return null;
-		}
-	}
-	
 	/*
-	 * Return the tiles around an entity in an array (clockwise) with at the index
-	 * 0 : the tiles at North
-	 * 1 : the tiles at East
-	 * 2 : the tiles at South
-	 * 3 : the tiles at West
-	 * 
+	 * Convert normal (x,y) coordinate to isometric y coordinate
 	 */
-	public Tiles[] getTilesAroundEntity(int xPos, int yPos) {
-		Tiles[] around = new Tiles[4];
-		
-		around[0] = getTileNorthOfEntity(xPos, yPos);
-		around[1] = getTileEastOfEntity(xPos, yPos);
-		around[2] = getTileSouthOfEntity(xPos, yPos);
-		around[3] = getTileEastOfEntity(xPos, yPos);
-		
-		return around;
-	}
-	
-	public int getSectionOfEntity(int xPos, int yPos) {
-		int y = transpoYCoordinateToTile(xPos, yPos);
+	public int transpoXCoordinateToTile(int xPos, int yPos) {
+		int xNoIso = 0;
 
-		int numSection = this.nbSection;
+		double det = determinant();
+
+		xNoIso = (int) Math.ceil(((xPos * (det * (this.tileHeight / 4))) + (yPos * (det * (this.tileWidth / 2)))));
+
+		return xNoIso;
+
+	}
+
+	public int getSectionOfEntity(int xPos, int yPos) {
+		int y = transpoYCoordinateToTile(-(xPos - GameView.screenWidth / 2), -(yPos - GameView.screenHeight / 2));
+
+		int numSection = 9;
 
 		while (y >= 0) {
 			y -= this.sectionHeight;
@@ -308,6 +193,15 @@ public class Map {
 		}
 
 		return numSection;
+	}
+
+	public Tiles getTileUnderEntity(int xPos, int yPos) {
+		int x = transpoXCoordinateToTile(-(xPos - GameView.screenWidth / 2), -(yPos - GameView.screenHeight / 2));
+		int y = transpoYCoordinateToTile(-(xPos - GameView.screenWidth / 2), -(yPos - GameView.screenHeight / 2)) % 48;
+
+		int numSection = this.getSectionOfEntity(xPos, yPos);
+
+		return this.map[numSection].getTiles()[y][x];
 	}
 
 	double determinant() {
@@ -334,18 +228,15 @@ public class Map {
 	 * @return
 	 */
 	public double getWaveOffset(int xPos, int yPos) {
-		if (getTileUnderEntity(xPos, yPos).getType() == EnumTiles.CALM_WATER) {
-			int x = transpoXCoordinateToTile(xPos, yPos);
-			int y = transpoYCoordinateToTile(xPos, yPos);
+		if (getTileUnderEntity(xPos, yPos).getType() == EnumTiles.CALM_WATER
+				|| getTileUnderEntity(xPos, yPos).getType() == EnumTiles.STORMY_WATER
+				|| getTileUnderEntity(xPos, yPos).getType() == EnumTiles.RAGING_WATER
+				|| getTileUnderEntity(xPos, yPos).getType() == EnumTiles.KRAKEN_WATER) {
+			int x = transpoXCoordinateToTile(-(xPos - GameView.screenWidth / 2), -(yPos - GameView.screenHeight / 2));
+			int y = transpoYCoordinateToTile(-(xPos - GameView.screenWidth / 2), -(yPos - GameView.screenHeight / 2))
+					% 48;
 
-			int numSection = this.nbSection;
-
-			while (y >= 0) {
-				y -= this.sectionHeight;
-				numSection--;
-			}
-
-			y += this.sectionHeight;
+			int numSection = this.getSectionOfEntity(xPos, yPos);
 
 			return this.wave[numSection * this.sectionHeight + y][x];
 		} else {
@@ -638,7 +529,7 @@ public class Map {
 	public MiniMap getMiniMap() {
 		return this.miniMap;
 	}
-	
+
 	public Random getRand() {
 		return this.rand;
 	}
