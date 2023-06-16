@@ -123,11 +123,12 @@ Crab(Init){
 
 CrabsLair(Init){
  * (Init) :
- 	| Closest ? Egg : (Spawn)
+ 	| Closest ? : (Spawn)
  	| True ? : (Init)
  * (Spawn) : 
  	| GotStuff ? Egg : (Init)
- 	| True ? : ()
+ 	| !GotPower ? : ()
+ 	| True ? : (Init)
  * ()
  }
 
