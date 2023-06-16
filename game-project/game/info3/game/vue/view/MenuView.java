@@ -154,7 +154,7 @@ public class MenuView extends View {
 				// gameView.getGame().setCurrentState(GameState.Credits);
 				try {
 					gameView.getGame().credits();
-					;
+					((CreditsView)gameView.getViewByName(GameState.Credits)).initYPositionLabel();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

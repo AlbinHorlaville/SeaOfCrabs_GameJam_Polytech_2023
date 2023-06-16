@@ -133,6 +133,10 @@ public class GameView {
 	public void update_view(GameState state) {
 		this.currentView = this.all_views.get(state);
 	}
+	
+	public View getViewByName(GameState name) {
+		return this.all_views.get(name);
+	}
 
 	/*
 	 * Then it lays out the frame, with a border layout, adding a label to the north

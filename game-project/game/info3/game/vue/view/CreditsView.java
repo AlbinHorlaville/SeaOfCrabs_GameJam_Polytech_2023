@@ -46,6 +46,8 @@ public class CreditsView extends View {
 		credits = new UIParagraph(readCreditsFile());
 
 		creditsPanel = new UIMoveableText(150, 150, 400, 724, credits);
+		
+		credits.setPanel(creditsPanel);
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
@@ -82,8 +84,6 @@ public class CreditsView extends View {
 
 	public void paint(Graphics g, int width, int height) {
 		g.setColor(Color.black);
-		g.drawRect(creditsPanel.getPositionX(), creditsPanel.getPositionY(), creditsPanel.getWidth(),
-				creditsPanel.getHeight());
 		for (UIComponent c : components) {
 			c.paint(g);
 		}
@@ -106,6 +106,10 @@ public class CreditsView extends View {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void initYPositionLabel() {
+		this.credits.setLabelsPositionsY(this.creditsPanel.getPositionY() + this.creditsPanel.getHeight());
 	}
 
 	@Override

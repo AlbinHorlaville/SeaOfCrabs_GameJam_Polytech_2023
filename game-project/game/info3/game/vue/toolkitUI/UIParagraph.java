@@ -15,6 +15,7 @@ public class UIParagraph extends UIComponent {
 	public ArrayList<UILabel> labels;
 	private Font font;
 	private int height;
+	private UIMoveableText panel;
 
 	public int getHeight() {
 		return height;
@@ -25,15 +26,7 @@ public class UIParagraph extends UIComponent {
 		text = t.split("\n");
 		labels = new ArrayList<>();
 		font = new Font(GameView.customFont.getFontName(), Font.PLAIN, 30);
-		int i = 0;
-		height = 0;
-		for (String s : this.text) {
-			labels.add(new UILabel(getPositionX(), getPositionY() + i * 25, s, font, Color.black));
-			//g.drawString(s, getPositionX(), getPositionY() + i * 25);
-			//height += g.getFontMetrics().getHeight();
-			i += 1;
-		}
-		
+
 		this.setUIComponentListener(new UIComponentListener() {
 
 			@Override
@@ -69,12 +62,49 @@ public class UIParagraph extends UIComponent {
 		});
 	}
 
+	public void initLabels() {
+		int i = 0;
+		height = 0;
+		for (String s : this.text) {
+			labels.add(new UILabel(getPositionX(), getPositionY() + i * 25, s, font, Color.black));
+			i += 1;
+		}
+	}
+	
+	public void setPanel(UIMoveableText t) {
+		this.panel = t;
+	}
+
+	public void setLabelsPositionsY(int y) {
+		int i = 0;
+		for (UILabel l : labels) {
+			l.setPositionY(y + i * 25);
+			i+=1;
+		}
+	}
+
+	public void updateLabelsPositionsY(int y) {
+		for (UILabel l : labels) {
+			l.setPositionY(l.getPositionY() - y);
+		}
+	}
+
+	public int getFirstLabelPositionY() {
+		return this.labels.get(0).getPositionY();
+	}
+
 	@Override
 	public void paint(Graphics g) {
 		g.setColor(Color.black);
 		g.setFont(font);
+		height = 0;
 		for (UILabel l : this.labels) {
-			l.paint(g);
+			if (l.getPositionY() < this.panel.getPositionY()+10 || l.getPositionY() > this.panel.getPositionY()+this.panel.getHeight()) {
+				
+			} else {
+				l.paint(g);
+			}
+			height += g.getFontMetrics().getHeight();
 		}
 	}
 
