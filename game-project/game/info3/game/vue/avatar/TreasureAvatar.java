@@ -27,8 +27,8 @@ public class TreasureAvatar extends Avatar{
 		BufferedImage img = m_images[imageIndex];
 		int width_painted = SCALE_IMG * img.getWidth();
 		int heigth_painted = SCALE_IMG * img.getHeight();
-		float coeffX = -entity.getX()+GameModele.player1.getX() + width/2 - 6;
-		float coeffY = -entity.getY()+GameModele.player1.getY() + height/2 + 12;
+		float coeffX = -entity.getX()+GameModele.getCurrentPlayerX()+ width/2 - 6;
+		float coeffY = -entity.getY()+GameModele.getCurrentPlayerY() + height/2 + 12;
 		g.drawImage(img,(int)coeffX, (int)coeffY, width_painted, heigth_painted, null);
 	}
 
