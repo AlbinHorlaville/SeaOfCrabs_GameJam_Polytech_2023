@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import info3.game.GameState;
+import info3.game.modele.map.EnumSectionType;
 import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Map;
 import info3.game.modele.map.Tiles;
@@ -112,23 +113,24 @@ public class GameModele {
 
 			map = new Map(s);
 
-			player1 = new PiratePlayer("Player1", 1000, 1000);
+			player1 = new PiratePlayer("Player1");
 			player1.setAvatar(new Player1(player1));
 			// GameModele.entities.add(player1);
 
 			if (!solo) {
-				player2 = new PiratePlayer("Player2", 1000, 1000);
+				player2 = new PiratePlayer("Player2");
 				player2.setAvatar(new Player2(player2));
 				// GameModele.entities.add(player2);
 			}
 
 			pirateBoat = new BoatPlayer(
-					-map.getMap()[0].getTiles()[this.map.getSectionHeight() - 10][map.getSectionWidth() / 2 -6].getX(),
-					-map.getMap()[0].getTiles()[this.map.getSectionHeight() - 10][map.getSectionWidth() / 2 -6].getY());
+					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 10][map.getSectionWidth() / 2].getX(),
+					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 10][map.getSectionWidth() / 2].getY());
 			pirateBoat.setAvatar(new BoatPlayerAvatar(pirateBoat));
 			GameModele.entities.add(pirateBoat);
-
-			// genereEntity(map);
+			map = new Map(s);
+			
+			//genereEntity(map);
 		}
 	}
 
@@ -174,36 +176,34 @@ public class GameModele {
 		int mapWidth = map.getSectionWidth();
 		int mapHeight = map.getSectionHeight();
 		for (int k = 0; k < nbSection; k++) {
-			for (int i = 0; i < mapWidth; i++) {
-				for (int j = 0; j < mapHeight; j++) {
+			for (int i = 0; i < mapHeight ; i++) {
+				for (int j = 0; j < mapWidth ; j++) {
 					Tiles Current = map.getMap()[k].getTiles()[i][j];
 					Entity newEntity;
 					if (Current.getType() == EnumTiles.TREASUR) {
 						newEntity = new RedCross(map.getMap()[k]);
+						newEntity.setLocation(Current.getX(),Current.getY());
 						newEntity.setAvatar(new TreasureAvatar(newEntity));
-						newEntity.setX(i);
-						newEntity.setY(j);
 						entities.add(newEntity);
-					} else if (Current.getType() == EnumTiles.CRAB_SPAWNER) {
-						newEntity = new CrabLair(10, k, 20, map.getMap()[k]); // Créer 10 crabes de niveau k (le numéro
-																				// de section) avec 20 points de vie
-						newEntity.setAvatar(new CrabslairAvatar(newEntity));
-						newEntity.setX(i);
-						newEntity.setY(j);
-						entities.add(newEntity);
-					} else if (Current.getType() == EnumTiles.TREE) {
-						newEntity = new Tree();
-						newEntity.setAvatar(new TreeAvatar(newEntity));
-						newEntity.setX(i);
-						newEntity.setY(j);
-						entities.add(newEntity);
-					} else if (Current.getType() == EnumTiles.SEA_CHEST) {
-						newEntity = new Tree();
-						newEntity.setAvatar(new TreeAvatar(newEntity));
-						newEntity.setX(i);
-						newEntity.setY(j);
+					} 
+					else if (Current.getType() == EnumTiles.CRAB_SPAWNER) {
+						newEntity = new CrabLair(10, k, 20, map.getMap()[k]); // Créer 10 crabes de niveau k (le numéro																				// de section) avec 20 points de vie
+						newEntity.setLocation(Current.getX(),Current.getY());
 						entities.add(newEntity);
 					}
+//					else if (Current.getType() == EnumTiles.TREE) {
+//						newEntity = new Tree();
+//						newEntity.setAvatar(new TreeAvatar(newEntity));
+//						newEntity.setX(i);
+//						newEntity.setY(j);
+//						entities.add(newEntity);
+//					} else if (Current.getType() == EnumTiles.SEA_CHEST) {
+//						newEntity = new Tree();
+//						newEntity.setAvatar(new TreeAvatar(newEntity));
+//						newEntity.setX(i);
+//						newEntity.setY(j);
+//						entities.add(newEntity);
+//					}
 				}
 			}
 		}

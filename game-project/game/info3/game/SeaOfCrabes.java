@@ -15,7 +15,7 @@ public class SeaOfCrabes {
 	public static void main(String[] args) {
 		try {
 			System.out.println("Game starting...");
-			AutomateLoader loader = new AutomateLoader(); // Initialisation des automates
+			AutomateLoader.initAutomateLoader(); // Initialisation des automates
 			SpriteLoader.initAllSprites();
 			controller = new Controller();
 			System.out.println("Game started.");

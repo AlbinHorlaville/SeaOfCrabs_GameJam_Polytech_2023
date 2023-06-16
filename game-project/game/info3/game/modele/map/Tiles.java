@@ -1,5 +1,8 @@
 package info3.game.modele.map;
 
+import info3.game.modele.GameModele;
+import info3.game.vue.GameView;
+
 /*
  * A tile of the map is characterized by it's type
  */
@@ -7,9 +10,14 @@ public class Tiles {
 	private EnumTiles type;
 	private int x;
 	private int y;
+	
+	private int tileX;
+	private int tileY;
 
-	public Tiles(EnumTiles type) {
+	public Tiles(EnumTiles type, int tileX, int tileY) {
 		this.type = type;
+		this.tileX = tileX;
+		this.tileY = tileY;
 	}
 
 	/*
@@ -26,20 +34,36 @@ public class Tiles {
 		this.type = type;
 	}
 
-	public int getX() {
+	public int getDisplayX() {
 		return this.x;
+	}
+	
+	public int getX() {
+		return -this.x + GameView.screenWidth / 2;
 	}
 
 	public void setX(int x) {
 		this.x = x;
 	}
 
-	public int getY() {
+	public int getDisplayY() {
 		return this.y;
+	}
+	
+	public int getY() {
+		return -this.y + GameView.screenHeight / 2;
 	}
 
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public int getTileX() {
+		return this.tileX;
+	}
+	
+	public int getTileY() {
+		return this.tileY;
 	}
 
 	public void setCoordinate(int x, int y) {
