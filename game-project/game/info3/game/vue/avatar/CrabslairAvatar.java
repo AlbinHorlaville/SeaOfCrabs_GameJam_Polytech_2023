@@ -1,6 +1,5 @@
 package info3.game.vue.avatar;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -30,9 +29,13 @@ public class CrabslairAvatar extends Avatar {
 		BufferedImage img = m_images[imageIndex];
 		int width_painted = SCALE_IMG * img.getWidth();
 		int heigth_painted = SCALE_IMG * img.getHeight();
-		int Decalage_Tiles_X = (int) -32*6+14*6;
-		int Decalage_Tiles_Y = (int) -32*6+6*6;
-		g.drawImage(img,-entity.getX()+GameModele.getCurrentPlayerX()+width/2+Decalage_Tiles_X, -entity.getY()+GameModele.getCurrentPlayerY()+height/2+Decalage_Tiles_Y, width_painted, heigth_painted, null);
-	}
 
+		int Decalage_Tiles_X = (int) (-32 + 14) * SCALE_IMG;
+		int Decalage_Tiles_Y = (int) (-32 + 6) * SCALE_IMG;
+
+		int coeffX = -entity.getX() + GameModele.getCurrentPlayerX() + width / 2 + Decalage_Tiles_X;
+		int coeffY = -entity.getY() + GameModele.getCurrentPlayerY() + height / 2 + Decalage_Tiles_Y;
+
+		g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
+	}
 }
