@@ -122,3 +122,10 @@ CrabsLair(Init){
  	| True ? : ()
  * ()
  }
+
+ CannonBall(Init){
+  * (Init) :
+  | GotPower ? Move(N) : (Init)
+  | True ? : ()
+  * ()
+ }

@@ -9,10 +9,9 @@ import info3.game.modele.GameModele;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
-public class CrabslairAvatar extends Avatar{
+public class CrabslairAvatar extends Avatar {
 
 	BufferedImage[] m_images;
-	Entity crabslair;
 
 	public CrabslairAvatar(Entity entity) {
 		super(entity);

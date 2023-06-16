@@ -7,14 +7,20 @@ import info3.game.modele.Entity;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
-public class TreeAvatar extends Avatar {
+public class CloudAvatar extends Avatar {
+	int size;
 
-	BufferedImage[] m_images;
-
-	public TreeAvatar(Entity entity) {
+	/**
+	 * Créer l'avatar d'un nuage
+	 * 
+	 * @param entity Ici, c'est un CloudCluster
+	 * @param s      la taille du nuage
+	 */
+	public CloudAvatar(Entity entity, int s) {
 		super(entity);
-		m_images = SpriteLoader.get(SpriteType.Palmer);
+		m_images = SpriteLoader.get(SpriteType.Cloud);
 		imageIndex = 0;
+		this.size = s;
 	}
 
 	@Override
@@ -26,8 +32,8 @@ public class TreeAvatar extends Avatar {
 	@Override
 	public void paint(Graphics g, int width, int height) {
 		BufferedImage img = m_images[imageIndex];
-		int width_painted = SCALE_IMG * img.getWidth();
-		int heigth_painted = SCALE_IMG * img.getHeight();
+		int width_painted = size * img.getWidth();
+		int heigth_painted = size * img.getHeight();
 
 		g.drawImage(img, entity.getX(), entity.getY(), width_painted, heigth_painted, null);
 	}

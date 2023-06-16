@@ -13,7 +13,6 @@ public abstract class Entity {
 	protected boolean valid;
 
 	Avatar avatar;
-
 	Automate automate;
 	State current_state;
 
@@ -64,7 +63,11 @@ public abstract class Entity {
 	}
 	
 	public void step() {
-		this.automate.step(this, current_state);
+		current_state = this.automate.step(this, current_state);
+	}
+	
+	public void die() {
+		GameModele.entities.remove(this);
 	}
 	
 	public boolean checkCollision(EnumDirection direction, int speed) {
@@ -117,8 +120,8 @@ public abstract class Entity {
 	 */
 	public void move(EnumDirection eval) {
 		int speed = 1;
-		if (checkCollision(eval, speed))
-			moveEntity(eval,speed);
+		//if (checkCollision(eval, speed))
+		moveEntity(eval,speed);
 	}
 	
 	protected void moveEntity(EnumDirection direction, int speed) {
@@ -162,6 +165,35 @@ public abstract class Entity {
 	 */
 	public void move(EnumCategory eval) {
 		
+	}
+	
+	public void die() {
+		GameModele.entities.remove(this);
+	}
+	
+	public boolean closest(){
+		System.out.println("Cette entité n'a pas de fonction closest()");
+		return false;
+	}
+	
+	public boolean gotStuff(){
+		System.out.println("Cette entité n'a pas de fonction gotStuff()");
+		return false;
+	}
+	
+	public boolean cell(EnumDirection d, EnumCategory c) throws Exception {
+		System.out.println("Cette entité n'a pas de fonction cell()");
+		return false;
+	}
+	
+	public void hit(EnumDirection d, EnumCategory c) {
+		System.out.println("Cette entité n'a pas de fonction hit()");
+	}
+	
+	
+	public boolean gotPower() {
+		System.out.println("Cette entité n'a pas de fonction gotPower()");
+		return false;
 	}
 
 }

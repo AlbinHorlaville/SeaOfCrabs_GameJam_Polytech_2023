@@ -80,6 +80,21 @@ public class GameModele {
 		for (Entity entity : entities) {
 			entity.step();
 		}
+		ArrayList<Entity> newEntities = new ArrayList<>();
+		for (Entity entity : entities) {
+			if(!entity.current_state.isDead())
+				newEntities.add(entity);
+		}
+		entities = newEntities;
+		// System.out.print("\n\n x : " +
+		// -map.getMap()[0].getTiles()[26][map.getSectionWidth() / 2].getX() + "\n\n");
+		/*System.out.print("\n\n x : "
+				+ this.map.transpoXCoordinateToTile(this.pirateBoat.getX(), this.pirateBoat.getY())
+				+ "\n\n");
+		System.out.print("tt:" + this.map.getSectionWidth()/2);
+		System.out.print("\n\n YYYY : "
+				+ this.map.transpoYCoordinateToTile(this.pirateBoat.getX(), this.pirateBoat.getY())
+				+ "\n\n");*/
 	}
 
 	public GameState getCurrentState() {
@@ -92,19 +107,18 @@ public class GameModele {
 	}
 
 	public void start(int s) throws Exception {
-		System.out.println("SOLO = " + solo);
 		if (currentState == GameState.AvantJeu) {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
 
 			map = new Map(s);
 
-			player1 = new PiratePlayer("Player1", 0, 0);
+			player1 = new PiratePlayer("Player1");
 			player1.setAvatar(new Player1(player1));
 			// GameModele.entities.add(player1);
 
 			if (!solo) {
-				player2 = new PiratePlayer("Player2", 0, 0);
+				player2 = new PiratePlayer("Player2");
 				player2.setAvatar(new Player2(player2));
 				// GameModele.entities.add(player2);
 			}

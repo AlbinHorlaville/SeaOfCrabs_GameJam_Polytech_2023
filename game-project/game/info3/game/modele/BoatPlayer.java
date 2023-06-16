@@ -3,6 +3,7 @@ package info3.game.modele;
 import java.util.ArrayList;
 
 import automate.AutomateLoader;
+import automate.EnumCategory;
 import automate.EnumDirection;
 
 public class BoatPlayer extends Player {
@@ -11,13 +12,13 @@ public class BoatPlayer extends Player {
 	CannonBall current_ball;
 	
 	private static final int DEFAULT_BOATPLAYER_LIFE_POINT = 100;
-
-	private static final int DEFAULT_BOATPLAYER_ATTACK = 2;
+	
+	private static final int DEFAULT_MAX_BOATPLAYER_LIFE_POINT = 100;
 
 	private static final int DEFAULT_BOATPLAYER_SPEED = 1;
 	
 	public BoatPlayer() {
-		super(DEFAULT_BOATPLAYER_LIFE_POINT, DEFAULT_BOATPLAYER_ATTACK);
+		super(DEFAULT_BOATPLAYER_LIFE_POINT,0, DEFAULT_MAX_BOATPLAYER_LIFE_POINT);
 		
 		bouletDeCannon = new ArrayList<>();
 		this.current_ball = new BasicCannonBall();
@@ -29,26 +30,15 @@ public class BoatPlayer extends Player {
 	}
 	
 	public BoatPlayer(int x, int y) {
-		super(DEFAULT_BOATPLAYER_LIFE_POINT, DEFAULT_BOATPLAYER_ATTACK, x, y);
+		super(DEFAULT_BOATPLAYER_LIFE_POINT,0, DEFAULT_MAX_BOATPLAYER_LIFE_POINT, x, y);
 		
 		bouletDeCannon = new ArrayList<>();
-		this.current_ball = new BasicCannonBall();
+		//this.current_ball = new BasicCannonBall();
 		
 		this.automate = AutomateLoader.findAutomate("PlayerBoat");
 		this.current_state = automate.initial_state;
 		
 		this.facing = EnumDirection.N;
-	}
-	
-	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void takeDamage() {
-		// TODO Auto-generated method stub
-
 	}
 	
 	public void addHealthPoints(int healthPoints) {
@@ -80,6 +70,29 @@ public class BoatPlayer extends Player {
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void takeDamage(int damage) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void startFire(int mouseX, int mouseY) {
+		//A modifier pour choisir le boulet de cannon à tirer
+		CannonBall b;
+		if(bouletDeCannon.size() > 0)
+			b = bouletDeCannon.remove(0);
+		else
+			b = new BasicCannonBall();
+		b.setPositions(this.x, this.y, mouseX, mouseY);
+		b.fire();
+	}
+
+	@Override
+	public void hit(EnumDirection d, EnumCategory c) {
+		
+		
 	}
 
 }

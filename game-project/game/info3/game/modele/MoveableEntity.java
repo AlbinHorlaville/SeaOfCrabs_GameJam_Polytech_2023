@@ -4,61 +4,45 @@ import automate.EnumCategory;
 import automate.EnumDirection;
 
 public abstract class MoveableEntity extends Entity{
-	protected int lifePoint;
-	protected float maxLifePointsCoeff;
-
+	
+	protected int m_healthPoints;
+	protected float m_damage; 
 	EnumDirection facing;
 
-	public MoveableEntity(int lifePoint, int maxLifePointsCoeff) {
+	public MoveableEntity(int m_healthPoints, int damage) {
 		super();
-		this.lifePoint = lifePoint;
-		this.maxLifePointsCoeff = maxLifePointsCoeff;
-
+		this.m_healthPoints = m_healthPoints;
+		this.m_damage = damage;
 	}
 	
-	public MoveableEntity(int lifePoint, int maxLifePointsCoeff, int x, int y) {
+	public MoveableEntity(int m_healthPoints, int damage, int x, int y) {
 		super(x, y);
-		this.lifePoint = lifePoint;
-		this.maxLifePointsCoeff = maxLifePointsCoeff;
+		this.m_healthPoints = m_healthPoints;
+		this.m_damage = damage;
 
 	}
 
-	public abstract void takeDamage(int damage);
-		
-	public boolean closest() throws Exception {
-		throw new Exception("Closest Method is not implemented in the entity");
+	public void takeDamage(int damage) {
+		this.m_healthPoints -= damage;
+		if(this.m_healthPoints <= 0) {
+			this.die();
+		}
 	}
-	
-	public boolean gotStuff() throws Exception{
-		throw new Exception("GotStuff Method is not implemented in the entity");
-	}
-	
-	public boolean cell(EnumDirection d, EnumCategory c) throws Exception {
-		throw new Exception("Cell Method is not implemented in the entity");
-	}
-	
-	public abstract void hit(EnumDirection d, EnumCategory c);
 	
 	
 	public boolean gotPower() {
-		return lifePoint <= 0;
-	}
-
-	public void die() {
-		GameModele.entities.remove(this);
-	}
-
-	public int getLifePoint() {
-		return lifePoint;
+		return this.m_healthPoints <= 0;
 	}
 
 
-	public void addLifePoint(int lifePoint) {
-		this.lifePoint += lifePoint;
+	public int getHealthPoints() {
+		return m_healthPoints;
 	}
 
 
-	
+	public void addHealthPoints(int m_healthPoints) {
+		this.m_healthPoints += m_healthPoints;
+	}
 
 	public EnumDirection getFacing() {
 		return facing;
@@ -69,19 +53,16 @@ public abstract class MoveableEntity extends Entity{
 		this.facing = facing;
 	}
 
-
-	public float getMaxLifePointsCoeff() {
-		return maxLifePointsCoeff;
+	public void setHealthPoints(int m_healthPoints) {
+		this.m_healthPoints = m_healthPoints;
 	}
 
-
-	public void addMaxLifePointsCoeff(float maxLifePointsCoeff) {
-		this.maxLifePointsCoeff += maxLifePointsCoeff;
+	public float getDamage() {
+		return m_damage;
 	}
 
-
-	
-	
-	//public abstract void move(EnumDirection eval);
+	public void setDamage(float m_damage) {
+		this.m_damage = m_damage;
+	}
 	
 }

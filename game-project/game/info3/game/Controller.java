@@ -52,6 +52,9 @@ public class Controller implements GameCanvasListener {
 		if (focus != null) {
 			focus.clicked(e.getX(), e.getY()); // calls to the focus'clicked behavior
 		}
+		else if(GameModele.onSea){
+			GameModele.pirateBoat.startFire(e.getX(), e.getY());
+		}
 	}
 
 	@Override

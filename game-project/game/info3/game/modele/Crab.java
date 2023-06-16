@@ -9,25 +9,24 @@ import info3.game.modele.map.Tiles;
 
 public class Crab extends Ennemy {
 	
-	public final static int HEALTH_POINTS = 100;
-	public final static int DAMAGE_COEFF = 1;
-	public final static int DAMAGE = 20;
+	public final static int DEFAULT_HEALTH_POINTS = 100;
+	public final static int DEFAULT_DAMAGE = 20;
 
-	private CrabLair crabLair;
+	private CrabLair m_crabLair;
+	private float m_coeff;
 
 	public Crab(int level, CrabLair crabLair) {
-		super(HEALTH_POINTS, DAMAGE_COEFF, level);
-		this.crabLair = crabLair;
+		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE, level);
+		this.m_coeff = (new Level(level)).getCoeffBasedOnLevel();
+		this.m_healthPoints *= this.m_coeff;
+		this.m_damage *= this.m_coeff;
+		this.m_crabLair = crabLair;
 	}
 
 	public void hit() {
-		GameModele.player1.takeDamage(DAMAGE);
+		GameModele.player1.takeDamage(DEFAULT_DAMAGE);
 	}
 
-	@Override
-	public void takeDamage(int damage) {
-		this.lifePoint -= damage;
-	}
 	
 	public void move() {
 		//Nearer pirate to me 
@@ -55,45 +54,33 @@ public class Crab extends Ennemy {
 		}
 		return GameModele.player2;
 	}
-	
-	public CrabLair getCrabLair() {
-		return this.crabLair;
-	}
-	
+
 	public void die() {
-		this.crabLair.getCrabs().remove(this);
+		this.m_crabLair.getCrabs().remove(this);
+		super.die();
 	}
 
-	@Override
-	public boolean closeTo(EnumDirection d, EnumCategory c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
-	public boolean closest(EnumDirection d, EnumCategory c) {
+	public boolean closest() {
 		return (GameModele.map.getTileUnderEntity(GameModele.player1.x, GameModele.player1.y).isIsland() 
 				&& GameModele.map.getTileUnderEntity(GameModele.player1.x, GameModele.player1.y).isIsland());
 	}
 
-	@Override
-	public boolean gotStuff() {
-		// TODO Auto-generated method stub
-		return false;
+	public CrabLair getM_crabLair() {
+		return m_crabLair;
 	}
 
-	@Override
-	public boolean cell(EnumDirection d, EnumCategory c) {
-		// TODO Auto-generated method stub
-		return false;
+	public void setM_crabLair(CrabLair m_crabLair) {
+		this.m_crabLair = m_crabLair;
 	}
 
-	@Override
-	public void hit(EnumDirection d, EnumCategory c) {
-		// TODO Auto-generated method stub
-		
+	public float getM_coeff() {
+		return m_coeff;
 	}
-	
-	
+
+	public void setM_coeff(float m_coeff) {
+		this.m_coeff = m_coeff;
+	}	
 
 }
