@@ -28,6 +28,7 @@ import info3.game.modele.MoveableEntityClass.BoatPlayer;
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
 import info3.game.modele.StillEntityClass.CrabLair;
 import info3.game.modele.StillEntityClass.RedCross;
+import info3.game.modele.StillEntityClass.Tree;
 import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Map;
 import info3.game.modele.map.Tiles;
@@ -38,6 +39,7 @@ import info3.game.vue.avatar.BoatPlayerAvatar;
 import info3.game.vue.avatar.Player1;
 import info3.game.vue.avatar.Player2;
 import info3.game.vue.avatar.TreasureAvatar;
+import info3.game.vue.avatar.TreeAvatar;
 
 public class GameModele {
 
@@ -117,7 +119,6 @@ public class GameModele {
 			player1 = new PiratePlayer("Player1");
 			player1.setAvatar(new Player1(player1));
 			// GameModele.entities.add(player1);
-
 			if (!solo) {
 				player2 = new PiratePlayer("Player2");
 				player2.setAvatar(new Player2(player2));
@@ -131,7 +132,7 @@ public class GameModele {
 			GameModele.entities.add(pirateBoat);
 			map = new Map(s);
 			
-			//genereEntity(map);
+			genereEntity(map);
 		}
 	}
 
@@ -170,6 +171,30 @@ public class GameModele {
 			setCurrentState(GameState.ChoixGameplay);
 		}
 	}
+	
+	public static int getCurrentPlayerX() {
+		if (onSea) {
+			return pirateBoat.getX();
+		} else {
+			if (solo) {
+				return player1.getX();
+			} else {
+				return (player1.getX()+player2.getX())/2;
+			}
+		}
+	}
+	
+	public static int getCurrentPlayerY() {
+		if (onSea) {
+			return pirateBoat.getY();
+		} else {
+			if (solo) {
+				return player1.getY();
+			} else {
+				return (player1.getY()+player2.getY())/2;
+			}
+		}
+	}
 
 	void genereEntity(Map map) {
 
@@ -186,7 +211,6 @@ public class GameModele {
 					Entity newEntity;
 					if (Current.getType() == EnumTiles.TREASUR && treasure == false) {
 						treasure = true;
-						System.out.println("TRIGGER");
 						newEntity = new RedCross(map.getMap()[k]);
 						newEntity.setLocation(Current.getX(),Current.getY());
 						newEntity.setAvatar(new TreasureAvatar(newEntity)); // TODO Mettre dans le constructeur
@@ -194,16 +218,16 @@ public class GameModele {
 					} 
 					else if (Current.getType() == EnumTiles.CRAB_SPAWNER && crab == false) {
 						crab = true;
-						newEntity = new CrabLair(10, k, 20, map.getMap()[k]); // Créer 10 crabes de niveau k (le numéro																				// de section) avec 20 points de vie
+						newEntity = new CrabLair(k, map.getMap()[k], Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le numéro																				// de section) avec 20 points de vie
+						//newEntity.setLocation(Current.getX(),Current.getY());
+						entities.add(newEntity);
+					}
+					else if (Current.getType() == EnumTiles.TREE) {
+						newEntity = new Tree();
+						newEntity.setAvatar(new TreeAvatar(newEntity));
 						newEntity.setLocation(Current.getX(),Current.getY());
 						entities.add(newEntity);
 					}
-//					else if (Current.getType() == EnumTiles.TREE) {
-//						newEntity = new Tree();
-//						newEntity.setAvatar(new TreeAvatar(newEntity));
-//						newEntity.setX(i);
-//						newEntity.setY(j);
-//						entities.add(newEntity);
 //					} else if (Current.getType() == EnumTiles.SEA_CHEST) {
 //						newEntity = new Tree();
 //						newEntity.setAvatar(new TreeAvatar(newEntity));

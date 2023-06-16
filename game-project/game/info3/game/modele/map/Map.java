@@ -99,7 +99,7 @@ public class Map {
 	 * Generate a map based on the seed and the section parameters
 	 */
 	public void generateMap() throws Exception {
-		this.map[0] = new MapSection(EnumSectionType.HARBOR, this.sectionWidth, this.sectionHeight, this.rand);
+		this.map[0] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
 
 		this.map[1] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
 		this.map[2] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
@@ -288,6 +288,7 @@ public class Map {
 		int waveRange;
 		for (int i = 0; i < this.nbSection; i++) {
 			switch (this.map[i].getSeaType()) {
+			case HARBOR:
 			case CALM_SEA:
 				waveRange = 25;
 				break;
@@ -304,8 +305,12 @@ public class Map {
 			}
 			for (int j = 0; j < this.sectionHeight; j++) {
 				for (int k = 0; k < this.sectionWidth; k++) {
-					this.wave[i * this.sectionHeight + j][k] = map(waveNoise[i * this.sectionHeight + j][k], -1, 1,
-							-waveRange, waveRange);
+					if (k > 15 && k < this.sectionWidth - 16) {
+						this.wave[i * this.sectionHeight + j][k] = map(waveNoise[i * this.sectionHeight + j][k], -1, 1,
+								-waveRange, waveRange);
+					} else {
+						this.wave[i * this.sectionHeight + j][k] = 0;
+					}
 				}
 			}
 		}
@@ -362,22 +367,13 @@ public class Map {
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < this.sectionHeight * this.nbSection; j++) {
 				// West value become combinaison of west and east wave
-				if (i == 0) {
-					valueWest = 0.5 * this.wave[j][i] + 0.5 * this.wave[j][this.sectionWidth - i - 1];
-				} else {
-					valueWest = 0.6 * this.wave[j][i] + 0.4 * this.wave[j][i - 1];
-				}
+				valueWest = 0.3 * this.wave[j][i + 16] + i * 0.25 * this.wave[j][i + 16];
 
 				// East value become combinaison of west and east wave
-				if (i == 0) {
-					valueEast = 0.5 * this.wave[j][i] + 0.5 * this.wave[j][this.sectionWidth - i - 1];
-				} else {
-					valueEast = 0.4 * this.wave[j][this.sectionWidth - i]
-							+ 0.6 * this.wave[j][this.sectionWidth - i - 1];
-				}
+				valueEast = 0.3 * this.wave[j][this.sectionWidth - i - 17] + i * 0.25 * this.wave[j][this.sectionWidth - i - 17];
 
-				this.wave[j][i] = valueWest;
-				this.wave[j][this.sectionWidth - i - 1] = valueEast;
+				this.wave[j][i + 16] = valueWest;
+				this.wave[j][this.sectionWidth - i - 17] = valueEast;
 			}
 		}
 	}
