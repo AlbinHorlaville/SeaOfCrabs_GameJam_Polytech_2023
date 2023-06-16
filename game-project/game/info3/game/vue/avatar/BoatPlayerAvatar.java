@@ -3,10 +3,10 @@ package info3.game.vue.avatar;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import info3.game.modele.BoatPlayer;
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
-import info3.game.modele.PiratePlayer;
+import info3.game.modele.MoveableEntityClass.BoatPlayer;
+import info3.game.modele.MoveableEntityClass.PiratePlayer;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 

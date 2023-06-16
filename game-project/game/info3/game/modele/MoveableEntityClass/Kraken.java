@@ -1,4 +1,4 @@
-package info3.game.modele;
+package info3.game.modele.MoveableEntityClass;
 
 import java.util.ArrayList;
 

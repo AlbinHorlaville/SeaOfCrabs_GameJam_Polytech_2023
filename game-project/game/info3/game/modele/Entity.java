@@ -8,13 +8,14 @@ import info3.game.vue.avatar.Avatar;
 
 public abstract class Entity {
 
-	protected int x, y;
+	public int x;
+	public int y;
 	protected int r; // Radius for draw hitbox
 	protected boolean valid;
 
-	Avatar avatar;
-	Automate automate;
-	State current_state;
+	protected Avatar avatar;
+	protected Automate automate;
+	protected State current_state;
 
 	public Entity() {
 	}
@@ -165,10 +166,6 @@ public abstract class Entity {
 	 */
 	public void move(EnumCategory eval) {
 		
-	}
-	
-	public void die() {
-		GameModele.entities.remove(this);
 	}
 	
 	public boolean closest(){

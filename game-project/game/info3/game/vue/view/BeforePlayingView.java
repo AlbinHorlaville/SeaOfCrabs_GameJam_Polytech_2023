@@ -8,9 +8,9 @@ import java.util.Random;
 
 import info3.game.GameState;
 import info3.game.modele.GameModele;
-import info3.game.modele.Scythe;
-import info3.game.modele.Sword;
 import info3.game.modele.Weapon;
+import info3.game.modele.MoveableEntityClass.Scythe;
+import info3.game.modele.MoveableEntityClass.Sword;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIBox;
 import info3.game.vue.toolkitUI.UIBoxes;

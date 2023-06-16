@@ -1,4 +1,6 @@
-package info3.game.modele;
+package info3.game.modele.MoveableEntityClass;
+
+import info3.game.modele.Weapon;
 
 public class Sword extends Weapon{
 	

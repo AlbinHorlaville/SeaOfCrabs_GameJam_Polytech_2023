@@ -1,6 +1,8 @@
-package info3.game.modele;
+package info3.game.modele.MoveableEntityClass;
 
 import automate.EnumDirection;
+import info3.game.modele.GameModele;
+import info3.game.modele.MoveableEntity;
 
 public abstract class CannonBall extends MoveableEntity{
 	protected int endX;

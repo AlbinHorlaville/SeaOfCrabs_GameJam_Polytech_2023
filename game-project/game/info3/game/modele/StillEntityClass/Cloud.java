@@ -1,8 +1,9 @@
-package info3.game.modele;
+package info3.game.modele.StillEntityClass;
 
 import automate.AutomateLoader;
+import info3.game.modele.StillEntity;
 
-public class Cloud extends Entity {
+public class Cloud extends StillEntity {
 
 	private int size;
 	private CloudCluster cluster;
@@ -15,11 +16,17 @@ public class Cloud extends Entity {
 		this.current_state = automate.initial_state;
 	}
 
-	protected void die() {
+	public void die() {
 		this.cluster.getClouds().remove(this);
 	}
 
 	public int getSize() {
 		return this.size;
+	}
+
+	@Override
+	public void move() {
+		// TODO Auto-generated method stub
+		
 	}
 }

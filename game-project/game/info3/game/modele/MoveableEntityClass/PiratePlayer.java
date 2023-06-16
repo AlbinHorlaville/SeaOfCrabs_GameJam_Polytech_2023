@@ -1,8 +1,11 @@
-package info3.game.modele;
+package info3.game.modele.MoveableEntityClass;
 
 import automate.AutomateLoader;
 import automate.EnumCategory;
 import automate.EnumDirection;
+import info3.game.modele.Entity;
+import info3.game.modele.GameModele;
+import info3.game.modele.Weapon;
 import info3.game.modele.map.Tiles;
 
 public class PiratePlayer extends Player {

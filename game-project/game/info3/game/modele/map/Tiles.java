@@ -10,7 +10,7 @@ public class Tiles {
 	private EnumTiles type;
 	private int x;
 	private int y;
-	
+
 	private int tileX;
 	private int tileY;
 
@@ -37,7 +37,7 @@ public class Tiles {
 	public int getDisplayX() {
 		return this.x;
 	}
-	
+
 	public int getX() {
 		return -this.x + GameView.screenWidth / 2;
 	}
@@ -49,7 +49,7 @@ public class Tiles {
 	public int getDisplayY() {
 		return this.y;
 	}
-	
+
 	public int getY() {
 		return -this.y + GameView.screenHeight / 2;
 	}
@@ -57,11 +57,11 @@ public class Tiles {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
+
 	public int getTileX() {
 		return this.tileX;
 	}
-	
+
 	public int getTileY() {
 		return this.tileY;
 	}
@@ -95,6 +95,7 @@ public class Tiles {
 		return this.type == EnumTiles.SAND_WATER || this.type == EnumTiles.SAND || this.type == EnumTiles.GRASS
 				|| this.type == EnumTiles.BLUE_FLOWER || this.type == EnumTiles.YELLOW_FLOWER
 				|| this.type == EnumTiles.SHELLFISH_1 || this.type == EnumTiles.SHELLFISH_2
+				|| this.type == EnumTiles.PONTOON || this.type == EnumTiles.TREASUR
 				|| this.type == EnumTiles.SHELLFISH_3 || this.type == EnumTiles.GRASS_WITH_ROCK_1
 				|| this.type == EnumTiles.GRASS_WITH_ROCK_2 || this.type == EnumTiles.RED_FLOWER
 				|| this.type == EnumTiles.TRANSITION_GRASS_UNDER_SAND

@@ -24,7 +24,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import info3.game.GameState;
-import info3.game.modele.map.EnumSectionType;
+import info3.game.modele.MoveableEntityClass.BoatPlayer;
+import info3.game.modele.MoveableEntityClass.PiratePlayer;
+import info3.game.modele.StillEntityClass.CrabLair;
+import info3.game.modele.StillEntityClass.RedCross;
 import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Map;
 import info3.game.modele.map.Tiles;
@@ -32,11 +35,9 @@ import info3.game.sound.BackgroundMusic;
 import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 import info3.game.vue.avatar.BoatPlayerAvatar;
-import info3.game.vue.avatar.CrabslairAvatar;
 import info3.game.vue.avatar.Player1;
 import info3.game.vue.avatar.Player2;
 import info3.game.vue.avatar.TreasureAvatar;
-import info3.game.vue.avatar.TreeAvatar;
 
 public class GameModele {
 

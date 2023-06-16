@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import info3.game.modele.GameModele;
-import info3.game.modele.PiratePlayer;
-import info3.game.modele.Player;
+import info3.game.modele.MoveableEntityClass.PiratePlayer;
+import info3.game.modele.MoveableEntityClass.Player;
 
 public class UIBarrePointDeVie extends UIComponent{
 	private boolean state;

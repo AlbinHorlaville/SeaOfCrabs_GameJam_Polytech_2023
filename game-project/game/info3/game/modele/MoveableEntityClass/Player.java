@@ -1,4 +1,6 @@
-package info3.game.modele;
+package info3.game.modele.MoveableEntityClass;
+
+import info3.game.modele.MoveableEntity;
 
 public abstract class Player extends MoveableEntity {
 	

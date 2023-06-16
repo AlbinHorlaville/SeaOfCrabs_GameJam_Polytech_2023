@@ -1,5 +1,7 @@
 package info3.game.modele;
 
+import info3.game.modele.MoveableEntityClass.PiratePlayer;
+
 public abstract class Weapon {
 	
 	public static String Sword = "Sword";

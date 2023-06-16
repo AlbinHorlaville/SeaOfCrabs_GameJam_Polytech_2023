@@ -2,8 +2,8 @@ package info3.game.modele.map;
 
 import java.util.Random;
 
-import info3.game.modele.CrabLair;
-import info3.game.modele.RedCross;
+import info3.game.modele.StillEntityClass.CrabLair;
+import info3.game.modele.StillEntityClass.RedCross;
 
 /*
  * Contain the reprensation of a section of the map
@@ -79,6 +79,7 @@ public class MapSection {
 			generateFlower();
 			generateRock();
 			generateShellfish();
+			generateTree();
 		}
 
 	}
@@ -575,7 +576,21 @@ public class MapSection {
 			}
 		}
 	}
-	
+
+	public void generateTree() {
+		int rand;
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (this.tiles[i][j].getType() == EnumTiles.GRASS) {
+					rand = this.randomGenerator.nextInt(12);
+					if (rand == 5) {
+						this.tiles[i][j].setType(EnumTiles.TREE);
+					}
+				}
+			}
+		}
+	}
+
 	public void generateRock() {
 		int rand;
 		for (int i = 0; i < this.sectionHeight; i++) {
@@ -598,7 +613,7 @@ public class MapSection {
 			}
 		}
 	}
-	
+
 	public void generateShellfish() {
 		int rand;
 		for (int i = 0; i < this.sectionHeight; i++) {

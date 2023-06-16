@@ -9,7 +9,7 @@ import java.util.Arrays;
 import info3.game.Controller;
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
-import info3.game.modele.PiratePlayer;
+import info3.game.modele.MoveableEntityClass.PiratePlayer;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 

@@ -1,13 +1,12 @@
 package info3.game.modele;
 
-import automate.EnumCategory;
 import automate.EnumDirection;
 
 public abstract class MoveableEntity extends Entity{
 	
 	protected int m_healthPoints;
 	protected float m_damage; 
-	EnumDirection facing;
+	public EnumDirection facing;
 
 	public MoveableEntity(int m_healthPoints, int damage) {
 		super();

@@ -1,9 +1,10 @@
-package info3.game.modele;
+package info3.game.modele.StillEntityClass;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import info3.game.vue.avatar.Avatar;
+import info3.game.modele.Entity;
+import info3.game.modele.GameModele;
 import info3.game.vue.avatar.CloudAvatar;
 
 public class CloudCluster extends Entity {

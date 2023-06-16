@@ -1,6 +1,7 @@
-package info3.game.modele;
+package info3.game.modele.StillEntityClass;
 
 import automate.AutomateLoader;
+import info3.game.modele.StillEntity;
 import info3.game.modele.map.MapSection;
 
 public class RedCross extends StillEntity {

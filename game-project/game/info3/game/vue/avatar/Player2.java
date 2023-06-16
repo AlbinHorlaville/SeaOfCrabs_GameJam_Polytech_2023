@@ -8,7 +8,7 @@ import java.util.Arrays;
 import info3.game.Controller;
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
-import info3.game.modele.PiratePlayer;
+import info3.game.modele.MoveableEntityClass.PiratePlayer;
 
 public class Player2 extends Avatar {
 

@@ -1,4 +1,8 @@
-package info3.game.modele;
+package info3.game.modele.StillEntityClass;
+
+import info3.game.modele.GameModele;
+import info3.game.modele.Level;
+import info3.game.modele.StillEntity;
 
 public class Tree extends StillEntity {
 	

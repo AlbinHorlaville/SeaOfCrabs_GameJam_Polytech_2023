@@ -1,10 +1,11 @@
-package info3.game.modele;
+package info3.game.modele.MoveableEntityClass;
 
 import java.util.ArrayList;
 
 import automate.AutomateLoader;
 import automate.EnumCategory;
 import automate.EnumDirection;
+import info3.game.modele.GameModele;
 
 public class BoatPlayer extends Player {
 
@@ -42,7 +43,7 @@ public class BoatPlayer extends Player {
 	}
 	
 	public void addHealthPoints(int healthPoints) {
-		this.lifePoint += healthPoints;
+		this.m_healthPoints += healthPoints;
 	}
 	
 	/**

@@ -1,9 +1,12 @@
-package info3.game.modele;
+package info3.game.modele.MoveableEntityClass;
 
 import java.lang.Math;
 
 import automate.EnumCategory;
 import automate.EnumDirection;
+import info3.game.modele.GameModele;
+import info3.game.modele.Level;
+import info3.game.modele.StillEntityClass.CrabLair;
 import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Tiles;
 

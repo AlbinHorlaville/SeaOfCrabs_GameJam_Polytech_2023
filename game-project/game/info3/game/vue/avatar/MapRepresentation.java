@@ -223,7 +223,7 @@ public class MapRepresentation {
 			grassTransitionThreeSide[3] = ImageIO.read(imageFile);
 		}
 
-		this.grassVariante = new BufferedImage[5];
+		this.grassVariante = new BufferedImage[6];
 
 		imageFile = new File("assets/img/tiles/blue_flower.png");
 		if (imageFile.exists()) {
@@ -248,6 +248,11 @@ public class MapRepresentation {
 		imageFile = new File("assets/img/tiles/grass_rock_2.png");
 		if (imageFile.exists()) {
 			grassVariante[4] = ImageIO.read(imageFile);
+		}
+		
+		imageFile = new File("assets/img/tiles/tree.png");
+		if (imageFile.exists()) {
+			grassVariante[5] = ImageIO.read(imageFile);
 		}
 
 		this.sandVariante = new BufferedImage[3];
@@ -402,6 +407,9 @@ public class MapRepresentation {
 							break;
 						case GRASS_WITH_ROCK_2:
 							img = this.grassVariante[4];
+							break;
+						case TREE:
+							img = this.grassVariante[5];
 							break;
 						case SHELLFISH_1:
 							img = this.sandVariante[0];

@@ -1,11 +1,15 @@
-package info3.game.modele;
+package info3.game.modele.StillEntityClass;
 
 import java.util.ArrayList;
 import java.util.Random;
+
 import automate.AutomateLoader;
+import info3.game.modele.GameModele;
+import info3.game.modele.StillEntity;
+import info3.game.modele.MoveableEntityClass.Crab;
+import info3.game.modele.map.MapSection;
 import info3.game.modele.map.Tiles;
 import info3.game.vue.avatar.CrabslairAvatar;
-import info3.game.modele.map.MapSection;
 
 public class CrabLair extends StillEntity{
 	

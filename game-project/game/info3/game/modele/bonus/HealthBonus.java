@@ -1,7 +1,7 @@
 package info3.game.modele.bonus;
 
-import info3.game.modele.Bonus;
 import info3.game.modele.GameModele;
+import info3.game.modele.StillEntityClass.Bonus;
 
 public class HealthBonus extends Bonus {
 	
