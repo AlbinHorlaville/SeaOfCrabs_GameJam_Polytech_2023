@@ -3,7 +3,9 @@ package info3.game.vue.toolkitUI;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import info3.game.modele.GameModele;
 import info3.game.modele.PiratePlayer;
+import info3.game.modele.Player;
 
 public class UIBarrePointDeVie extends UIComponent{
 	private boolean state;
@@ -19,8 +21,8 @@ public class UIBarrePointDeVie extends UIComponent{
 
 	@Override
 	public void paint(Graphics g) {
-		int max_life = PiratePlayer.getCURRENT_MAX_LIFE_POINT();
-		int current_life = PiratePlayer.getCURRENT_LIFE_POINT();
+		int max_life = Player.DEFAULT_MAX_PLAYERS_LIFE;
+		int current_life = GameModele.player1.getHealthPoints();
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(getPositionX(), getPositionY(), getWidth()+8, getHeight()+8);
 		g.setColor(new Color(255-current_life*255/max_life, current_life*255/max_life, 30));
