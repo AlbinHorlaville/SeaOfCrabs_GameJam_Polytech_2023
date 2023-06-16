@@ -2,12 +2,10 @@ package info3.game.modele.MoveableEntityClass;
 
 import java.lang.Math;
 
-import automate.EnumCategory;
-import automate.EnumDirection;
+import automate.AutomateLoader;
 import info3.game.modele.GameModele;
 import info3.game.modele.Level;
 import info3.game.modele.StillEntityClass.CrabLair;
-import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Tiles;
 
 public class Crab extends Ennemy {
@@ -24,6 +22,10 @@ public class Crab extends Ennemy {
 		this.m_healthPoints *= this.m_coeff;
 		this.m_damage *= this.m_coeff;
 		this.m_crabLair = crabLair;
+		this.automate = AutomateLoader.findAutomate("Crab");
+		this.current_state = automate.initial_state;
+		
+
 	}
 
 	public void hit() {
@@ -59,7 +61,7 @@ public class Crab extends Ennemy {
 	}
 
 	public void die() {
-		this.m_crabLair.getCrabs().remove(this);
+		this.m_crabLair.aCrabDied();
 		super.die();
 	}
 

@@ -192,5 +192,9 @@ public abstract class Entity {
 		System.out.println("Cette entité n'a pas de fonction gotPower()");
 		return false;
 	}
+	
+	public void egg() {
+		System.out.println("Cette entité n'a pas de fonction egg()");
+	}
 
 }

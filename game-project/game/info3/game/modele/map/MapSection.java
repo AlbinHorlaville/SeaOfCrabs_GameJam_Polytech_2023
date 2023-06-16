@@ -519,7 +519,8 @@ public class MapSection {
 						this.tiles[i + 1][j].setType(EnumTiles.CRAB_SPAWNER);
 						this.tiles[i + 1][j + 1].setType(EnumTiles.CRAB_SPAWNER);
 						this.tiles[i + 1][j + 2].setType(EnumTiles.CRAB_SPAWNER);
-						this.crabLair = new CrabLair(10, 1, 10, this);
+						Tiles tile = this.tiles[i][j];
+						this.crabLair = new CrabLair(1, this, tile.getX(), tile.getY());
 						added = true;
 					}
 				}

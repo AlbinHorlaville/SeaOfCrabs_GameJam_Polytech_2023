@@ -113,6 +113,14 @@ Player2(Init){
   | Key(d) ? Move(E) :(Init)
 }
 
+ 
+Crab(Init){
+ * (Init) :
+ | Closest ? Move : (Init)
+ | True ? : (Init)
+ * ()
+}
+
 CrabsLair(Init){
  * (Init) :
  	| Closest ? Egg : (Spawn)

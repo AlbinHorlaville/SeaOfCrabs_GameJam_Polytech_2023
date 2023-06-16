@@ -131,7 +131,7 @@ public class GameModele {
 			GameModele.entities.add(pirateBoat);
 			map = new Map(s);
 			
-			//genereEntity(map);
+			genereEntity(map);
 		}
 	}
 
@@ -194,8 +194,8 @@ public class GameModele {
 					} 
 					else if (Current.getType() == EnumTiles.CRAB_SPAWNER && crab == false) {
 						crab = true;
-						newEntity = new CrabLair(10, k, 20, map.getMap()[k]); // Créer 10 crabes de niveau k (le numéro																				// de section) avec 20 points de vie
-						newEntity.setLocation(Current.getX(),Current.getY());
+						newEntity = new CrabLair(k, map.getMap()[k], Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le numéro																				// de section) avec 20 points de vie
+						//newEntity.setLocation(Current.getX(),Current.getY());
 						entities.add(newEntity);
 					}
 //					else if (Current.getType() == EnumTiles.TREE) {
