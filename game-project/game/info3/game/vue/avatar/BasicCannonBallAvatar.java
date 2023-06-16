@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
-import info3.game.modele.MoveableEntityClass.CannonBall;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
@@ -13,7 +12,7 @@ public class BasicCannonBallAvatar extends Avatar{
 
 	
 	public static int SCALE_CANNON_BALL = 2;
-	
+
 	public BasicCannonBallAvatar(Entity entity) {
 		super(entity);
 		m_images = SpriteLoader.get(SpriteType.BasicCannonBall);
@@ -38,3 +37,4 @@ public class BasicCannonBallAvatar extends Avatar{
 	}
 
 }
+
