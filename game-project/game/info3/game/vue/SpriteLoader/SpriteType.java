@@ -5,5 +5,8 @@ public enum SpriteType {
 	Player1,
 	Player2,
 	PirateBoat,
-	Crabslair
+	Crabslair,
+	RedCross,
+	Palmer,
+	Cloud
 }

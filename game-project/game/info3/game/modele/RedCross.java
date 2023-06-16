@@ -1,14 +1,14 @@
 package info3.game.modele;
 
+import automate.AutomateLoader;
 import info3.game.modele.map.MapSection;
 
 public class RedCross extends StillEntity {
 	protected Treasure treasure;
-	private MapSection section;
-
 	public RedCross(MapSection section) {
 		super();
-		this.section = section;
+		this.automate = AutomateLoader.findAutomate("Philosopher");
+		this.current_state = automate.initial_state;
 	}
 
 	@Override

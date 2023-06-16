@@ -338,10 +338,10 @@ public class MapRepresentation {
 
 					currentTile = section[j][k];
 
-					tileX = currentTile.getX();
+					tileX = currentTile.getDisplayX();
 					positionX = tileX + playerX;
 
-					tileY = currentTile.getY();
+					tileY = currentTile.getDisplayY();
 					positionY = tileY + playerY;
 
 					// Only drawing the tiles on screen
