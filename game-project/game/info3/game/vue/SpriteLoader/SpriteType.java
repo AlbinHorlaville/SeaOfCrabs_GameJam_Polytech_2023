@@ -5,5 +5,6 @@ public enum SpriteType {
 	Player1,
 	Player2,
 	PirateBoat,
-	Crabslair
+	Crabslair,
+	BasicCannonBall
 }

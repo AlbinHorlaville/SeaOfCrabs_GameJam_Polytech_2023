@@ -59,5 +59,13 @@ public abstract class Avatar {
 	public Entity getEntity() {
 		return entity;
 	}
+	
+	public int getWidth() {
+		return m_images[imageIndex].getWidth() * SCALE_IMG;
+	}
+	
+	public int getHeight() {
+		return m_images[imageIndex].getHeight() * SCALE_IMG;
+	}
 
 }
