@@ -14,12 +14,10 @@ public class BoatPlayer extends Player {
 	
 	private static final int DEFAULT_MAX_BOATPLAYER_LIFE_POINT = 100;
 
-	private static final int DEFAULT_BOATPLAYER_ATTACK = 2;					//To delete
-
-	private static final int DEFAULT_BOATPLAYER_SPEED = 1;					//To delete
+	private static final int DEFAULT_BOATPLAYER_SPEED = 1;
 	
 	public BoatPlayer() {
-		super(DEFAULT_BOATPLAYER_LIFE_POINT,0, DEFAULT_MAX_BOATPLAYER_LIFE_POINT);			//The good one
+		super(DEFAULT_BOATPLAYER_LIFE_POINT,0, DEFAULT_MAX_BOATPLAYER_LIFE_POINT);
 		
 		bouletDeCannon = new ArrayList<>();
 		this.current_ball = new BasicCannonBall();
@@ -31,7 +29,7 @@ public class BoatPlayer extends Player {
 	}
 	
 	public BoatPlayer(int x, int y) {
-		super(DEFAULT_BOATPLAYER_LIFE_POINT, DEFAULT_BOATPLAYER_ATTACK, x, y); 				//To delete
+		super(DEFAULT_BOATPLAYER_LIFE_POINT,0, DEFAULT_MAX_BOATPLAYER_LIFE_POINT, x, y);
 		
 		bouletDeCannon = new ArrayList<>();
 		this.current_ball = new BasicCannonBall();

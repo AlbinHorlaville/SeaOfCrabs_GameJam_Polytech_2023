@@ -2,19 +2,18 @@ package info3.game.modele;
 
 public abstract class Player extends MoveableEntity {
 	
-	private int m_maxHealthPoints;
+	public static final int DEFAULT_MAX_PLAYERS_LIFE = 100;
 	
-	public Player(int healthPoints, int damage) {				//To delete
+	protected int m_maxHealthPoints;
+	
+	public Player(int healthPoints, int damage, int maxHealthPoints) {
 		super(healthPoints, damage);
+		this.m_maxHealthPoints = DEFAULT_MAX_PLAYERS_LIFE;
 	}
 	
-	public Player(int healthPoints, int damage, int x, int y) { //To delete
-		super(healthPoints, damage, x, y);
-	}
-	
-	public Player(int healthPoints, int damage, int maxHealthPoints) { 							// the good one
-		super(healthPoints, damage);
-		this.m_maxHealthPoints = maxHealthPoints;
+	public Player(int healthPoints, int damage, int maxHealthPoints, int x, int y) {
+		super(healthPoints, damage, x ,y);
+		this.m_maxHealthPoints = DEFAULT_MAX_PLAYERS_LIFE;
 	}
 	
 	//Heal player and boats
@@ -29,6 +28,14 @@ public abstract class Player extends MoveableEntity {
 		if(this.m_healthPoints <= 0) {
 			this.die();
 		}
+	}
+
+	public int getMaxHealthPoints() {
+		return m_maxHealthPoints;
+	}
+
+	public void setMaxHealthPoints(int m_maxHealthPoints) {
+		this.m_maxHealthPoints = m_maxHealthPoints;
 	}
 	
 }

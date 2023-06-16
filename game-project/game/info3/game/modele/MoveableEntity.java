@@ -35,12 +35,12 @@ public abstract class MoveableEntity extends Entity{
 	}
 
 
-	public int getm_healthPoints() {
+	public int getHealthPoints() {
 		return m_healthPoints;
 	}
 
 
-	public void addm_healthPoints(int m_healthPoints) {
+	public void addHealthPoints(int m_healthPoints) {
 		this.m_healthPoints += m_healthPoints;
 	}
 
@@ -53,19 +53,15 @@ public abstract class MoveableEntity extends Entity{
 		this.facing = facing;
 	}
 
-	public int getM_healthPoints() {
-		return m_healthPoints;
-	}
-
-	public void setM_healthPoints(int m_healthPoints) {
+	public void setHealthPoints(int m_healthPoints) {
 		this.m_healthPoints = m_healthPoints;
 	}
 
-	public float getM_damage() {
+	public float getDamage() {
 		return m_damage;
 	}
 
-	public void setM_damage(float m_damage) {
+	public void setDamage(float m_damage) {
 		this.m_damage = m_damage;
 	}
 	

@@ -10,8 +10,6 @@ public class PiratePlayer extends Player {
 	private static final int DEFAULT_PIRATEPLAYER_LIFE_POINT = 100;
 	
 	private static final int DEFAULT_PIRATEPLAYER_DAMAGE = 25;
-
-	public static final int DEFAULT_MAX_PLAYERS_LIFE = 100;
 	
 	public static final int DEFAULT_MAX_PLAYERS_LIFE_COEFF = 1;
 	
@@ -31,45 +29,23 @@ public class PiratePlayer extends Player {
 
 			
 	Weapon weapon;
-
-	public PiratePlayer(String string) {
-		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_MAX_PLAYERS_LIFE_COEFF);		//TO DELETE
-		this.automate = AutomateLoader.findAutomate(string);
-		this.current_state = automate.initial_state;
-		facing = EnumDirection.N;
-		this.m_attackspeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
-		this.m_speedCoeff = DEFAULT_PIRATEPLAYER_SPEED_COEFF;
-		this.m_damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
-		this.m_rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
-	}
-	
-	public PiratePlayer(String string, int x, int y) {
-		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_MAX_PLAYERS_LIFE_COEFF, x, y); //TO DELETE
-		this.automate = AutomateLoader.findAutomate(string);
-		this.current_state = automate.initial_state;
-		facing = EnumDirection.N;
-		this.m_attackspeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
-		this.m_speedCoeff = DEFAULT_PIRATEPLAYER_SPEED_COEFF;
-		this.m_damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
-		this.m_rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
-	}
 	
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
 		//weapon.setPlayer(this);
 	}
 	
-//	public PiratePlayer(String string) {
-//		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_PIRATEPLAYER_DAMAGE, DEFAULT_MAX_PLAYERS_LIFE );		//The good one
-//		this.automate = AutomateLoader.findAutomate(string);
-//		this.current_state = automate.initial_state;
-//		facing = EnumDirection.N;
-//		this.m_attackspeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
-//		this.m_speedCoeff = DEFAULT_PIRATEPLAYER_SPEED_COEFF;
-//		this.m_damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
-//		this.m_rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
-//		this.m_maxHealthCoeff = DEFAULT_MAX_PLAYERS_LIFE_COEFF;
-//	}
+	public PiratePlayer(String string) {
+		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_PIRATEPLAYER_DAMAGE, DEFAULT_MAX_PLAYERS_LIFE );		//The good one
+		this.automate = AutomateLoader.findAutomate(string);
+		this.current_state = automate.initial_state;
+		facing = EnumDirection.N;
+		this.m_attackspeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
+		this.m_speedCoeff = DEFAULT_PIRATEPLAYER_SPEED_COEFF;
+		this.m_damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
+		this.m_rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
+		this.m_maxHealthCoeff = DEFAULT_MAX_PLAYERS_LIFE_COEFF;
+	}
 	
 	
 	@Override
@@ -236,12 +212,6 @@ public class PiratePlayer extends Player {
 			default:
 				return false;
 		}
-	}
-
-	@Override
-	public void hit(EnumDirection d, EnumCategory c) {
-		//weapon.hit();
-		
 	}
 	
 	public float getDamageCoeff() {
