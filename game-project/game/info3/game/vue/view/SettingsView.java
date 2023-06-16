@@ -18,21 +18,31 @@ import info3.game.vue.toolkitUI.UITitle;
 
 public class SettingsView extends View {
 	UIButton buttonRetour;
+	UIButton buttonAutomatonView;
 	UITitle title;
 	UILabel backgroundSoundVolumeLabel;
 	UILabel effectSoundVolumeLabel;
 	UIChecker backgroundSoundChecker, effectSoundChecker;
 	BackgroundMusic current;
+	AutomataView automataView;
+	boolean automataViewOpen;
 
 	public SettingsView(GameView gv) {
 		super(gv);
 
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
+		
+		automataView = new AutomataView();
+		automataView.setVisible(false);
+		automataViewOpen = false;
 
 		title = new UITitle(windowWidth, windowHeight, "Settings", FONT2, Color.white);
 		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Back", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_RED);
+		
+		buttonAutomatonView = new UIButton(774, windowHeight - 100, 200,70, new UILabel(0, 0, "Automata", FONT1, Color.black),
+				UIButton.BACKGROUND_COLOR_CYAN);
 
 		backgroundSoundChecker = new UIChecker(320, 230, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
 		effectSoundChecker = new UIChecker(320, 280, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
@@ -67,6 +77,38 @@ public class SettingsView extends View {
 			};
 
 		});
+		
+		buttonAutomatonView.setUIComponentListener(new UIComponentListener() {
+			@Override
+			public void onComponentClicked(int x, int y) {
+				if (!automataViewOpen) {
+					automataView.setVisible(true);
+				} else {
+					automataView.setVisible(false);
+				}
+			}
+
+			@Override
+			public void onComponentMouseIn(int x, int y) {
+				buttonAutomatonView.setBackgroundColor(UIButton.BACKGROUND_COLOR_CYAN_HOVER);
+			}
+
+			@Override
+			public void onComponentMouseOut(int x, int y) {
+				buttonAutomatonView.setBackgroundColor(UIButton.BACKGROUND_COLOR_CYAN);
+			}
+
+			public void onComponentPressed(int x, int y) {
+			}
+
+			@Override
+			public void onKeyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			};
+
+		});
+		
 
 		backgroundSoundChecker.setUIComponentListener(new UIComponentListener() {
 
@@ -129,6 +171,7 @@ public class SettingsView extends View {
 		addComponent(backgroundSoundVolumeLabel);
 		addComponent(effectSoundVolumeLabel);
 		addComponent(effectSoundChecker);
+		addComponent(buttonAutomatonView);
 	}
 
 	@Override

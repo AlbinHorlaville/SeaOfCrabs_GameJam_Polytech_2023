@@ -1,6 +1,10 @@
 package automate;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -13,13 +17,18 @@ public class AutomateLoader {
 	
 	private static HashMap<String,Automate> automateLoader;
 	
+	private static ArrayList<String> list_Automate_name; // Use for View Config Automate
+	
+	private static LinkedList<Object> l;
+	
 	public static void initAutomateLoader() {
 		try {
 			AST ast = AutomataParser.from_file(System.getProperty("user.dir") + "/../gal/exemples/exemples.gal");			
 			Visitor v = new Visitor();
-			LinkedList<Object> l = (LinkedList<Object>) ast.accept(v);
+			l = (LinkedList<Object>) ast.accept(v);
 
 			initHashMap(l);
+			initAutomateNameListe(l);
 
 		}
 		catch(Exception e) {
@@ -27,9 +36,17 @@ public class AutomateLoader {
 		}
 	}
 	
+	private static void initAutomateNameListe(LinkedList<Object> l) {
+		list_Automate_name = new ArrayList<>();
+		for(Object temp : l) {
+			Automate tempAuto = (Automate)temp;
+			list_Automate_name.add(tempAuto.name);
+		}
+	}
+
 	/**
 	 * 
-	 * @param name ( Afin d'être compatible avec l'implémentation précédente)
+	 * @param name ( Afin d'ï¿½tre compatible avec l'implï¿½mentation prï¿½cï¿½dente)
 	 * @return
 	 */
 	public static Automate findAutomate(String name){
@@ -95,4 +112,35 @@ public class AutomateLoader {
 			automateLoader.put(a.name, a);
 		}
 	}
+	
+	public static void updateConfig(Object[][] data) {
+		String filePath = "resources/CONFIG"; // Specify the path to your file
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+
+        	for (int i=0; i<data.length; i++) {
+        		writer.write(data[i][0] + ":" +data[i][1]);
+        		writer.newLine();
+        	}
+
+            //writer.write(data); // Write the data to the file
+           // writer.newLine(); // Write a new line (optional)
+
+        	writer.close();
+        	initHashMap(l);
+            System.out.println("Data has been written to the file.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public static ArrayList<String> getList_Automate_name() {
+		return list_Automate_name;
+	}
+
+	public static HashMap<String, Automate> getAutomateLoader() {
+		return automateLoader;
+	}
+	
 }
