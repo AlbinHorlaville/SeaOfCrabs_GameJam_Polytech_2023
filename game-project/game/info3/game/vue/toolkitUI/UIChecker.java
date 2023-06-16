@@ -42,9 +42,9 @@ public class UIChecker extends UIButton {
 		g.fillRect(getPositionX() + 2, getPositionY() + 2, getWidth() - 4, getHeight() - 4);
 		g.setColor(Color.black);
 		if (state) {
-			g.drawString("Activé", getPositionX() + 2 * getWidth(), getPositionY() + getWidth() * 4 / 5);
+			g.drawString("On", getPositionX() + 2 * getWidth(), getPositionY() + getWidth() * 4 / 5);
 		} else {
-			g.drawString("Désactivé", getPositionX() + 2 * getWidth(), getPositionY() + getWidth() * 4 / 5);
+			g.drawString("Off", getPositionX() + 2 * getWidth(), getPositionY() + getWidth() * 4 / 5);
 		}
 	}
 

@@ -30,15 +30,15 @@ public class SettingsView extends View {
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
 
-		title = new UITitle(windowWidth, windowHeight, "Paramètres", FONT2, Color.white);
-		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Retour", FONT1, Color.black),
+		title = new UITitle(windowWidth, windowHeight, "Settings", FONT2, Color.white);
+		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Back", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_RED);
 
-		backgroundSoundChecker = new UIChecker(300, 230, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
-		effectSoundChecker = new UIChecker(300, 280, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
+		backgroundSoundChecker = new UIChecker(320, 230, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
+		effectSoundChecker = new UIChecker(320, 280, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
 
-		backgroundSoundVolumeLabel = new UILabel(50, 250, "Musique de fond : ", FONT1, Color.black);
-		effectSoundVolumeLabel = new UILabel(50, 300, "Effets sonores : ", FONT1, Color.black);
+		backgroundSoundVolumeLabel = new UILabel(50, 250, "Background sound : ", FONT1, Color.black);
+		effectSoundVolumeLabel = new UILabel(50, 300, "Sound effects : ", FONT1, Color.black);
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override

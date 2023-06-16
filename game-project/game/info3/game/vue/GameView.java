@@ -26,14 +26,14 @@ import info3.game.sound.RandomFileInputStream;
 import info3.game.sound.SoundTool;
 import info3.game.vue.avatar.Avatar;
 import info3.game.vue.view.BeforePlayingView;
-import info3.game.vue.view.ChoiceGameplayView;
+import info3.game.vue.view.GameModeView;
 import info3.game.vue.view.CreditsView;
 import info3.game.vue.view.MenuView;
 import info3.game.vue.view.PlayingView;
 import info3.game.vue.view.ScoreView;
 import info3.game.vue.view.SettingsView;
 import info3.game.vue.view.View;
-import info3.game.vue.view.CommandesView;
+import info3.game.vue.view.ControlsView;
 
 public class GameView {
 	JFrame frame;
@@ -46,6 +46,8 @@ public class GameView {
 	HashMap<GameState, View> all_views;
 
 	BufferedImage backgroundImage;
+	
+	public static Font customFont;
 
 	private long m_textElapsed;
 	
@@ -83,6 +85,21 @@ public class GameView {
 				e.printStackTrace();
 			}
 			setupFrame();
+			
+			System.out.println("  - Load font");
+			String fontPath = "resources/font/Pixeltype.ttf";
+
+	        try {
+	            // Load the font file
+	            customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath));
+
+	            // Register the font with the graphics environment
+	            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	            ge.registerFont(customFont);
+
+	        } catch (FontFormatException | IOException e) {
+	            e.printStackTrace();
+	        }
 
 			System.out.println("  - Init the view...");
 			init_view();
@@ -115,9 +132,9 @@ public class GameView {
 		this.all_views.put(GameState.Parametre, new SettingsView(this));
 		this.all_views.put(GameState.Score, new ScoreView(this));
 		this.all_views.put(GameState.Credits, new CreditsView(this));
-		this.all_views.put(GameState.Commandes, new CommandesView(this));
+		this.all_views.put(GameState.Commandes, new ControlsView(this));
 		this.all_views.put(GameState.AvantJeu, new BeforePlayingView(this));
-		this.all_views.put(GameState.ChoixGameplay, new ChoiceGameplayView(this));
+		this.all_views.put(GameState.ChoixGameplay, new GameModeView(this));
 	}
 
 	public void update_view(GameState state) {
@@ -183,6 +200,7 @@ public class GameView {
 
 		g.setColor(Color.gray);
 		g.fillRect(0, 0, width, height);
+		
 		/*
 		 * if (this.game.getCurrentState() != GameState.Jeu) {
 		 * g.drawImage(backgroundImage, 0, 0, 1024, 768, null); }

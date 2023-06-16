@@ -55,16 +55,16 @@ public class UIButton extends UIComponent {
 			for (String line : label.getText().split("\n")) {
 				int labelHeight = g.getFontMetrics().getHeight();
 				int labelWidth = g.getFontMetrics().stringWidth(line);
-				int rectHeight = labelHeight + 2 * label.getFont().getSize();
+				int rectHeight = labelHeight + label.getFont().getSize();
 				int centerX = this.getPositionX() + (getWidth() - labelWidth) / 2;
-				int centerY = this.getPositionY() + rectHeight - labelHeight + marginY *30;
+				int centerY = this.getPositionY() + rectHeight - labelHeight + marginY *35;
 				g.drawString(line, centerX, centerY);
 				marginY++;
 			}
 		} else {
 			int labelHeight = g.getFontMetrics().getHeight();
 			int labelWidth = g.getFontMetrics().stringWidth(label.getText());
-			int rectHeight = labelHeight + 2 * label.getFont().getSize();
+			int rectHeight = labelHeight + label.getFont().getSize();
 			int centerX = this.getPositionX() + (getWidth() - labelWidth) / 2;
 			int centerY = this.getPositionY() + rectHeight - labelHeight;
 			g.drawString(label.getText(), centerX, centerY);
