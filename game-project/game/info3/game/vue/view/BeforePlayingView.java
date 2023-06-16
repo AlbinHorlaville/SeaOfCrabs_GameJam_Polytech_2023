@@ -37,20 +37,20 @@ public class BeforePlayingView extends View {
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
 
-		buttonRetour = new UIButton(50, windowHeight - 100, 200, 70, new UILabel(0, 0, "Retour", FONT1, Color.black),
+		buttonRetour = new UIButton(50, windowHeight - 100, 200, 70, new UILabel(0, 0, "Back", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_RED);
 
-		buttonPlay = new UIButton(774, windowHeight - 100, 200, 70, new UILabel(0, 0, "Jouer", FONT1, Color.black),
+		buttonPlay = new UIButton(774, windowHeight - 100, 200, 70, new UILabel(0, 0, "Play", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_GREEN);
-		buttonCmd = new UIButton(400, windowHeight - 100, 200, 70, new UILabel(0, 0, "Commandes", FONT1, Color.black),
+		buttonCmd = new UIButton(400, windowHeight - 100, 200, 70, new UILabel(0, 0, "Controls", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_YELLOW);
-		buttonRandomSeed = new UIButton(774, 65, 200, 70, new UILabel(0, 0, "Graine aléatoire", FONT1, Color.black),
+		buttonRandomSeed = new UIButton(774, 65, 200, 70, new UILabel(0, 0, "Random seed", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_PURPLE);
-		seedLabel = new UILabel(50, 107, "Graine pour la génération du monde :", FONT1, c2);
-		seedInput = new UITextInput(500, 65, 200, "Entrer un nombre", UIButton.BACKGROUND_COLOR_YELLOW, Color.black);
+		seedLabel = new UILabel(50, 107, "Seed for map generation :", FONT1, c2);
+		seedInput = new UITextInput(400, 65, 200, "Enter a number", UIButton.BACKGROUND_COLOR_YELLOW, Color.black);
 
-		weaponLabelPlayer1 = new UILabel(50, 221, "Arme du joueur n°1 : ", FONT1, c2);
-		weaponLabelPlayer2 = new UILabel(50, 321, "Arme du joueur n°2 : ", FONT1, c2);
+		weaponLabelPlayer1 = new UILabel(50, 221, "Player 1's weapon : ", FONT1, c2);
+		weaponLabelPlayer2 = new UILabel(50, 321, "Player 2's weapon : ", FONT1, c2);
 
 		boxSwordPlayer1 = new UIBox(96, Sword.getInstance(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
 		boxScythePlayer1 = new UIBox(96, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 2F));
@@ -197,6 +197,7 @@ public class BeforePlayingView extends View {
 				Random r = new Random();
 				int i = r.nextInt();
 				seedInput.setInputText(Integer.toString(i));
+				
 			}
 
 			@Override
@@ -310,6 +311,11 @@ public class BeforePlayingView extends View {
 
 	@Override
 	public void paint(Graphics g, int width, int height) {
+		if (GameModele.solo) {
+			weaponLabelPlayer1.setText("Player's weapon : ");
+		} else {
+			weaponLabelPlayer1.setText("Player 1's weapon : ");
+		}
 		for (UIComponent c : components) {
 			if ((c == weaponLabelPlayer2 || c == weaponsBoxesPlayer2 || c == weaponSelectedLabel2) && GameModele.solo) continue;
 			c.paint(g);

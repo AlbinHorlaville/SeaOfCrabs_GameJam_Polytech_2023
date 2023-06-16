@@ -19,7 +19,7 @@ import info3.game.vue.toolkitUI.UIImage;
 import info3.game.vue.toolkitUI.UILabel;
 import info3.game.vue.toolkitUI.UITitle;
 
-public class CommandesView extends View{
+public class ControlsView extends View{
 
 	UIButton buttonRetour;
 	UIImage imageCJ;
@@ -33,7 +33,7 @@ public class CommandesView extends View{
 	UILabel labelCmdGenerales;
 	boolean state;
 
-	public CommandesView(GameView gv) throws IOException {
+	public ControlsView(GameView gv) throws IOException {
 		super(gv);
 
 		state = true;
@@ -55,12 +55,12 @@ public class CommandesView extends View{
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
 
-		title = new UITitle(windowWidth, windowHeight, "Commandes du joueur n°1", FONT4, Color.white);
+		title = new UITitle(windowWidth, windowHeight, "Player 1's controls", FONT2, Color.white);
 		
-		labelCmdGenerales = new UILabel(460, 490, "Commandes générales", FONT1, Color.white);
+		labelCmdGenerales = new UILabel(460, 490, "General controls", FONT1, Color.white);
 
-		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Retour", FONT1, Color.black),UIButton.BACKGROUND_COLOR_RED);
-		switchCommand = new UIButton(50, windowHeight - 200, 200,70, new UILabel(0, 0, "Voir joueur n°2", FONT1, Color.black),UIButton.BACKGROUND_COLOR_YELLOW);
+		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Back", FONT1, Color.black),UIButton.BACKGROUND_COLOR_RED);
+		switchCommand = new UIButton(50, windowHeight - 200, 200,70, new UILabel(0, 0, "See player 2", FONT1, Color.black),UIButton.BACKGROUND_COLOR_YELLOW);
 
 		imageCJ = new UIImage((windowWidth - imageCJ1.getWidth()) / 2, 125, "resources/img/CommandesJoueur1.png", 1);
 		uiImageCG = new UIImage(400, 500, "resources/img/CommandesGenerales.png", 1);
@@ -98,12 +98,12 @@ public class CommandesView extends View{
 			public void onComponentClicked(int x, int y) {
 				state = !state;
 				if (state) {
-					switchCommandText = "Voir joueur n°2";
-					title.setText("Commandes du joueur n°1");
+					switchCommandText = "See player 2";
+					title.setText("Player 1's controls");
 					imageCJ.setImage(imageCJ1);
 				} else {
-					switchCommandText = "Voir joueur n°1";
-					title.setText("Commandes du joueur n°2");
+					switchCommandText = "See player 1";
+					title.setText("Player 2's controls");
 					imageCJ.setImage(imageCJ2);
 				}
 				switchCommand.setLabel(new UILabel(0, 0, switchCommandText, FONT1, c1));
@@ -185,7 +185,13 @@ public class CommandesView extends View{
 	@Override
 	public void paint(Graphics g, int width, int height) {
 		if (GameModele.solo) {
-			title.setText("Commandes");
+			title.setText("Controls");
+		} else {
+			if (state) {
+				title.setText("Player 1's controls");
+			} else {
+				title.setText("Player 2's controls");
+			}
 		}
 		for (UIComponent c : components) {
 			if (c == switchCommand  && GameModele.solo) continue;

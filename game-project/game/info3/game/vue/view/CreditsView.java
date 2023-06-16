@@ -1,7 +1,9 @@
 package info3.game.vue.view;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -9,33 +11,41 @@ import java.io.FileNotFoundException;
 
 import info3.game.GameState;
 import info3.game.vue.GameView;
+import info3.game.vue.SpriteLoader.SpriteLoader;
+import info3.game.vue.SpriteLoader.SpriteType;
 import info3.game.vue.toolkitUI.UIButton;
+import info3.game.vue.toolkitUI.UIComponent;
 import info3.game.vue.toolkitUI.UIComponentListener;
+import info3.game.vue.toolkitUI.UICursor;
 import info3.game.vue.toolkitUI.UILabel;
+import info3.game.vue.toolkitUI.UIMoveableText;
+import info3.game.vue.toolkitUI.UIParagraph;
 import info3.game.vue.toolkitUI.UITitle;
 
 public class CreditsView extends View {
 
 	UIButton buttonRetour;
 	UITitle title;
-	ArrayList<UILabel> listCredits;
-	UILabel credits;
+	UIParagraph credits;
+	UIMoveableText creditsPanel;
+	UICursor cursor;
+
+	private File creditsFile;
 
 	public CreditsView(GameView gv) {
-		super(gv);		
+		super(gv);
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
-		
-		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Retour", FONT1, Color.black),UIButton.BACKGROUND_COLOR_RED);
+
+		creditsFile = new File("resources/Credits");
+
+		buttonRetour = new UIButton(50, windowHeight - 100, 200, 70, new UILabel(0, 0, "Back", FONT1, Color.black),
+				UIButton.BACKGROUND_COLOR_RED);
 		title = new UITitle(windowWidth, windowHeight, "Credits", FONT2, Color.white);
-		/*
-		 * noms1 = new UILabel(200, 250, "Romain MIRAS," + " Albin HORLAVILLE," +
-		 * " Axel COLE, " + " Brice DECURNINGE,", FONT1, Color.white); noms2 = new
-		 * UILabel(250, 300, " Alexandre ARLE," + " Rémi DEL MEDICO," +
-		 * " Emineh GUNDOGAN", FONT1, Color.white);
-		 */
-		// credits = new String(new File());
-		listCredits = readCreditsFile();
+
+		credits = new UIParagraph(readCreditsFile());
+
+		creditsPanel = new UIMoveableText(150, 150, 400, 724, credits);
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
@@ -67,26 +77,30 @@ public class CreditsView extends View {
 
 		addComponent(buttonRetour);
 		addComponent(title);
-		for (UILabel x : listCredits) {
-			addComponent(x);
+		addComponent(creditsPanel);
+	}
+
+	public void paint(Graphics g, int width, int height) {
+		g.setColor(Color.black);
+		g.drawRect(creditsPanel.getPositionX(), creditsPanel.getPositionY(), creditsPanel.getWidth(),
+				creditsPanel.getHeight());
+		for (UIComponent c : components) {
+			c.paint(g);
 		}
 	}
 
-	ArrayList<UILabel> readCreditsFile() {
+	public String readCreditsFile() {
 		try {
-			File credits = new File("resources/Credits");
-			Scanner myReader = new Scanner(credits);
-			ArrayList<UILabel> listeCredits = new ArrayList<UILabel>();
+			Scanner myReader = new Scanner(this.creditsFile);
+			String stringCredits = new String();
 			int i = 0;
 			while (myReader.hasNextLine()) {
 				String line = myReader.nextLine();
-				UILabel lineLabel = new UILabel(250, 250 + i, line, FONT1, Color.white);
-				i += 50;
-				listeCredits.add(lineLabel);
+				stringCredits += "\n" + line;
 			}
 			myReader.close();
 
-			return listeCredits;
+			return stringCredits;
 		} catch (FileNotFoundException e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
@@ -96,8 +110,6 @@ public class CreditsView extends View {
 
 	@Override
 	public void tick(long elapsed) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

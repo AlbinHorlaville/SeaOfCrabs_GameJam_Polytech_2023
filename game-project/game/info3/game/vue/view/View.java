@@ -23,13 +23,12 @@ public abstract class View {
 	protected Color c2;
 	protected Color c3;
 	
-	protected static final Font FONT1 = new Font("TimesRoman", Font.BOLD, 20);
-	protected static final Font FONT2 = new Font("IMPACT", Font.BOLD, 100);
-	protected static final Font FONT3 = new Font("TimesRoman", Font.BOLD, 12);
-	protected static final Font FONT4 = new Font("IMPACT", Font.BOLD, 40);
-	protected static final Font FONT5 = new Font("TimesRoman", Font.BOLD, 25);
-	protected static final Font FONT6 = new Font("TimesRoman", Font.PLAIN, 10);
-
+	protected static final Font FONT1 = new Font(GameView.customFont.getFontName(), Font.PLAIN, 40);
+	protected static final Font FONT2 = new Font(GameView.customFont.getFontName(), Font.PLAIN, 100);
+	protected static final Font FONT3 = new Font(GameView.customFont.getFontName(), Font.PLAIN, 50);
+	protected static final Font FONT4 = new Font(GameView.customFont.getFontName(), Font.PLAIN, 30);
+	
+	
 	public View(GameView gv) {
 		window_width = 1024;
 		window_height = 768;

@@ -18,24 +18,24 @@ import info3.game.vue.toolkitUI.UIImage;
 import info3.game.vue.toolkitUI.UILabel;
 import info3.game.vue.toolkitUI.UITitle;
 
-public class ChoiceGameplayView extends View {
+public class GameModeView extends View {
 
 	UIButton buttonRetour, buttonSolo, buttonCoop;
 	UITitle title;
 
-	public ChoiceGameplayView(GameView gv) throws IOException {
+	public GameModeView(GameView gv) throws IOException {
 		super(gv);
 
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
 
-		title = new UITitle(windowWidth, windowHeight, "Choisissez un mode de jeu", FONT4, Color.white);
+		title = new UITitle(windowWidth, windowHeight, "Select a game mode", FONT2, Color.white);
 
-		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Retour", FONT1, Color.black),
+		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Back", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_RED);
 
-		buttonSolo = new UIButton(74, 300, 400,120, new UILabel(0, 0, "Solo\n(1 joueur)", FONT5, Color.black), UIButton.BACKGROUND_COLOR_GREEN);
-		buttonCoop = new UIButton(548, 300, 400,120, new UILabel(0, 0, "Coopération\n(2 joueurs)", FONT5, Color.black), UIButton.BACKGROUND_COLOR_CYAN);
+		buttonSolo = new UIButton(74, 300, 400,120, new UILabel(0, 0, "Solo\n( 1 player)", FONT3, Color.black), UIButton.BACKGROUND_COLOR_GREEN);
+		buttonCoop = new UIButton(548, 300, 400,120, new UILabel(0, 0, "Cooperation\n( 2 players)", FONT3, Color.black), UIButton.BACKGROUND_COLOR_CYAN);
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
