@@ -50,14 +50,6 @@ public class PlayingView extends View {
 		for (Entity entity : GameModele.entities) {
 			entity.getAvatar().tick(elapsed);
 		}
-		k++;
-		if (k % 30 == 0 && life.getValue() > 0) {
-			life.updateLifePoint(life.getValue() - 1);
-			k = 0;
-		}
-		if (life.getValue() == 0) {
-			life.updateLifePoint(100);
-		}
 	}
 
 	@Override
