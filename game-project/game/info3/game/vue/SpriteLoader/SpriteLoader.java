@@ -41,8 +41,8 @@ public class SpriteLoader {
 		 */
 
 		load(SpriteType.Buttons, "assets/img/toolkit/buttons.png", 2, 6);
-		load(SpriteType.Player1, "assets/img/player/" + "J1.png", 5, 4);
-		load(SpriteType.Player2, "assets/img/player/" + "J1.png", 5, 4);
+		load(SpriteType.Player1, "assets/img/player/" + "J1.png", 4, 4);
+		load(SpriteType.Player2, "assets/img/player/" + "J1.png", 4, 4);
 		load(SpriteType.PirateBoat, "assets/img/player/" + "Boat.png", 1, 2);
 		load(SpriteType.Crabslair, "assets/img/BadGuys/" + "Crabslair.png", 1, 2);
 		load(SpriteType.RedCross, "assets/img/autre/" + "RedCross.png", 1, 1);

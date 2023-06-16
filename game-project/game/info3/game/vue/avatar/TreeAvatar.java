@@ -37,8 +37,8 @@ public class TreeAvatar extends Avatar {
 		int heigth_painted = SCALE_IMG * img.getHeight();
 
 		// Aligne a taton le sprite et la tile dedie
-		g.drawImage(img, -entity.getX() + GameModele.player1.getX() + width / 2 - 32*6 + 16*6 - 18,
-				-entity.getY() + GameModele.player1.getY() + height / 2-32*6 - 16*6 + 12, width_painted, heigth_painted, null);
+		g.drawImage(img, -entity.getX() + GameModele.getCurrentPlayerX() + width / 2 - 32*6 + 16*6 - 18,
+				-entity.getY() + GameModele.getCurrentPlayerY() + height / 2-32*6 - 16*6 + 12, width_painted, heigth_painted, null);
 	}
 
 }

@@ -80,6 +80,7 @@ public class MapSection {
 			generateRock();
 			generateShellfish();
 			generateTree();
+			generateRedCross();
 		}
 
 	}
