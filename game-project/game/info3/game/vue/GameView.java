@@ -48,6 +48,9 @@ public class GameView {
 	BufferedImage backgroundImage;
 
 	private long m_textElapsed;
+	
+	public static int screenWidth;
+	public static int screenHeight;
 
 	public GameView(GameModele game, Controller controller) throws IOException {
 		try {
@@ -64,6 +67,10 @@ public class GameView {
 
 			System.out.println("  - creating frame...");
 			Dimension d = new Dimension(1024, 768);
+			
+			this.screenWidth = 1024;
+			this.screenHeight = 768;
+			
 			frame = canvas.createFrame(d);
 
 			System.out.println("  - setting up the frame...");
