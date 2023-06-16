@@ -15,6 +15,13 @@ public abstract class MoveableEntity extends Entity{
 		this.maxLifePointsCoeff = maxLifePointsCoeff;
 
 	}
+	
+	public MoveableEntity(int lifePoint, int maxLifePointsCoeff, int x, int y) {
+		super(x, y);
+		this.lifePoint = lifePoint;
+		this.maxLifePointsCoeff = maxLifePointsCoeff;
+
+	}
 
 	public abstract void takeDamage(int damage);
 		
