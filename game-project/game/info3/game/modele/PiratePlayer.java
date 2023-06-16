@@ -70,7 +70,7 @@ public class PiratePlayer extends Player {
 	@Override
 	public boolean cell(EnumDirection d, EnumCategory c) {
 		//Variable a retirer quand le bateau sera pret
-		//boolean debug = true;
+		boolean debug = true;
 		int tempX;
 		int tempY;
 		Tiles t;
@@ -79,7 +79,7 @@ public class PiratePlayer extends Player {
 				
 				tempY = (int) ((float)this.y * this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(this.x, tempY);
-				if(t.isIsland()) {
+				if(t.isIsland() || debug) {
 					for(Entity e : GameModele.entities) {
 						if(e != this) {
 							if(e.x == x)
@@ -94,7 +94,7 @@ public class PiratePlayer extends Player {
 			case S:
 				tempY = (int) ((float)this.y + this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(this.x, tempY);
-				if(t.isIsland()) {
+				if(t.isIsland() || debug) {
 					for(Entity e : GameModele.entities) {
 						if(e != this) {
 							if(e.x == x) {
@@ -112,7 +112,7 @@ public class PiratePlayer extends Player {
 			case E:
 				tempX = (int) ((float)this.x + this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, y);
-				if(t.isIsland()) {
+				if(t.isIsland() || debug) {
 					for(Entity e : GameModele.entities) {
 						if(e != this) {
 							if(e.y == y) {
@@ -128,7 +128,7 @@ public class PiratePlayer extends Player {
 			case W:
 				tempX = (int) ((float)this.x - this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, y);
-				if(t.isIsland()) {
+				if(t.isIsland() || debug) {
 					for(Entity e : GameModele.entities) {
 						if(e != this) {
 							if(e.y == y) {
@@ -145,7 +145,7 @@ public class PiratePlayer extends Player {
 				tempX = (int) ((float)this.x + this.m_speedCoeff);
 				tempY = (int) ((float)this.y - this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, tempY);
-				if(t.isIsland()) {
+				if(t.isIsland() || debug) {
 					for(Entity e : GameModele.entities) {
 						if(e != this) {
 							if(e.x >= this.x && e.x <= tempX) {
@@ -162,7 +162,7 @@ public class PiratePlayer extends Player {
 				tempX = (int) ((float)this.x - this.m_speedCoeff);
 				tempY = (int) ((float)this.y - this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, tempY);
-				if(t.isIsland()) {
+				if(t.isIsland() || debug) {
 					for(Entity e : GameModele.entities) {
 						if(e != this) {
 							if(e.x <= this.x && e.x >= tempX) {
@@ -179,7 +179,7 @@ public class PiratePlayer extends Player {
 				tempX = (int) ((float)this.x + this.m_speedCoeff);
 				tempY = (int) ((float)this.y + this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, y);
-				if(t.isIsland()) {
+				if(t.isIsland() || debug) {
 					for(Entity e : GameModele.entities) {
 						if(e != this) {
 							if(e.x >= this.x && e.x <= tempX) {
@@ -196,7 +196,7 @@ public class PiratePlayer extends Player {
 				tempX = (int) ((float)this.x - this.m_speedCoeff);
 				tempY = (int) ((float)this.y + this.m_speedCoeff);
 				t = GameModele.map.getTileUnderEntity(tempX, y);
-				if(t.isIsland()) {
+				if(t.isIsland() || debug) {
 					for(Entity e : GameModele.entities) {
 						if(e != this) {
 							if(e.x <= this.x && e.x >= tempX) {
