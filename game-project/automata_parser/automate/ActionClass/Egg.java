@@ -17,8 +17,7 @@ public class Egg extends FunCall{
 
 	@Override
 	public void exec(Entity e) {
-		System.out.println(this.toString());
-		// TODO Auto-generated method stub
+		e.egg();
 		
 	}
 

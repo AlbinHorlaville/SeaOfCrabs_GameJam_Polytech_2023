@@ -2,7 +2,6 @@ package automate.ActionClass;
 
 import automate.FunCall;
 import info3.game.modele.Entity;
-import info3.game.modele.MoveableEntity;
 
 public class GotPower extends FunCall{
 
@@ -12,7 +11,7 @@ public class GotPower extends FunCall{
 	
 	@Override
 	public boolean eval(Entity e) {
-		return ((MoveableEntity)e).gotPower();
+		return e.gotPower();
 	}
 
 	@Override
