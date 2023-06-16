@@ -112,7 +112,7 @@ public class MapSection {
 
 		for (int i = 0; i < sectionHeight; i++) {
 			for (int j = 0; j < sectionWidth; j++) {
-				tiles[i][j] = new Tiles(tilesType);
+				tiles[i][j] = new Tiles(tilesType, j, i);
 			}
 		}
 	}

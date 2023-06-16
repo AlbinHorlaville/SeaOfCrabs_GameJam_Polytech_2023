@@ -10,9 +10,14 @@ public class Tiles {
 	private EnumTiles type;
 	private int x;
 	private int y;
+	
+	private int tileX;
+	private int tileY;
 
-	public Tiles(EnumTiles type) {
+	public Tiles(EnumTiles type, int tileX, int tileY) {
 		this.type = type;
+		this.tileX = tileX;
+		this.tileY = tileY;
 	}
 
 	/*
@@ -51,6 +56,14 @@ public class Tiles {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public int getTileX() {
+		return this.tileX;
+	}
+	
+	public int getTileY() {
+		return this.tileY;
 	}
 
 	public void setCoordinate(int x, int y) {
