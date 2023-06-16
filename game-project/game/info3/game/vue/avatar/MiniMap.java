@@ -26,13 +26,11 @@ public class MiniMap {
 		g.fillRect(width / 2 - (this.sectionWidth * mapPixelSize) / 2,
 				height / 2 - (this.sectionHeight * mapPixelSize) / 2, this.sectionWidth * mapPixelSize,
 				this.sectionHeight * mapPixelSize);
-		
-		System.out.print("\n\n x : " + tilesX + " y : " + tilesY + "\n\n");
 
 		//We paint the island
 		for (int i = 0; i < this.sectionHeight; i++) {
-			for (int j = 0; j < this.sectionWidth; j++) {
-				if (i == tilesY%this.sectionHeight && j == tilesX) {
+			for (int j = 16; j < this.sectionWidth - 15; j++) {
+				if (i == tilesY && j == tilesX) {
 					g.setColor(Color.red);
 					g.fillRect(width / 2 - (this.sectionWidth * mapPixelSize) / 2 + j * mapPixelSize,
 							height / 2 - (this.sectionHeight * mapPixelSize) / 2 + i * mapPixelSize, mapPixelSize,
@@ -57,8 +55,8 @@ public class MiniMap {
 						break;
 					}
 				}
-				
 			}
 		}
+		System.out.print("");
 	}
 }
