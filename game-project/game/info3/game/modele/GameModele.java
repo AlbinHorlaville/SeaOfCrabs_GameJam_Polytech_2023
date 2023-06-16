@@ -117,7 +117,6 @@ public class GameModele {
 			player1 = new PiratePlayer("Player1");
 			player1.setAvatar(new Player1(player1));
 			// GameModele.entities.add(player1);
-
 			if (!solo) {
 				player2 = new PiratePlayer("Player2");
 				player2.setAvatar(new Player2(player2));
@@ -131,7 +130,7 @@ public class GameModele {
 			GameModele.entities.add(pirateBoat);
 			map = new Map(s);
 			
-			//genereEntity(map);
+			genereEntity(map);
 		}
 	}
 
@@ -170,6 +169,30 @@ public class GameModele {
 			setCurrentState(GameState.ChoixGameplay);
 		}
 	}
+	
+	public static int getCurrentPlayerX() {
+		if (onSea) {
+			return pirateBoat.getX();
+		} else {
+			if (solo) {
+				return player1.getX();
+			} else {
+				return (player1.getX()+player2.getX())/2;
+			}
+		}
+	}
+	
+	public static int getCurrentPlayerY() {
+		if (onSea) {
+			return pirateBoat.getY();
+		} else {
+			if (solo) {
+				return player1.getY();
+			} else {
+				return (player1.getY()+player2.getY())/2;
+			}
+		}
+	}
 
 	void genereEntity(Map map) {
 
@@ -186,7 +209,6 @@ public class GameModele {
 					Entity newEntity;
 					if (Current.getType() == EnumTiles.TREASUR && treasure == false) {
 						treasure = true;
-						System.out.println("TRIGGER");
 						newEntity = new RedCross(map.getMap()[k]);
 						newEntity.setLocation(Current.getX(),Current.getY());
 						newEntity.setAvatar(new TreasureAvatar(newEntity)); // TODO Mettre dans le constructeur
