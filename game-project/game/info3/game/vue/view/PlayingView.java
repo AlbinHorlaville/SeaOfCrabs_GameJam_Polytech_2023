@@ -80,8 +80,10 @@ public class PlayingView extends View {
 		if (Controller.getBuffer()[77]) { // Quand M push
 			GameModele.map.getMiniMap().paint(g, width, height,
 					GameModele.map.getSectionOfEntity(GameModele.pirateBoat.getX(), GameModele.pirateBoat.getY()),
-					GameModele.map.transpoXCoordinateToTile(GameModele.pirateBoat.getX(),
-							GameModele.pirateBoat.getY()), GameModele.map.transpoYCoordinateToTile(GameModele.pirateBoat.getX(), GameModele.pirateBoat.getY()));
+					GameModele.map.getTileUnderEntity(GameModele.pirateBoat.getX(), GameModele.pirateBoat.getY())
+							.getTileX(),
+					GameModele.map.getTileUnderEntity(GameModele.pirateBoat.getX(), GameModele.pirateBoat.getY())
+							.getTileY());
 		}
 	}
 
