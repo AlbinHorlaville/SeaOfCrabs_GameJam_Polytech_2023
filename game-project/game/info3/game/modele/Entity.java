@@ -63,7 +63,11 @@ public abstract class Entity {
 	}
 	
 	public void step() {
-		this.automate.step(this, current_state);
+		current_state = this.automate.step(this, current_state);
+	}
+	
+	public void die() {
+		GameModele.entities.remove(this);
 	}
 	
 	public boolean checkCollision(EnumDirection direction, int speed) {
@@ -116,8 +120,8 @@ public abstract class Entity {
 	 */
 	public void move(EnumDirection eval) {
 		int speed = 1;
-		if (checkCollision(eval, speed))
-			moveEntity(eval,speed);
+		//if (checkCollision(eval, speed))
+		moveEntity(eval,speed);
 	}
 	
 	protected void moveEntity(EnumDirection direction, int speed) {
