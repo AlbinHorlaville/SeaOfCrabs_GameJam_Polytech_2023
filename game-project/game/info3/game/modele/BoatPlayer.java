@@ -11,13 +11,15 @@ public class BoatPlayer extends Player {
 	CannonBall current_ball;
 	
 	private static final int DEFAULT_BOATPLAYER_LIFE_POINT = 100;
+	
+	private static final int DEFAULT_MAX_BOATPLAYER_LIFE_POINT = 100;
 
-	private static final int DEFAULT_BOATPLAYER_ATTACK = 2;
+	private static final int DEFAULT_BOATPLAYER_ATTACK = 2;					//To delete
 
-	private static final int DEFAULT_BOATPLAYER_SPEED = 1;
+	private static final int DEFAULT_BOATPLAYER_SPEED = 1;					//To delete
 	
 	public BoatPlayer() {
-		super(DEFAULT_BOATPLAYER_LIFE_POINT, DEFAULT_BOATPLAYER_ATTACK);
+		super(DEFAULT_BOATPLAYER_LIFE_POINT,0, DEFAULT_MAX_BOATPLAYER_LIFE_POINT);			//The good one
 		
 		bouletDeCannon = new ArrayList<>();
 		this.current_ball = new BasicCannonBall();
@@ -29,7 +31,7 @@ public class BoatPlayer extends Player {
 	}
 	
 	public BoatPlayer(int x, int y) {
-		super(DEFAULT_BOATPLAYER_LIFE_POINT, DEFAULT_BOATPLAYER_ATTACK, x, y);
+		super(DEFAULT_BOATPLAYER_LIFE_POINT, DEFAULT_BOATPLAYER_ATTACK, x, y); 				//To delete
 		
 		bouletDeCannon = new ArrayList<>();
 		this.current_ball = new BasicCannonBall();
@@ -38,21 +40,6 @@ public class BoatPlayer extends Player {
 		this.current_state = automate.initial_state;
 		
 		this.facing = EnumDirection.N;
-	}
-	
-	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void takeDamage() {
-		// TODO Auto-generated method stub
-
-	}
-	
-	public void addHealthPoints(int healthPoints) {
-		this.lifePoint += healthPoints;
 	}
 	
 	/**
@@ -81,5 +68,4 @@ public class BoatPlayer extends Player {
 			break;
 		}
 	}
-
 }

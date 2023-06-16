@@ -68,7 +68,7 @@ public class CrabLair extends StillEntity{
 	
 	}
 	
-	private void getTilesWhreCrabsCouldSpawn() {
+	private void getTilesWhreCrabsCouldSpawn() { 
 		
 		//get coordinates of the crabsLair (Top left hand corner)
 		Tiles crabLairTile = GameModele.map.getTileUnderEntity(this.x, this.y);

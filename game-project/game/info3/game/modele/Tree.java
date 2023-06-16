@@ -1,63 +1,41 @@
 package info3.game.modele;
 
-import automate.Category;
-
-public class Tree extends MoveableEntity {
+public class Tree extends StillEntity {
 	
-	public static final int BOARDNUMBER = 3; 
-	public static final int HEALTHPOINTSPERBOARD = 100;
+	public static final int DEFAULT_HEALTH_POINTS_T0_HEAL_PIRATEBOAT = 50;
+	public static final int DEFAULT_HEALTH_POINTS = 50;
+	
+	private int healthPoints;
+	private int healthPointsToHeal;
+	private float coeff;
 	
 	public Tree() {
-		super(1,0,0, 0, 0, 0);
+		super();
+		this.healthPoints = DEFAULT_HEALTH_POINTS;
+		this.healthPointsToHeal = DEFAULT_HEALTH_POINTS_T0_HEAL_PIRATEBOAT;
+	}
+	
+	public Tree(int level) { // mettre le numéro du tronçon
+		super();
+		this.coeff = (new Level(level)).getCoeffBasedOnLevel();
+		this.healthPoints = DEFAULT_HEALTH_POINTS;
+		this.healthPointsToHeal = (int) ((float)DEFAULT_HEALTH_POINTS_T0_HEAL_PIRATEBOAT * this.coeff);
 	}
 
 	public void move() {
 		//Mettre la fonction move de Crabe once done
 	}
 
+	
 	public void die() {
-		GameModele.pirateBoat.addHealthPoints(this.BOARDNUMBER * this.HEALTHPOINTSPERBOARD);
+		GameModele.pirateBoat.heal(this.healthPointsToHeal);
+		super.die();
 	}
 
-	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
+	//Damage taken by the tree
 	public void takeDamage(int damage) {
-		this.lifePoint -= damage;
+		this.healthPoints -= damage;
 		
 	}
 
-	@Override
-	public boolean closeTo(Direction d, Category c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean closest(Direction d, Category c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	//Number of boars once the tree is cut
-	@Override
-	public boolean gotStuff() {
-		return this.BOARDNUMBER > 1;
-	}
-
-	@Override
-	public boolean cell(Direction d, Category c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void hit(Direction d, Category c) {
-		// TODO Auto-generated method stub
-		
-	}
 }
