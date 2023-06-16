@@ -11,8 +11,6 @@ import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
 public class BoatPlayerAvatar extends Avatar {
-	
-	public final static int SCALE_IMG = 6;
 
 	public BoatPlayerAvatar(Entity entity) {
 		super(entity);

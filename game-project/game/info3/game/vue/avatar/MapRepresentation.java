@@ -52,7 +52,7 @@ public class MapRepresentation {
 	 */
 	public MapRepresentation(Map m) throws IOException {
 
-		this.scale = 6;
+		this.scale = 4;
 
 		this.rand = m.getRand();
 
