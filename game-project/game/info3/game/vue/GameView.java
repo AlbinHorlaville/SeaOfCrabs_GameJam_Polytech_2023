@@ -48,6 +48,8 @@ public class GameView {
 	BufferedImage backgroundImage;
 	
 	public static Font customFont;
+	
+	public static final int SCALE = 5;
 
 	private long m_textElapsed;
 	

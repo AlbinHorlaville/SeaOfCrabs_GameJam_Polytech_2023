@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import info3.game.modele.Entity;
+import info3.game.vue.GameView;
 
 
 public abstract class Avatar {
@@ -19,7 +20,7 @@ public abstract class Avatar {
 
 	Entity entity;
 	
-	public final static int SCALE_IMG = 6;
+	public final static int SCALE_IMG = GameView.SCALE;
 
 	public Avatar(Entity entity) {
 		this.entity = entity;

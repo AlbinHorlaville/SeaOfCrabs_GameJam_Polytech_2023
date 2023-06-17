@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import info3.game.modele.map.Map;
 import info3.game.modele.map.MapSection;
 import info3.game.modele.map.Tiles;
+import info3.game.vue.GameView;
 
 public class MapRepresentation {
 	private MapSection[] map;
@@ -52,7 +53,7 @@ public class MapRepresentation {
 	 */
 	public MapRepresentation(Map m) throws IOException {
 
-		this.scale = 6;
+		this.scale = GameView.SCALE;
 
 		this.rand = m.getRand();
 
