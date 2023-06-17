@@ -82,6 +82,7 @@ public class MapSection {
 			addTransitionCrabToKraken();
 			break;
 		case KRAKEN_SEA:
+			generateKrakenSea();
 			addTransitionKrakenFromCrab();
 			break;
 		default:
@@ -216,7 +217,7 @@ public class MapSection {
 			}
 		}
 	}
-	
+
 	private void addTransitionCrabToKraken() {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < this.sectionWidth; j++) {
@@ -229,7 +230,7 @@ public class MapSection {
 			}
 		}
 	}
-	
+
 	private void addTransitionKrakenFromCrab() {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < this.sectionWidth; j++) {
@@ -317,11 +318,8 @@ public class MapSection {
 		}
 	}
 
-	/*
-	 * TODO
-	 */
 	private void generateKingCrabSea() {
-		
+
 		// Generation of perlin noise for the island
 		double[][] tempPerlinNoiseIsland = new double[this.sectionHeight][this.sectionWidth];
 		tempPerlinNoiseIsland = this.noiseGenerator.generateNoiseArray(this.sectionHeight, this.sectionWidth,
@@ -341,6 +339,116 @@ public class MapSection {
 				}
 				if (this.tiles[i][j].getType() == EnumTiles.GRASS) {
 					this.tiles[i][j].setType(EnumTiles.CRAB_SPAWNER);
+				}
+			}
+		}
+	}
+
+	private double[][] krakenMountainGradien(double[][] noise) {
+		double distMax = Math.sqrt(Math.pow(this.sectionWidth / 2, 2) + Math.pow(this.sectionHeight, 2));
+
+		double value;
+
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				value = Math.sqrt(Math.pow(Math.abs(this.sectionWidth / 2 - j), 2)
+						+ Math.pow(Math.abs(this.sectionHeight - i), 2));
+				noise[i][j] = this.noiseGenerator.smoothing(this.map(value, 0, distMax, 0, 1));
+			}
+		}
+		return noise;
+	}
+
+	private void generateKrakenSea() {
+		double[][] mountainNoise = new double[this.sectionHeight][this.sectionWidth];
+		mountainNoise = krakenMountainGradien(mountainNoise);
+
+		insertMountainInSection(mountainNoise);
+
+		int[][] height = new int[this.sectionHeight][this.sectionWidth];
+		height = generateHeight(height);
+		applyHeight(height);
+	}
+
+	private void applyHeight(int[][] height) {
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (height[i][j] > 0) {
+					this.tiles[i][j].setHeight(-height[i][j]);
+				}
+			}
+		}
+	}
+
+	private int[][] generateHeight(int[][] height) {
+		
+
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (this.tiles[i][j].getType() == EnumTiles.KRAKEN_WATER) {
+					height[i][j] = -1;
+				} else {
+					height[i][j] = -2;
+				}
+			}
+		}
+		
+		int currentHeight = -1;
+		while (!allHeightCalculated(height)) {
+			for (int i = 0; i < this.sectionHeight; i++) {
+				for (int j = 0; j < this.sectionWidth; j++) {
+					if (height[i][j] == currentHeight) {
+						if (i > 0) {
+							if (height[i-1][j] == -2) {
+								height[i-1][j] = currentHeight+1;
+							}
+						}
+						
+						if (i < this.sectionHeight - 1) {
+							if (height[i+1][j] == -2) {
+								height[i+1][j] = currentHeight+1;
+							}
+						}
+						
+						if (j > 0) {
+							if (height[i][j-1] == -2) {
+								height[i][j-1] = currentHeight+1;
+							}
+						}
+						
+						if (j < this.sectionWidth - 1) {
+							if (height[i][j+1] == -2) {
+								height[i][j+1] = currentHeight+1;
+							}
+						}
+					}
+				}
+			}
+			currentHeight++;
+		}
+
+		return height;
+	}
+
+	private boolean allHeightCalculated(int[][] height) {
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (height[i][j] == -2) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	private void insertMountainInSection(double[][] moutain) {
+
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (moutain[i][j] > 0.7) {
+					this.tiles[i][j].setType(EnumTiles.MOUTAIN);
+				} else {
+					this.tiles[i][j].setType(EnumTiles.KRAKEN_WATER);
 				}
 			}
 		}
@@ -366,18 +474,18 @@ public class MapSection {
 
 		return nbTileIsland < NB_TILE_MIN_PER_ISLAND;
 	}
-	
+
 	private boolean isCrabKingSurfaceBigEnough(double[][] island, int height, int width) {
 		int nbTileIsland = 0;
-		for (int i = 0; i < height&& nbTileIsland < NB_TILE_MIN_PER_ISLAND * 3; i++) {
-			for (int j = 0; j < width && nbTileIsland < NB_TILE_MIN_PER_ISLAND* 3; j++) {
+		for (int i = 0; i < height && nbTileIsland < NB_TILE_MIN_PER_ISLAND * 3; i++) {
+			for (int j = 0; j < width && nbTileIsland < NB_TILE_MIN_PER_ISLAND * 3; j++) {
 				if (island[i][j] * 255 >= 50) {
 					nbTileIsland++;
 				}
 			}
 		}
 
-		return nbTileIsland < NB_TILE_MIN_PER_ISLAND* 3;
+		return nbTileIsland < NB_TILE_MIN_PER_ISLAND * 3;
 	}
 
 	/*
@@ -653,9 +761,9 @@ public class MapSection {
 			}
 		}
 	}
-	
+
 	private void insertCrabKingInSection(double[][] island, int height, int width) {
-		
+
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				if (island[i][j] * 255 < 0) {

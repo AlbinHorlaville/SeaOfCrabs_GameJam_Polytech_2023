@@ -14,10 +14,13 @@ public class Tiles {
 	private int tileX;
 	private int tileY;
 
+	private int height;
+
 	public Tiles(EnumTiles type, int tileX, int tileY) {
 		this.type = type;
 		this.tileX = tileX;
 		this.tileY = tileY;
+		this.height = 0;
 	}
 
 	/*
@@ -46,8 +49,8 @@ public class Tiles {
 		this.x = x;
 	}
 
-	public int getDisplayY() {
-		return this.y;
+	public int getDisplayY(int imgHeight) {
+		return this.y + this.height * (imgHeight / 4);
 	}
 
 	public int getY() {
@@ -56,6 +59,10 @@ public class Tiles {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	public void setHeight(int h) {
+		this.height = h;
 	}
 
 	public int getTileX() {

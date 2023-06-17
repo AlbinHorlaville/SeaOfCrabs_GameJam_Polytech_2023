@@ -32,6 +32,7 @@ public class MapRepresentation {
 	private BufferedImage ragingWaterImage;
 	private BufferedImage krakenWaterImage;
 	private BufferedImage pontoonImage;
+	private BufferedImage moutainImage;
 
 	private BufferedImage[] grassTransitionOneSide;
 	private BufferedImage[] grassTransitionTwoSide;
@@ -72,6 +73,13 @@ public class MapRepresentation {
 			this.sandImage = ImageIO.read(imageFile);
 			this.sandImage = resize(this.sandImage, this.sandImage.getWidth() * scale,
 					this.sandImage.getHeight() * scale);
+		}
+		
+		imageFile = new File("assets/img/tiles/moutain.png");
+		if (imageFile.exists()) {
+			this.moutainImage = ImageIO.read(imageFile);
+			this.moutainImage = resize(this.moutainImage, this.moutainImage.getWidth() * scale,
+					this.moutainImage.getHeight() * scale);
 		}
 
 		imageFile = new File("assets/img/tiles/water.png");
@@ -361,7 +369,7 @@ public class MapRepresentation {
 					tileX = currentTile.getDisplayX();
 					positionX = tileX + playerX;
 
-					tileY = currentTile.getDisplayY();
+					tileY = currentTile.getDisplayY(this.calmWaterImage.getHeight());
 					positionY = tileY + playerY;
 
 					// Only drawing the tiles on screen
@@ -391,6 +399,9 @@ public class MapRepresentation {
 							break;
 						case GRASS:
 							img = grassImage;
+							break;
+						case MOUTAIN:
+							img = moutainImage;
 							break;
 						case SAND:
 						case TREASUR:

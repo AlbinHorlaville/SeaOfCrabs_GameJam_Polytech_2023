@@ -102,12 +102,16 @@ public class Map {
 		this.map[0] = new MapSection(EnumSectionType.HARBOR, this.sectionWidth, this.sectionHeight, this.rand);
 
 		this.map[1] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
-		this.map[2] = new MapSection(EnumSectionType.CALM_SEA_TO_STORMY_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		this.map[2] = new MapSection(EnumSectionType.CALM_SEA_TO_STORMY_SEA, this.sectionWidth, this.sectionHeight,
+				this.rand);
 
-		this.map[3] = new MapSection(EnumSectionType.STORMY_SEA_FROM_CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
-		this.map[4] = new MapSection(EnumSectionType.STORMY_SEA_TO_RAGING_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		this.map[3] = new MapSection(EnumSectionType.STORMY_SEA_FROM_CALM_SEA, this.sectionWidth, this.sectionHeight,
+				this.rand);
+		this.map[4] = new MapSection(EnumSectionType.STORMY_SEA_TO_RAGING_SEA, this.sectionWidth, this.sectionHeight,
+				this.rand);
 
-		this.map[5] = new MapSection(EnumSectionType.RAGING_SEA_FROM_STORMY_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		this.map[5] = new MapSection(EnumSectionType.RAGING_SEA_FROM_STORMY_SEA, this.sectionWidth, this.sectionHeight,
+				this.rand);
 		this.map[6] = new MapSection(EnumSectionType.RAGING_SEA, this.sectionWidth, this.sectionHeight, this.rand);
 
 		this.map[7] = new MapSection(EnumSectionType.CRAB_KING_SEA, this.sectionWidth, this.sectionHeight, this.rand);
@@ -374,7 +378,8 @@ public class Map {
 				valueWest = 0.3 * this.wave[j][i + 16] + i * 0.25 * this.wave[j][i + 16];
 
 				// East value become combinaison of west and east wave
-				valueEast = 0.3 * this.wave[j][this.sectionWidth - i - 17] + i * 0.25 * this.wave[j][this.sectionWidth - i - 17];
+				valueEast = 0.3 * this.wave[j][this.sectionWidth - i - 17]
+						+ i * 0.25 * this.wave[j][this.sectionWidth - i - 17];
 
 				this.wave[j][i + 16] = valueWest;
 				this.wave[j][this.sectionWidth - i - 17] = valueEast;
