@@ -21,7 +21,6 @@ public class MapRepresentation {
 	private int sectionHeight;
 	private int nbSection;
 	private double[][] wave;
-	private Random rand;
 
 	/*
 	 * Save images for only one loading
@@ -32,8 +31,6 @@ public class MapRepresentation {
 	private BufferedImage stormyWaterImage;
 	private BufferedImage ragingWaterImage;
 	private BufferedImage krakenWaterImage;
-	private BufferedImage sandWaterImage;
-	private BufferedImage stoneImage;
 	private BufferedImage pontoonImage;
 
 	private BufferedImage[] grassTransitionOneSide;
@@ -42,6 +39,8 @@ public class MapRepresentation {
 	private BufferedImage[] grassTransitionAngle;
 	private BufferedImage[] grassVariante;
 	private BufferedImage[] sandVariante;
+	private BufferedImage[] sandWaterImage;
+	private BufferedImage[] stoneImage;
 
 	private int scale;
 
@@ -54,8 +53,6 @@ public class MapRepresentation {
 	public MapRepresentation(Map m) throws IOException {
 
 		this.scale = GameView.SCALE;
-
-		this.rand = m.getRand();
 
 		/*
 		 * Load tiles images
@@ -104,18 +101,43 @@ public class MapRepresentation {
 			this.krakenWaterImage = ImageIO.read(imageFile);
 		}
 
+		this.sandWaterImage = new BufferedImage[3];
+
 		imageFile = new File("assets/img/tiles/sand_water.png");
 		if (imageFile.exists()) {
-			this.sandWaterImage = ImageIO.read(imageFile);
-			this.sandWaterImage = resize(this.sandWaterImage, this.sandWaterImage.getWidth() * scale,
-					this.sandWaterImage.getHeight() * scale);
+			this.sandWaterImage[0] = ImageIO.read(imageFile);
+			this.sandWaterImage[0] = resize(this.sandWaterImage[0], this.sandWaterImage[0].getWidth() * scale,
+					this.sandWaterImage[0].getHeight() * scale);
 		}
+
+		imageFile = new File("assets/img/tiles/stormy_sand_water.png");
+		if (imageFile.exists()) {
+			this.sandWaterImage[1] = ImageIO.read(imageFile);
+			this.sandWaterImage[1] = resize(this.sandWaterImage[1], this.sandWaterImage[1].getWidth() * scale,
+					this.sandWaterImage[1].getHeight() * scale);
+		}
+
+		imageFile = new File("assets/img/tiles/raging_sand_water.png");
+		if (imageFile.exists()) {
+			this.sandWaterImage[2] = ImageIO.read(imageFile);
+			this.sandWaterImage[2] = resize(this.sandWaterImage[2], this.sandWaterImage[2].getWidth() * scale,
+					this.sandWaterImage[2].getHeight() * scale);
+		}
+
+		this.stoneImage = new BufferedImage[2];
 
 		imageFile = new File("assets/img/tiles/stone.png");
 		if (imageFile.exists()) {
-			this.stoneImage = ImageIO.read(imageFile);
-			this.stoneImage = resize(this.stoneImage, this.stoneImage.getWidth() * scale,
-					this.stoneImage.getHeight() * scale);
+			this.stoneImage[0] = ImageIO.read(imageFile);
+			this.stoneImage[0] = resize(this.stoneImage[0], this.stoneImage[0].getWidth() * scale,
+					this.stoneImage[0].getHeight() * scale);
+		}
+
+		imageFile = new File("assets/img/tiles/stoneTransition.png");
+		if (imageFile.exists()) {
+			this.stoneImage[1] = ImageIO.read(imageFile);
+			this.stoneImage[1] = resize(this.stoneImage[1], this.stoneImage[1].getWidth() * scale,
+					this.stoneImage[1].getHeight() * scale);
 		}
 
 		this.grassTransitionAngle = new BufferedImage[4];
@@ -242,7 +264,7 @@ public class MapRepresentation {
 		if (imageFile.exists()) {
 			grassVariante[4] = ImageIO.read(imageFile);
 		}
-		
+
 		imageFile = new File("assets/img/tiles/tree.png");
 		if (imageFile.exists()) {
 			grassVariante[5] = ImageIO.read(imageFile);
@@ -375,11 +397,16 @@ public class MapRepresentation {
 							img = sandImage;
 							break;
 						case SAND_WATER:
+						case STORMY_SAND_WATER:
+						case RAGING_SAND_WATER:
 							img = sandImage;
 							sandWater = true;
 							break;
 						case CRAB_SPAWNER:
-							img = this.stoneImage;
+							img = this.stoneImage[0];
+							break;
+						case CRAB_SPAWNER_TRANSITION:
+							img = this.stoneImage[1];
 							break;
 						case PONTOON:
 							img = this.pontoonImage;
@@ -474,8 +501,18 @@ public class MapRepresentation {
 						// If the tile to be drawed is sand water (special case since it is composed of
 						// 2 tiles, a static sand and a moving half transparent water)
 						if (sandWater && positionY + (int) waveOffset < positionY) {
-							g.drawImage(this.sandWaterImage, positionX, positionY + (int) waveOffset, imgWidth,
-									imgHeight, null);
+							switch (currentTile.getType()) {
+							case SAND_WATER:
+								img = this.sandWaterImage[0];
+								break;
+							case STORMY_SAND_WATER:
+								img = this.sandWaterImage[1];
+								break;
+							default:
+								img = this.sandWaterImage[2];
+								break;
+							}
+							g.drawImage(img, positionX, positionY + (int) waveOffset, imgWidth, imgHeight, null);
 
 						}
 					}
