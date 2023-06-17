@@ -19,17 +19,17 @@ public class MiniMap {
 	}
 
 	public void paint(Graphics g, int width, int height, int currentSection, int tilesX, int tilesY) {
-		int mapPixelSize = 10;
+		int mapPixelSize = 8;
 
 		//We paint the background of the minimap (the water) for optimisation we don't draw each water tile individually
 		g.setColor(new Color(0, 0, 255, 100));
-		g.fillRect(width / 2 - (this.sectionWidth * mapPixelSize) / 2,
-				height / 2 - (this.sectionHeight * mapPixelSize) / 2, this.sectionWidth * mapPixelSize,
+		g.fillRect(width / 2 - ((this.sectionWidth-16) * mapPixelSize) / 2,
+				height / 2 - (this.sectionHeight * mapPixelSize) / 2, (this.sectionWidth-16) * mapPixelSize,
 				this.sectionHeight * mapPixelSize);
 
 		//We paint the island
 		for (int i = 0; i < this.sectionHeight; i++) {
-			for (int j = 16; j < this.sectionWidth - 15; j++) {
+			for (int j = 8; j < this.sectionWidth - 8; j++) {
 				if (i == tilesY && j == tilesX) {
 					g.setColor(Color.red);
 					g.fillRect(width / 2 - (this.sectionWidth * mapPixelSize) / 2 + j * mapPixelSize,
