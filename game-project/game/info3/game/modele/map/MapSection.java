@@ -55,34 +55,57 @@ public class MapSection {
 		case CALM_SEA:
 			generateCalmSea();
 			break;
+		case CALM_SEA_TO_STORMY_SEA:
+			generateCalmSea();
+			addTransitionCalmToStormy();
+			break;
+		case STORMY_SEA_FROM_CALM_SEA:
+			generateStormySea();
+			addTransitionStormyFromCalm();
+			break;
+		case STORMY_SEA_TO_RAGING_SEA:
+			generateStormySea();
+			addTransitionStormyToRaging();
+			break;
 		case STORMY_SEA:
 			generateStormySea();
+			break;
+		case RAGING_SEA_FROM_STORMY_SEA:
+			generateStormySea();
+			addTransitionRagingFromStormy();
 			break;
 		case RAGING_SEA:
 			generateRagingSea();
 			break;
 		case CRAB_KING_SEA:
 			generateKingCrabSea();
+			addTransitionCrabToKraken();
 			break;
 		case KRAKEN_SEA:
+			generateKrakenSea();
+			addTransitionKrakenFromCrab();
 			break;
 		default:
 			throw new Exception("Type de section inexistante");
 		}
 
-		if (seaType == EnumSectionType.CALM_SEA || seaType == EnumSectionType.STORMY_SEA
-				|| seaType == EnumSectionType.RAGING_SEA || seaType == EnumSectionType.CRAB_KING_SEA) {
-			addSandToGrassTransition();
-
-			generateCrabsLair();
-
-			generateFlower();
-			generateRock();
-			generateShellfish();
-			generateTree();
-			generateRedCross();
+		if (seaType == EnumSectionType.CALM_SEA || seaType == EnumSectionType.CALM_SEA_TO_STORMY_SEA
+				|| seaType == EnumSectionType.STORMY_SEA_TO_RAGING_SEA
+				|| seaType == EnumSectionType.RAGING_SEA_FROM_STORMY_SEA
+				|| seaType == EnumSectionType.STORMY_SEA_FROM_CALM_SEA || seaType == EnumSectionType.STORMY_SEA
+				|| seaType == EnumSectionType.RAGING_SEA) {
+			generateNormalSectionElement();
 		}
+	}
 
+	private void generateNormalSectionElement() {
+		addSandToGrassTransition();
+		generateCrabsLair();
+		generateFlower();
+		generateRock();
+		generateShellfish();
+		generateTree();
+		generateRedCross();
 	}
 
 	/*
@@ -94,19 +117,21 @@ public class MapSection {
 		switch (this.seaType) {
 		case HARBOR:
 		case CALM_SEA:
+		case CALM_SEA_TO_STORMY_SEA:
 			tilesType = EnumTiles.CALM_WATER;
 			break;
 		case STORMY_SEA:
+		case STORMY_SEA_FROM_CALM_SEA:
+		case STORMY_SEA_TO_RAGING_SEA:
 			tilesType = EnumTiles.STORMY_WATER;
 			break;
 		case RAGING_SEA:
+		case RAGING_SEA_FROM_STORMY_SEA:
+		case CRAB_KING_SEA:
 			tilesType = EnumTiles.RAGING_WATER;
 			break;
 		case KRAKEN_SEA:
 			tilesType = EnumTiles.KRAKEN_WATER;
-			break;
-		case CRAB_KING_SEA:
-			tilesType = EnumTiles.RAGING_WATER;
 			break;
 		default:
 			throw new Exception("Type de section inexistante");
@@ -141,13 +166,88 @@ public class MapSection {
 		}
 	}
 
+	private void addTransitionRagingFromStormy() {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (this.tiles[this.sectionHeight - 1 - i][j].getType() == EnumTiles.RAGING_WATER) {
+					int rand = this.randomGenerator.nextInt((i + 1) * 3);
+					if (rand == 2) {
+						this.tiles[this.sectionHeight - 1 - i][j].setType(EnumTiles.STORMY_WATER);
+					}
+				}
+			}
+		}
+	}
+
+	private void addTransitionStormyFromCalm() {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (this.tiles[this.sectionHeight - 1 - i][j].getType() == EnumTiles.STORMY_WATER) {
+					int rand = this.randomGenerator.nextInt((i + 1) * 3);
+					if (rand == 2) {
+						this.tiles[this.sectionHeight - 1 - i][j].setType(EnumTiles.CALM_WATER);
+					}
+				}
+			}
+		}
+	}
+
+	private void addTransitionStormyToRaging() {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (this.tiles[i][j].getType() == EnumTiles.STORMY_WATER) {
+					int rand = this.randomGenerator.nextInt((i + 1) * 3);
+					if (rand == 2) {
+						this.tiles[i][j].setType(EnumTiles.RAGING_WATER);
+					}
+				}
+			}
+		}
+	}
+
+	private void addTransitionCalmToStormy() {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (this.tiles[i][j].getType() == EnumTiles.CALM_WATER) {
+					int rand = this.randomGenerator.nextInt((i + 1) * 3);
+					if (rand == 2) {
+						this.tiles[i][j].setType(EnumTiles.STORMY_WATER);
+					}
+				}
+			}
+		}
+	}
+
+	private void addTransitionCrabToKraken() {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (this.tiles[i][j].getType() == EnumTiles.RAGING_WATER) {
+					int rand = this.randomGenerator.nextInt((i + 1) * 3);
+					if (rand == 2) {
+						this.tiles[i][j].setType(EnumTiles.KRAKEN_WATER);
+					}
+				}
+			}
+		}
+	}
+
+	private void addTransitionKrakenFromCrab() {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (this.tiles[this.sectionHeight - 1 - i][j].getType() == EnumTiles.KRAKEN_WATER) {
+					int rand = this.randomGenerator.nextInt((i + 1) * 3);
+					if (rand == 2) {
+						this.tiles[this.sectionHeight - 1 - i][j].setType(EnumTiles.RAGING_WATER);
+					}
+				}
+			}
+		}
+	}
+
 	private void generateHarbor() {
 
 		// Generation of perlin noise for the island
 		double[][] harborSection = new double[this.sectionHeight][this.sectionWidth];
-
-		harborSection = this.noiseGenerator.generateNoiseArray(this.sectionHeight, this.sectionWidth,
-				this.randomGenerator.nextDouble() * 10000, this.randomGenerator.nextDouble() * 10000);
 
 		harborSection = generateHarborGradient(harborSection);
 
@@ -218,11 +318,140 @@ public class MapSection {
 		}
 	}
 
-	/*
-	 * TODO
-	 */
 	private void generateKingCrabSea() {
-		generateRagingSea();
+
+		// Generation of perlin noise for the island
+		double[][] tempPerlinNoiseIsland = new double[this.sectionHeight][this.sectionWidth];
+		tempPerlinNoiseIsland = this.noiseGenerator.generateNoiseArray(this.sectionHeight, this.sectionWidth,
+				this.randomGenerator.nextDouble() * 10000, this.randomGenerator.nextDouble() * 10000);
+
+		// If the island is too small we generate a new one
+		if (isCrabKingSurfaceBigEnough(tempPerlinNoiseIsland, this.sectionHeight, this.sectionWidth)) {
+			generateKingCrabSea();
+		} else { // Otherwise, we insert the island in the section
+			insertCrabKingInSection(tempPerlinNoiseIsland, this.sectionHeight, this.sectionWidth);
+		}
+
+		for (int i = 0; i < sectionHeight; i++) {
+			for (int j = 0; j < sectionWidth; j++) {
+				if (this.tiles[i][j].getType() == EnumTiles.CALM_WATER) {
+					this.tiles[i][j].setType(EnumTiles.RAGING_WATER);
+				}
+				if (this.tiles[i][j].getType() == EnumTiles.GRASS) {
+					this.tiles[i][j].setType(EnumTiles.CRAB_SPAWNER);
+				}
+			}
+		}
+	}
+
+	private double[][] krakenMountainGradien(double[][] noise) {
+		double distMax = Math.sqrt(Math.pow(this.sectionWidth / 2, 2) + Math.pow(this.sectionHeight, 2));
+
+		double value;
+
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				value = Math.sqrt(Math.pow(Math.abs(this.sectionWidth / 2 - j), 2)
+						+ Math.pow(Math.abs(this.sectionHeight - i), 2));
+				noise[i][j] = this.noiseGenerator.smoothing(this.map(value, 0, distMax, 0, 1));
+			}
+		}
+		return noise;
+	}
+
+	private void generateKrakenSea() {
+		double[][] mountainNoise = new double[this.sectionHeight][this.sectionWidth];
+		mountainNoise = krakenMountainGradien(mountainNoise);
+
+		insertMountainInSection(mountainNoise);
+
+		int[][] height = new int[this.sectionHeight][this.sectionWidth];
+		height = generateHeight(height);
+		applyHeight(height);
+	}
+
+	private void applyHeight(int[][] height) {
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (height[i][j] > 0) {
+					this.tiles[i][j].setHeight(-height[i][j]);
+				}
+			}
+		}
+	}
+
+	private int[][] generateHeight(int[][] height) {
+		
+
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (this.tiles[i][j].getType() == EnumTiles.KRAKEN_WATER) {
+					height[i][j] = -1;
+				} else {
+					height[i][j] = -2;
+				}
+			}
+		}
+		
+		int currentHeight = -1;
+		while (!allHeightCalculated(height)) {
+			for (int i = 0; i < this.sectionHeight; i++) {
+				for (int j = 0; j < this.sectionWidth; j++) {
+					if (height[i][j] == currentHeight) {
+						if (i > 0) {
+							if (height[i-1][j] == -2) {
+								height[i-1][j] = currentHeight+1;
+							}
+						}
+						
+						if (i < this.sectionHeight - 1) {
+							if (height[i+1][j] == -2) {
+								height[i+1][j] = currentHeight+1;
+							}
+						}
+						
+						if (j > 0) {
+							if (height[i][j-1] == -2) {
+								height[i][j-1] = currentHeight+1;
+							}
+						}
+						
+						if (j < this.sectionWidth - 1) {
+							if (height[i][j+1] == -2) {
+								height[i][j+1] = currentHeight+1;
+							}
+						}
+					}
+				}
+			}
+			currentHeight++;
+		}
+
+		return height;
+	}
+
+	private boolean allHeightCalculated(int[][] height) {
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (height[i][j] == -2) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	private void insertMountainInSection(double[][] moutain) {
+
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (moutain[i][j] > 0.7) {
+					this.tiles[i][j].setType(EnumTiles.MOUTAIN);
+				} else {
+					this.tiles[i][j].setType(EnumTiles.KRAKEN_WATER);
+				}
+			}
+		}
 	}
 
 	/*
@@ -244,6 +473,19 @@ public class MapSection {
 		}
 
 		return nbTileIsland < NB_TILE_MIN_PER_ISLAND;
+	}
+
+	private boolean isCrabKingSurfaceBigEnough(double[][] island, int height, int width) {
+		int nbTileIsland = 0;
+		for (int i = 0; i < height && nbTileIsland < NB_TILE_MIN_PER_ISLAND * 3; i++) {
+			for (int j = 0; j < width && nbTileIsland < NB_TILE_MIN_PER_ISLAND * 3; j++) {
+				if (island[i][j] * 255 >= 50) {
+					nbTileIsland++;
+				}
+			}
+		}
+
+		return nbTileIsland < NB_TILE_MIN_PER_ISLAND * 3;
 	}
 
 	/*
@@ -472,13 +714,66 @@ public class MapSection {
 		for (int i = 0; i < islandSize; i++) {
 			for (int j = 0; j < islandSize; j++) {
 				if (island[i][j] * 255 < 0) {
-					this.tiles[i + offsetY][j + offsetX].setType(EnumTiles.CALM_WATER);
+					switch (this.seaType) {
+					case HARBOR:
+					case CALM_SEA:
+					case CALM_SEA_TO_STORMY_SEA:
+						this.tiles[i + offsetY][j + offsetX].setType(EnumTiles.CALM_WATER);
+						break;
+					case STORMY_SEA:
+					case STORMY_SEA_FROM_CALM_SEA:
+					case STORMY_SEA_TO_RAGING_SEA:
+						this.tiles[i + offsetY][j + offsetX].setType(EnumTiles.STORMY_WATER);
+						break;
+					case RAGING_SEA:
+					case RAGING_SEA_FROM_STORMY_SEA:
+					case CRAB_KING_SEA:
+						this.tiles[i + offsetY][j + offsetX].setType(EnumTiles.RAGING_WATER);
+						break;
+					default:
+						break;
+					}
 				} else if (island[i][j] * 255 < 30) {
-					this.tiles[i + offsetY][j + offsetX].setType(EnumTiles.SAND_WATER);
+					switch (this.seaType) {
+					case HARBOR:
+					case CALM_SEA:
+					case CALM_SEA_TO_STORMY_SEA:
+						this.tiles[i + offsetY][j + offsetX].setType(EnumTiles.SAND_WATER);
+						break;
+					case STORMY_SEA:
+					case STORMY_SEA_FROM_CALM_SEA:
+					case STORMY_SEA_TO_RAGING_SEA:
+						this.tiles[i + offsetY][j + offsetX].setType(EnumTiles.STORMY_SAND_WATER);
+						break;
+					case RAGING_SEA:
+					case RAGING_SEA_FROM_STORMY_SEA:
+					case CRAB_KING_SEA:
+						this.tiles[i + offsetY][j + offsetX].setType(EnumTiles.RAGING_SAND_WATER);
+						break;
+					default:
+						break;
+					}
 				} else if (island[i][j] * 255 < 50) {
 					this.tiles[i + offsetY][j + offsetX].setType(EnumTiles.SAND);
 				} else {
 					this.tiles[i + offsetY][j + offsetX].setType(EnumTiles.GRASS);
+				}
+			}
+		}
+	}
+
+	private void insertCrabKingInSection(double[][] island, int height, int width) {
+
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				if (island[i][j] * 255 < 0) {
+					this.tiles[i][j].setType(EnumTiles.RAGING_WATER);
+				} else if (island[i][j] * 255 < 30) {
+					this.tiles[i][j].setType(EnumTiles.RAGING_SAND_WATER);
+				} else if (island[i][j] * 255 < 50) {
+					this.tiles[i][j].setType(EnumTiles.SAND);
+				} else {
+					this.tiles[i][j].setType(EnumTiles.GRASS);
 				}
 			}
 		}
@@ -517,9 +812,9 @@ public class MapSection {
 						this.tiles[i][j].setType(EnumTiles.CRAB_SPAWNER);
 						this.tiles[i][j + 1].setType(EnumTiles.CRAB_SPAWNER);
 						this.tiles[i][j + 2].setType(EnumTiles.CRAB_SPAWNER);
-						this.tiles[i + 1][j].setType(EnumTiles.CRAB_SPAWNER);
-						this.tiles[i + 1][j + 1].setType(EnumTiles.CRAB_SPAWNER);
-						this.tiles[i + 1][j + 2].setType(EnumTiles.CRAB_SPAWNER);
+						this.tiles[i + 1][j].setType(EnumTiles.CRAB_SPAWNER_TRANSITION);
+						this.tiles[i + 1][j + 1].setType(EnumTiles.CRAB_SPAWNER_TRANSITION);
+						this.tiles[i + 1][j + 2].setType(EnumTiles.CRAB_SPAWNER_TRANSITION);
 						Tiles tile = this.tiles[i][j];
 						this.crabLair = new CrabLair(1, this, tile.getX(), tile.getY());
 						added = true;

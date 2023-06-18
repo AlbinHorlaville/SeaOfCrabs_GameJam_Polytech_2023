@@ -99,15 +99,19 @@ public class Map {
 	 * Generate a map based on the seed and the section parameters
 	 */
 	public void generateMap() throws Exception {
-		this.map[0] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		this.map[0] = new MapSection(EnumSectionType.HARBOR, this.sectionWidth, this.sectionHeight, this.rand);
 
 		this.map[1] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
-		this.map[2] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		this.map[2] = new MapSection(EnumSectionType.CALM_SEA_TO_STORMY_SEA, this.sectionWidth, this.sectionHeight,
+				this.rand);
 
-		this.map[3] = new MapSection(EnumSectionType.STORMY_SEA, this.sectionWidth, this.sectionHeight, this.rand);
-		this.map[4] = new MapSection(EnumSectionType.STORMY_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		this.map[3] = new MapSection(EnumSectionType.STORMY_SEA_FROM_CALM_SEA, this.sectionWidth, this.sectionHeight,
+				this.rand);
+		this.map[4] = new MapSection(EnumSectionType.STORMY_SEA_TO_RAGING_SEA, this.sectionWidth, this.sectionHeight,
+				this.rand);
 
-		this.map[5] = new MapSection(EnumSectionType.RAGING_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		this.map[5] = new MapSection(EnumSectionType.RAGING_SEA_FROM_STORMY_SEA, this.sectionWidth, this.sectionHeight,
+				this.rand);
 		this.map[6] = new MapSection(EnumSectionType.RAGING_SEA, this.sectionWidth, this.sectionHeight, this.rand);
 
 		this.map[7] = new MapSection(EnumSectionType.CRAB_KING_SEA, this.sectionWidth, this.sectionHeight, this.rand);
@@ -290,12 +294,16 @@ public class Map {
 			switch (this.map[i].getSeaType()) {
 			case HARBOR:
 			case CALM_SEA:
+			case CALM_SEA_TO_STORMY_SEA:
 				waveRange = 25;
 				break;
 			case STORMY_SEA:
+			case STORMY_SEA_FROM_CALM_SEA:
+			case STORMY_SEA_TO_RAGING_SEA:
 				waveRange = 35;
 				break;
 			case RAGING_SEA:
+			case RAGING_SEA_FROM_STORMY_SEA:
 			case CRAB_KING_SEA:
 			case KRAKEN_SEA:
 				waveRange = 45;
@@ -370,7 +378,8 @@ public class Map {
 				valueWest = 0.3 * this.wave[j][i + 16] + i * 0.25 * this.wave[j][i + 16];
 
 				// East value become combinaison of west and east wave
-				valueEast = 0.3 * this.wave[j][this.sectionWidth - i - 17] + i * 0.25 * this.wave[j][this.sectionWidth - i - 17];
+				valueEast = 0.3 * this.wave[j][this.sectionWidth - i - 17]
+						+ i * 0.25 * this.wave[j][this.sectionWidth - i - 17];
 
 				this.wave[j][i + 16] = valueWest;
 				this.wave[j][this.sectionWidth - i - 17] = valueEast;
