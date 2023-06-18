@@ -21,7 +21,7 @@ public class MapSection {
 	private Random randomGenerator; // The random generator initialized based on the seed of the map the section is
 	// in
 
-	private final static int NB_TILE_MIN_PER_ISLAND = 230; // The number of tiles an island must be composed to be valid
+	private final static int NB_TILE_MIN_PER_ISLAND = 250; // The number of tiles an island must be composed to be valid
 
 	private RedCross redCross;
 	private CrabLair crabLair;
@@ -317,6 +317,24 @@ public class MapSection {
 			}
 		}
 	}
+	
+	private double[][] generateCrabKingGradient(double[][] island) {
+		double maxValue = Math.sqrt(Math.pow(this.sectionHeight / 2, 2) + Math.pow(this.sectionWidth / 2, 2));
+
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				double value = Math.sqrt(Math.pow(Math.max(i, this.sectionHeight / 2) - Math.min(i, this.sectionHeight / 2), 2)
+						+ Math.pow(Math.max(j, this.sectionWidth / 2) - Math.min(j, this.sectionWidth / 2), 2));
+
+				island[i][j] -= this.noiseGenerator.smoothing(map(value, 0, maxValue, 0, 1)); // The more the value is
+																								// far from the center
+																								// of the
+				// array, the closer it is from 1
+			}
+		}
+
+		return island;
+	}
 
 	private void generateKingCrabSea() {
 
@@ -324,6 +342,9 @@ public class MapSection {
 		double[][] tempPerlinNoiseIsland = new double[this.sectionHeight][this.sectionWidth];
 		tempPerlinNoiseIsland = this.noiseGenerator.generateNoiseArray(this.sectionHeight, this.sectionWidth,
 				this.randomGenerator.nextDouble() * 10000, this.randomGenerator.nextDouble() * 10000);
+
+		// Substract a island gradient to the perlin noise
+		tempPerlinNoiseIsland = generateCrabKingGradient(tempPerlinNoiseIsland);
 
 		// If the island is too small we generate a new one
 		if (isCrabKingSurfaceBigEnough(tempPerlinNoiseIsland, this.sectionHeight, this.sectionWidth)) {
@@ -381,7 +402,6 @@ public class MapSection {
 	}
 
 	private int[][] generateHeight(int[][] height) {
-		
 
 		for (int i = 0; i < this.sectionHeight; i++) {
 			for (int j = 0; j < this.sectionWidth; j++) {
@@ -392,33 +412,33 @@ public class MapSection {
 				}
 			}
 		}
-		
+
 		int currentHeight = -1;
 		while (!allHeightCalculated(height)) {
 			for (int i = 0; i < this.sectionHeight; i++) {
 				for (int j = 0; j < this.sectionWidth; j++) {
 					if (height[i][j] == currentHeight) {
 						if (i > 0) {
-							if (height[i-1][j] == -2) {
-								height[i-1][j] = currentHeight+1;
+							if (height[i - 1][j] == -2) {
+								height[i - 1][j] = currentHeight + 1;
 							}
 						}
-						
+
 						if (i < this.sectionHeight - 1) {
-							if (height[i+1][j] == -2) {
-								height[i+1][j] = currentHeight+1;
+							if (height[i + 1][j] == -2) {
+								height[i + 1][j] = currentHeight + 1;
 							}
 						}
-						
+
 						if (j > 0) {
-							if (height[i][j-1] == -2) {
-								height[i][j-1] = currentHeight+1;
+							if (height[i][j - 1] == -2) {
+								height[i][j - 1] = currentHeight + 1;
 							}
 						}
-						
+
 						if (j < this.sectionWidth - 1) {
-							if (height[i][j+1] == -2) {
-								height[i][j+1] = currentHeight+1;
+							if (height[i][j + 1] == -2) {
+								height[i][j + 1] = currentHeight + 1;
 							}
 						}
 					}
@@ -504,8 +524,10 @@ public class MapSection {
 				double value = Math.sqrt(Math.pow(Math.max(i, islandSize / 2) - Math.min(i, islandSize / 2), 2)
 						+ Math.pow(Math.max(j, islandSize / 2) - Math.min(j, islandSize / 2), 2));
 
-				island[i][j] -= map(value, 0, maxValue, -1, 1); // The more the value is far from the center of the
-																// array, the closer it is from 1
+				island[i][j] -= this.noiseGenerator.smoothing(map(value, 0, maxValue, 0, 1)); // The more the value is
+																								// far from the center
+																								// of the
+				// array, the closer it is from 1
 			}
 		}
 
@@ -709,7 +731,8 @@ public class MapSection {
 		if (this.sectionWidth == islandSize) {
 			offsetY = this.randomGenerator.nextInt((int) Math.floor((this.sectionHeight - islandSize) / 2));
 		} else {
-			offsetX = this.randomGenerator.nextInt((int) Math.floor((this.sectionWidth - islandSize) / 2));
+			offsetX = this.randomGenerator.nextInt(48);
+			offsetX += 16;
 		}
 		for (int i = 0; i < islandSize; i++) {
 			for (int j = 0; j < islandSize; j++) {

@@ -70,7 +70,7 @@ public class Map {
 		this.rand = new Random(this.seed);
 
 		this.sectionHeight = 48;
-		this.sectionWidth = 96;
+		this.sectionWidth = 128;
 		this.nbSection = 9;
 
 		this.map = new MapSection[this.nbSection];
