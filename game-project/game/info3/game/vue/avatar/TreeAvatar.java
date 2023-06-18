@@ -43,8 +43,9 @@ public class TreeAvatar extends Avatar {
 		int coeffX = -entity.getX() + GameModele.getCurrentPlayerX() + width / 2 + Decalage_Tiles_X;
 		int coeffY = -entity.getY() + GameModele.getCurrentPlayerY() + height / 2 + Decalage_Tiles_Y;
 
-		// Aligne a taton le sprite et la tile dedie
-		g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
+		if (coeffX > -width_painted && coeffX < GameView.screenWidth && coeffY > -heigth_painted && coeffY < GameView.screenHeight) {
+			// Aligne a taton le sprite et la tile dedie
+			g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
+		}
 	}
-
 }
