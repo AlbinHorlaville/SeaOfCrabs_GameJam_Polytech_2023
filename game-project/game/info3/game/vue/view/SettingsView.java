@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
+import automate.AutomateLoader;
 import info3.game.GameState;
 import info3.game.sound.BackgroundMusic;
 import info3.game.sound.SoundTool;

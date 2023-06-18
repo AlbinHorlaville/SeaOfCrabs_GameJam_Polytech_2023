@@ -38,7 +38,7 @@ import info3.game.vue.view.ControlsView;
 public class GameView {
 	JFrame frame;
 	JLabel text;
-	GameCanvas canvas;
+	public GameCanvas canvas;
 	GameModele game;
 	private View currentView;
 	Controller controller;
