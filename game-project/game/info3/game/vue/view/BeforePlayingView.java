@@ -49,11 +49,11 @@ public class BeforePlayingView extends View {
 				UIButton.BACKGROUND_COLOR_YELLOW);
 		buttonRandomSeed = new UIButton(774, 65, 200, 70, new UILabel(0, 0, "Random seed", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_PURPLE);
-		seedLabel = new UILabel(50, 107, "Seed for map generation :", FONT1, c2);
+		seedLabel = new UILabel(50, 107, "Seed for map generation :", FONT1, Color.black);
 		seedInput = new UITextInput(400, 65, 200, "Enter a number", UIButton.BACKGROUND_COLOR_YELLOW, Color.black);
 
-		weaponLabelPlayer1 = new UILabel(50, 221, "Player 1's weapon : ", FONT1, c2);
-		weaponLabelPlayer2 = new UILabel(50, 321, "Player 2's weapon : ", FONT1, c2);
+		weaponLabelPlayer1 = new UILabel(50, 221, "Player 1's weapon : ", FONT1, Color.black);
+		weaponLabelPlayer2 = new UILabel(50, 321, "Player 2's weapon : ", FONT1, Color.black);
 
 		boxSwordPlayer1 = new UIBox(96, Sword.getInstance(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
 		boxScythePlayer1 = new UIBox(96, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 2F));
