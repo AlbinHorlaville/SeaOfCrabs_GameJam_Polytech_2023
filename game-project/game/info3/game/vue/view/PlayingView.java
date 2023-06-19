@@ -202,6 +202,7 @@ public class PlayingView extends View {
 		if (Controller.getBuffer()[77]) { // Quand M push
 			GameModele.map.getMiniMap().paint(g, width, height);
 		}
+		GameModele.map.getSectionTitle().paint(g, width, height);
 	}
 
 }
