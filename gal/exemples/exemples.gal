@@ -86,7 +86,7 @@ Player1(Init){
   | Key(FL) & !Cell(W,O) ? Move(W) :(Init)
   | Key(FR) & !Cell(E,O) ? Move(E) :(Init)
   | Key(b) & Cell(F,J) ? Move(F) : (Init)
-
+  | Key(r) ? Hit(F) : (Init)
 }
 
 PlayerBoat(Init){
@@ -99,7 +99,6 @@ PlayerBoat(Init){
   | Key(FD) ? Move(S) :(Init)
   | Key(FL) ? Move(W) :(Init)
   | Key(FR) ? Move(E) :(Init)
-
 }
 
 Player2(Init){
@@ -138,7 +137,7 @@ CrabsLair(Init){
   | GotPower ? Move(N) : (Init)
   | True ? : ()
   * ()
- }*
+ }
  
  Sword(Init){
   * (Init) :

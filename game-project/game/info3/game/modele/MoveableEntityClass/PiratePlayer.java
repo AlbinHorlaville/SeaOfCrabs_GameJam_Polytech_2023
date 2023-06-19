@@ -58,6 +58,7 @@ public class PiratePlayer extends Player {
 		if(eval == EnumDirection.F) {
 			this.moveEntity(facing, DEFAULT_PIRATEPLAYER_SPEED_COEFF);
 			GameModele.entities.remove(this);
+			GameModele.entities.remove(this.weapon);
 			GameModele.pirateBoat.setLocation(x, y);
 			GameModele.pirateBoat.facing = this.facing;
 			GameModele.entities.add(GameModele.pirateBoat);
@@ -140,6 +141,11 @@ public class PiratePlayer extends Player {
 			default:
 				return false;
 			}
+	}
+	
+	@Override
+	public void hit() {
+		weapon.hit();
 	}
 	
 	public float getDamageCoeff() {
