@@ -119,13 +119,15 @@ public class GameModele {
 
 			map = new Map(s);
 
-			player1 = new PiratePlayer(GameEntity.Player1);
-			player1.setAvatar(new Player1(player1));
-			// GameModele.entities.add(player1);
 			if (!solo) {
-				player2 = new PiratePlayer(GameEntity.Player2);
+				player1 = new PiratePlayer(GameEntity.Player2);
+				player1.setAvatar(new Player1(player1));
+				
+				player2 = new PiratePlayer(GameEntity.Player1);
 				player2.setAvatar(new Player2(player2));
-				// GameModele.entities.add(player2);
+			} else {
+				player1 = new PiratePlayer(GameEntity.Player1);
+				player1.setAvatar(new Player1(player1));
 			}
 
 			pirateBoat = new BoatPlayer(

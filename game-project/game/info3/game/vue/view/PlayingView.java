@@ -65,8 +65,8 @@ public class PlayingView extends View {
 						GameModele.player1.getY());
 			} else {
 				GameModele.map.getRepresentation().paint(g, width, height,
-						(GameModele.player1.getX() + width + GameModele.player2.getX()) / 2,
-						(GameModele.player1.getY() + height + GameModele.player2.getY()) / 2);
+						(GameModele.player1.getX() + GameModele.player2.getX()) / 2,
+						(GameModele.player1.getY() + GameModele.player2.getY()) / 2);
 			}
 		}
 
