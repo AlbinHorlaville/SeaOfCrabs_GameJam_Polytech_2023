@@ -20,8 +20,14 @@
  */
 package info3.game.modele;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import info3.game.GameState;
 import info3.game.modele.MoveableEntityClass.BoatPlayer;
@@ -69,14 +75,52 @@ public class GameModele {
 
 	GameState currentState;
 
+	public static User user;
+	private static File userFile;
+
 	public GameModele() throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		currentState = GameState.Menu;
+		userFile = new File("resources/.USER");
+		if (!userFile.exists()) {
+			currentState = GameState.Utilisateur;
+		} else {
+			user = new User(readUsernameFromFile());
+			currentState = GameState.Menu;
+		}
 	}
 
 	public void setGameview(GameView gameview) {
 		this.gameview = gameview;
+	}
+
+	private static String readUsernameFromFile() {
+		Scanner myReader;
+		try {
+			myReader = new Scanner(userFile);
+			if (myReader.hasNextLine()) {
+				return myReader.nextLine();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static void createUser(String name) {
+		try {
+			if (userFile.createNewFile()) {
+				BufferedWriter writer = new BufferedWriter(new FileWriter(userFile.getPath()));
+				writer.write(name);
+				writer.close();
+				user = new User(readUsernameFromFile());
+				userFile.setWritable(false);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void tick(long elapsed) {
@@ -108,7 +152,6 @@ public class GameModele {
 				if (!entity.current_state.isDead())
 					newEntities.add(entity);
 			}
-
 		}
 		entities = newEntities;
 		// System.out.print("\n\n x : " +
@@ -225,10 +268,6 @@ public class GameModele {
 		}
 	}
 
-	private void updateTimer(int e) {
-
-	}
-
 	void genereEntity(Map map) {
 
 		int nbSection = map.getNbSection();
@@ -262,12 +301,12 @@ public class GameModele {
 						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);
 					}
-//					else if (Current.getType() == EnumTiles.RAGING_SEA_CHEST || Current.getType() == EnumTiles.STORMY_SEA_CHEST || Current.getType() == EnumTiles.CALM_SEA_CHEST) {
-//						newEntity = new SeaTreasure(Current.getX(), Current.getY());// de section) avec 20 points de vie
-//						entities.add(newEntity);
-//						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le numéro
-//						entities.add(newEntity);
-//					} 
+					else if (Current.getType() == EnumTiles.RAGING_SEA_CHEST || Current.getType() == EnumTiles.STORMY_SEA_CHEST || Current.getType() == EnumTiles.CALM_SEA_CHEST) {
+						newEntity = new SeaTreasure(Current.getX(), Current.getY());// de section) avec 20 points de vie
+						entities.add(newEntity);
+						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le numéro
+						entities.add(newEntity);
+					} 
 					else if (Current.getType() == EnumTiles.CALM_SEA_ENNEMIE
 							|| Current.getType() == EnumTiles.STORMY_SEA_ENNEMIE
 							|| Current.getType() == EnumTiles.RAGING_SEA_ENNEMIE) {
