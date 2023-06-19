@@ -38,7 +38,7 @@ import info3.game.vue.GameView;
 import info3.game.vue.avatar.BoatPlayerAvatar;
 import info3.game.vue.avatar.Player1;
 import info3.game.vue.avatar.Player2;
-import info3.game.vue.avatar.TreasureAvatar;
+import info3.game.vue.avatar.RedCrossAvatar;
 import info3.game.vue.avatar.TreeAvatar;
 
 public class GameModele {
@@ -116,11 +116,11 @@ public class GameModele {
 
 			map = new Map(s);
 
-			player1 = new PiratePlayer("Player1");
+			player1 = new PiratePlayer(GameEntity.Player1);
 			player1.setAvatar(new Player1(player1));
 			// GameModele.entities.add(player1);
 			if (!solo) {
-				player2 = new PiratePlayer("Player2");
+				player2 = new PiratePlayer(GameEntity.Player2);
 				player2.setAvatar(new Player2(player2));
 				// GameModele.entities.add(player2);
 			}
@@ -213,7 +213,7 @@ public class GameModele {
 						treasure = true;
 						newEntity = new RedCross(map.getMap()[k]);
 						newEntity.setLocation(Current.getX(),Current.getY());
-						newEntity.setAvatar(new TreasureAvatar(newEntity)); // TODO Mettre dans le constructeur
+						newEntity.setAvatar(new RedCrossAvatar(newEntity)); // TODO Mettre dans le constructeur
 						entities.add(newEntity);
 					} 
 					else if (Current.getType() == EnumTiles.CRAB_SPAWNER && crab == false) {
