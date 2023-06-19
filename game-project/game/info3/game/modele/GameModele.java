@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import info3.game.GameState;
 import info3.game.modele.MoveableEntityClass.BoatPlayer;
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
+import info3.game.modele.MoveableEntityClass.Ship;
 import info3.game.modele.StillEntityClass.CloudCluster;
 import info3.game.modele.StillEntityClass.CrabLair;
 import info3.game.modele.StillEntityClass.RedCross;
@@ -257,13 +258,16 @@ public class GameModele {
 						newEntity.setLocation(Current.getX(),Current.getY());
 						entities.add(newEntity);
 					}
-					else if (Current.getType() == EnumTiles.RAGING_SEA_CHEST || Current.getType() == EnumTiles.STORMY_SEA_CHEST || Current.getType() == EnumTiles.CALM_SEA_CHEST) {
-						newEntity = new SeaTreasure(Current.getX(), Current.getY());// de section) avec 20 points de vie
+//					else if (Current.getType() == EnumTiles.RAGING_SEA_CHEST || Current.getType() == EnumTiles.STORMY_SEA_CHEST || Current.getType() == EnumTiles.CALM_SEA_CHEST) {
+//						newEntity = new SeaTreasure(Current.getX(), Current.getY());// de section) avec 20 points de vie
+//						entities.add(newEntity);
+//						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le numéro
+//						entities.add(newEntity);
+//					} 
+					else if (Current.getType() == EnumTiles.CALM_SEA_ENNEMIE || Current.getType() == EnumTiles.STORMY_SEA_ENNEMIE || Current.getType() == EnumTiles.RAGING_SEA_ENNEMIE) {
+						newEntity = new Ship(k); 											
+						newEntity.setLocation(Current.getX(),Current.getY());
 						entities.add(newEntity);
-						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le numéro
-						entities.add(newEntity);
-					} else if (Current.getType() == EnumTiles.CALM_SEA_ENNEMIE || Current.getType() == EnumTiles.STORMY_SEA_ENNEMIE || Current.getType() == EnumTiles.RAGING_SEA_ENNEMIE) {
-						//newEntity = new Ship(); // TODO																			// de section) avec 20 points de vie
 					}
 				}
 			}
