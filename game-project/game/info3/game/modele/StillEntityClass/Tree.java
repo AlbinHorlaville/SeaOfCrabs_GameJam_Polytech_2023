@@ -5,6 +5,7 @@ import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.Level;
 import info3.game.modele.StillEntity;
+import info3.game.vue.avatar.TreeAvatar;
 
 public class Tree extends StillEntity {
 	
@@ -21,6 +22,7 @@ public class Tree extends StillEntity {
 		this.healthPointsToHeal = DEFAULT_HEALTH_POINTS_T0_HEAL_PIRATEBOAT;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Philosopher);
 		this.current_state = automate.initial_state;
+		this.setAvatar(new TreeAvatar(this));
 	}
 	
 	public Tree(int level) { // mettre le numéro du tronçon

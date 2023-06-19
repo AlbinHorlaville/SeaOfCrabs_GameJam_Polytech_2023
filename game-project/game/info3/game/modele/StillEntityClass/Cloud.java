@@ -1,7 +1,9 @@
 package info3.game.modele.StillEntityClass;
 
 import automate.AutomateLoader;
+import info3.game.modele.GameEntity;
 import info3.game.modele.StillEntity;
+import info3.game.vue.avatar.CloudAvatar;
 
 public class Cloud extends StillEntity {
 
@@ -12,7 +14,8 @@ public class Cloud extends StillEntity {
 		this.size = s;
 		this.x = x;
 		this.y = y;
-		this.automate = AutomateLoader.findAutomate("Philosopher");
+		this.avatar = new CloudAvatar(this, y);
+		this.automate = AutomateLoader.findAutomate(GameEntity.Philosopher);
 		this.current_state = automate.initial_state;
 	}
 

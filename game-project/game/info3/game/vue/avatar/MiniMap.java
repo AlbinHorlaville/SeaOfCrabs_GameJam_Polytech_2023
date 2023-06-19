@@ -24,7 +24,7 @@ public class MiniMap {
 		int tilesX = GameModele.map.getTileUnderEntity(GameModele.getCurrentPlayerX(), GameModele.getCurrentPlayerY()).getTileX();
 		int tilesY = GameModele.map.getTileUnderEntity(GameModele.getCurrentPlayerX(), GameModele.getCurrentPlayerY()).getTileY();
 		int currentSection = GameModele.map.getSectionOfEntity(GameModele.getCurrentPlayerX(), GameModele.getCurrentPlayerY());
-		
+
 		int mapPixelSize = 8;
 
 		// We paint the background of the minimap (the water) for optimisation we don't
@@ -46,20 +46,20 @@ public class MiniMap {
 				} else {
 					EnumTiles tile = this.map[currentSection].getTiles()[i][j].getType();
 					if (this.map[currentSection].getTiles()[i][j].isIsland() || tile == EnumTiles.TREE
-							|| tile == EnumTiles.CRAB_SPAWNER || tile == EnumTiles.CRAB_SPAWNER_TRANSITION) {
+							|| tile == EnumTiles.CRAB_SPAWNER || tile == EnumTiles.CRAB_SPAWNER_TRANSITION || tile == EnumTiles.RAGING_SEA_CHEST || tile == EnumTiles.STORMY_SEA_CHEST || tile == EnumTiles.CALM_SEA_CHEST) {
 						if (tile == EnumTiles.SAND || tile == EnumTiles.SAND_WATER || tile == EnumTiles.STORMY_SAND_WATER
 								|| tile == EnumTiles.RAGING_SAND_WATER || tile == EnumTiles.SHELLFISH_1
 								|| tile == EnumTiles.SHELLFISH_2 || tile == EnumTiles.SHELLFISH_3) {
 							g.setColor(Color.yellow);
-						} else {
+						}  else {
 							g.setColor(Color.green);
 						}
 						g.fillRect(width / 2 - (this.sectionWidth * mapPixelSize) / 2 + j * mapPixelSize,
 								height / 2 - (this.sectionHeight * mapPixelSize) / 2 + i * mapPixelSize, mapPixelSize,
 								mapPixelSize);
-
 					}
 				}
+
 			}
 		}
 		System.out.print("");
