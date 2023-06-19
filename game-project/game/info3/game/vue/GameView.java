@@ -48,7 +48,7 @@ public class GameView {
 	BufferedImage backgroundImage;
 
 	public static Font customFont;
-	
+
 	public static final int SCALE = 5;
 
 	private long m_textElapsed;
@@ -78,7 +78,7 @@ public class GameView {
 			frame = canvas.createFrame(d);
 
 			System.out.println("  - setting up the frame...");
-			File backgroundImageFile = new File("resources/img/background.jpg");
+			File backgroundImageFile = new File("resources/GIFMenu.gif");
 			try {
 				backgroundImage = ImageIO.read(backgroundImageFile);
 
@@ -207,10 +207,9 @@ public class GameView {
 		g.setColor(Color.gray);
 		g.fillRect(0, 0, width, height);
 
-		/*
-		 * if (this.game.getCurrentState() != GameState.Jeu) {
-		 * g.drawImage(backgroundImage, 0, 0, 1024, 768, null); }
-		 */
+		if (this.game.getCurrentState() != GameState.Jeu) {
+			g.drawImage(backgroundImage, 0, 0, 1024, 768, null);
+		}
 
 		this.currentView.paint(g, width, height);
 	}
