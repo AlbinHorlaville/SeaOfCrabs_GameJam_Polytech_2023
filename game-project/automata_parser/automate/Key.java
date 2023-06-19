@@ -32,6 +32,8 @@ public class Key extends Parameter{
 			return 83;
 		if(s.equals("d"))
 			return 68;
+		if(s.equals("b"))
+			return 66;
 		return s.codePointAt(0);
 	}
 	

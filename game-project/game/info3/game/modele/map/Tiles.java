@@ -139,4 +139,11 @@ public class Tiles {
 				|| this.type == EnumTiles.TREE;
 
 	}
+	
+	public boolean isWater() {
+		return this.type == EnumTiles.CALM_WATER
+				|| this.type == EnumTiles.STORMY_WATER
+				|| this.type == EnumTiles.RAGING_WATER
+				|| this.type == EnumTiles.KRAKEN_WATER;
+	}
 }
