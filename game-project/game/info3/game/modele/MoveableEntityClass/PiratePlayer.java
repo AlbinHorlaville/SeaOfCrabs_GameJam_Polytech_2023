@@ -55,9 +55,16 @@ public class PiratePlayer extends Player {
 	
 	@Override
 	public void move(EnumDirection eval) {
-		if(eval == EnumDirection.F) {
+		if(eval == EnumDirection.F) { // CHANGEMENT PIRATE A BATEAU
 			this.moveEntity(facing, DEFAULT_PIRATEPLAYER_SPEED_COEFF);
-			GameModele.entities.remove(this);
+			
+			if(GameModele.solo) {
+				GameModele.entities.remove(this);
+			} else {
+				GameModele.entities.remove(GameModele.player1);
+				GameModele.entities.remove(GameModele.player2);
+			}
+			
 			GameModele.pirateBoat.setLocation(x, y);
 			GameModele.pirateBoat.facing = this.facing;
 			GameModele.entities.add(GameModele.pirateBoat);
@@ -124,7 +131,7 @@ public class PiratePlayer extends Player {
 				t = getTilesForCell(d,tempX, tempY);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
-						if(e != this) {
+						if(!(e instanceof PiratePlayer)) {
 							if(e.x == x) {
 								if(e.y <= this.y && e.y >= tempY) {
 									return true;
