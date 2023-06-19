@@ -14,10 +14,13 @@ public class Tiles {
 	private int tileX;
 	private int tileY;
 
+	private int height;
+
 	public Tiles(EnumTiles type, int tileX, int tileY) {
 		this.type = type;
 		this.tileX = tileX;
 		this.tileY = tileY;
+		this.height = 0;
 	}
 
 	/*
@@ -46,8 +49,8 @@ public class Tiles {
 		this.x = x;
 	}
 
-	public int getDisplayY() {
-		return this.y;
+	public int getDisplayY(int imgHeight) {
+		return this.y + this.height * (imgHeight / 4);
 	}
 
 	public int getY() {
@@ -56,6 +59,10 @@ public class Tiles {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	public void setHeight(int h) {
+		this.height = h;
 	}
 
 	public int getTileX() {
@@ -92,12 +99,21 @@ public class Tiles {
 	}
 
 	public boolean isIsland() {
-		return this.type == EnumTiles.SAND_WATER || this.type == EnumTiles.SAND || this.type == EnumTiles.GRASS
-				|| this.type == EnumTiles.BLUE_FLOWER || this.type == EnumTiles.YELLOW_FLOWER
-				|| this.type == EnumTiles.SHELLFISH_1 || this.type == EnumTiles.SHELLFISH_2
-				|| this.type == EnumTiles.PONTOON || this.type == EnumTiles.TREASUR
-				|| this.type == EnumTiles.SHELLFISH_3 || this.type == EnumTiles.GRASS_WITH_ROCK_1
-				|| this.type == EnumTiles.GRASS_WITH_ROCK_2 || this.type == EnumTiles.RED_FLOWER
+		return this.type == EnumTiles.SAND_WATER 
+				|| this.type == EnumTiles.SAND 
+				|| this.type == EnumTiles.GRASS
+				|| this.type == EnumTiles.BLUE_FLOWER 
+				|| this.type == EnumTiles.YELLOW_FLOWER
+				|| this.type == EnumTiles.STORMY_SAND_WATER 
+				|| this.type == EnumTiles.RAGING_SAND_WATER
+				|| this.type == EnumTiles.SHELLFISH_1 
+				|| this.type == EnumTiles.SHELLFISH_2
+				|| this.type == EnumTiles.PONTOON 
+				|| this.type == EnumTiles.TREASUR
+				|| this.type == EnumTiles.SHELLFISH_3 
+				|| this.type == EnumTiles.GRASS_WITH_ROCK_1
+				|| this.type == EnumTiles.GRASS_WITH_ROCK_2 
+				|| this.type == EnumTiles.RED_FLOWER
 				|| this.type == EnumTiles.TRANSITION_GRASS_UNDER_SAND
 				|| this.type == EnumTiles.TRANSITION_GRASS_ON_TOP_OF_SAND
 				|| this.type == EnumTiles.TRANSITION_GRASS_ON_LEFT_OF_SAND
@@ -115,7 +131,8 @@ public class Tiles {
 				|| this.type == EnumTiles.TRANSITION_GRASS_ANGLE_SAND_TOP_LEFT
 				|| this.type == EnumTiles.TRANSITION_GRASS_ANGLE_SAND_TOP_RIGHT
 				|| this.type == EnumTiles.TRANSITION_GRASS_ANGLE_SAND_BOTTOM_LEFT
-				|| this.type == EnumTiles.TRANSITION_GRASS_ANGLE_SAND_BOTTOM_RIGHT;
+				|| this.type == EnumTiles.TRANSITION_GRASS_ANGLE_SAND_BOTTOM_RIGHT
+				|| this.type == EnumTiles.TREE;
 
 	}
 }

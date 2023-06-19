@@ -38,7 +38,7 @@ import info3.game.vue.view.ControlsView;
 public class GameView {
 	JFrame frame;
 	JLabel text;
-	GameCanvas canvas;
+	public GameCanvas canvas;
 	GameModele game;
 	private View currentView;
 	Controller controller;
@@ -46,11 +46,13 @@ public class GameView {
 	HashMap<GameState, View> all_views;
 
 	BufferedImage backgroundImage;
-	
+
 	public static Font customFont;
 
+	public static final int SCALE = 5;
+
 	private long m_textElapsed;
-	
+
 	public static int screenWidth;
 	public static int screenHeight;
 
@@ -69,14 +71,14 @@ public class GameView {
 
 			System.out.println("  - creating frame...");
 			Dimension d = new Dimension(1024, 768);
-			
+
 			this.screenWidth = 1024;
 			this.screenHeight = 768;
-			
+
 			frame = canvas.createFrame(d);
 
 			System.out.println("  - setting up the frame...");
-			File backgroundImageFile = new File("resources/img/background.jpg");
+			File backgroundImageFile = new File("resources/GIFMenu.gif");
 			try {
 				backgroundImage = ImageIO.read(backgroundImageFile);
 
@@ -85,21 +87,21 @@ public class GameView {
 				e.printStackTrace();
 			}
 			setupFrame();
-			
+
 			System.out.println("  - Load font");
 			String fontPath = "resources/font/Pixeltype.ttf";
 
-	        try {
-	            // Load the font file
-	            customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath));
+			try {
+				// Load the font file
+				customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath));
 
-	            // Register the font with the graphics environment
-	            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	            ge.registerFont(customFont);
+				// Register the font with the graphics environment
+				GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+				ge.registerFont(customFont);
 
-	        } catch (FontFormatException | IOException e) {
-	            e.printStackTrace();
-	        }
+			} catch (FontFormatException | IOException e) {
+				e.printStackTrace();
+			}
 
 			System.out.println("  - Init the view...");
 			init_view();
@@ -140,7 +142,7 @@ public class GameView {
 	public void update_view(GameState state) {
 		this.currentView = this.all_views.get(state);
 	}
-	
+
 	public View getViewByName(GameState name) {
 		return this.all_views.get(name);
 	}
@@ -204,11 +206,10 @@ public class GameView {
 
 		g.setColor(Color.gray);
 		g.fillRect(0, 0, width, height);
-		
-		/*
-		 * if (this.game.getCurrentState() != GameState.Jeu) {
-		 * g.drawImage(backgroundImage, 0, 0, 1024, 768, null); }
-		 */
+
+		if (this.game.getCurrentState() != GameState.Jeu) {
+			g.drawImage(backgroundImage, 0, 0, 1024, 768, null);
+		}
 
 		this.currentView.paint(g, width, height);
 	}

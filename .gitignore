@@ -4,3 +4,4 @@ game-project/bin/
 game-project/.classpath
 game-project/.project
 *.class
+game-project/resources/CONFIG
