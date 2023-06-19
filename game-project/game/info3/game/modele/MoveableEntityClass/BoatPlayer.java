@@ -19,7 +19,7 @@ public class BoatPlayer extends Player {
 
 	private static final int DEFAULT_MAX_BOATPLAYER_LIFE_POINT = 100;
 
-	public static final int DEFAULT_BOATPLAYER_SPEED = 1;
+	public static final int DEFAULT_BOATPLAYER_SPEED = 10;
 
 	public BoatPlayer() {
 		super(DEFAULT_BOATPLAYER_LIFE_POINT, 0, DEFAULT_MAX_BOATPLAYER_LIFE_POINT);
@@ -58,50 +58,56 @@ public class BoatPlayer extends Player {
 	public void addBoulet(CannonBall boulet) {
 		this.bouletDeCannon.add(boulet);
 	}
-	
-	/*public boolean cell() {
-		int tempX = this.x;
-		int tempY = this.y;
-		this.moveEntity(facing, DEFAULT_BOATPLAYER_SPEED);
-		Tiles under = GameModele.map.getTileUnderEntity(x, y - (this.avatar.getHeight()/Avatar.SCALE_IMG));
-		System.out.println(under.getType().toString());
-		if(under.isIsland()) {
-			x = tempX;
-			y = tempY;
-			return true;
-					
-		}
-		return false;
-	}*/
+
+	/*
+	 * public boolean cell() { int tempX = this.x; int tempY = this.y;
+	 * this.moveEntity(facing, DEFAULT_BOATPLAYER_SPEED); Tiles under =
+	 * GameModele.map.getTileUnderEntity(x, y -
+	 * (this.avatar.getHeight()/Avatar.SCALE_IMG));
+	 * System.out.println(under.getType().toString()); if(under.isIsland()) { x =
+	 * tempX; y = tempY; return true;
+	 * 
+	 * } return false; }
+	 */
 
 	@Override
 	public void move(EnumDirection eval) {
 		facing = eval;
-		//if(!cell()) {
-			this.moveEntity(eval, DEFAULT_BOATPLAYER_SPEED);
-		//}
-		int tempY = y - (this.avatar.getHeight()/Avatar.SCALE_IMG);
+		// if(!cell()) {
+		this.moveEntity(eval, DEFAULT_BOATPLAYER_SPEED);
+		// }
+
+		int tempY = y - (this.avatar.getHeight() / Avatar.SCALE_IMG);
 		Tiles under = GameModele.map.getTileUnderEntity(this.x, tempY);
 		int tileY = under.getTileY();
 		int section = GameModele.map.getSectionOfEntity(this.x, tempY);
-		
+
+		if (under.isIsland()) {
+			GameModele.entities.remove(this);
+			GameModele.player1.setLocation(under.getX(), under.getY());
+			GameModele.player1.facing = this.facing;
+			
+			if (!GameModele.solo) {
+				GameModele.player2.setLocation(under.getX(), under.getY());
+				GameModele.player2.facing = this.facing;
+				GameModele.entities.add(GameModele.player2);
+			}
+			
+			GameModele.entities.add(GameModele.player1);
+			GameModele.entities.add(Sword.getInstance());
+			GameModele.onSea = !GameModele.onSea;
+		}
+
+		under = GameModele.map.getTileUnderEntity(this.x, this.y);
+		tileY = under.getTileY();
+		section = GameModele.map.getSectionOfEntity(this.x, this.y);
+
 		if (under.getTileX() < 9) {
 			this.x = GameModele.map.getMap()[section].getTiles()[tileY][GameModele.map.getSectionWidth() - 10].getX();
 			this.y = GameModele.map.getMap()[section].getTiles()[tileY][GameModele.map.getSectionWidth() - 10].getY();
 		} else if (under.getTileX() > GameModele.map.getSectionWidth() - 10) {
 			this.x = GameModele.map.getMap()[section].getTiles()[tileY][10].getX();
 			this.y = GameModele.map.getMap()[section].getTiles()[tileY][10].getY();
-		}
-
-		if (under.isIsland()) {
-			
-			GameModele.entities.remove(this);
-			GameModele.player1.setLocation(under.getX(), under.getY());
-			GameModele.player1.facing = this.facing;
-			GameModele.entities.add(GameModele.player1);
-			GameModele.entities.add(Sword.getInstance());
-			GameModele.onSea = !GameModele.onSea;
-			
 		}
 	}
 

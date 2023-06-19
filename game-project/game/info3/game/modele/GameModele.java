@@ -36,6 +36,7 @@ import info3.game.modele.MoveableEntityClass.Ship;
 import info3.game.modele.StillEntityClass.CloudCluster;
 import info3.game.modele.StillEntityClass.CrabLair;
 import info3.game.modele.StillEntityClass.RedCross;
+import info3.game.modele.StillEntityClass.SeaTreasure;
 import info3.game.modele.StillEntityClass.Tree;
 import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Map;
@@ -130,13 +131,27 @@ public class GameModele {
 			}
 		}
 		for (Entity entity : entities) {
-			entity.step();
-			entity.tick(elapsed);
+			if (entity instanceof CloudCluster) {
+				for (Entity cloud : ((CloudCluster) entity).getClouds()) {
+					cloud.step();
+					cloud.tick(elapsed);
+				}
+			} else {
+				entity.step();
+				entity.tick(elapsed);
+			}
 		}
 		ArrayList<Entity> newEntities = new ArrayList<>();
 		for (Entity entity : entities) {
-			if (!entity.current_state.isDead())
-				newEntities.add(entity);
+			if (entity instanceof CloudCluster) {
+				for (Entity cloud : ((CloudCluster) entity).getClouds()) {
+					if (!cloud.current_state.isDead())
+						newEntities.add(cloud);
+				}
+			} else {
+				if (!entity.current_state.isDead())
+					newEntities.add(entity);
+			}
 		}
 		entities = newEntities;
 		// System.out.print("\n\n x : " +
@@ -172,9 +187,14 @@ public class GameModele {
 			player1.setWeapon(BeforePlayingView.weapon1);
 			// GameModele.entities.add(player1);
 			if (!solo) {
-				player2 = new PiratePlayer(GameEntity.Player2);
+				player1 = new PiratePlayer(GameEntity.Player2);
+				player1.setAvatar(new Player1(player1));
+
+				player2 = new PiratePlayer(GameEntity.Player1);
 				player2.setAvatar(new Player2(player2));
-				// GameModele.entities.add(player2);
+			} else {
+				player1 = new PiratePlayer(GameEntity.Player1);
+				player1.setAvatar(new Player1(player1));
 			}
 
 			pirateBoat = new BoatPlayer(
@@ -280,16 +300,19 @@ public class GameModele {
 						newEntity = new Tree();
 						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);
-					} else if (Current.getType() == EnumTiles.RAGING_SEA_CHEST
-							|| Current.getType() == EnumTiles.STORMY_SEA_CHEST
-							|| Current.getType() == EnumTiles.CALM_SEA_CHEST) {
-						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le
-																						// numéro // de section) avec 20
-																						// points de vie
-					} else if (Current.getType() == EnumTiles.CALM_SEA_ENNEMIE
+					}
+					else if (Current.getType() == EnumTiles.RAGING_SEA_CHEST || Current.getType() == EnumTiles.STORMY_SEA_CHEST || Current.getType() == EnumTiles.CALM_SEA_CHEST) {
+						newEntity = new SeaTreasure(Current.getX(), Current.getY());// de section) avec 20 points de vie
+						entities.add(newEntity);
+						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le numéro
+						entities.add(newEntity);
+					} 
+					else if (Current.getType() == EnumTiles.CALM_SEA_ENNEMIE
 							|| Current.getType() == EnumTiles.STORMY_SEA_ENNEMIE
 							|| Current.getType() == EnumTiles.RAGING_SEA_ENNEMIE) {
-						// newEntity = new Ship(); // TODO // de section) avec 20 points de vie
+						newEntity = new Ship(k);
+						newEntity.setLocation(Current.getX(), Current.getY());
+						entities.add(newEntity);
 					}
 				}
 			}

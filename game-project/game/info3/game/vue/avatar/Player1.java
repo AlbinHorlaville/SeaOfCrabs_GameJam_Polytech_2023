@@ -1,9 +1,7 @@
 package info3.game.vue.avatar;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.Arrays;
 
 import info3.game.Controller;
@@ -34,7 +32,13 @@ public class Player1 extends Avatar {
 
 	@Override
 	public void tick(long elapsed) {
-		switch (((PiratePlayer) this.entity).getFacing()) {
+		PiratePlayer entityBased;
+		if (!GameModele.solo) { // INVERSER POUR LE MODE 2 JOUEURS // TODO CAN BE CHANGE
+			entityBased = GameModele.player2;
+		} else {
+			entityBased = (PiratePlayer) this.entity;
+		}
+		switch (entityBased.getFacing()) {
 		case SW:
 		case S:
 		case SE:
@@ -89,7 +93,7 @@ public class Player1 extends Avatar {
 	 */
 	private boolean isMoving() {
 		boolean[] buffer = Controller.getBuffer();
-		return buffer[38] || buffer[39] || buffer[40] || buffer[37];
+		return buffer[90] || buffer[68] || buffer[83] || buffer[81];
 	}
 
 }

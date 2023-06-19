@@ -12,9 +12,9 @@ public class CloudCluster extends Entity {
 	private ArrayList<Cloud> cluster;
 
 	private static final int NB_CLOUD = 10;
-	private static final int SIZE_CLOUDCLSUTER = 300;
+	private static final int SIZE_CLOUDCLSUTER = 400;
 	private static final int SIZE_CLOUD_MIN = 6;
-	private static final int SIZE_CLOUD_MAX = 10;
+	private static final int SIZE_CLOUD_MAX = 12;
 
 	/**
 	 * Créer un amas de nuages composés de NB_CLOUD nuages. Il y a 2 nuages par
@@ -34,12 +34,15 @@ public class CloudCluster extends Entity {
 			int size = (int) (java.lang.Math.random() * (SIZE_CLOUD_MAX - SIZE_CLOUD_MIN) + SIZE_CLOUD_MIN);
 			Cloud Current = new Cloud(size, posX, posY); // sizeCloud>0 ? sizeCloud+1 : -sizeCloud+1
 			Current.setAvatar(new CloudAvatar(Current, Current.getSize()));
-			GameModele.entities.add(Current);
+			cluster.add(Current);
 		}
 	}
 
 	public ArrayList<Cloud> getClouds() {
 		return this.cluster;
+	}
+	
+	public void step() {
 	}
 
 	public int getNbCloud() {
