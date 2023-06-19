@@ -9,7 +9,8 @@ public enum EnumDirection {
 	NE("NE"),
 	SE("SE"),
 	SW("SW"),
-	NW("NW");
+	NW("NW"),
+	F("F");
 	
 	private String m_string;
 	

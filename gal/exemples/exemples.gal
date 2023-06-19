@@ -85,6 +85,7 @@ Player1(Init){
   | Key(FD) & !Cell(S,O) ? Move(S) :(Init)
   | Key(FL) & !Cell(W,O) ? Move(W) :(Init)
   | Key(FR) & !Cell(E,O) ? Move(E) :(Init)
+  | Key(b) & Cell(F,J) ? Move(F) : (Init)
 
 }
 
