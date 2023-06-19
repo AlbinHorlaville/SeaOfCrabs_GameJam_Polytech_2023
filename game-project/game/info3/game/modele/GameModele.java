@@ -26,10 +26,10 @@ import java.util.ArrayList;
 import info3.game.GameState;
 import info3.game.modele.MoveableEntityClass.BoatPlayer;
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
-import info3.game.modele.MoveableEntityClass.Ship;
 import info3.game.modele.StillEntityClass.CloudCluster;
 import info3.game.modele.StillEntityClass.CrabLair;
 import info3.game.modele.StillEntityClass.RedCross;
+import info3.game.modele.StillEntityClass.SeaTreasure;
 import info3.game.modele.StillEntityClass.Tree;
 import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Map;
@@ -41,7 +41,6 @@ import info3.game.vue.avatar.BoatPlayerAvatar;
 import info3.game.vue.avatar.Player1;
 import info3.game.vue.avatar.Player2;
 import info3.game.vue.avatar.RedCrossAvatar;
-import info3.game.vue.avatar.TreeAvatar;
 
 public class GameModele {
 
@@ -83,13 +82,28 @@ public class GameModele {
 			}
 		}
 		for (Entity entity : entities) {
-			entity.step();
-			entity.tick(elapsed);
+			if (entity instanceof CloudCluster) {
+				for (Entity cloud : ((CloudCluster)entity).getClouds()) {
+					cloud.step();
+					cloud.tick(elapsed);
+				}
+			}else {
+				entity.step();
+				entity.tick(elapsed);
+			}
 		}
 		ArrayList<Entity> newEntities = new ArrayList<>();
 		for (Entity entity : entities) {
-			if(!entity.current_state.isDead())
-				newEntities.add(entity);
+			if (entity instanceof CloudCluster) {
+				for (Entity cloud : ((CloudCluster)entity).getClouds()) {
+					if(!cloud.current_state.isDead())
+						newEntities.add(cloud);
+				}
+			}else {
+				if(!entity.current_state.isDead())
+					newEntities.add(entity);
+			}
+
 		}
 		entities = newEntities;
 		// System.out.print("\n\n x : " +
@@ -230,7 +244,10 @@ public class GameModele {
 						entities.add(newEntity);
 					}
 					else if (Current.getType() == EnumTiles.RAGING_SEA_CHEST || Current.getType() == EnumTiles.STORMY_SEA_CHEST || Current.getType() == EnumTiles.CALM_SEA_CHEST) {
-						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le numéro																				// de section) avec 20 points de vie
+						newEntity = new SeaTreasure(Current.getX(), Current.getY());// de section) avec 20 points de vie
+						entities.add(newEntity);
+						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le numéro
+						entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.CALM_SEA_ENNEMIE || Current.getType() == EnumTiles.STORMY_SEA_ENNEMIE || Current.getType() == EnumTiles.RAGING_SEA_ENNEMIE) {
 						//newEntity = new Ship(); // TODO																			// de section) avec 20 points de vie
 					}
