@@ -82,6 +82,7 @@ public class GameModele {
 		}
 		for (Entity entity : entities) {
 			entity.step();
+			entity.tick(elapsed);
 		}
 		ArrayList<Entity> newEntities = new ArrayList<>();
 		for (Entity entity : entities) {

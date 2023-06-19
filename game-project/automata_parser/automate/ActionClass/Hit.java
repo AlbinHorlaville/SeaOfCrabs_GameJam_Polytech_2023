@@ -17,7 +17,7 @@ public class Hit extends FunCall{
 
 	@Override
 	public void exec(Entity e) {
-		System.out.println(this.toString());
+		e.hit();
 		// TODO Auto-generated method stub
 		
 	}

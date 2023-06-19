@@ -71,10 +71,7 @@ public class CrabLair extends StillEntity{
 	public void egg() {
 		if(this.m_tilesForCrabSpanwing == null) {
 			this.m_tilesForCrabSpanwing = this.defineTilesWhreCrabsCouldSpawn();
-		}
-		
-		System.out.println("Je egg petit batard");
-		
+		}		
 		int rand = new Random()
 				.nextInt(this.m_tilesForCrabSpanwing.size());
 		Tiles tile = this.m_tilesForCrabSpanwing.get(rand);
