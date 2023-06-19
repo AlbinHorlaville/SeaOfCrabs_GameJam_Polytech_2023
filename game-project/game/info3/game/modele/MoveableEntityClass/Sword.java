@@ -1,6 +1,9 @@
 package info3.game.modele.MoveableEntityClass;
 
+import automate.AutomateLoader;
+import info3.game.modele.GameEntity;
 import info3.game.modele.Weapon;
+import info3.game.vue.avatar.SwordAvatar;
 
 public class Sword extends Weapon{
 	
@@ -12,6 +15,9 @@ public class Sword extends Weapon{
 
 	private Sword() {
 		super("Sword", DAMAGE, RANGE, ALPHA);
+		this.setAvatar(new SwordAvatar(this));
+		this.automate = AutomateLoader.findAutomate(GameEntity.Philosopher);
+		this.current_state = automate.initial_state;
 	}
 	
 	public static Sword getInstance() {

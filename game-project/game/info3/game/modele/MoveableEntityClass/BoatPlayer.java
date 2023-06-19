@@ -106,6 +106,7 @@ public class BoatPlayer extends Player {
 			}
 			
 			GameModele.entities.add(GameModele.player1);
+			GameModele.entities.add(Sword.getInstance());
 			GameModele.onSea = !GameModele.onSea;
 		}
 	}
