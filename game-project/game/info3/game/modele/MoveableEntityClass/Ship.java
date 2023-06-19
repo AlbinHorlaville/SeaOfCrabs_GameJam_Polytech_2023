@@ -1,18 +1,27 @@
 package info3.game.modele.MoveableEntityClass;
 
+import automate.AutomateLoader;
+import info3.game.modele.GameEntity;
+import info3.game.modele.GameModele;
+import info3.game.modele.Level;
+import info3.game.vue.avatar.ShipAvatar;
+
 public class Ship extends Ennemy {
 	
-	private int level;
-
-	public Ship(int lifePoint, int attackCoeff, int speedCoeff, int level) {		// To delete
-		super(lifePoint, attackCoeff);
-		// TODO Auto-generated constructor stub
-	}
+	public final static int DEFAULT_HEALTH_POINTS = 100;
+	public final static int DEFAULT_DAMAGE = 20;
 	
-	public Ship(int healthPoints, int damage, int level) {		// To delete
-		super(healthPoints, damage);
-		this.level = level;
-		// TODO Auto-generated constructor stub
-	}
+	private float m_coeff;
 
+	public Ship(int level) {	
+		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE);
+		this.avatar = new ShipAvatar(this);
+
+		this.m_coeff = (new Level(level)).getCoeffBasedOnLevel();
+		this.m_healthPoints *= this.m_coeff;
+		this.m_damage *= this.m_coeff;
+		this.automate = AutomateLoader.findAutomate(GameEntity.Philosopher);
+		this.current_state = automate.initial_state;
+		GameModele.entities.add(this);
+	}
 }
