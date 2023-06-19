@@ -10,7 +10,10 @@ public enum EnumDirection {
 	SE("SE"),
 	SW("SW"),
 	NW("NW"),
-	F("F");
+	F("F"),
+	R("R"),
+	L("L"),
+	B("B");
 	
 	private String m_string;
 	
