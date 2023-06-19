@@ -138,4 +138,9 @@ CrabsLair(Init){
   | GotPower ? Move(N) : (Init)
   | True ? : ()
   * ()
+ }*
+ 
+ Sword(Init){
+  * (Init) :
+  | True ? Move : (Init)
  }

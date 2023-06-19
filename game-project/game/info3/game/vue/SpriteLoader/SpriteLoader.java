@@ -53,6 +53,8 @@ public class SpriteLoader {
 		load(SpriteType.CrabKing, "assets/img/ennemi/" + "CrabeKing.png", 1, 1);
 		load(SpriteType.LandTreasure, "assets/img/autre/" + "Coffre_dirt_sand.png", 1, 1);
 		load(SpriteType.SeaTreasure, "assets/img/autre/" + "Coffre_sea.png", 1, 1);
+		load(SpriteType.Sword, "resources/img/" + "Sword.png", 1, 1);
+		load(SpriteType.Scythe, "resources/img/" + "Scythe.png", 1, 1);
 	}
 
 	/*

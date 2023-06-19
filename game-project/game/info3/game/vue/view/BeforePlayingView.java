@@ -30,6 +30,9 @@ public class BeforePlayingView extends View {
 	UILabel weaponSelectedLabel1, weaponSelectedLabel2;
 
 	UIBox boxSwordPlayer1, boxScythePlayer1, boxSwordPlayer2, boxScythePlayer2;
+	
+	public static Weapon weapon1;
+	public static Weapon weapon2;
 
 	public BeforePlayingView(GameView gv) {
 		super(gv);
@@ -85,6 +88,7 @@ public class BeforePlayingView extends View {
 							i = r.nextInt();
 							seedInput.setInputText(Integer.toString(i));
 						}
+						weapon1 = weaponsBoxesPlayer1.getSelectedBox().getWeapon();
 						// TODO : relier la vue au modele avant d'appeler start
 						gameView.getGame().start(i);
 					} else {

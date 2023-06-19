@@ -13,5 +13,7 @@ public enum SpriteType {
 	Crab, 
 	CrabKing,
 	LandTreasure,
-	SeaTreasure
+	SeaTreasure,
+	Sword,
+	Scythe
 }

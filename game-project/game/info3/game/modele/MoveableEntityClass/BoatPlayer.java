@@ -99,6 +99,7 @@ public class BoatPlayer extends Player {
 			GameModele.player1.setLocation(under.getX(), under.getY());
 			GameModele.player1.facing = this.facing;
 			GameModele.entities.add(GameModele.player1);
+			GameModele.entities.add(Sword.getInstance());
 			GameModele.onSea = !GameModele.onSea;
 			
 		}
