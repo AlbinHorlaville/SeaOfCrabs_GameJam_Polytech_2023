@@ -33,6 +33,7 @@ public class MapRepresentation {
 	private BufferedImage krakenWaterImage;
 	private BufferedImage pontoonImage;
 	private BufferedImage moutainImage;
+	private BufferedImage defaultImage;
 
 	private BufferedImage[] grassTransitionOneSide;
 	private BufferedImage[] grassTransitionTwoSide;
@@ -73,6 +74,13 @@ public class MapRepresentation {
 			this.sandImage = ImageIO.read(imageFile);
 			this.sandImage = resize(this.sandImage, this.sandImage.getWidth() * scale,
 					this.sandImage.getHeight() * scale);
+		}
+		
+		imageFile = new File("assets/img/tiles/default.png");
+		if (imageFile.exists()) {
+			this.defaultImage = ImageIO.read(imageFile);
+			this.defaultImage = resize(this.defaultImage, this.defaultImage.getWidth() * scale,
+					this.defaultImage.getHeight() * scale);
 		}
 		
 		imageFile = new File("assets/img/tiles/moutain.png");
@@ -382,14 +390,20 @@ public class MapRepresentation {
 
 						switch (currentTile.getType()) {
 						case CALM_WATER:
+						case CALM_SEA_ENNEMIE:
+						case CALM_SEA_CHEST:
 							img = calmWaterImage;
 							positionY += (int) waveOffset;
 							break;
 						case STORMY_WATER:
+						case STORMY_SEA_ENNEMIE:
+						case STORMY_SEA_CHEST:
 							img = stormyWaterImage;
 							positionY += (int) waveOffset;
 							break;
 						case RAGING_WATER:
+						case RAGING_SEA_ENNEMIE:
+						case RAGING_SEA_CHEST:
 							img = ragingWaterImage;
 							positionY += (int) waveOffset;
 							break;
@@ -404,6 +418,7 @@ public class MapRepresentation {
 							img = moutainImage;
 							break;
 						case SAND:
+						case HARBOR_SAND:
 						case TREASUR:
 							img = sandImage;
 							break;
@@ -504,7 +519,7 @@ public class MapRepresentation {
 							img = this.grassTransitionTwoSide[5];// grassUnderAndOnRightOfSand
 							break;
 						default:
-							img = calmWaterImage;
+							img = defaultImage;
 							break;
 						}
 

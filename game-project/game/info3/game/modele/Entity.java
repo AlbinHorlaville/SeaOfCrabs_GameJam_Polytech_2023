@@ -12,6 +12,7 @@ public abstract class Entity {
 	public int y;
 	protected int r; // Radius for draw hitbox
 	protected boolean valid;
+	protected long timeElapsed;
 
 	protected Avatar avatar;
 	protected Automate automate;
@@ -125,7 +126,7 @@ public abstract class Entity {
 		moveEntity(eval,speed);
 	}
 	
-	protected void moveEntity(EnumDirection direction, int speed) {
+	public void moveEntity(EnumDirection direction, int speed) {
 		switch (direction) {
 		case W:
 			x += speed;
@@ -160,6 +161,10 @@ public abstract class Entity {
 		}
 	}
 	
+	public long tick(long elapsed) {
+		this.timeElapsed += elapsed;
+		return timeElapsed;
+	}
 	/*
 	 * D�placement de l'entit� en coordon�e relatif
 	 * L'impl�mentation initial est pour le d�placement du joueur sur terre
@@ -188,6 +193,10 @@ public abstract class Entity {
 	}
 	
 	public void hit(EnumDirection d, EnumCategory c) {
+		System.out.println("Cette entité n'a pas de fonction hit()");
+	}
+	
+	public void hit() {
 		System.out.println("Cette entité n'a pas de fonction hit()");
 	}
 	

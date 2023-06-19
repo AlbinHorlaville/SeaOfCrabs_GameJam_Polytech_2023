@@ -23,7 +23,7 @@ public class CloudCluster extends Entity {
 	 * deisparaît. l'usage d'un boulet de canon dissipe aussi le nuage. ATTENTION NE
 	 * PAS ADD A ENTITY LE CLOUDCLUSTER
 	 */
-	CloudCluster(int x, int y) {
+	public CloudCluster(int x, int y) {
 		super(x, y);
 		this.cluster = new ArrayList<Cloud>();
 		for (int i = NB_CLOUD; i > 0; i--) {
@@ -31,22 +31,8 @@ public class CloudCluster extends Entity {
 			// coordonnées de CloudCluster
 			int posX = (int) (java.lang.Math.random() * SIZE_CLOUDCLSUTER + getX());
 			int posY = (int) (java.lang.Math.random() * SIZE_CLOUDCLSUTER + getY());
-			System.out.println(posX);
-			System.out.println(posY);
 			int size = (int) (java.lang.Math.random() * (SIZE_CLOUD_MAX - SIZE_CLOUD_MIN) + SIZE_CLOUD_MIN);
 			Cloud Current = new Cloud(size, posX, posY); // sizeCloud>0 ? sizeCloud+1 : -sizeCloud+1
-			this.cluster.add(Current);
-		}
-	}
-
-	/**
-	 * Créer les avatars de tous les nuages de l'amas et les ajoute à la liste
-	 * d'entités
-	 */
-	public void setAvatar() {
-		Iterator<Cloud> iter = cluster.iterator();
-		while (iter.hasNext()) {
-			Cloud Current = iter.next();
 			Current.setAvatar(new CloudAvatar(Current, Current.getSize()));
 			GameModele.entities.add(Current);
 		}
