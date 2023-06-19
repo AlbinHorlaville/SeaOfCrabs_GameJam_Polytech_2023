@@ -11,5 +11,7 @@ public enum SpriteType {
 	Cloud,
 	BasicCannonBall, 
 	Crab, 
-	CrabKing
+	CrabKing,
+	LandTreasure,
+	SeaTreasure
 }

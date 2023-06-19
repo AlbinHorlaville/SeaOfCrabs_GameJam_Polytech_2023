@@ -58,10 +58,9 @@ public class AutomataView extends JFrame {
 
 		
 		for (int i=0; i<GameEntity.values().length; i++) {
-			Object[] o = AutomateLoader.getHashMapValueByName(GameEntity.values()[i].toString());
-			Automate a = (Automate) o[1];
+			Object[] o = AutomateLoader.getHashMapValueByName(GameEntity.values()[i]);
 			if (o!=null) {
-				data[i] = new Object[] {GameEntity.values()[i], a.name };
+				data[i] = o;
 			}
 		}
 

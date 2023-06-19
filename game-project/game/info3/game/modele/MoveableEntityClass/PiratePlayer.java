@@ -4,6 +4,7 @@ import automate.AutomateLoader;
 import automate.EnumCategory;
 import automate.EnumDirection;
 import info3.game.modele.Entity;
+import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.Weapon;
 import info3.game.modele.map.Tiles;
@@ -39,9 +40,9 @@ public class PiratePlayer extends Player {
 		//weapon.setPlayer(this);
 	}
 	
-	public PiratePlayer(String string) {
+	public PiratePlayer(GameEntity entity) {
 		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_PIRATEPLAYER_DAMAGE, DEFAULT_MAX_PLAYERS_LIFE );		//The good one
-		this.automate = AutomateLoader.findAutomate(string);
+		this.automate = AutomateLoader.findAutomate(entity);
 		this.current_state = automate.initial_state;
 		facing = EnumDirection.N;
 		this.m_attackspeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
@@ -54,41 +55,78 @@ public class PiratePlayer extends Player {
 	
 	@Override
 	public void move(EnumDirection eval) {
-		facing = eval;
-		this.moveEntity(eval, DEFAULT_PIRATEPLAYER_SPEED_COEFF);
-		switch (GameModele.map.getTileUnderEntity(x + (2 * this.avatar.getWidth()/Avatar.SCALE_IMG), y + (this.avatar.getHeight()/Avatar.SCALE_IMG)).getType()) {
-		case CALM_WATER:
-		case STORMY_WATER:
-		case RAGING_WATER:
+		if(eval == EnumDirection.F) {
+			this.moveEntity(facing, DEFAULT_PIRATEPLAYER_SPEED_COEFF);
 			GameModele.entities.remove(this);
 			GameModele.pirateBoat.setLocation(x, y);
 			GameModele.pirateBoat.facing = this.facing;
 			GameModele.entities.add(GameModele.pirateBoat);
 			GameModele.onSea = !GameModele.onSea;
-			break;
-		default:
-			break;
+			GameModele.pirateBoat.moveEntity(facing,150);
+		}
+		else {
+			facing = eval;
+			this.moveEntity(eval, DEFAULT_PIRATEPLAYER_SPEED_COEFF);
+		}
+	}
+	
+	public Tiles getTilesForCell(EnumDirection d, int tempX, int tempY) {
+		switch(d) {
+			case N:
+				
+				tempY += this.m_speedCoeff;
+				return GameModele.map.getTileUnderEntity(tempX, tempY);
+				
+			case S:
+				tempY -=this.m_speedCoeff;
+				return GameModele.map.getTileUnderEntity(tempX, tempY);
+				
+			case E:
+				tempX -= this.m_speedCoeff;
+				return GameModele.map.getTileUnderEntity(tempX, tempY);
+				
+			case W:
+				tempX += this.m_speedCoeff;
+				return GameModele.map.getTileUnderEntity(tempX, tempY);
+				
+			case NE:
+				tempX -= this.m_speedCoeff;
+				tempY += this.m_speedCoeff;
+				return GameModele.map.getTileUnderEntity(tempX, tempY);
+				
+			case NW:
+				tempX += this.m_speedCoeff;
+				tempY += this.m_speedCoeff;
+				return GameModele.map.getTileUnderEntity(tempX, tempY);
+				
+			case SE:
+				tempX -= this.m_speedCoeff;
+				tempY -= this.m_speedCoeff;
+				return GameModele.map.getTileUnderEntity(tempX, tempY);
+				
+			case SW:
+				tempX += this.m_speedCoeff;
+				tempY -= this.m_speedCoeff;
+				return GameModele.map.getTileUnderEntity(tempX, tempY);
+			
+			default:
+				return null;
 		}
 	}
 
 	@Override
 	public boolean cell(EnumDirection d, EnumCategory c) {
-		//Variable a retirer quand le bateau sera pret
-		//boolean debug = true;
 		int tempX = this.x + (2* this.avatar.getWidth() /Avatar.SCALE_IMG);
 		int tempY = this.y + ( this.avatar.getHeight() / Avatar.SCALE_IMG);
 		Tiles t;
-		switch(d) {
-			case N:
-				
-				tempY += this.m_speedCoeff;
-				t = GameModele.map.getTileUnderEntity(tempX, tempY);
+			switch(c) {
+			case O:
+				t = getTilesForCell(d,tempX, tempY);
 				if(t.isIsland()) {
 					for(Entity e : GameModele.entities) {
 						if(e != this) {
 							if(e.x == x) {
 								if(e.y <= this.y && e.y >= tempY) {
-									System.out.println(e.x + " " + e.y);
 									return true;
 								}
 							}
@@ -97,131 +135,11 @@ public class PiratePlayer extends Player {
 					return false;
 				}
 				return true;
-			case S:
-				tempY -=this.m_speedCoeff;
-				t = GameModele.map.getTileUnderEntity(tempX, tempY);
-				if(t.isIsland()) {
-					for(Entity e : GameModele.entities) {
-						if(e != this) {
-							if(e.x == x) {
-								if(e.y >= this.y && e.y <= tempY) {
-									System.out.println(e.x + " " + e.y);
-									return true;
-								}
-							}
-						}
-					}
-					return false;
-				}
-				return true;
-				
-			case E:
-				tempX -= this.m_speedCoeff;
-				t = GameModele.map.getTileUnderEntity(tempX, tempY);
-				if(t.isIsland()) {
-					for(Entity e : GameModele.entities) {
-						if(e != this) {
-							if(e.y == y) {
-								if(e.x >= this.x && e.x <= tempX) {
-									System.out.println(e.x + " " + e.y);
-									return true;
-								}
-							}
-						}
-					}
-					return false;
-				}
-				return true;
-				
-			case W:
-				tempX += this.m_speedCoeff;
-				t = GameModele.map.getTileUnderEntity(tempX, tempY);
-				if(t.isIsland()) {
-					for(Entity e : GameModele.entities) {
-						if(e != this) {
-							if(e.y == y) {
-								if(e.x <= this.x && e.x >= tempX) {
-									System.out.println(e.x + " " + e.y);
-									return true;
-								}
-							}
-						}
-					}
-					return false;
-				}
-				return true;
-				
-			case NE:
-				tempX -= this.m_speedCoeff;
-				tempY += this.m_speedCoeff;
-				t = GameModele.map.getTileUnderEntity(tempX, tempY);
-				if(t.isIsland()) {
-					for(Entity e : GameModele.entities) {
-						if(e != this) {
-							if(e.x >= this.x && e.x <= tempX) {
-								if(e.y <= this.y && e.y >= tempY)
-									return true;
-							}
-						}
-					}
-					return false;
-				}
-				return true;
-				
-			case NW:
-				tempX += this.m_speedCoeff;
-				tempY += this.m_speedCoeff;
-				t = GameModele.map.getTileUnderEntity(tempX, tempY);
-				if(t.isIsland()) {
-					for(Entity e : GameModele.entities) {
-						if(e != this) {
-							if(e.x <= this.x && e.x >= tempX) {
-								if(e.y <= this.y && e.y >= tempY)
-									return true;
-							}
-						}
-					}
-					return false;
-				}
-				return true;
-				
-			case SE:
-				tempX -= this.m_speedCoeff;
-				tempY -= this.m_speedCoeff;
-				t = GameModele.map.getTileUnderEntity(tempX, y);
-				if(t.isIsland()) {
-					for(Entity e : GameModele.entities) {
-						if(e != this) {
-							if(e.x >= this.x && e.x <= tempX) {
-								if(e.y >= this.y && e.y <= tempY)
-									return true;
-							}
-						}
-					}
-					return false;
-				}
-				return true;
-				
-			case SW:
-				tempX += this.m_speedCoeff;
-				tempY -= this.m_speedCoeff;
-				t = GameModele.map.getTileUnderEntity(tempX, y);
-				if(t.isIsland()) {
-					for(Entity e : GameModele.entities) {
-						if(e != this) {
-							if(e.x <= this.x && e.x >= tempX) {
-								if(e.y >= this.y && e.y <= tempY)
-									return true;
-							}
-						}
-					}
-					return false;
-				}
-				return true;
-			
+			case J:
+				return getTilesForCell(facing,tempX, tempY).isWater();
 			default:
 				return false;
-		}
+			}
 	}
 	
 	public float getDamageCoeff() {

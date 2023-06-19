@@ -97,6 +97,10 @@ public class Tiles {
 			break;
 		}
 	}
+	
+	public int getHeight() {
+		return this.height;
+	}
 
 	public boolean isIsland() {
 		return this.type == EnumTiles.SAND_WATER 
@@ -134,5 +138,12 @@ public class Tiles {
 				|| this.type == EnumTiles.TRANSITION_GRASS_ANGLE_SAND_BOTTOM_RIGHT
 				|| this.type == EnumTiles.TREE;
 
+	}
+	
+	public boolean isWater() {
+		return this.type == EnumTiles.CALM_WATER
+				|| this.type == EnumTiles.STORMY_WATER
+				|| this.type == EnumTiles.RAGING_WATER
+				|| this.type == EnumTiles.KRAKEN_WATER;
 	}
 }

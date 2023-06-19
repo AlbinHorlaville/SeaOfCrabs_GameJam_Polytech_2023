@@ -8,33 +8,23 @@ import info3.game.modele.GameModele;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
-public class CloudAvatar extends Avatar {
-	int size;
+public class SeaTreasureAvatar extends Avatar {
 
-	/**
-	 * Créer l'avatar d'un nuage
-	 * 
-	 * @param entity Ici, c'est un CloudCluster
-	 * @param s      la taille du nuage
-	 */
-	public CloudAvatar(Entity entity, int s) {
+	public SeaTreasureAvatar(Entity entity) {
 		super(entity);
-		m_images = SpriteLoader.get(SpriteType.Cloud);
-		imageIndex = 0;
-		this.size = s;
+		m_images = SpriteLoader.get(SpriteType.SeaTreasure);
 	}
 
 	@Override
 	public void tick(long elapsed) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void paint(Graphics g, int width, int height) {
 		BufferedImage img = m_images[imageIndex];
-		int width_painted = img.getWidth()*size;
-		int heigth_painted = img.getHeight()*size;
+		int width_painted = SCALE_IMG * img.getWidth();
+		int heigth_painted = SCALE_IMG * img.getHeight();
 
 		int Decalage_Tiles_X = -SCALE_IMG;
 		int Decalage_Tiles_Y = 2 * SCALE_IMG;

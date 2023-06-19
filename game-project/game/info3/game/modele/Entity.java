@@ -126,7 +126,7 @@ public abstract class Entity {
 		moveEntity(eval,speed);
 	}
 	
-	protected void moveEntity(EnumDirection direction, int speed) {
+	public void moveEntity(EnumDirection direction, int speed) {
 		switch (direction) {
 		case W:
 			x += speed;

@@ -71,7 +71,7 @@ public class Map {
 
 		this.sectionHeight = 48;
 		this.sectionWidth = 128;
-		this.nbSection = 9;
+		this.nbSection = 10;
 
 		this.map = new MapSection[this.nbSection];
 
@@ -117,6 +117,8 @@ public class Map {
 		this.map[7] = new MapSection(EnumSectionType.CRAB_KING_SEA, this.sectionWidth, this.sectionHeight, this.rand);
 
 		this.map[8] = new MapSection(EnumSectionType.KRAKEN_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		
+		this.map[9] = new MapSection(EnumSectionType.MOUTAIN, this.sectionWidth, this.sectionHeight, this.rand, this.map[8].getMountainHeight());
 	}
 
 	public void setImageSize(int width, int height) {
@@ -186,7 +188,7 @@ public class Map {
 	public int getSectionOfEntity(int xPos, int yPos) {
 		int y = transpoYCoordinateToTile(-(xPos - GameView.screenWidth / 2), -(yPos - GameView.screenHeight / 2));
 
-		int numSection = 9;
+		int numSection = this.nbSection;
 
 		while (y >= 0) {
 			y -= this.sectionHeight;
@@ -300,13 +302,14 @@ public class Map {
 			case STORMY_SEA:
 			case STORMY_SEA_FROM_CALM_SEA:
 			case STORMY_SEA_TO_RAGING_SEA:
-				waveRange = 35;
+				waveRange = 25;
 				break;
 			case RAGING_SEA:
 			case RAGING_SEA_FROM_STORMY_SEA:
 			case CRAB_KING_SEA:
 			case KRAKEN_SEA:
-				waveRange = 45;
+			case MOUTAIN:
+				waveRange = 25;
 				break;
 			default:
 				waveRange = 0;
