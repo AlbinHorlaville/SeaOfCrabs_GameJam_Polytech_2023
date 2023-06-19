@@ -168,6 +168,10 @@ public abstract class Entity {
 		
 	}
 	
+	public void move() {
+		
+	}
+	
 	public boolean closest(){
 		System.out.println("Cette entité n'a pas de fonction closest()");
 		return false;

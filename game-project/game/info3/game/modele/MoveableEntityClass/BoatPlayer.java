@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import automate.AutomateLoader;
 import automate.EnumCategory;
 import automate.EnumDirection;
+import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.map.Tiles;
 import info3.game.vue.avatar.Avatar;
@@ -26,7 +27,7 @@ public class BoatPlayer extends Player {
 		bouletDeCannon = new ArrayList<>();
 		this.current_ball = new BasicCannonBall();
 
-		this.automate = AutomateLoader.findAutomate("PlayerBoat");
+		this.automate = AutomateLoader.findAutomate(GameEntity.PlayerBoat);
 		this.current_state = automate.initial_state;
 
 		this.facing = EnumDirection.N;
@@ -38,7 +39,7 @@ public class BoatPlayer extends Player {
 		bouletDeCannon = new ArrayList<>();
 		// this.current_ball = new BasicCannonBall();
 
-		this.automate = AutomateLoader.findAutomate("PlayerBoat");
+		this.automate = AutomateLoader.findAutomate(GameEntity.PlayerBoat);
 		this.current_state = automate.initial_state;
 
 		this.facing = EnumDirection.N;

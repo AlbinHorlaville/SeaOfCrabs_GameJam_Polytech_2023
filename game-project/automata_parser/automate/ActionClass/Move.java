@@ -18,7 +18,9 @@ public class Move extends FunCall{
 
 	@Override
 	public void exec(Entity e) {
-		e.move((EnumDirection)parameters.get(0).eval());
+		if(parameters.size() != 0)
+			e.move((EnumDirection)parameters.get(0).eval());
+		e.move();
 		// TODO Auto-generated method stub
 	}
 
