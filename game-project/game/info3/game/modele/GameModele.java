@@ -52,6 +52,8 @@ public class GameModele {
 	public static PiratePlayer player2;
 
 	public static BoatPlayer pirateBoat;
+	
+	public static GameTimer timer;
 
 	public static boolean onSea = true;
 
@@ -194,6 +196,10 @@ public class GameModele {
 				return (player1.getY()+player2.getY())/2;
 			}
 		}
+	}
+	
+	private void updateTimer(int e) {
+		
 	}
 
 	void genereEntity(Map map) {
