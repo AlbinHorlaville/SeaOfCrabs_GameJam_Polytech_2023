@@ -97,6 +97,10 @@ public class Tiles {
 			break;
 		}
 	}
+	
+	public int getHeight() {
+		return this.height;
+	}
 
 	public boolean isIsland() {
 		return this.type == EnumTiles.SAND_WATER 
