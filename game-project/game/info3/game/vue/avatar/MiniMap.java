@@ -3,6 +3,7 @@ package info3.game.vue.avatar;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import info3.game.modele.GameModele;
 import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Map;
 import info3.game.modele.map.MapSection;
@@ -19,12 +20,17 @@ public class MiniMap {
 		this.sectionHeight = m.getSectionHeight();
 	}
 
-	public void paint(Graphics g, int width, int height, int currentSection, int tilesX, int tilesY) {
+	public void paint(Graphics g, int width, int height) {
+		int tilesX = GameModele.map.getTileUnderEntity(GameModele.getCurrentPlayerX(), GameModele.getCurrentPlayerY()).getTileX();
+		int tilesY = GameModele.map.getTileUnderEntity(GameModele.getCurrentPlayerX(), GameModele.getCurrentPlayerY()).getTileY();
+		int currentSection = GameModele.map.getSectionOfEntity(GameModele.getCurrentPlayerX(), GameModele.getCurrentPlayerY());
+		
 		int mapPixelSize = 8;
 
 		// We paint the background of the minimap (the water) for optimisation we don't
 		// draw each water tile individually
-		g.setColor(new Color(0, 0, 255, 100));
+		g.setColor(new Color(0, 0, 255, 100)); // ROUGE
+
 		g.fillRect(width / 2 - ((this.sectionWidth-16) * mapPixelSize) / 2,
 				height / 2 - (this.sectionHeight * mapPixelSize) / 2, (this.sectionWidth-16) * mapPixelSize,
 				this.sectionHeight * mapPixelSize);

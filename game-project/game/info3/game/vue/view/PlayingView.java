@@ -78,12 +78,7 @@ public class PlayingView extends View {
 		weapons.paint(g);
 
 		if (Controller.getBuffer()[77]) { // Quand M push
-			GameModele.map.getMiniMap().paint(g, width, height,
-					GameModele.map.getSectionOfEntity(GameModele.pirateBoat.getX(), GameModele.pirateBoat.getY()),
-					GameModele.map.getTileUnderEntity(GameModele.pirateBoat.getX(), GameModele.pirateBoat.getY())
-							.getTileX(),
-					GameModele.map.getTileUnderEntity(GameModele.pirateBoat.getX(), GameModele.pirateBoat.getY())
-							.getTileY());
+			GameModele.map.getMiniMap().paint(g, width, height);
 		}
 	}
 
