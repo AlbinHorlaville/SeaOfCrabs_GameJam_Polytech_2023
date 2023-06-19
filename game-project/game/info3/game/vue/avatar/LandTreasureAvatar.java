@@ -8,11 +8,11 @@ import info3.game.modele.GameModele;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
-public class TreasureAvatar extends Avatar {
+public class LandTreasureAvatar extends Avatar {
 
-	public TreasureAvatar(Entity entity) {
+	public LandTreasureAvatar(Entity entity) {
 		super(entity);
-		m_images = SpriteLoader.get(SpriteType.RedCross);
+		m_images = SpriteLoader.get(SpriteType.LandTreasure);
 	}
 
 	@Override
