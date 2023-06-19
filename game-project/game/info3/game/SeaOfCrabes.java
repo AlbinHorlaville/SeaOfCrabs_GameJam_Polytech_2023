@@ -29,21 +29,6 @@ public class SeaOfCrabes {
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 		}
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = (Connection) DriverManager.getConnection(
-					"jdbc:mysql://sea-of-crabes-db-do-user-12793941-0.b.db.ondigitalocean.com:25060/defaultdb", "doadmin",
-					"AVNS_Tt0S0KQowpxwevfrqPG");
-			System.out.println("Connected to database");
-			// here sonoo is database name, root is username and password
-			Statement stmt = (Statement) con.createStatement();
-			ResultSet rs = (ResultSet) stmt.executeQuery("SELECT * FROM Score");
-			while (rs.next())
-				System.out.println("OK");
-			con.close();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
 	}
 
 }
