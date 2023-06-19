@@ -3,6 +3,7 @@ package info3.game.modele.MoveableEntityClass;
 import java.lang.Math;
 
 import automate.AutomateLoader;
+import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.Level;
 import info3.game.modele.StillEntityClass.CrabLair;
@@ -22,7 +23,7 @@ public class Crab extends Ennemy {
 		this.m_healthPoints *= this.m_coeff;
 		this.m_damage *= this.m_coeff;
 		this.m_crabLair = crabLair;
-		this.automate = AutomateLoader.findAutomate("Crab");
+		this.automate = AutomateLoader.findAutomate(GameEntity.Crab);
 		this.current_state = automate.initial_state;
 
 	}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import automate.AutomateLoader;
+import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.Level;
 import info3.game.modele.StillEntity;
@@ -29,7 +30,7 @@ public class CrabLair extends StillEntity{
 		this.m_nbCrabsToEgg = (int) ((float)DEFAULT_CRAB_NUMBER * (new Level(level)).getCoeffBasedOnLevel());
 		this.m_nbCrabsAlive = this.m_nbCrabsToEgg;
 		this.m_section = m_section;
-		this.automate = AutomateLoader.findAutomate("CrabsLair");
+		this.automate = AutomateLoader.findAutomate(GameEntity.CrabsLair);
 		this.current_state = automate.initial_state;
 		this.avatar = new CrabslairAvatar(this);
 		this.m_tilesForCrabSpanwing = null;
