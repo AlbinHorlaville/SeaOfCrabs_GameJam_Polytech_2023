@@ -7,6 +7,7 @@ import info3.game.modele.GameModele;
 import info3.game.modele.Level;
 import info3.game.modele.StillEntityClass.CrabLair;
 import info3.game.modele.map.Tiles;
+import info3.game.vue.avatar.CrabAvatar;
 
 public class Crab extends Ennemy {
 	
@@ -24,17 +25,20 @@ public class Crab extends Ennemy {
 		this.m_crabLair = crabLair;
 		this.automate = AutomateLoader.findAutomate("Crab");
 		this.current_state = automate.initial_state;
+		GameModele.entities.add(this);
 
 	}
 	
 	public Crab(int level, CrabLair crabLair, int x, int y) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE, x, y);
 		this.m_coeff = (new Level(level)).getCoeffBasedOnLevel();
+		this.avatar = new CrabAvatar(this);
 		this.m_healthPoints *= this.m_coeff;
 		this.m_damage *= this.m_coeff;
 		this.m_crabLair = crabLair;
 		this.automate = AutomateLoader.findAutomate("Crab");
 		this.current_state = automate.initial_state;
+		GameModele.entities.add(this);
 		
 		System.out.println("Coord Player : (" +  GameModele.player1.x + ", " + GameModele.player1.y + ")");
 		System.out.println("Coord Crab : (" +  this.x + ", " + this.y + ")");
@@ -50,7 +54,7 @@ public class Crab extends Ennemy {
 		PiratePlayer closestPlayer = this.closestPirateToMe();
 		
 		//Get next coordinate
-		int nextX = this.x + (closestPlayer.x - this.x) * 1;
+		int nextX = this.x - (this.x - closestPlayer.x) * 1;
 		int nextY = this.y + (this.y - closestPlayer.y) * 1;
 		
 		//Can the the tile be moved on buy a crab
@@ -63,13 +67,17 @@ public class Crab extends Ennemy {
 
 	
 	private PiratePlayer closestPirateToMe() {
-		double distanceP1 = Math.sqrt(Math.pow(this.x - GameModele.player1.x,2) + Math.pow(this.y - GameModele.player1.y,2));
-		double distanceP2 = Math.sqrt(Math.pow(this.x - GameModele.player2.x,2) + Math.pow(this.y - GameModele.player2.y,2));
 		
-		if(distanceP1 < distanceP2) {
-			return GameModele.player1;
-		}
-		return GameModele.player2;
+		// A jouter pour le mode 2 joueurs
+//		double distanceP1 = Math.sqrt(Math.pow(this.x - GameModele.player1.x,2) + Math.pow(this.y - GameModele.player1.y,2));
+//		double distanceP2 = Math.sqrt(Math.pow(this.x - GameModele.player2.x,2) + Math.pow(this.y - GameModele.player2.y,2));
+//		
+//		if(distanceP1 < distanceP2) {
+//			return GameModele.player1;
+//		}
+//		return GameModele.player2;
+		
+		return GameModele.player1;
 	}
 
 	public void die() {

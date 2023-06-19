@@ -97,7 +97,6 @@ public class PiratePlayer extends Player {
 					return false;
 				}
 				return true;
-				
 			case S:
 				tempY -=this.m_speedCoeff;
 				t = GameModele.map.getTileUnderEntity(tempX, tempY);
