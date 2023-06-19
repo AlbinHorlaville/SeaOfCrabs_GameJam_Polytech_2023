@@ -185,6 +185,7 @@ public class GameModele {
 			player1 = new PiratePlayer(GameEntity.Player1);
 			player1.setAvatar(new Player1(player1));
 			player1.setWeapon(BeforePlayingView.weapon1);
+			BeforePlayingView.weapon1.setPlayer(player1);
 			// GameModele.entities.add(player1);
 			if (!solo) {
 				player1 = new PiratePlayer(GameEntity.Player2);

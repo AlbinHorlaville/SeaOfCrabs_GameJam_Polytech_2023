@@ -86,9 +86,22 @@ Player1(Init){
   | Key(q) & !Cell(W,O) ? Move(W) :(Init)
   | Key(d) & !Cell(E,O) ? Move(E) :(Init)
   | Key(b) & Cell(F,J) ? Move(F) : (Init)
+  | Key(r) ? Hit(F) : (Init)
 }
 
 PlayerBoat(Init){
+  * (Init):
+  | Key(FR) & Key(FU) ? Move(NE) :(Init)
+  | Key(FR) & Key(FD) ? Move(SE) :(Init)
+  | Key(FL) & Key(FU) ? Move(NW) :(Init)
+  | Key(FL) & Key(FD) ? Move(SW) :(Init)
+  | Key(FU) ? Move(N) :(Init)
+  | Key(FD) ? Move(S) :(Init)
+  | Key(FL) ? Move(W) :(Init)
+  | Key(FR) ? Move(E) :(Init)
+}
+
+Player2(Init){
   * (Init):
   | Key(d) & Key(z) ? Move(NE) :(Init)
   | Key(d) & Key(s) ? Move(SE) :(Init)

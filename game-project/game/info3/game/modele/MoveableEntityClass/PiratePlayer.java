@@ -57,12 +57,14 @@ public class PiratePlayer extends Player {
 	public void move(EnumDirection eval) {
 		if(eval == EnumDirection.F) { // CHANGEMENT PIRATE A BATEAU
 			this.moveEntity(facing, DEFAULT_PIRATEPLAYER_SPEED_COEFF);
+			GameModele.entities.remove(this.weapon);
 			
 			if(GameModele.solo) {
 				GameModele.entities.remove(this);
 			} else {
 				GameModele.entities.remove(GameModele.player1);
 				GameModele.entities.remove(GameModele.player2);
+				GameModele.entities.remove(GameModele.player2.weapon);
 			}
 			
 			GameModele.pirateBoat.setLocation(x, y);
@@ -147,6 +149,11 @@ public class PiratePlayer extends Player {
 			default:
 				return false;
 			}
+	}
+	
+	@Override
+	public void hit() {
+		weapon.hit();
 	}
 	
 	public float getDamageCoeff() {
