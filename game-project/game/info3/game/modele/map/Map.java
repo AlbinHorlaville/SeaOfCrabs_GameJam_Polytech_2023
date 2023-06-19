@@ -5,6 +5,7 @@ import java.util.Random;
 import info3.game.vue.GameView;
 import info3.game.vue.avatar.MapRepresentation;
 import info3.game.vue.avatar.MiniMap;
+import info3.game.vue.avatar.SectionTitle;
 
 /*
  * This class contain a reprensation of the map section by section and the offset of each tiles to create the wave effect
@@ -24,6 +25,8 @@ public class Map {
 	private MapRepresentation mapRepres; // The graphic representation of the map
 
 	private MiniMap miniMap; // The graphic representation of the map
+	
+	private SectionTitle title;
 
 	private int tileWidth;
 	private int tileHeight;
@@ -51,10 +54,14 @@ public class Map {
 		generateBaseMap();
 
 		generateWave();
+		
+		this.title = new SectionTitle();
 
 		this.mapRepres = new MapRepresentation(this);
 
 		this.miniMap = new MiniMap(this);
+		
+		
 	}
 
 	/*
@@ -84,6 +91,8 @@ public class Map {
 		this.mapRepres = new MapRepresentation(this);
 
 		this.miniMap = new MiniMap(this);
+		
+		this.title = new SectionTitle();
 	}
 
 	/*
@@ -533,6 +542,10 @@ public class Map {
 
 	public MiniMap getMiniMap() {
 		return this.miniMap;
+	}
+	
+	public SectionTitle getSectionTitle() {
+		return this.title;
 	}
 
 	public Random getRand() {

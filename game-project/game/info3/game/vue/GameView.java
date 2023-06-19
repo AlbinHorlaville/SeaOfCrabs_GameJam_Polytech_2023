@@ -32,6 +32,7 @@ import info3.game.vue.view.MenuView;
 import info3.game.vue.view.PlayingView;
 import info3.game.vue.view.ScoreView;
 import info3.game.vue.view.SettingsView;
+import info3.game.vue.view.SetupUserView;
 import info3.game.vue.view.View;
 import info3.game.vue.view.ControlsView;
 
@@ -137,6 +138,7 @@ public class GameView {
 		this.all_views.put(GameState.Commandes, new ControlsView(this));
 		this.all_views.put(GameState.AvantJeu, new BeforePlayingView(this));
 		this.all_views.put(GameState.ChoixGameplay, new GameModeView(this));
+		this.all_views.put(GameState.Utilisateur, new SetupUserView(this));
 	}
 
 	public void update_view(GameState state) {

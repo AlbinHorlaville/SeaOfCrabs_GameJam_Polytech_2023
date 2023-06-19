@@ -310,7 +310,9 @@ public class BeforePlayingView extends View {
 		addComponent(weaponLabelPlayer2);
 		addComponent(weaponsBoxesPlayer2);
 		addComponent(weaponSelectedLabel2);
-
+		if (GameModele.user!=null) {
+			addComponent(new UILabel(10, 30, "Connected as @"+GameModele.user.getUsername(), FONT4, Color.black));
+		}
 	}
 
 	@Override

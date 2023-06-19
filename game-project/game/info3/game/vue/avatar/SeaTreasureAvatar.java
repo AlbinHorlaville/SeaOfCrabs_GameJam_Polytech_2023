@@ -26,13 +26,9 @@ public class SeaTreasureAvatar extends Avatar {
 		int width_painted = SCALE_IMG * img.getWidth();
 		int heigth_painted = SCALE_IMG * img.getHeight();
 
-		int Decalage_Tiles_X = -SCALE_IMG;
-		int Decalage_Tiles_Y = 2 * SCALE_IMG;
-
-		int coeffX = -entity.getX() + GameModele.getCurrentPlayerX() + width / 2 + Decalage_Tiles_X;
-		int coeffY = -entity.getY() + GameModele.getCurrentPlayerY() + height / 2 + Decalage_Tiles_Y;
+		int coeffX = -entity.getX() + GameModele.getCurrentPlayerX() + width / 2;
+		int coeffY = -entity.getY() + GameModele.getCurrentPlayerY() + height / 2;
 
 		g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
 	}
-
 }

@@ -77,14 +77,14 @@ Escape(Init){
 
 Player1(Init){
   * (Init):
-  | Key(FR) & Key(FU) & !Cell(NE,O) ? Move(NE) :(Init)
-  | Key(FR) & Key(FD) & !Cell(SE,O) ? Move(SE) :(Init)
-  | Key(FL) & Key(FU) & !Cell(NW,O) ? Move(NW) :(Init)
-  | Key(FL) & Key(FD) & !Cell(SW,O) ? Move(SW) :(Init)
-  | Key(FU) & !Cell(N,O) ? Move(N) :(Init)
-  | Key(FD) & !Cell(S,O) ? Move(S) :(Init)
-  | Key(FL) & !Cell(W,O) ? Move(W) :(Init)
-  | Key(FR) & !Cell(E,O) ? Move(E) :(Init)
+  | Key(d) & Key(z) & !Cell(NE,O) ? Move(NE) :(Init)
+  | Key(d) & Key(s) & !Cell(SE,O) ? Move(SE) :(Init)
+  | Key(q) & Key(z) & !Cell(NW,O) ? Move(NW) :(Init)
+  | Key(q) & Key(s) & !Cell(SW,O) ? Move(SW) :(Init)
+  | Key(z) & !Cell(N,O) ? Move(N) :(Init)
+  | Key(s) & !Cell(S,O) ? Move(S) :(Init)
+  | Key(q) & !Cell(W,O) ? Move(W) :(Init)
+  | Key(d) & !Cell(E,O) ? Move(E) :(Init)
   | Key(b) & Cell(F,J) ? Move(F) : (Init)
   | Key(r) ? Hit(F) : (Init)
 }
@@ -113,7 +113,19 @@ Player2(Init){
   | Key(d) ? Move(E) :(Init)
 }
 
- 
+Player2(Init){
+  * (Init):
+  | Key(FR) & Key(FU) & !Cell(NE,O)? Move(NE) :(Init)
+  | Key(FR) & Key(FD) & !Cell(SE,O)? Move(SE) :(Init)
+  | Key(FL) & Key(FU) & !Cell(NW,O)? Move(NW) :(Init)
+  | Key(FL) & Key(FD) & !Cell(SW,O)? Move(SW) :(Init)
+  | Key(FU) & !Cell(N,O) ? Move(N) :(Init)
+  | Key(FD) & !Cell(S,O)? Move(S) :(Init)
+  | Key(FL) & !Cell(W,O)? Move(W) :(Init)
+  | Key(FR) & !Cell(E,O) ? Move(E) :(Init)
+}
+
+
 Crab(Init){
  * (Init) :
  | Closest ? Move : (Init)
@@ -125,7 +137,7 @@ CrabsLair(Init){
  * (Init) :
  	| Closest ? : (Spawn)
  	| True ? : (Init)
- * (Spawn) : 
+ * (Spawn) :
  	| GotStuff ? Egg : (Init)
  	| !GotPower ? : ()
  	| True ? : (Init)

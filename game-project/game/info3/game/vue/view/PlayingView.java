@@ -11,11 +11,13 @@ import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
 import info3.game.modele.GameTimer;
 import info3.game.modele.Weapon;
+import info3.game.modele.MoveableEntityClass.PiratePlayer;
 import info3.game.modele.MoveableEntityClass.BoatPlayer;
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
 import info3.game.modele.MoveableEntityClass.Player;
 import info3.game.modele.MoveableEntityClass.Scythe;
 import info3.game.modele.MoveableEntityClass.Sword;
+import info3.game.modele.StillEntityClass.CloudCluster;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIBarrePointDeVie;
 import info3.game.vue.toolkitUI.UIBarreVieMer;
@@ -78,13 +80,93 @@ public class PlayingView extends View {
 						GameModele.player1.getY());
 			} else {
 				GameModele.map.getRepresentation().paint(g, width, height,
-						(GameModele.player1.getX() + width + GameModele.player2.getX()) / 2,
-						(GameModele.player1.getY() + height + GameModele.player2.getY()) / 2);
+						(GameModele.player1.getX() + GameModele.player2.getX()) / 2,
+						(GameModele.player1.getY() + GameModele.player2.getY()) / 2);
 			}
 		}
-
-		for (Entity entity : GameModele.entities) {
-			entity.getAvatar().paint(g, width, height);
+		
+		if (GameModele.solo) {
+			for (Entity entity : GameModele.entities) {
+				if (entity.getY()>=GameModele.player1.getY()) {
+					if (entity instanceof CloudCluster) {
+						for (Entity cloud : ((CloudCluster)entity).getClouds()) {
+							cloud.getAvatar().paint(g, width, height);
+						}
+					}
+					else{
+						entity.getAvatar().paint(g, width, height);
+					}
+				}
+			}
+			
+			if (!GameModele.onSea)
+				GameModele.player1.getAvatar().paint(g, width, height);
+			
+			for (Entity entity : GameModele.entities) {
+				if (entity.getY()<GameModele.player1.getY()) {
+					if (entity instanceof CloudCluster) {
+						for (Entity cloud : ((CloudCluster)entity).getClouds()) {
+							cloud.getAvatar().paint(g, width, height);
+						}
+					}
+					else{
+						entity.getAvatar().paint(g, width, height);
+					}
+				}
+			}
+		}else { // Mode 2 joueurs
+			PiratePlayer higher, lower;
+			if (GameModele.player1.getY() >= GameModele.player2.getY()) {
+				higher = GameModele.player2;
+				lower = GameModele.player1;
+			}else {
+				higher = GameModele.player1;
+				lower = GameModele.player2;
+			}
+			for (Entity entity : GameModele.entities) {
+				if (entity.getY()>higher.getY()) {
+					if (entity instanceof CloudCluster) {
+						for (Entity cloud : ((CloudCluster)entity).getClouds()) {
+							cloud.getAvatar().paint(g, width, height);
+						}
+					}
+					else{
+						entity.getAvatar().paint(g, width, height);
+					}
+				}
+			}
+			if (!GameModele.onSea)
+				higher.getAvatar().paint(g, width, height);
+			
+			for (Entity entity : GameModele.entities) {
+				if (entity.getY()>= lower.getY()) {
+					if (entity instanceof CloudCluster) {
+						for (Entity cloud : ((CloudCluster)entity).getClouds()) {
+							cloud.getAvatar().paint(g, width, height);
+						}
+					}
+					else{
+						entity.getAvatar().paint(g, width, height);
+					}
+				}
+			}
+			if (!GameModele.onSea)
+				lower.getAvatar().paint(g, width, height);
+			
+			for (Entity entity : GameModele.entities) {
+				if (entity.getY()<lower.getY()) {
+					if (entity instanceof CloudCluster) {
+						for (Entity cloud : ((CloudCluster)entity).getClouds()) {
+							cloud.getAvatar().paint(g, width, height);
+						}
+					}
+					else{
+						entity.getAvatar().paint(g, width, height);
+					}
+				}
+			}
+			
+			
 		}
 
 		// ****************************************//
@@ -120,6 +202,7 @@ public class PlayingView extends View {
 		if (Controller.getBuffer()[77]) { // Quand M push
 			GameModele.map.getMiniMap().paint(g, width, height);
 		}
+		GameModele.map.getSectionTitle().paint(g, width, height);
 	}
 
 }

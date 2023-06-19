@@ -135,6 +135,9 @@ public class GameModeView extends View {
 		addComponent(title);
 		addComponent(buttonSolo);
 		addComponent(buttonCoop);
+		if (GameModele.user!=null) {
+			addComponent(new UILabel(10, 30, "Connected as @"+GameModele.user.getUsername(), FONT4, Color.black));
+		}
 	}
 
 	@Override
