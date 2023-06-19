@@ -9,24 +9,32 @@ import java.util.ArrayList;
 import info3.game.Controller;
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
+import info3.game.modele.GameTimer;
 import info3.game.modele.Weapon;
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
+import info3.game.modele.MoveableEntityClass.BoatPlayer;
+import info3.game.modele.MoveableEntityClass.PiratePlayer;
+import info3.game.modele.MoveableEntityClass.Player;
 import info3.game.modele.MoveableEntityClass.Scythe;
 import info3.game.modele.MoveableEntityClass.Sword;
 import info3.game.modele.StillEntityClass.CloudCluster;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIBarrePointDeVie;
+import info3.game.vue.toolkitUI.UIBarreVieMer;
+import info3.game.vue.toolkitUI.UIBarreVieTerre;
 import info3.game.vue.toolkitUI.UIBox;
 import info3.game.vue.toolkitUI.UIBoxes;
 import info3.game.vue.toolkitUI.UIImage;
+import info3.game.vue.toolkitUI.UILabel;
 
 public class PlayingView extends View {
 
-	UIBarrePointDeVie life;
-	UIBoxes weapons;
+	UIBarrePointDeVie barreVieMer, barreVieTerre;
+	UIBoxes cannonBallBox;
 	UIBox boxSword, boxScythe;
+	UILabel labelTimer;
 
-	int k;
+	UIBox weaponPlayer1, weaponPlayer2;
 
 	public PlayingView(GameView gv) {
 		super(gv);
@@ -34,24 +42,29 @@ public class PlayingView extends View {
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
 
-		life = new UIBarrePointDeVie();
+		GameModele.timer = new GameTimer();
 
-		weapons = new UIBoxes((windowWidth - 100) / 2, windowHeight - 114);
+		barreVieTerre = new UIBarreVieTerre(0, 0);
+		barreVieMer = new UIBarreVieMer(0, 0);
+		labelTimer = new UILabel(windowWidth / 2, 25, "0'", FONT4, Color.black);
+
+		cannonBallBox = new UIBoxes((windowWidth - 100) / 2, windowHeight - 114);
 		boxSword = new UIBox(64, Sword.getInstance(), new UIImage(0, 0, "resources/img/Sword.png", 1F));
 		boxScythe = new UIBox(64, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 1F));
-		weapons.addBox(boxSword);
-		weapons.addBox(boxScythe);
+		cannonBallBox.addBox(boxSword);
+		cannonBallBox.addBox(boxScythe);
 
-		k = 0;
-
-		addComponent(weapons);
+		addComponent(cannonBallBox);
 	}
 
 	@Override
 	public void tick(long elapsed) {
+
 		for (Entity entity : GameModele.entities) {
 			entity.getAvatar().tick(elapsed);
 		}
+
+		GameModele.timer.updateTimer(elapsed);
 	}
 
 	@Override
@@ -67,8 +80,8 @@ public class PlayingView extends View {
 						GameModele.player1.getY());
 			} else {
 				GameModele.map.getRepresentation().paint(g, width, height,
-						(GameModele.player1.getX() + width + GameModele.player2.getX()) / 2,
-						(GameModele.player1.getY() + height + GameModele.player2.getY()) / 2);
+						(GameModele.player1.getX() + GameModele.player2.getX()) / 2,
+						(GameModele.player1.getY() + GameModele.player2.getY()) / 2);
 			}
 		}
 		
@@ -155,9 +168,36 @@ public class PlayingView extends View {
 			
 			
 		}
-		
-		life.paint(g);
-		weapons.paint(g);
+
+		// ****************************************//
+		// Components
+		// ***************************************//
+
+		if (GameModele.onSea) {
+			barreVieMer.setPositionX(20);
+			barreVieMer.setPositionY(15);
+			barreVieMer.setWidth(150);
+			barreVieMer.paint(g);
+
+			barreVieTerre.setPositionX(20);
+			barreVieTerre.setPositionY(50);
+			barreVieTerre.setWidth(75);
+			barreVieTerre.paint(g);
+		} else {
+			barreVieTerre.setPositionX(20);
+			barreVieTerre.setPositionY(15);
+			barreVieTerre.setWidth(150);
+			barreVieTerre.paint(g);
+
+			barreVieMer.setPositionX(20);
+			barreVieMer.setPositionY(50);
+			barreVieMer.setWidth(75);
+			barreVieMer.paint(g);
+		}
+
+		cannonBallBox.paint(g);
+		labelTimer.setText(GameModele.timer.toString());
+		labelTimer.paint(g);
 
 		if (Controller.getBuffer()[77]) { // Quand M push
 			GameModele.map.getMiniMap().paint(g, width, height);

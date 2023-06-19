@@ -41,6 +41,8 @@ import info3.game.vue.avatar.BoatPlayerAvatar;
 import info3.game.vue.avatar.Player1;
 import info3.game.vue.avatar.Player2;
 import info3.game.vue.avatar.RedCrossAvatar;
+import info3.game.vue.avatar.TreeAvatar;
+import info3.game.vue.view.BeforePlayingView;
 
 public class GameModele {
 
@@ -53,6 +55,8 @@ public class GameModele {
 	public static PiratePlayer player2;
 
 	public static BoatPlayer pirateBoat;
+	
+	public static GameTimer timer;
 
 	public static boolean onSea = true;
 
@@ -135,11 +139,17 @@ public class GameModele {
 
 			player1 = new PiratePlayer(GameEntity.Player1);
 			player1.setAvatar(new Player1(player1));
+			player1.setWeapon(BeforePlayingView.weapon1);
 			// GameModele.entities.add(player1);
 			if (!solo) {
-				player2 = new PiratePlayer(GameEntity.Player2);
+				player1 = new PiratePlayer(GameEntity.Player2);
+				player1.setAvatar(new Player1(player1));
+				
+				player2 = new PiratePlayer(GameEntity.Player1);
 				player2.setAvatar(new Player2(player2));
-				// GameModele.entities.add(player2);
+			} else {
+				player1 = new PiratePlayer(GameEntity.Player1);
+				player1.setAvatar(new Player1(player1));
 			}
 
 			pirateBoat = new BoatPlayer(
@@ -211,6 +221,10 @@ public class GameModele {
 				return (player1.getY()+player2.getY())/2;
 			}
 		}
+	}
+	
+	private void updateTimer(int e) {
+		
 	}
 
 	void genereEntity(Map map) {

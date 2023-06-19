@@ -2,7 +2,7 @@ package info3.game.modele;
 
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
 
-public abstract class Weapon {
+public abstract class Weapon extends Entity{
 	
 	public static String Sword = "Sword";
 	public static String Scythe = "Scythe";

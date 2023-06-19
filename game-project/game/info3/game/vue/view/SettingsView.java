@@ -38,7 +38,7 @@ public class SettingsView extends View {
 		automataView.setVisible(false);
 		automataViewOpen = false;
 
-		title = new UITitle(windowWidth, windowHeight, "Settings", FONT2, Color.white);
+		title = new UITitle(windowWidth, windowHeight, "Settings", FONT2, Color.black);
 		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Back", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_RED);
 		
