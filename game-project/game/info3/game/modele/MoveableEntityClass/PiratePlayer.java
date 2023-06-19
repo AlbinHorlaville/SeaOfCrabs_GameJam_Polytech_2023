@@ -4,6 +4,7 @@ import automate.AutomateLoader;
 import automate.EnumCategory;
 import automate.EnumDirection;
 import info3.game.modele.Entity;
+import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.Weapon;
 import info3.game.modele.map.Tiles;
@@ -39,9 +40,9 @@ public class PiratePlayer extends Player {
 		//weapon.setPlayer(this);
 	}
 	
-	public PiratePlayer(String string) {
+	public PiratePlayer(GameEntity entity) {
 		super(DEFAULT_PIRATEPLAYER_LIFE_POINT, DEFAULT_PIRATEPLAYER_DAMAGE, DEFAULT_MAX_PLAYERS_LIFE );		//The good one
-		this.automate = AutomateLoader.findAutomate(string);
+		this.automate = AutomateLoader.findAutomate(entity);
 		this.current_state = automate.initial_state;
 		facing = EnumDirection.N;
 		this.m_attackspeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
