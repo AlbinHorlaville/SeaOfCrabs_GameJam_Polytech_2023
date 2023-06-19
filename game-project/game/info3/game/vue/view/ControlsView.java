@@ -180,6 +180,9 @@ public class ControlsView extends View{
 		addComponent(switchCommand);
 		addComponent(title);
 		addComponent(labelCmdGenerales);
+		if (GameModele.user!=null) {
+			addComponent(new UILabel(10, 30, "Connected as @"+GameModele.user.getUsername(), FONT4, Color.black));
+		}
 	}
 	
 	@Override

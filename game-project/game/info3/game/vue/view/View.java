@@ -27,6 +27,7 @@ public abstract class View {
 	protected static final Font FONT2 = new Font(GameView.customFont.getFontName(), Font.PLAIN, 100);
 	protected static final Font FONT3 = new Font(GameView.customFont.getFontName(), Font.PLAIN, 50);
 	protected static final Font FONT4 = new Font(GameView.customFont.getFontName(), Font.PLAIN, 30);
+	protected static final Font FONT5 = new Font(GameView.customFont.getFontName(), Font.PLAIN, 20);
 	
 	
 	public View(GameView gv) {

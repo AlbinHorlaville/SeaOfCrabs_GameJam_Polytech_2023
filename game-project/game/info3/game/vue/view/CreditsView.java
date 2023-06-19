@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import info3.game.GameState;
+import info3.game.modele.GameModele;
 import info3.game.vue.GameView;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
@@ -80,6 +81,9 @@ public class CreditsView extends View {
 		addComponent(buttonRetour);
 		addComponent(title);
 		addComponent(creditsPanel);
+		if (GameModele.user!=null) {
+			addComponent(new UILabel(10, 30, "Connected as @"+GameModele.user.getUsername(), FONT4, Color.black));
+		}
 	}
 
 	public void paint(Graphics g, int width, int height) {
