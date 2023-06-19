@@ -158,11 +158,11 @@ public class Tiles {
 	public boolean isMoutain() {
 		return this.type == EnumTiles.MOUTAIN;
 	}
-	
+
 	public boolean isTreasur() {
 		return this.type == EnumTiles.TREASUR;
 	}
-	
+
 	public boolean isPooton() {
 		return this.type == EnumTiles.PONTOON;
 	}
@@ -198,5 +198,10 @@ public class Tiles {
 				|| this.type == EnumTiles.TRANSITION_GRASS_ANGLE_SAND_TOP_RIGHT
 				|| this.type == EnumTiles.TRANSITION_GRASS_ANGLE_SAND_BOTTOM_LEFT
 				|| this.type == EnumTiles.TRANSITION_GRASS_ANGLE_SAND_BOTTOM_RIGHT;
+	}
+
+	public boolean isBoatEnnemi() {
+		return this.type == EnumTiles.CALM_SEA_ENNEMIE || this.type == EnumTiles.RAGING_SEA_ENNEMIE
+				|| this.type == EnumTiles.STORMY_SEA_ENNEMIE;
 	}
 }

@@ -76,7 +76,7 @@ public class MiniMap {
 				if (!(i == tilesY && j == tilesX)) {
 					Tiles tile = this.map[currentSection].getTiles()[i][j];
 					if (tile.isIsland() || tile.notIslandAndNotWater() || tile.isIslandObstacle()
-							|| tile.isSeaChest()) {
+							|| tile.isSeaChest() || tile.isBoatEnnemi()) {
 						if (tile.isGrass()) {
 							g.setColor(Color.green);
 						} else if (tile.isTreasur()) {
@@ -91,6 +91,8 @@ public class MiniMap {
 							g.setColor(Color.gray);
 						} else if (tile.isPooton()) {
 							g.setColor(new Color(88, 41, 0));
+						}else if (tile.isBoatEnnemi()) {
+							g.setColor(Color.orange);
 						} else {
 							g.setColor(Color.black);
 						}

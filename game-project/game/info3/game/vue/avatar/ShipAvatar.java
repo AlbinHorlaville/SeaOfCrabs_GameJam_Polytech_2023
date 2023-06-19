@@ -7,18 +7,39 @@ import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
+import info3.game.modele.MoveableEntityClass.Ship;
 
 public class ShipAvatar extends Avatar {
 
 	public ShipAvatar(Entity entity) {
 		super(entity);
-		m_images = SpriteLoader.get(SpriteType.PirateBoat);
+		m_images = SpriteLoader.get(SpriteType.PirateBoatEnnemie);
 		imageIndex = 0;
 	}
 
 	@Override
 	public void tick(long elapsed) {
 		// TODO Auto-generated method stub
+		/*switch (((Ship) this.entity).getFacing()) {
+		case E:
+		case SE:
+		case NE:
+			this.imageIndex = 1;
+			break;
+		case SW:
+		case NW:
+		case W:
+			this.imageIndex = 0;
+			break;
+		case S:
+			this.imageIndex = 2;
+			break;
+		case N:
+			this.imageIndex = 3;
+			break;
+		default:
+			break;
+		}*/
 
 	}
 

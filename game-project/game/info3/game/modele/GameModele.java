@@ -56,7 +56,7 @@ public class GameModele {
 	public static PiratePlayer player2;
 
 	public static BoatPlayer pirateBoat;
-	
+
 	public static GameTimer timer;
 
 	public static boolean onSea = true;
@@ -88,11 +88,11 @@ public class GameModele {
 		}
 		for (Entity entity : entities) {
 			if (entity instanceof CloudCluster) {
-				for (Entity cloud : ((CloudCluster)entity).getClouds()) {
+				for (Entity cloud : ((CloudCluster) entity).getClouds()) {
 					cloud.step();
 					cloud.tick(elapsed);
 				}
-			}else {
+			} else {
 				entity.step();
 				entity.tick(elapsed);
 			}
@@ -100,12 +100,12 @@ public class GameModele {
 		ArrayList<Entity> newEntities = new ArrayList<>();
 		for (Entity entity : entities) {
 			if (entity instanceof CloudCluster) {
-				for (Entity cloud : ((CloudCluster)entity).getClouds()) {
-					if(!cloud.current_state.isDead())
+				for (Entity cloud : ((CloudCluster) entity).getClouds()) {
+					if (!cloud.current_state.isDead())
 						newEntities.add(cloud);
 				}
-			}else {
-				if(!entity.current_state.isDead())
+			} else {
+				if (!entity.current_state.isDead())
 					newEntities.add(entity);
 			}
 
@@ -113,13 +113,14 @@ public class GameModele {
 		entities = newEntities;
 		// System.out.print("\n\n x : " +
 		// -map.getMap()[0].getTiles()[26][map.getSectionWidth() / 2].getX() + "\n\n");
-		/*System.out.print("\n\n x : "
-				+ this.map.transpoXCoordinateToTile(this.pirateBoat.getX(), this.pirateBoat.getY())
-				+ "\n\n");
-		System.out.print("tt:" + this.map.getSectionWidth()/2);
-		System.out.print("\n\n YYYY : "
-				+ this.map.transpoYCoordinateToTile(this.pirateBoat.getX(), this.pirateBoat.getY())
-				+ "\n\n");*/
+		/*
+		 * System.out.print("\n\n x : " +
+		 * this.map.transpoXCoordinateToTile(this.pirateBoat.getX(),
+		 * this.pirateBoat.getY()) + "\n\n"); System.out.print("tt:" +
+		 * this.map.getSectionWidth()/2); System.out.print("\n\n YYYY : " +
+		 * this.map.transpoYCoordinateToTile(this.pirateBoat.getX(),
+		 * this.pirateBoat.getY()) + "\n\n");
+		 */
 	}
 
 	public GameState getCurrentState() {
@@ -145,7 +146,7 @@ public class GameModele {
 			if (!solo) {
 				player1 = new PiratePlayer(GameEntity.Player2);
 				player1.setAvatar(new Player1(player1));
-				
+
 				player2 = new PiratePlayer(GameEntity.Player1);
 				player2.setAvatar(new Player2(player2));
 			} else {
@@ -159,7 +160,7 @@ public class GameModele {
 			pirateBoat.setAvatar(new BoatPlayerAvatar(pirateBoat));
 			GameModele.entities.add(pirateBoat);
 			map = new Map(s);
-			
+
 			genereEntity(map);
 		}
 	}
@@ -199,7 +200,7 @@ public class GameModele {
 			setCurrentState(GameState.ChoixGameplay);
 		}
 	}
-	
+
 	public static int getCurrentPlayerX() {
 		if (onSea) {
 			return pirateBoat.getX();
@@ -207,11 +208,11 @@ public class GameModele {
 			if (solo) {
 				return player1.getX();
 			} else {
-				return (player1.getX()+player2.getX())/2;
+				return (player1.getX() + player2.getX()) / 2;
 			}
 		}
 	}
-	
+
 	public static int getCurrentPlayerY() {
 		if (onSea) {
 			return pirateBoat.getY();
@@ -219,13 +220,13 @@ public class GameModele {
 			if (solo) {
 				return player1.getY();
 			} else {
-				return (player1.getY()+player2.getY())/2;
+				return (player1.getY() + player2.getY()) / 2;
 			}
 		}
 	}
-	
+
 	private void updateTimer(int e) {
-		
+
 	}
 
 	void genereEntity(Map map) {
@@ -236,26 +237,29 @@ public class GameModele {
 		for (int k = 0; k < nbSection; k++) {
 			boolean crab = false; // Boolean to spawn only once
 			boolean treasure = false; // Boolean to spawn only once
-			for (int i = 0; i < mapHeight ; i++) {
-				for (int j = 0; j < mapWidth ; j++) {
+			for (int i = 0; i < mapHeight; i++) {
+				for (int j = 0; j < mapWidth; j++) {
 					Tiles Current = map.getMap()[k].getTiles()[i][j];
 					Entity newEntity;
 					if (Current.getType() == EnumTiles.TREASUR && treasure == false) {
 						treasure = true;
 						newEntity = new RedCross(map.getMap()[k]);
-						newEntity.setLocation(Current.getX(),Current.getY());
+						newEntity.setLocation(Current.getX(), Current.getY());
 						newEntity.setAvatar(new RedCrossAvatar(newEntity)); // TODO Mettre dans le constructeur
 						entities.add(newEntity);
-					} 
-					else if (Current.getType() == EnumTiles.CRAB_SPAWNER && crab == false) {
+					} else if (Current.getType() == EnumTiles.CRAB_SPAWNER && crab == false) {
 						crab = true;
-						newEntity = new CrabLair(k, map.getMap()[k], Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le numéro																				// de section) avec 20 points de vie
-						//newEntity.setLocation(Current.getX(),Current.getY());
+						newEntity = new CrabLair(k, map.getMap()[k], Current.getX(), Current.getY()); // Créer 10 crabes
+																										// de niveau k
+																										// (le numéro //
+																										// de section)
+																										// avec 20
+																										// points de vie
+						// newEntity.setLocation(Current.getX(),Current.getY());
 						entities.add(newEntity);
-					}
-					else if (Current.getType() == EnumTiles.TREE) {
+					} else if (Current.getType() == EnumTiles.TREE) {
 						newEntity = new Tree();
-						newEntity.setLocation(Current.getX(),Current.getY());
+						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);
 					}
 //					else if (Current.getType() == EnumTiles.RAGING_SEA_CHEST || Current.getType() == EnumTiles.STORMY_SEA_CHEST || Current.getType() == EnumTiles.CALM_SEA_CHEST) {
@@ -264,9 +268,11 @@ public class GameModele {
 //						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le numéro
 //						entities.add(newEntity);
 //					} 
-					else if (Current.getType() == EnumTiles.CALM_SEA_ENNEMIE || Current.getType() == EnumTiles.STORMY_SEA_ENNEMIE || Current.getType() == EnumTiles.RAGING_SEA_ENNEMIE) {
-						newEntity = new Ship(k); 											
-						newEntity.setLocation(Current.getX(),Current.getY());
+					else if (Current.getType() == EnumTiles.CALM_SEA_ENNEMIE
+							|| Current.getType() == EnumTiles.STORMY_SEA_ENNEMIE
+							|| Current.getType() == EnumTiles.RAGING_SEA_ENNEMIE) {
+						newEntity = new Ship(k);
+						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);
 					}
 				}
