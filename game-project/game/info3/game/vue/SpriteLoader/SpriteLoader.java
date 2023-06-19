@@ -42,7 +42,7 @@ public class SpriteLoader {
 
 		load(SpriteType.Buttons, "assets/img/toolkit/buttons.png", 2, 6);
 		load(SpriteType.Player1, "assets/img/player/" + "J1.png", 4, 4);
-		load(SpriteType.Player2, "assets/img/player/" + "J1.png", 4, 4);
+		load(SpriteType.Player2, "assets/img/player/" + "J2.png", 4, 4);
 		load(SpriteType.PirateBoat, "assets/img/player/" + "Boat.png", 1, 2);
 		load(SpriteType.Crabslair, "assets/img/BadGuys/" + "Crabslair.png", 1, 2);
 		load(SpriteType.RedCross, "assets/img/autre/" + "RedCross.png", 1, 1);
@@ -53,6 +53,8 @@ public class SpriteLoader {
 		load(SpriteType.CrabKing, "assets/img/ennemi/" + "CrabeKing.png", 1, 1);
 		load(SpriteType.LandTreasure, "assets/img/autre/" + "Coffre_dirt_sand.png", 1, 1);
 		load(SpriteType.SeaTreasure, "assets/img/autre/" + "Coffre_sea.png", 1, 1);
+		load(SpriteType.Sword, "resources/img/" + "Sword.png", 1, 1);
+		load(SpriteType.Scythe, "resources/img/" + "Scythe.png", 1, 1);
 	}
 
 	/*

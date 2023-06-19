@@ -29,7 +29,7 @@ public class GameModeView extends View {
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
 
-		title = new UITitle(windowWidth, windowHeight, "Select a game mode", FONT2, Color.white);
+		title = new UITitle(windowWidth, windowHeight, "Select a game mode", FONT2, Color.black);
 
 		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Back", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_RED);

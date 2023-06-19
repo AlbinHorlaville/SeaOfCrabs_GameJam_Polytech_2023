@@ -19,7 +19,7 @@ public class BoatPlayer extends Player {
 
 	private static final int DEFAULT_MAX_BOATPLAYER_LIFE_POINT = 100;
 
-	public static final int DEFAULT_BOATPLAYER_SPEED = 1;
+	public static final int DEFAULT_BOATPLAYER_SPEED = 10;
 
 	public BoatPlayer() {
 		super(DEFAULT_BOATPLAYER_LIFE_POINT, 0, DEFAULT_MAX_BOATPLAYER_LIFE_POINT);
@@ -86,7 +86,15 @@ public class BoatPlayer extends Player {
 			GameModele.entities.remove(this);
 			GameModele.player1.setLocation(under.getX(), under.getY());
 			GameModele.player1.facing = this.facing;
+			
+			if (!GameModele.solo) {
+				GameModele.player2.setLocation(under.getX(), under.getY());
+				GameModele.player2.facing = this.facing;
+				GameModele.entities.add(GameModele.player2);
+			}
+			
 			GameModele.entities.add(GameModele.player1);
+			GameModele.entities.add(Sword.getInstance());
 			GameModele.onSea = !GameModele.onSea;
 		}
 

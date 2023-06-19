@@ -40,7 +40,7 @@ public class Crab extends Ennemy {
 		this.m_healthPoints *= this.m_coeff;
 		this.m_damage *= this.m_coeff;
 		this.m_crabLair = crabLair;
-		this.automate = AutomateLoader.findAutomate("Crab");
+		this.automate = AutomateLoader.findAutomate(GameEntity.Crab);
 		this.current_state = automate.initial_state;
 		GameModele.entities.add(this);
 		

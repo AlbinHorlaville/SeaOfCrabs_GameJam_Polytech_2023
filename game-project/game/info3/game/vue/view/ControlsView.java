@@ -55,9 +55,9 @@ public class ControlsView extends View{
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
 
-		title = new UITitle(windowWidth, windowHeight, "Player 1's controls", FONT2, Color.white);
+		title = new UITitle(windowWidth, windowHeight, "Player 1's controls", FONT2, Color.black);
 		
-		labelCmdGenerales = new UILabel(460, 490, "General controls", FONT1, Color.white);
+		labelCmdGenerales = new UILabel(460, 490, "General controls", FONT1, Color.black);
 
 		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Back", FONT1, Color.black),UIButton.BACKGROUND_COLOR_RED);
 		switchCommand = new UIButton(50, windowHeight - 200, 200,70, new UILabel(0, 0, "See player 2", FONT1, Color.black),UIButton.BACKGROUND_COLOR_YELLOW);

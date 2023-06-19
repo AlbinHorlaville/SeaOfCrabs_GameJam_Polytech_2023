@@ -44,7 +44,7 @@ public class MenuView extends View {
 		buttonCredits = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,70,
 				new UILabel(0, 0, "Credits", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
 
-		title = new UITitle(windowWidth, windowHeight, "SEA OF CRABS", FONT2, Color.white);
+		title = new UITitle(windowWidth, windowHeight, "SEA OF CRABS", FONT2, Color.black);
 
 		buttonPlay.setUIComponentListener(new UIComponentListener() {
 
