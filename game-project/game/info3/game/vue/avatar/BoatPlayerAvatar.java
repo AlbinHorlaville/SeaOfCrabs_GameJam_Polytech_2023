@@ -29,6 +29,13 @@ public class BoatPlayerAvatar extends Avatar {
 		case NW:
 		case W:
 			this.imageIndex = 0;
+			break;
+		case S:
+			this.imageIndex = 2;
+			break;
+		case N:
+			this.imageIndex = 3;
+			break;
 		default:
 			break;
 		}
