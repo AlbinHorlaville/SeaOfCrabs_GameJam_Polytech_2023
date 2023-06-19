@@ -54,7 +54,7 @@ public class Crab extends Ennemy {
 		PiratePlayer closestPlayer = this.closestPirateToMe();
 		
 		//Get next coordinate
-		int nextX = this.x + (closestPlayer.x - this.x) * 1;
+		int nextX = this.x - (this.x - closestPlayer.x) * 1;
 		int nextY = this.y + (this.y - closestPlayer.y) * 1;
 		
 		//Can the the tile be moved on buy a crab
@@ -67,13 +67,17 @@ public class Crab extends Ennemy {
 
 	
 	private PiratePlayer closestPirateToMe() {
-		double distanceP1 = Math.sqrt(Math.pow(this.x - GameModele.player1.x,2) + Math.pow(this.y - GameModele.player1.y,2));
-		double distanceP2 = Math.sqrt(Math.pow(this.x - GameModele.player2.x,2) + Math.pow(this.y - GameModele.player2.y,2));
 		
-		if(distanceP1 < distanceP2) {
-			return GameModele.player1;
-		}
-		return GameModele.player2;
+		// A jouter pour le mode 2 joueurs
+//		double distanceP1 = Math.sqrt(Math.pow(this.x - GameModele.player1.x,2) + Math.pow(this.y - GameModele.player1.y,2));
+//		double distanceP2 = Math.sqrt(Math.pow(this.x - GameModele.player2.x,2) + Math.pow(this.y - GameModele.player2.y,2));
+//		
+//		if(distanceP1 < distanceP2) {
+//			return GameModele.player1;
+//		}
+//		return GameModele.player2;
+		
+		return GameModele.player1;
 	}
 
 	public void die() {
