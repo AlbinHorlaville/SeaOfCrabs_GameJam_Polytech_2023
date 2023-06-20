@@ -34,6 +34,7 @@ public class MapRepresentation {
 	private BufferedImage pontoonImage;
 	private BufferedImage moutainImage;
 	private BufferedImage defaultImage;
+	private BufferedImage crabKingLandImage;
 
 	private BufferedImage[] grassTransitionOneSide;
 	private BufferedImage[] grassTransitionTwoSide;
@@ -81,6 +82,13 @@ public class MapRepresentation {
 			this.defaultImage = ImageIO.read(imageFile);
 			this.defaultImage = resize(this.defaultImage, this.defaultImage.getWidth() * scale,
 					this.defaultImage.getHeight() * scale);
+		}
+		
+		imageFile = new File("assets/img/tiles/crabKingLand.png");
+		if (imageFile.exists()) {
+			this.crabKingLandImage = ImageIO.read(imageFile);
+			this.crabKingLandImage = resize(this.crabKingLandImage, this.crabKingLandImage.getWidth() * scale,
+					this.crabKingLandImage.getHeight() * scale);
 		}
 		
 		imageFile = new File("assets/img/tiles/moutain.png");
@@ -408,6 +416,7 @@ public class MapRepresentation {
 							positionY += (int) waveOffset;
 							break;
 						case KRAKEN_WATER:
+						case KRAKEN_TENTACLE:
 							img = krakenWaterImage;
 							positionY += (int) waveOffset;
 							break;
@@ -464,6 +473,10 @@ public class MapRepresentation {
 						case SHELLFISH_3:
 							img = this.sandVariante[2];
 							break;
+						case CRAB_KING_LAND:
+						case CRAB_KING:
+							img = this.crabKingLandImage;
+							break;
 						case TRANSITION_GRASS_ANGLE_SAND_TOP_RIGHT:
 							img = this.grassTransitionAngle[0];
 							break;
@@ -518,7 +531,6 @@ public class MapRepresentation {
 						case TRANSITION_GRASS_UNDER_AND_ON_RIGHT_OF_SAND:
 							img = this.grassTransitionTwoSide[5];// grassUnderAndOnRightOfSand
 							break;
-						case CRAB_KING_LAND:
 						default:
 							img = defaultImage;
 							break;

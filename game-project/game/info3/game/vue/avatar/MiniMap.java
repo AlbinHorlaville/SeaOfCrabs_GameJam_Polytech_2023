@@ -94,7 +94,7 @@ public class MiniMap {
 						}else if (tile.isBoatEnnemi()) {
 							g.setColor(Color.orange);
 						} else if (tile.isCrabLand()) {
-							g.setColor(new Color(88, 41, 0));
+							g.setColor(new Color(255, 140, 0));
 						} else {
 							g.setColor(Color.black);
 						}

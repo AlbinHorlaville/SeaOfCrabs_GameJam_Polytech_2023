@@ -141,6 +141,10 @@ public class Tiles {
 
 	}
 	
+	public boolean isKraken() {
+		return this.type == EnumTiles.KRAKEN_TENTACLE;
+	}
+	
 	public boolean isCrabLand() {
 		return this.type == EnumTiles.CRAB_KING_LAND || this.type == EnumTiles.CRAB_KING;
 	}
