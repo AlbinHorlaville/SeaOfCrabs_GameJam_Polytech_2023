@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import info3.game.GameState;
+import info3.game.SeaOfCrabes;
 import info3.game.modele.GameModele;
 import info3.game.modele.Weapon;
 import info3.game.modele.MoveableEntityClass.Scythe;
@@ -310,8 +311,10 @@ public class BeforePlayingView extends View {
 		addComponent(weaponLabelPlayer2);
 		addComponent(weaponsBoxesPlayer2);
 		addComponent(weaponSelectedLabel2);
-		if (GameModele.user!=null) {
-			addComponent(new UILabel(10, 30, "Connected as @"+GameModele.user.getUsername(), FONT4, Color.black));
+		if (SeaOfCrabes.connectedToDatabase) {
+			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.red));
+		} else {
+			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 		}
 	}
 
