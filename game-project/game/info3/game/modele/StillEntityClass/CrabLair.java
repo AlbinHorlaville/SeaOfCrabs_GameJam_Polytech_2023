@@ -20,7 +20,8 @@ public class CrabLair extends StillEntity{
 	
 	private int m_level;
 	private int m_nbCrabsToEgg;
-	private int m_nbCrabsAlive;
+	private int m_nbCrabsAlive; 
+	private ArrayList<Tiles> m_crabLairTiles;
 	private boolean m_isDead = false;
 	private ArrayList<Tiles> m_tilesForCrabSpanwing;
 	private MapSection m_section;
@@ -70,16 +71,23 @@ public class CrabLair extends StillEntity{
 	}
 	
 	public void egg() {
-		if(this.m_tilesForCrabSpanwing == null) {
-			this.m_tilesForCrabSpanwing = this.defineTilesWhreCrabsCouldSpawn();
-		}		
-		int rand = new Random()
-				.nextInt(this.m_tilesForCrabSpanwing.size());
-		Tiles tile = this.m_tilesForCrabSpanwing.get(rand);
+		if(this.m_crabLairTiles == null) {
+			this.defineCrabLairTiles();
+		}
 		
-		//Create crab and addint it to the List
-		Crab crab = new Crab(this.m_level, this, tile.getX(), tile.getY());
-		this.m_nbCrabsToEgg --;
+		if(this.tick(this.timeElapsed)% 700 == 0) {
+			if(this.m_tilesForCrabSpanwing == null) {
+				this.m_tilesForCrabSpanwing = this.defineTilesWhreCrabsCouldSpawn();
+			}		
+			int rand = new Random()
+					.nextInt(this.m_tilesForCrabSpanwing.size());
+			Tiles tile = this.m_tilesForCrabSpanwing.get(rand);
+			
+			//Create crab and addint it to the List
+			Crab crab = new Crab(this.m_level, this, tile.getX(), tile.getY());
+			this.m_nbCrabsToEgg --;
+		}
+		
 	}
 	
 	private ArrayList<Tiles> defineTilesWhreCrabsCouldSpawn() { 
@@ -102,7 +110,7 @@ public class CrabLair extends StillEntity{
 			
 			//All the tiles below the crabs lair
 			for(int i = 0; i < 5; i++) {
-				Tiles tile = m_section.getTiles()[initY+2][initX+i];
+				Tiles tile = m_section.getTiles()[initY+2][initX-1+i];
 				if(tile.isIsland()) {
 					tilesWhreCrabsCouldSpawn.add(tile);
 				}
@@ -126,6 +134,28 @@ public class CrabLair extends StillEntity{
 			
 			return tilesWhreCrabsCouldSpawn;
 		
+	}
+	
+	private void defineCrabLairTiles() { 
+		
+		//get coordinates of the crabsLair (Top left hand corner)
+		Tiles crabLairTile = GameModele.map.getTileUnderEntity(this.x, this.y);
+		int initX = crabLairTile.getTileX();
+		int initY = crabLairTile.getTileY();
+		
+		//adding all the tiles around the CrabsLair to an arrayList
+		this.m_crabLairTiles = new ArrayList<Tiles>();
+		
+		for (int j = 0; j < 4; j++) {
+			for(int i = 0; i < 6; i++) {
+				Tiles tile = m_section.getTiles()[initY-1+j][initX-1+i];
+					this.m_crabLairTiles.add(tile);
+			}
+		}
+	}
+	
+	public ArrayList<Tiles> getCrabLairTiles(){
+		return this.m_crabLairTiles;
 	}
 
 	public boolean isDead() {

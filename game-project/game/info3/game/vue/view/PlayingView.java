@@ -84,89 +84,84 @@ public class PlayingView extends View {
 						(GameModele.player1.getY() + GameModele.player2.getY()) / 2);
 			}
 		}
-		
+
 		if (GameModele.solo) {
 			for (Entity entity : GameModele.entities) {
-				if (entity.getY()>=GameModele.player1.getY()) {
+				if (entity.getY() >= GameModele.player1.getY()) {
 					if (entity instanceof CloudCluster) {
-						for (Entity cloud : ((CloudCluster)entity).getClouds()) {
+						for (Entity cloud : ((CloudCluster) entity).getClouds()) {
 							cloud.getAvatar().paint(g, width, height);
 						}
-					}
-					else{
+					} else {
 						entity.getAvatar().paint(g, width, height);
 					}
 				}
 			}
-			
+
 			if (!GameModele.onSea)
 				GameModele.player1.getAvatar().paint(g, width, height);
-			
+
 			for (Entity entity : GameModele.entities) {
-				if (entity.getY()<GameModele.player1.getY()) {
+				if (entity.getY() < GameModele.player1.getY()) {
 					if (entity instanceof CloudCluster) {
-						for (Entity cloud : ((CloudCluster)entity).getClouds()) {
+						for (Entity cloud : ((CloudCluster) entity).getClouds()) {
 							cloud.getAvatar().paint(g, width, height);
 						}
-					}
-					else{
+					} else {
 						entity.getAvatar().paint(g, width, height);
 					}
 				}
 			}
-		}else { // Mode 2 joueurs
+		} else { // Mode 2 joueurs
 			PiratePlayer higher, lower;
-			if (GameModele.player1.getY() >= GameModele.player2.getY()) {
+			if (GameModele.player1.getY() < GameModele.player2.getY()) {
 				higher = GameModele.player2;
 				lower = GameModele.player1;
-			}else {
+			} else {
 				higher = GameModele.player1;
 				lower = GameModele.player2;
 			}
 			for (Entity entity : GameModele.entities) {
-				if (entity.getY()>higher.getY()) {
+				if (entity.getY() > higher.getY() && entity != higher && entity != lower) {
 					if (entity instanceof CloudCluster) {
-						for (Entity cloud : ((CloudCluster)entity).getClouds()) {
+						for (Entity cloud : ((CloudCluster) entity).getClouds()) {
 							cloud.getAvatar().paint(g, width, height);
 						}
-					}
-					else{
-						entity.getAvatar().paint(g, width, height);
-					}
-				}
-			}
-			if (!GameModele.onSea)
-				higher.getAvatar().paint(g, width, height);
-			
-			for (Entity entity : GameModele.entities) {
-				if (entity.getY()>= lower.getY()) {
-					if (entity instanceof CloudCluster) {
-						for (Entity cloud : ((CloudCluster)entity).getClouds()) {
-							cloud.getAvatar().paint(g, width, height);
-						}
-					}
-					else{
+					} else {
 						entity.getAvatar().paint(g, width, height);
 					}
 				}
 			}
 			if (!GameModele.onSea)
 				lower.getAvatar().paint(g, width, height);
-			
+
 			for (Entity entity : GameModele.entities) {
-				if (entity.getY()<lower.getY()) {
+				if (entity.getY() >= lower.getY() && entity.getY() <= higher.getY() && entity != higher
+						&& entity != lower) {
 					if (entity instanceof CloudCluster) {
-						for (Entity cloud : ((CloudCluster)entity).getClouds()) {
+						for (Entity cloud : ((CloudCluster) entity).getClouds()) {
 							cloud.getAvatar().paint(g, width, height);
 						}
-					}
-					else{
+					} else {
 						entity.getAvatar().paint(g, width, height);
 					}
 				}
 			}
-			
-			
+			if (!GameModele.onSea)
+				higher.getAvatar().paint(g, width, height);
+
+			for (Entity entity : GameModele.entities) {
+				if (entity.getY() < lower.getY() && entity != higher && entity != lower) {
+					if (entity instanceof CloudCluster) {
+						for (Entity cloud : ((CloudCluster) entity).getClouds()) {
+							cloud.getAvatar().paint(g, width, height);
+						}
+					} else {
+						entity.getAvatar().paint(g, width, height);
+					}
+				}
+			}
+
 		}
 
 		// ****************************************//
