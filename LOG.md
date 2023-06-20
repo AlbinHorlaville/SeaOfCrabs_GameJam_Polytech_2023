@@ -155,38 +155,42 @@
 
 
 # 13 Juin
-
-
-## Répartition des tâches:
-
 - Albin et Alexandre: Toolkit UI/Vue du menu : Finalisation écran de démarrage et implémentation tableau des scores
 - Axel et Emin: Premier tests automates
 - Brice : Sprite Loader
-- Romain : Son du jeu 
+- Romain: Deplacement du joueur dans le modéle (Début de liaison à l'automate) + SoundManager
 - Rémi: Fixer bug vagues
 <br>
 <br>
 
 # 14 Juin
 
-Albin: Ajout de l'interface de commandes pour J1 et J2, Création de la barre de points de vie, Ajout de Sprites
-
+- Albin: Ajout de l'interface de commandes pour J1 et J2, Création de la - - barre de points de vie, Ajout de Sprites
+- Romain: Multi Buffering de touche (On peut appuyer sur plusieurs touche à la fois) + Déplacement du bateau
 # 15 Juin
 
-Albin: Conception d'un modèle de collision entre une arme et une entité (hit box en cône), Implémentation CrabLair (Avatar et génération des entités), Ajout de Sprites
+- Albin: Conception d'un modèle de collision entre une arme et une entité (hit box en cône), Implémentation CrabLair (Avatar et génération des entités), Ajout de Sprites
 
+- Romain: Transition de Bateau à Joueur, application du déplacement 2 joueurs, activation de la minimap
+
+- Brice: Equation de déplacement à deux joueurs 
 # 16 Juin
 
-Albin: Implémentation Tree, avatar, génération des entités dans GameModele, Conception et implémentation Cloud, Fix d'affichage comme alignement des sprites sur les cases de la map, des animations des personnages, ..., Ajout de Sprites
+- Albin: Implémentation Tree, avatar, génération des entités dans GameModele, Conception et implémentation Cloud, Fix d'affichage comme alignement des sprites sur les cases de la map, des animations des personnages, ..., Ajout de Sprites
+
+- Romain:  Générateur D'automate pour chaque entité (Permet de changer les automates de nos entités facilement via ConfigFile) + Génération des entités sur la carte (SpawnerCrab, Crab) + Début de leurs avatars.
 
 
-# 17 Juin
 
-# 18 Juin
+# 17 Juin (Samedi)
+
+# 18 Juin (Dimanche)
 
 # 19 Juin
 
-Albin: Tentative d'implémenter un GIF sur le menu, non fructueuse, les joueurs passent désormais derrière les palmiers si ils sont censés le faire (et autres entités), implémentation Avatar trésor de la mer, bateau ennemi Ajout de Sprites
+- Albin: Tentative d'implémenter un GIF sur le menu, non fructueuse, les joueurs passent désormais derrière les palmiers si ils sont censés le faire (et autres entités), implémentation Avatar trésor de la mer, bateau ennemi Ajout de Sprites
+
+- Romain: Liaison de l'interface graphique de changement d'avatar avec le fichier de config de chargement des automates. Ajout Avatar: Cloud, Ship, SeaTreasure
 
 # 20 Juin
 
