@@ -25,7 +25,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 import info3.game.DAO;
@@ -51,7 +50,7 @@ import info3.game.vue.avatar.BoatPlayerAvatar;
 import info3.game.vue.avatar.Player1;
 import info3.game.vue.avatar.Player2;
 import info3.game.vue.avatar.RedCrossAvatar;
-import info3.game.vue.avatar.TreeAvatar;
+
 import info3.game.vue.view.BeforePlayingView;
 
 public class GameModele {
@@ -141,7 +140,8 @@ public class GameModele {
 				waveTick = 0;
 			}
 		}
-		for (Entity entity : entities) {
+		ArrayList<Entity> tempEntities = (ArrayList)entities.clone();
+		for (Entity entity : tempEntities) {
 			if (entity instanceof CloudCluster) {
 				for (Entity cloud : ((CloudCluster) entity).getClouds()) {
 					cloud.step();
@@ -152,6 +152,7 @@ public class GameModele {
 				entity.tick(elapsed);
 			}
 		}
+		
 		ArrayList<Entity> newEntities = new ArrayList<>();
 		for (Entity entity : entities) {
 			if (entity instanceof CloudCluster) {

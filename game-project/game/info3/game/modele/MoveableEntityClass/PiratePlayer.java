@@ -1,5 +1,7 @@
 package info3.game.modele.MoveableEntityClass;
 
+import java.util.ArrayList;
+
 import automate.AutomateLoader;
 import automate.EnumCategory;
 import automate.EnumDirection;
@@ -55,6 +57,8 @@ public class PiratePlayer extends Player {
 
 			
 	public Weapon weapon;
+	public boolean invincible;
+	public int timerInvicible;
 	
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
@@ -71,6 +75,7 @@ public class PiratePlayer extends Player {
 		this.m_damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
 		this.m_rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
 		this.m_maxHealthCoeff = DEFAULT_MAX_PLAYERS_LIFE_COEFF;
+		this.invincible = false;
 	}
 	
 	
@@ -147,11 +152,12 @@ public class PiratePlayer extends Player {
 		int tempX = this.getCenterX();
 		int tempY = this.getCenterY();
 		Tiles t;
+		ArrayList<Entity> tempEntities = GameModele.entities;
 			switch(c) {
 			case O:
 				t = getTilesForCell(d,tempX, tempY);
 				if(t.isIsland()) {
-					for(Entity e : GameModele.entities) {
+					for(Entity e :tempEntities) {
 						if(!(e instanceof PiratePlayer)) {
 							if(e.x == x) {
 								if(e.y <= this.y && e.y >= tempY) {
@@ -228,6 +234,17 @@ public class PiratePlayer extends Player {
 		this.m_maxHealthCoeff += f;
 		ACTUAL_MAX_PLAYERS_LIFE += lvl;
 	}
+	
+	public void takeDamage(int damage) {
+		int time = GameModele.timer.getSecondes();
+		if(!invincible) {
+			super.takeDamage(damage);
+			invincible = true;
+			timerInvicible = time;
+		}
+		else if(time >= timerInvicible + 1){
+			invincible = false;
+		}
 
 	@Override
 	public void die() {
