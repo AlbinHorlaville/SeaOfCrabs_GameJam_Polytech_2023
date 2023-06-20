@@ -1,4 +1,4 @@
-package info3.game.modele;
+package info3.game;
 
 public class User {
 	

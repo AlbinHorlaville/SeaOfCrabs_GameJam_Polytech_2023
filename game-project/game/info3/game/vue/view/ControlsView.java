@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import info3.game.GameState;
+import info3.game.SeaOfCrabes;
 import info3.game.modele.GameModele;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIButton;
@@ -180,8 +181,10 @@ public class ControlsView extends View{
 		addComponent(switchCommand);
 		addComponent(title);
 		addComponent(labelCmdGenerales);
-		if (GameModele.user!=null) {
-			addComponent(new UILabel(10, 30, "Connected as @"+GameModele.user.getUsername(), FONT4, Color.black));
+		if (SeaOfCrabes.connectedToDatabase) {
+			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.red));
+		} else {
+			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 		}
 	}
 	
