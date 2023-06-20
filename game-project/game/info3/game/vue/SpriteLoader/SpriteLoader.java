@@ -57,6 +57,7 @@ public class SpriteLoader {
 		load(SpriteType.Scythe, "resources/img/" + "Scythe.png", 1, 1);
 		load(SpriteType.PirateBoatEnnemie, "assets/img/ennemi/" + "PirateBoatEnnemie.png", 2, 2);
 		load(SpriteType.Rhum, "assets/img/utilities/" + "Rhum.png", 2, 2);
+		load(SpriteType.Tentacle, "assets/img/ennemi/" + "Crabe.png", 1, 1);
 	}
 
 	/*

@@ -18,5 +18,6 @@ public enum SpriteType {
 	Scythe,
 	PirateBoatEnnemie, 
 	Rhum,
-	Bonus
+	Bonus, 
+	Tentacle
 }

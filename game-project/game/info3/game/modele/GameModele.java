@@ -37,6 +37,7 @@ import info3.game.modele.MoveableEntityClass.BoatPlayer;
 import info3.game.modele.MoveableEntityClass.CrabKing;
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
 import info3.game.modele.MoveableEntityClass.Ship;
+import info3.game.modele.MoveableEntityClass.Tentacle;
 import info3.game.modele.StillEntityClass.CloudCluster;
 import info3.game.modele.StillEntityClass.CrabLair;
 import info3.game.modele.StillEntityClass.RedCross;
@@ -242,9 +243,7 @@ public class GameModele {
 				player1.setWeapon(BeforePlayingView.weapon1);
 				BeforePlayingView.weapon1.setPlayer(player1);
 			}
-			
-			map = new Map(s);
-			
+						
 			pirateBoat = new BoatPlayer(
 					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 13][map.getSectionWidth() / 2].getX(),
 					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 13][map.getSectionWidth() / 2].getY());
@@ -363,7 +362,10 @@ public class GameModele {
 						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.CRAB_KING) {
-						newEntity = new CrabKing(k, 500, 10, 1);
+						newEntity = new CrabKing(k, 500, 10, 1); // TODO CHANGE PARAM
+						newEntity.setLocation(Current.getX(), Current.getY());
+					} else if (Current.getType() == EnumTiles.KRAKEN_TENTACLE) {
+						newEntity = new Tentacle(k, 500, 10, 1); //TODO CHANGE PARAM
 						newEntity.setLocation(Current.getX(), Current.getY());
 					}
 				}
