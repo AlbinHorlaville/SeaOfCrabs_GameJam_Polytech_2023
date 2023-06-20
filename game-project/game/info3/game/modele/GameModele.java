@@ -167,6 +167,7 @@ public class GameModele {
 			}
 		}
 		entities = newEntities;
+		
 		// System.out.print("\n\n x : " +
 		// -map.getMap()[0].getTiles()[26][map.getSectionWidth() / 2].getX() + "\n\n");
 		/*
