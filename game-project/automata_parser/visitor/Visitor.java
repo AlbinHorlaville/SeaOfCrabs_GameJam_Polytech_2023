@@ -145,7 +145,7 @@ public class Visitor implements IVisitor{
 		else if(funcall.name.equals("True"))
 			return new True();
 		else if(funcall.name.equals("Closest"))
-			return new Closest();
+			return new Closest(l);
 		else if(funcall.name.equals("GotPower"))
 			return new GotPower();
 		else if(funcall.name.equals("GotStuff"))

@@ -210,4 +210,9 @@ public abstract class Entity {
 		System.out.println("Cette entité n'a pas de fonction egg()");
 	}
 
+	public boolean closest(EnumCategory cat) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

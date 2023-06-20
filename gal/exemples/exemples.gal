@@ -139,6 +139,15 @@ CrabsLair(Init){
   * ()
  }
 
+Ship(Init){
+ * (Init) :
+ | !GotPower ? Pop : ()
+ | Closest(A) ? Hit : (Init)
+ | Closest(V) ? Move : (Init)
+ | True ? : (Init)
+ * ()
+}
+
  Sword(Init){
   * (Init) :
   | True ? Move : (Init)

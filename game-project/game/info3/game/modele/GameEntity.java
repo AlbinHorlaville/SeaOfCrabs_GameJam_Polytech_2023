@@ -12,7 +12,8 @@ public enum GameEntity {
 	CrabsLair,
 	PlayerBoat,
 	Philosopher,
-	CannonBall, 
+	CannonBall,
 	Crab,
+	Ship,
 	Sword
 }
