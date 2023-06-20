@@ -13,7 +13,8 @@ public enum EnumDirection {
 	F("F"),
 	R("R"),
 	L("L"),
-	B("B");
+	B("B"),	
+	H("H");
 	
 	private String m_string;
 	
