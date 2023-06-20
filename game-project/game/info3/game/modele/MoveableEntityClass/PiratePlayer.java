@@ -245,6 +245,7 @@ public class PiratePlayer extends Player {
 		else if(time >= timerInvicible + 1){
 			invincible = false;
 		}
+	}
 
 	@Override
 	public void die() {
