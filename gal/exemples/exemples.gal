@@ -163,3 +163,10 @@ Rhum(Init){
  | True ? : (Init)
  * ()
 }
+
+Cloud(Init){
+  * (Init) :
+  | Cell(H, T) ? : ()
+  | True ? : (Init)
+  * ()
+}
