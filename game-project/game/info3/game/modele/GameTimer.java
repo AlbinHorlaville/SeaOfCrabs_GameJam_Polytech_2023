@@ -74,4 +74,31 @@ public class GameTimer {
 		return time;
 	}
 
+	public String toSQLStringFormat() {
+		String time = new String("");
+		String h = new String("");
+		String m = new String("");
+		String s = new String("");
+
+		if (heures < 10) {
+			h = '0' + Integer.toString(heures);
+		} else {
+			h = Integer.toString(heures);
+		}
+
+		if (minutes < 10) {
+			m = '0' + Integer.toString(minutes);
+		} else {
+			m = Integer.toString(minutes);
+		}
+
+		if (secondes < 10) {
+			s = '0' + Integer.toString(secondes);
+		} else {
+			s = Integer.toString(secondes);
+		}
+
+		time = new String(h + ":" + m + ":" + s);
+		return time;
+	}
 }
