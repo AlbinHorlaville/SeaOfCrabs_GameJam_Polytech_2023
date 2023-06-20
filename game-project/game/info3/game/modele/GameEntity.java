@@ -15,5 +15,5 @@ public enum GameEntity {
 	CannonBall, 
 	Crab,
 	Sword,
-	Bonus
+	Bonus, Rhum
 }

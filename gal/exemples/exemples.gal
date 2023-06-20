@@ -121,7 +121,7 @@ Crab(Init){
  | True ? : (Init)
  * (Moving) :
  | Cell(F,A) ? Hit : (Init)
- | !Cell(F,V) ? Move(O) : (Init) 
+ | !Cell(F,V) ? Move(O) : (Init)
  | True ? Move(F) : (Init)
  * ()
 }
@@ -151,6 +151,13 @@ CrabsLair(Init){
  }
 
 Bonus(Init){
+ * (Init) :
+ | Cell(H,T) ? Power(T) : ()
+ | True ? : (Init)
+ * ()
+}
+
+Rhum(Init){
  * (Init) :
  | Cell(H,T) ? Power(T) : ()
  | True ? : (Init)
