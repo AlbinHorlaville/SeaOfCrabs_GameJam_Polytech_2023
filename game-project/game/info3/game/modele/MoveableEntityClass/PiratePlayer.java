@@ -3,6 +3,7 @@ package info3.game.modele.MoveableEntityClass;
 import automate.AutomateLoader;
 import automate.EnumCategory;
 import automate.EnumDirection;
+import info3.game.Controller;
 import info3.game.modele.Entity;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
@@ -12,6 +13,7 @@ import info3.game.vue.avatar.Avatar;
 
 public class PiratePlayer extends Player {
 	
+	// DEFAULT STAT TO CHANGE
 	private static final int DEFAULT_PIRATEPLAYER_LIFE_POINT = 100;
 	
 	private static final int DEFAULT_PIRATEPLAYER_DAMAGE = 25;
@@ -25,10 +27,17 @@ public class PiratePlayer extends Player {
 	private static final int DEFAULT_PIRATEPLAYER_DAMAGE_COEFF = 1;
 	
 	private static final int DEFAULT_PIRATEPLAYER_RANGE_COEFF = 1;
+
+	private static final int DEFAULT_PIRATEPLAYER_ATTACKSPEED = 1;
+
+	private static final int DEFAULT_PIRATEPLAYER_RANGE = 1;
+
+	private static final int DEFAULT_PIRATEPLAYER_SPEED = 1;
 	
+	// ACTUAL PIRATE STAT
 	private static int ACTUAL_PIRATEPLAYER_LIFE_POINT = 100;
 	
-	public static int ACTUAL_MAX_PLAYERS_LIFE = 1;
+	private static int ACTUAL_MAX_PLAYERS_LIFE = 100;
 	
 	private static int ACTUAL_PIRATEPLAYER_ATTACKSPEED = 1;
 	
@@ -220,11 +229,30 @@ public class PiratePlayer extends Player {
 		ACTUAL_MAX_PLAYERS_LIFE += lvl;
 	}
 
-	public static int getACTUAL_PIRATEPLAYER_LIFE_POINT() {
-		return ACTUAL_PIRATEPLAYER_LIFE_POINT;
+	@Override
+	public void die() {
+		Controller.getGameModele().gameover();
+	}
+	
+	public static void resetPiratePlayer() {
+		//RESET LIFE
+		PiratePlayer.ACTUAL_PIRATEPLAYER_LIFE_POINT = PiratePlayer.DEFAULT_MAX_PLAYERS_LIFE;
+		PiratePlayer.ACTUAL_MAX_PLAYERS_LIFE = PiratePlayer.DEFAULT_MAX_PLAYERS_LIFE;
+		
+		//RESET STAT
+		PiratePlayer.ACTUAL_PIRATEPLAYER_ATTACKSPEED = DEFAULT_PIRATEPLAYER_ATTACKSPEED;
+		PiratePlayer.ACTUAL_PIRATEPLAYER_DAMAGE = DEFAULT_PIRATEPLAYER_DAMAGE;
+		PiratePlayer.ACTUAL_PIRATEPLAYER_RANGE = DEFAULT_PIRATEPLAYER_RANGE;
+		PiratePlayer.ACTUAL_PIRATEPLAYER_SPEED = DEFAULT_PIRATEPLAYER_SPEED;
+		
+		//TODO CAN ADD COEFF ?
 	}
 
-	public static void setACTUAL_PIRATEPLAYER_LIFE_POINT(int life_point) {
-		ACTUAL_PIRATEPLAYER_LIFE_POINT = life_point;
+	public static int getACTUAL_MAX_PLAYERS_LIFE() {
+		return ACTUAL_MAX_PLAYERS_LIFE;
+	}
+
+	public static int getACTUAL_PIRATEPLAYER_LIFE_POINT() {
+		return ACTUAL_PIRATEPLAYER_LIFE_POINT;
 	}
 }
