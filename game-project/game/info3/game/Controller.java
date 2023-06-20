@@ -42,7 +42,6 @@ public class Controller implements GameCanvasListener {
 			gameModele = new GameModele();
 			gameView = new GameView(gameModele, this);
 			gameModele.setGameview(gameView);
-			System.out.println("Current user = "+GameModele.currentUser.getUsername());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
