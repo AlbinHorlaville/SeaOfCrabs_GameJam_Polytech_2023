@@ -143,3 +143,10 @@ CrabsLair(Init){
   * (Init) :
   | True ? Move : (Init)
  }
+
+Bonus(Init){
+ * (Init) :
+ | Cell(H,T) ? Power(T) : ()
+ | True ? : (Init)
+ * ()
+}
