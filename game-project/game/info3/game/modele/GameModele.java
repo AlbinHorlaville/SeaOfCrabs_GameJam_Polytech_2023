@@ -33,6 +33,7 @@ import info3.game.GameState;
 import info3.game.SeaOfCrabes;
 import info3.game.User;
 import info3.game.modele.MoveableEntityClass.BoatPlayer;
+import info3.game.modele.MoveableEntityClass.CrabKing;
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
 import info3.game.modele.MoveableEntityClass.Ship;
 import info3.game.modele.StillEntityClass.CloudCluster;
@@ -166,6 +167,7 @@ public class GameModele {
 			}
 		}
 		entities = newEntities;
+		
 		// System.out.print("\n\n x : " +
 		// -map.getMap()[0].getTiles()[26][map.getSectionWidth() / 2].getX() + "\n\n");
 		/*
@@ -328,6 +330,9 @@ public class GameModele {
 						newEntity = new Ship(k);
 						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);
+					} else if (Current.getType() == EnumTiles.CRAB_KING) {
+						newEntity = new CrabKing(k, 500, 10, 1);
+						newEntity.setLocation(Current.getX(), Current.getY());
 					}
 				}
 			}
