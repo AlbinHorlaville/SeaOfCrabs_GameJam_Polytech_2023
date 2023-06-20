@@ -116,10 +116,16 @@ Player2(Init){
 
 Crab(Init){
  * (Init) :
- | Closest ? Move : (Init)
+ | !GotPower ? : ()
+ | Closest ? : (Moving)
  | True ? : (Init)
+ * (Moving) :
+ | Cell(F,A) ? Hit : (Init)
+ | !Cell(F,V) ? Move(O) : (Init)
+ | True ? Move(F) : (Init)
  * ()
 }
+
 
 CrabsLair(Init){
  * (Init) :
@@ -152,3 +158,24 @@ Ship(Init){
   * (Init) :
   | True ? Move : (Init)
  }
+
+Bonus(Init){
+ * (Init) :
+ | Cell(H,T) ? Power(T) : ()
+ | True ? : (Init)
+ * ()
+}
+
+Rhum(Init){
+ * (Init) :
+ | Cell(H,T) ? Power(T) : ()
+ | True ? : (Init)
+ * ()
+}
+
+Cloud(Init){
+  * (Init) :
+  | Cell(H, T) ? : ()
+  | True ? : (Init)
+  * ()
+}

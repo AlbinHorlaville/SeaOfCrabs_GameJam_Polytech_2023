@@ -15,5 +15,7 @@ public enum GameEntity {
 	CannonBall,
 	Crab,
 	Ship,
-	Sword
+	Bonus,
+	Rhum,
+	Cloud
 }

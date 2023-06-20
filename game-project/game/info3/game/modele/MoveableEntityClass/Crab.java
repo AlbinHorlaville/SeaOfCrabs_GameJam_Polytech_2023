@@ -1,7 +1,5 @@
 package info3.game.modele.MoveableEntityClass;
 
-import java.lang.Math;
-
 import automate.AutomateLoader;
 import automate.EnumCategory;
 import automate.EnumDirection;
@@ -11,7 +9,11 @@ import info3.game.modele.GameModele;
 import info3.game.modele.Level;
 import info3.game.modele.StillEntityClass.CrabLair;
 import info3.game.modele.map.Tiles;
+import info3.game.vue.avatar.Avatar;
 import info3.game.vue.avatar.CrabAvatar;
+import java.lang.Math;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Crab extends Ennemy {
 	
@@ -49,11 +51,98 @@ public class Crab extends Ennemy {
 	}
 
 	public void hit() {
-		//GameModele.player1.takeDamage(DEFAULT_DAMAGE);
+		GameModele.player1.takeDamage(DEFAULT_DAMAGE);
 	}
 	
-	public void move() {
-		//System.out.println("MOVE SANS PARAMETRES");
+	private boolean isNextXPossible() {
+		PiratePlayer closestPlayer = this.closestPirateToMe();
+
+		int nextX = this.x + ((this.x > closestPlayer.x)? -1: 1);
+		
+		Tiles tile = GameModele.map.getTileUnderEntity(nextX,this.y);
+		
+		return tile.isIsland();
+	}
+	
+	public void move(EnumCategory cat) {
+		//Nearer pirate to me 
+		PiratePlayer closestPlayer = this.closestPirateToMe();
+	
+		if(isNextXPossible()) {
+			this.y += ((this.y > closestPlayer.y)? -1: 1);
+		}else {
+			this.x += ((this.x > closestPlayer.x)? -1: 1);
+		}
+		
+	}
+	
+//	public void move(EnumDirection dir) {
+//		System.out.println("MOVE AVEC direction");
+//		//Nearer pirate to me 
+//		PiratePlayer closestPlayer = this.closestPirateToMe();
+//		
+//		//Get next coordinate
+//		int nextX = this.x;
+//		int nextY = this.y;
+//		
+//		//Moving directly to the player
+//		if(dir == EnumDirection.F) {
+//			
+//			nextX += (this.x > closestPlayer.x)? -1: 1;
+//			nextY += (this.y > closestPlayer.y)? -1: 1;
+//			
+//			//Can the the tile be moved on buy a crab
+//			Tiles tile = GameModele.map.getTileUnderEntity(nextX,nextY);
+//			if((int)tick(this.timeElapsed) % 3 == 0) {
+//				this.x = nextX;
+//				this.y = nextY;
+//			}
+//			//moving toward the player while avoiding other crabs
+//		}else if(Math.abs(this.x - closestPlayer.x)  > Math.abs(this.y - closestPlayer.y) && (int)tick(this.timeElapsed) % 3 == 0) { //has more distance to the player in x
+//			if(this.x - closestPlayer.x > 0) { // The crab is above the player
+//				if(dir == EnumDirection.R) { //Going right
+//					nextY --;
+//					this.y = nextY;
+//				}else { //Going left
+//					nextY ++;
+//					this.y = nextY;
+//				}
+//			}else {	//The crab is below the player
+//				if(dir == EnumDirection.R) { //Going right
+//					nextY ++;
+//					this.y = nextY;
+//				}else { //Going left
+//					nextY --;
+//					this.y = nextY;
+//				}
+//			}
+//		}else {	//has more distance to the player in y
+//			if(this.y - closestPlayer.y > 0) { // The crab is above the player
+//				if(dir == EnumDirection.R) { //Going right
+//					nextX ++;
+//					this.x = nextX;
+//				}else { //Going left
+//					nextX --;
+//					this.x = nextX;
+//
+//				}
+//			}else {	//The crab is below the player
+//				if(dir == EnumDirection.R) { //Going right
+//					nextX --;
+//					this.x = nextX;
+//				}else { //Going left
+//					nextX ++;
+//					this.x = nextX;
+//				}
+//			}
+//			
+//		}
+//		
+//	    
+//		
+//	}
+	
+	public void move(EnumDirection dir) {
 		//Nearer pirate to me 
 		PiratePlayer closestPlayer = this.closestPirateToMe();
 		
@@ -61,57 +150,92 @@ public class Crab extends Ennemy {
 		int nextX = this.x;
 		int nextY = this.y;
 		
-		if(this.x > closestPlayer.x)
-			nextX --;
-		else if(this.x < closestPlayer.x)
-			nextX ++;
-		
-		if(this.y > closestPlayer.y)
-			nextY --;
-		else if (this.y < closestPlayer.y)
-			nextY ++;
-		
-//		int nextX = this.x - ((this.x - closestPlayer.x) * 1);
-//		int nextY = this.y - ((this.y - closestPlayer.y) * 1);
-		
-		//Can the the tile be moved on buy a crab
-		Tiles tile = GameModele.map.getTileUnderEntity(nextX,nextY);
-		if(tile.isIsland() &&(int)tick(this.timeElapsed) % 3 == 0) {
+		//Moving directly to the player
+		if(dir == EnumDirection.F) {
+			
+			nextX += (this.x > closestPlayer.x)? -1: 1;
+			nextY += (this.y > closestPlayer.y)? -1: 1;
+			
+			//Can the the tile be moved on buy a crab
+			Tiles tile = GameModele.map.getTileUnderEntity(nextX,nextY);
+			
+			if((int)tick(this.timeElapsed) % 2 == 0) {
 			this.x = nextX;
 			this.y = nextY;
 		}
-	}
-	
-	public void move(EnumDirection dir) {
-		//System.out.println("MOVE AVEC PARAMETRES");
-
-		// Une seule direction possible pour l'instant, aller à droite => test
-		
-		PiratePlayer closestPlayer = this.closestPirateToMe();
-		
-		//Get next coordinate
-		int nextX = this.x;
-		int nextY = this.y;
-		
-		if(this.x > closestPlayer.x)
-			nextX --;
-		else if(this.x < closestPlayer.x)
-			nextX ++;
-		
-		if(this.y > closestPlayer.y)
-			nextY --;
-		else if (this.y < closestPlayer.y)
-			nextY ++;
-		
-		Tiles tileX = GameModele.map.getTileUnderEntity(nextX,this.y);
-		Tiles tileY = GameModele.map.getTileUnderEntity(this.x, nextY);
-		
-		if(!tileX.isIsland()) {
-			this.y ++;
-		}else {
-			this.x ++;
+			
+//			if(this.nextTileHasCrab(tile)) {
+//				System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+//				
+//				int rand = new Random().nextInt(100);
+//				if(Math.abs(this.x - closestPlayer.x)  > Math.abs(this.y - closestPlayer.y) && (int)tick(this.timeElapsed) % 3 == 0) { //has more distance to the player in x
+//					System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAn");
+//
+//					if(this.x - closestPlayer.x > 0) { // The crab is above the player
+//
+//						if(this.y < closestPlayer.y) { //Going right
+//							nextY -= 1;
+//							this.y = nextY;
+//						}else { //Going left
+//							nextY += 1;
+//							this.y = nextY;
+//						}
+//					}else {	//The crab is below the player
+//						if(this.y > closestPlayer.y) { //Going right
+//							nextY += 1;
+//							this.y = nextY;
+//						}else { //Going left
+//							nextY -= 1;
+//							this.y = nextY;
+//						}
+//					}
+//				}else {	//has more distance to the player in y
+//					System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+//
+//					if(this.y - closestPlayer.y > 0) { // The crab is above the player
+//						if(rand < 50) { //Going right
+//							nextX +=1;
+//							this.x = nextX;
+//						}else { //Going left
+//							nextX -= 1;
+//							this.x = nextX;
+//
+//						}
+//					}else {	//The crab is below the player
+//						if(rand < 50) { //Going right
+//							nextX -= 1;
+//							this.x = nextX;
+//						}else { //Going left
+//							nextX += 1;
+//							this.x = nextX;
+//						}
+//					}
+//					
+//				}
+//			}else {
+//				if((int)tick(this.timeElapsed) % 3 == 0) {
+//					this.x = nextX;
+//					this.y = nextY;
+//				}
+//			}
+			
+			//moving toward the player while avoiding other crabs
 		}
 		
+	    
+		
+	}
+	
+	private boolean nextTileHasCrab(Tiles tile) {
+		ArrayList<Entity> tab = GameModele.entities;
+		for(Entity e : tab) {
+			if(GameModele.map.getTileUnderEntity(e.x, e.y).equals(tile)){
+
+				return true;
+
+			}
+		}
+		return false;
 	}
 	
 	
@@ -126,15 +250,8 @@ public class Crab extends Ennemy {
 		int nextX = this.x;
 		int nextY = this.y;
 		
-		if(this.x > closestPlayer.x)
-			nextX --;
-		else if(this.x < closestPlayer.x)
-			nextX ++;
-		
-		if(this.y > closestPlayer.y)
-			nextY --;
-		else if (this.y < closestPlayer.y)
-			nextY ++;
+		nextX += (this.x > closestPlayer.x)? -1: 1;
+		nextY += (this.y > closestPlayer.y)? -1: 1;
 		
 		Tiles tile = GameModele.map.getTileUnderEntity(nextX,nextY);
 		
@@ -144,20 +261,35 @@ public class Crab extends Ennemy {
 			}
 			return false;
 		}else if (cat == EnumCategory.V){
+
 			if(tile.isIsland())
 				return true;
 			return false;
-		}else { //cat == EnumCategory.T
-			for(Entity e : GameModele.entities) {
-				if(e instanceof Crab) {
-					if(GameModele.map.getTileUnderEntity(e.x, e.y).equals(tile)) {
-						return true;
-					}
-				}
-			}
+//		}else if(cat == EnumCategory.T) {
+//			for(Entity e : GameModele.entities) {
+//				if(e instanceof Crab) {
+//					if(GameModele.map.getTileUnderEntity(e.x, e.y).equals(GameModele.map.getTileUnderEntity(this.x, this.y))) {
+//						return true;
+//					}
+//				}
+//			}
+//			return false;
+		}else {
 			return false;
 		}
 	}
+	
+//	private boolean isCrabLairTiles(Tiles tile) {
+//		
+//		ArrayList<Tiles> crabLairTiles = this.m_crabLair.getCrabLairTiles();
+//		
+//		for(Tiles t: crabLairTiles) {
+//			if(tile.equals(t)) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 
 	
 	private PiratePlayer closestPirateToMe() {
@@ -208,4 +340,11 @@ public class Crab extends Ennemy {
 		return this.m_healthPoints > 0;
 	}
 
+	public int getCenterX() {
+		return this.x + (Avatar.SCALE_IMG* (this.avatar.getWidth() /Avatar.SCALE_IMG))/2;
+	}
+	
+	public int getCenterY() {
+		return this.y + ( Avatar.SCALE_IMG * ( this.avatar.getHeight())/Avatar.SCALE_IMG)/2;
+	}
 }

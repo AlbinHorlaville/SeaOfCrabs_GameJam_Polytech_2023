@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import info3.game.modele.GameModele;
+import info3.game.modele.MoveableEntityClass.PiratePlayer;
 import info3.game.modele.MoveableEntityClass.Player;
 
 public class UIBarreVieTerre extends UIBarrePointDeVie {
@@ -16,8 +17,8 @@ public class UIBarreVieTerre extends UIBarrePointDeVie {
 
 	@Override
 	public void paint(Graphics g) {
-		int max_life = Player.DEFAULT_MAX_PLAYERS_LIFE;
-		int current_life = GameModele.player1.getHealthPoints();
+		int max_life = PiratePlayer.getACTUAL_MAX_PLAYERS_LIFE();
+		int current_life = PiratePlayer.getACTUAL_PIRATEPLAYER_LIFE_POINT();
 		g.setColor(Color.black);
 		g.drawRect(getPositionX() - 1, getPositionY() - 1, getWidth() + 1, getHeight() + 1);
 		g.setColor(new Color(255 - current_life * 255 / max_life, current_life * 255 / max_life, 30));

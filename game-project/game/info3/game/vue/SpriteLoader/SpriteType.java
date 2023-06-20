@@ -16,5 +16,7 @@ public enum SpriteType {
 	SeaTreasure,
 	Sword,
 	Scythe,
-	PirateBoatEnnemie
+	PirateBoatEnnemie, 
+	Rhum,
+	Bonus
 }

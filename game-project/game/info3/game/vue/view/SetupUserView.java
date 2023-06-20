@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import info3.game.GameState;
+import info3.game.SeaOfCrabes;
 import info3.game.modele.GameModele;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIButton;
@@ -18,6 +19,7 @@ public class SetupUserView extends View {
 	private UIButton buttonContinue;
 	private UITitle title;
 	private boolean continueEnabled;
+	private UILabel errorMessage;
 
 	public SetupUserView(GameView gv) {
 		super(gv);
@@ -26,7 +28,7 @@ public class SetupUserView extends View {
 
 		continueEnabled = false;
 
-		title = new UITitle(windowWidth, windowHeight, "Welcome to SeaOfCrabs!", FONT2, Color.black);
+		title = new UITitle(windowWidth, windowHeight, "Welcome to Sea Of Crabs!", FONT2, Color.black);
 
 		buttonContinue = new UIButton(774, windowHeight - 100, 200, 70,
 				new UILabel(0, 0, "Continue", FONT1, Color.black), UIButton.BACKGROUND_COLOR_GREEN);
@@ -36,14 +38,20 @@ public class SetupUserView extends View {
 
 		buttonContinue.setBackgroundColor(UIButton.BACKGROUND_COLOR_GREEN_HOVER);
 
+		errorMessage = new UILabel(windowWidth / 2 - 200, windowHeight / 2 + 150, "", FONT1,
+				Color.red);
+
 		buttonContinue.setUIComponentListener(new UIComponentListener() {
 
 			@Override
 			public void onComponentClicked(int x, int y) {
 				if (continueEnabled) {
-					GameModele.createUser(usernameInput.getInputText());
-					gameView.update_view(GameState.Menu);
-					gameView.getGame().setCurrentState(GameState.Menu);
+					if (GameModele.createUser(usernameInput.getInputText())) {
+						gameView.update_view(GameState.Menu);
+						gameView.getGame().setCurrentState(GameState.Menu);
+					} else {
+						errorMessage.setText("This username alreay exists");
+					}
 				}
 			}
 
@@ -82,6 +90,12 @@ public class SetupUserView extends View {
 		addComponent(new UILabel(windowWidth / 2 - 140, 250, "in the world ranking!", FONT3, Color.black));
 		addComponent(usernameInput);
 		addComponent(buttonContinue);
+		addComponent(errorMessage);
+		if (SeaOfCrabes.connectedToDatabase) {
+			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.red));
+		} else {
+			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
+		}
 	}
 
 	@Override

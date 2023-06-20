@@ -33,14 +33,11 @@ public class CloudAvatar extends Avatar {
 	@Override
 	public void paint(Graphics g, int width, int height) {
 		BufferedImage img = m_images[imageIndex];
-		int width_painted = img.getWidth()*size;
-		int heigth_painted = img.getHeight()*size;
+		int width_painted = img.getWidth() * size;
+		int heigth_painted = img.getHeight() * size;
 
-		int Decalage_Tiles_X = -SCALE_IMG;
-		int Decalage_Tiles_Y = 2 * SCALE_IMG;
-
-		int coeffX = -entity.getX() + GameModele.getCurrentPlayerX() + width / 2 + Decalage_Tiles_X;
-		int coeffY = -entity.getY() + GameModele.getCurrentPlayerY() + height / 2 + Decalage_Tiles_Y;
+		int coeffX = -entity.getX() + GameModele.getCurrentPlayerX() + width / 2;
+		int coeffY = -entity.getY() + GameModele.getCurrentPlayerY() + height / 2;
 
 		g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
 	}

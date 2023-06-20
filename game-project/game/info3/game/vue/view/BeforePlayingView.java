@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import info3.game.GameState;
+import info3.game.SeaOfCrabes;
 import info3.game.modele.GameModele;
 import info3.game.modele.Weapon;
 import info3.game.modele.MoveableEntityClass.Scythe;
@@ -55,9 +56,9 @@ public class BeforePlayingView extends View {
 		weaponLabelPlayer1 = new UILabel(50, 221, "Player 1's weapon : ", FONT1, Color.black);
 		weaponLabelPlayer2 = new UILabel(50, 321, "Player 2's weapon : ", FONT1, Color.black);
 
-		boxSwordPlayer1 = new UIBox(96, Sword.getInstance(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
+		boxSwordPlayer1 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
 		boxScythePlayer1 = new UIBox(96, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 2F));
-		boxSwordPlayer2 = new UIBox(96, Sword.getInstance(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
+		boxSwordPlayer2 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
 		boxScythePlayer2 = new UIBox(96, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 2F));
 
 		weaponSelectedLabel1 = new UILabel(550, 221, "", FONT1, Color.black);
@@ -89,6 +90,9 @@ public class BeforePlayingView extends View {
 							seedInput.setInputText(Integer.toString(i));
 						}
 						weapon1 = weaponsBoxesPlayer1.getSelectedBox().getWeapon();
+						if(!GameModele.solo) {
+							weapon2 = weaponsBoxesPlayer2.getSelectedBox().getWeapon();
+						}
 						// TODO : relier la vue au modele avant d'appeler start
 						gameView.getGame().start(i);
 					} else {
@@ -310,8 +314,10 @@ public class BeforePlayingView extends View {
 		addComponent(weaponLabelPlayer2);
 		addComponent(weaponsBoxesPlayer2);
 		addComponent(weaponSelectedLabel2);
-		if (GameModele.user!=null) {
-			addComponent(new UILabel(10, 30, "Connected as @"+GameModele.user.getUsername(), FONT4, Color.black));
+		if (SeaOfCrabes.connectedToDatabase) {
+			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.red));
+		} else {
+			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 		}
 	}
 
