@@ -5,20 +5,22 @@ import java.awt.image.BufferedImage;
 
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
-import info3.game.modele.MoveableEntityClass.BoatPlayer;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
+import info3.game.modele.MoveableEntityClass.Ship;
 
-public class BoatPlayerAvatar extends Avatar {
+public class ShipAvatar extends Avatar {
 
-	public BoatPlayerAvatar(Entity entity) {
+	public ShipAvatar(Entity entity) {
 		super(entity);
-		m_images = SpriteLoader.get(SpriteType.PirateBoat);
+		m_images = SpriteLoader.get(SpriteType.PirateBoatEnnemie);
+		imageIndex = 0;
 	}
 
 	@Override
 	public void tick(long elapsed) {
-		switch (((BoatPlayer) this.entity).getFacing()) {
+		// TODO Auto-generated method stub
+		/*switch (((Ship) this.entity).getFacing()) {
 		case E:
 		case SE:
 		case NE:
@@ -37,16 +39,18 @@ public class BoatPlayerAvatar extends Avatar {
 			break;
 		default:
 			break;
-		}
+		}*/
+
 	}
 
 	@Override
 	public void paint(Graphics g, int width, int height) {
-		this.width = width;
 		BufferedImage img = m_images[imageIndex];
 		int width_painted = SCALE_IMG * img.getWidth();
 		int heigth_painted = SCALE_IMG * img.getHeight();
-		g.drawImage(img, width/2-width_painted/2,(int) ((height/2-heigth_painted/2)+GameModele.map.getWaveOffset(entity.getX(), entity.getY())), width_painted, heigth_painted, null);
+		int Decalage_Tiles_X = (int) -32*6+14*6;
+		int Decalage_Tiles_Y = (int) -32*6+6*6;
+		g.drawImage(img,-entity.getX()+GameModele.getCurrentPlayerX()+width/2, -entity.getY()+GameModele.getCurrentPlayerY()+height/2, width_painted, heigth_painted, null);
 	}
 
 }

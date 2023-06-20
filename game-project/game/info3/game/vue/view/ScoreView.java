@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import info3.game.GameState;
+import info3.game.modele.GameModele;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIButton;
 import info3.game.vue.toolkitUI.UIComponentListener;
@@ -27,7 +28,7 @@ public class ScoreView extends View {
 		int windowHeight = (int) gameView.getHeightCanvas();
 
 		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Back", FONT1, Color.black),UIButton.BACKGROUND_COLOR_RED);
-		title = new UITitle(windowWidth, windowHeight, "Score", FONT2, Color.white);
+		title = new UITitle(windowWidth, windowHeight, "Score", FONT2, Color.black);
 		listScore = readScoreFile();
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
@@ -60,6 +61,9 @@ public class ScoreView extends View {
 
 		addComponent(buttonRetour);
 		addComponent(title);
+		if (GameModele.user!=null) {
+			addComponent(new UILabel(10, 30, "Connected as @"+GameModele.user.getUsername(), FONT4, Color.black));
+		}
 		for (UILabel x : listScore) {
 			addComponent(x);
 		}

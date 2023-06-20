@@ -8,5 +8,6 @@ public enum GameState {
 	Credits,
 	Commandes,
 	AvantJeu,
-	ChoixGameplay
+	ChoixGameplay,
+	Utilisateur
 }

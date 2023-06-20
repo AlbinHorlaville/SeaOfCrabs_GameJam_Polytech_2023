@@ -9,6 +9,7 @@ import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
 import info3.game.GameState;
+import info3.game.modele.GameModele;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIButton;
 import info3.game.vue.toolkitUI.UIChecker;
@@ -36,6 +37,7 @@ public class MenuView extends View {
 		int xButton = (windowWidth - widthButton) / 2;
 		int SpaceBetweenYButton = 100;
 		int yButton = 300;
+		
 		buttonPlay = new UIButton(xButton, yButton, widthButton,70, new UILabel(0, 0, "Play", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
 		buttonSettings = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,70,
 				new UILabel(0, 0, "Settings", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
@@ -44,7 +46,7 @@ public class MenuView extends View {
 		buttonCredits = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,70,
 				new UILabel(0, 0, "Credits", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
 
-		title = new UITitle(windowWidth, windowHeight, "SEA OF CRABS", FONT2, Color.white);
+		title = new UITitle(windowWidth, windowHeight, "SEA OF CRABS", FONT2, Color.black);
 
 		buttonPlay.setUIComponentListener(new UIComponentListener() {
 
@@ -188,6 +190,9 @@ public class MenuView extends View {
 		addComponent(buttonSettings);
 		addComponent(buttonCredits);
 		addComponent(title);
+		if (GameModele.user!=null) {
+			addComponent(new UILabel(10, 30, "Connected as @"+GameModele.user.getUsername(), FONT4, Color.black));
+		}
 	}
 
 	@Override

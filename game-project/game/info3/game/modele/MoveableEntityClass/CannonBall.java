@@ -49,7 +49,7 @@ public abstract class CannonBall extends MoveableEntity{
 	
 	@Override
 	public boolean gotPower() {
-		if(Math.abs(speedX) < 1 || Math.abs(speedY) < 1) {
+		if(Math.abs(speedX) < 1 && Math.abs(speedY) < 1) {
 			return false;
 		}
 		else {

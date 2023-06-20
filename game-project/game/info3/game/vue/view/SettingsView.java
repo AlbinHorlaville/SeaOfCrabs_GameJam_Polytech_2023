@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import automate.AutomateLoader;
 import info3.game.GameState;
+import info3.game.modele.GameModele;
 import info3.game.sound.BackgroundMusic;
 import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
@@ -38,7 +39,7 @@ public class SettingsView extends View {
 		automataView.setVisible(false);
 		automataViewOpen = false;
 
-		title = new UITitle(windowWidth, windowHeight, "Settings", FONT2, Color.white);
+		title = new UITitle(windowWidth, windowHeight, "Settings", FONT2, Color.black);
 		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Back", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_RED);
 		
@@ -173,6 +174,9 @@ public class SettingsView extends View {
 		addComponent(effectSoundVolumeLabel);
 		addComponent(effectSoundChecker);
 		addComponent(buttonAutomatonView);
+		if (GameModele.user!=null) {
+			addComponent(new UILabel(10, 30, "Connected as @"+GameModele.user.getUsername(), FONT4, Color.black));
+		}
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import info3.game.GameState;
+import info3.game.modele.GameModele;
 import info3.game.vue.GameView;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
@@ -41,12 +42,12 @@ public class CreditsView extends View {
 
 		buttonRetour = new UIButton(50, windowHeight - 100, 200, 70, new UILabel(0, 0, "Back", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_RED);
-		title = new UITitle(windowWidth, windowHeight, "Credits", FONT2, Color.white);
+		title = new UITitle(windowWidth, windowHeight, "Credits", FONT2, Color.black);
 
 		credits = new UIParagraph(readCreditsFile());
 
 		creditsPanel = new UIMoveableText(150, 150, 400, 724, credits);
-		
+
 		credits.setPanel(creditsPanel);
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
@@ -80,6 +81,9 @@ public class CreditsView extends View {
 		addComponent(buttonRetour);
 		addComponent(title);
 		addComponent(creditsPanel);
+		if (GameModele.user!=null) {
+			addComponent(new UILabel(10, 30, "Connected as @"+GameModele.user.getUsername(), FONT4, Color.black));
+		}
 	}
 
 	public void paint(Graphics g, int width, int height) {
@@ -107,7 +111,7 @@ public class CreditsView extends View {
 		}
 		return null;
 	}
-	
+
 	public void initYPositionLabel() {
 		this.credits.setLabelsPositionsY(this.creditsPanel.getPositionY() + this.creditsPanel.getHeight());
 	}

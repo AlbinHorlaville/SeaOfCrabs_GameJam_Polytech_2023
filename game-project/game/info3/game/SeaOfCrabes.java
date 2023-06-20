@@ -2,7 +2,6 @@ package info3.game;
 
 import automate.AutomateLoader;
 import info3.game.modele.GameModele;
-import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 
