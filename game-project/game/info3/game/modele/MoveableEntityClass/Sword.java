@@ -15,6 +15,7 @@ public class Sword extends Weapon{
 
 	public Sword() {
 		super("Sword", DAMAGE, RANGE, ALPHA);
+		setAvatar(new SwordAvatar(this));
 	}
 
 }
