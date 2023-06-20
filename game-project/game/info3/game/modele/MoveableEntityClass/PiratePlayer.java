@@ -44,8 +44,8 @@ public class PiratePlayer extends Player {
 	protected float m_rangeCoeff;
 	protected float m_maxHealthCoeff;
 
-	
-	Weapon weapon;
+			
+	public Weapon weapon;
 	
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
@@ -69,14 +69,12 @@ public class PiratePlayer extends Player {
 	public void move(EnumDirection eval) {
 		if(eval == EnumDirection.F) { // CHANGEMENT PIRATE A BATEAU
 			this.moveEntity(facing, DEFAULT_PIRATEPLAYER_SPEED_COEFF);
-			GameModele.entities.remove(this.weapon);
 			
 			if(GameModele.solo) {
 				GameModele.entities.remove(this);
 			} else {
 				GameModele.entities.remove(GameModele.player1);
 				GameModele.entities.remove(GameModele.player2);
-				GameModele.entities.remove(GameModele.player2.weapon);
 			}
 			
 			GameModele.pirateBoat.setLocation(x, y);
@@ -137,8 +135,8 @@ public class PiratePlayer extends Player {
 
 	@Override
 	public boolean cell(EnumDirection d, EnumCategory c) {
-		int tempX = this.x + (2* this.avatar.getWidth() /Avatar.SCALE_IMG);
-		int tempY = this.y + ( this.avatar.getHeight() / Avatar.SCALE_IMG);
+		int tempX = this.getCenterX();
+		int tempY = this.getCenterY();
 		Tiles t;
 			switch(c) {
 			case O:
@@ -166,6 +164,14 @@ public class PiratePlayer extends Player {
 	@Override
 	public void hit() {
 		weapon.hit();
+	}
+	
+	public int getCenterX() {
+		return this.x + (2* this.avatar.getWidth() /Avatar.SCALE_IMG);
+	}
+	
+	public int getCenterY() {
+		return this.y + ( this.avatar.getHeight() / Avatar.SCALE_IMG);
 	}
 	
 	public float getDamageCoeff() {

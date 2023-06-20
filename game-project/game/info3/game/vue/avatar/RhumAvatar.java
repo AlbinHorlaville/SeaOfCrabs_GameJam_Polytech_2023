@@ -8,17 +8,23 @@ import info3.game.modele.GameModele;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
-public class CrabAvatar extends Avatar {
+public class RhumAvatar extends Avatar {
+	
+	public final static int ANIMATION_SPEED_RHUM = 200;
 
-	public CrabAvatar(Entity entity) {
+	public RhumAvatar(Entity entity) {
 		super(entity);
-		m_images = SpriteLoader.get(SpriteType.Crab);
+		m_images = SpriteLoader.get(SpriteType.Rhum);
 		imageIndex = 0;
 	}
 
 	@Override
 	public void tick(long elapsed) {
-
+		imageElapsed += elapsed;
+		if (imageElapsed > ANIMATION_SPEED_RHUM) {
+			imageElapsed = 0;
+			imageIndex = (imageIndex + 1) % (m_images.length-1);
+		}
 	}
 
 	@Override
