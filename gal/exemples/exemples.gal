@@ -116,6 +116,7 @@ Player2(Init){
 
 Crab(Init){
  * (Init) :
+ | !GotPower ? : ()
  | Closest ? Move : (Init)
  | True ? : (Init)
  * ()
@@ -137,9 +138,4 @@ CrabsLair(Init){
   | GotPower ? Move(N) : (Init)
   | True ? : ()
   * ()
- }
-
- Sword(Init){
-  * (Init) :
-  | True ? Move : (Init)
  }

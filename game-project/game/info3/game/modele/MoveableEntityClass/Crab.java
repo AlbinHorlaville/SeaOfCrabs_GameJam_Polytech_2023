@@ -11,6 +11,7 @@ import info3.game.modele.GameModele;
 import info3.game.modele.Level;
 import info3.game.modele.StillEntityClass.CrabLair;
 import info3.game.modele.map.Tiles;
+import info3.game.vue.avatar.Avatar;
 import info3.game.vue.avatar.CrabAvatar;
 
 public class Crab extends Ennemy {
@@ -208,4 +209,11 @@ public class Crab extends Ennemy {
 		return this.m_healthPoints > 0;
 	}
 
+	public int getCenterX() {
+		return this.x + (Avatar.SCALE_IMG* (this.avatar.getWidth() /Avatar.SCALE_IMG))/2;
+	}
+	
+	public int getCenterY() {
+		return this.y + ( Avatar.SCALE_IMG * ( this.avatar.getHeight())/Avatar.SCALE_IMG)/2;
+	}
 }
