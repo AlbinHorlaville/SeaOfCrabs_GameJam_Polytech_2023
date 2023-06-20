@@ -14,15 +14,32 @@ public class SwordAvatar extends Avatar{
 
 	public static int SCALE_SWORD = 2;
 	
+	private int k;
+	
 	public SwordAvatar(Entity entity) {
 		super(entity);
 		m_images = SpriteLoader.get(SpriteType.Sword);
 		imageIndex = 0;
+		k = 0;
 	}
 
 	@Override
 	public void tick(long elapsed) {
-		// TODO Auto-generated method stub
+		if (((Weapon)entity).getAttacking()) {
+			System.out.println("Check passing attacking");
+			if (k%10==0) {
+				imageIndex = 1;
+			}
+			else if (k%20==0) {
+				imageIndex = 2;
+			}
+			else if (k%60==0) {
+				imageIndex = 0;
+				k = 0;
+				((Weapon)entity).setAttacking(false);
+			}
+			k++;
+		}
 		
 	}
 
