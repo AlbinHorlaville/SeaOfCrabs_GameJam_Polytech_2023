@@ -17,5 +17,7 @@ public enum GameEntity {
 	Ship,
 	Bonus,
 	Rhum,
-	Cloud
+	Cloud,
+	RedCross,
+	CrabKing
 }

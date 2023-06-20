@@ -126,6 +126,21 @@ Crab(Init){
  * ()
 }
 
+CrabKing(Init){
+ * (Init) :
+ | !GotPower ? : ()
+ | Closest ? : (Moving)
+ | True ? : (Init)
+ * (Moving) :
+ | Cell(F,A) ? Hit : (Combat)
+ | !Cell(F,V) ? Move(O) : (Init)
+ | True ? Move(F) : (Init)
+ * (Combat)
+ | GotStuff ? Egg : (Moving)
+ | True ? Move(F) : (Init)
+ * ()
+}
+
 
 CrabsLair(Init){
  * (Init) :
@@ -133,14 +148,21 @@ CrabsLair(Init){
  	| True ? : (Init)
  * (Spawn) :
  	| GotStuff ? Egg : (Init)
- 	| !GotPower ? : ()
+ 	| !GotPower ? : (Dead)
  	| True ? : (Init)
- * ()
+ * (Dead)
  }
 
  CannonBall(Init){
   * (Init) :
   | GotPower ? Move(N) : (Init)
+  | True ? : ()
+  * ()
+ }
+ 
+ RedCross(Init){
+  * (Init) :
+  | GotPower ? Egg : (Init)
   | True ? : ()
   * ()
  }
@@ -153,11 +175,6 @@ Ship(Init){
  | True ? : (Init)
  * ()
 }
-
- Sword(Init){
-  * (Init) :
-  | True ? Move : (Init)
- }
 
 Bonus(Init){
  * (Init) :

@@ -21,7 +21,7 @@ public class Crab extends Ennemy {
 	public final static int DEFAULT_DAMAGE = 20;
 
 	private CrabLair m_crabLair;
-	private float m_coeff;
+	protected float m_coeff;
 
 	public Crab(int level, CrabLair crabLair) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE);
@@ -31,6 +31,7 @@ public class Crab extends Ennemy {
 		this.m_crabLair = crabLair;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Crab);
 		this.current_state = automate.initial_state;
+		this.setAvatar(new CrabAvatar(this));
 		GameModele.entities.add(this);
 
 	}
@@ -307,7 +308,8 @@ public class Crab extends Ennemy {
 	}
 
 	public void die() {
-		this.m_crabLair.aCrabDied();
+		if(m_crabLair != null)
+			this.m_crabLair.aCrabDied();
 		super.die();
 	}
 	
@@ -324,7 +326,7 @@ public class Crab extends Ennemy {
 		return m_crabLair;
 	}
 
-	public void setM_crabLair(CrabLair m_crabLair) {
+	public void setCrabLair(CrabLair m_crabLair) {
 		this.m_crabLair = m_crabLair;
 	}
 

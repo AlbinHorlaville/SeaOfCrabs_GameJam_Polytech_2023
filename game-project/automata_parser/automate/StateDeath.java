@@ -6,7 +6,7 @@ public class StateDeath extends State{
 
 	public StateDeath() {
 		super("()");
-		this.died = true;
+		this.died = false;
 	}
 	
 	@Override

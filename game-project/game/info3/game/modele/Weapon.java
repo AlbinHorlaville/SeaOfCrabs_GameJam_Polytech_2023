@@ -1,9 +1,11 @@
 package info3.game.modele;
 
+import java.util.ArrayList;
+
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
 import info3.game.vue.avatar.Avatar;
 
-public abstract class Weapon{
+public abstract class Weapon extends MoveableEntity{
 	
 	public static String Sword = "Sword";
 	public static String Scythe = "Scythe";
@@ -15,7 +17,10 @@ public abstract class Weapon{
 	protected int range;
 	protected double alpha;
 	
+	private boolean attacking; // Sert à l'animation de l'arme
+	
 	public Weapon(String name, int damage, int range, double alpha) {
+		super(0, 0);
 		this.name = name;
 		this.damage = damage;
 		this.range = range;
@@ -23,11 +28,13 @@ public abstract class Weapon{
 	}
 	
 	public void hit() {
+		attacking = true;
 		int tempX = player.getCenterX();
 		int tempY = player.getCenterY();
 		int width = player.avatar.getWidth()/ Avatar.SCALE_IMG;
 		int height = 2 * player.avatar.getHeight() / Avatar.SCALE_IMG;
-		for(Entity e : GameModele.entities) {
+		ArrayList<Entity> tempEntities = (ArrayList) GameModele.entities.clone();
+		for(Entity e : tempEntities) {
 			if(e != player) {
 				switch(player.facing) {
 				case N:
@@ -86,6 +93,14 @@ public abstract class Weapon{
 	
 	public String getName() {
 		return name;
+	}
+	
+	public void setAttacking(boolean cond) {
+		this.attacking = cond;
+	}
+	
+	public boolean getAttacking() {
+		return this.attacking;
 	}
 	
 }

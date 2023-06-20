@@ -57,6 +57,8 @@ public class CrabLair extends StillEntity{
 	
 	public void aCrabDied() {
 		this.m_nbCrabsAlive--;
+		if(!this.gotPower())
+			this.die();
 	}
 	
 	public  boolean closest() {
