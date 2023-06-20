@@ -192,7 +192,7 @@ public class GameModele {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
 
-			map = new Map(s);
+			
 
 			// GameModele.entities.add(player1);
 			if (!solo) {
@@ -209,13 +209,14 @@ public class GameModele {
 				player1.setWeapon(BeforePlayingView.weapon1);
 				BeforePlayingView.weapon1.setPlayer(player1);
 			}
-
+			
+			map = new Map(s);
+			
 			pirateBoat = new BoatPlayer(
 					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 10][map.getSectionWidth() / 2].getX(),
 					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 10][map.getSectionWidth() / 2].getY());
 			pirateBoat.setAvatar(new BoatPlayerAvatar(pirateBoat));
 			GameModele.entities.add(pirateBoat);
-			map = new Map(s);
 
 			genereEntity(map);
 		}
@@ -352,5 +353,6 @@ public class GameModele {
 		this.setCurrentState(GameState.Menu);
 		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
 		PiratePlayer.resetPiratePlayer();
+		pirateBoat = null;
 	}
 }

@@ -1,5 +1,7 @@
 package info3.game.modele;
 
+import java.util.ArrayList;
+
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
 import info3.game.vue.avatar.Avatar;
 
@@ -31,7 +33,8 @@ public abstract class Weapon extends MoveableEntity{
 		int tempY = player.getCenterY();
 		int width = player.avatar.getWidth()/ Avatar.SCALE_IMG;
 		int height = 2 * player.avatar.getHeight() / Avatar.SCALE_IMG;
-		for(Entity e : GameModele.entities) {
+		ArrayList<Entity> tempEntities = (ArrayList) GameModele.entities.clone();
+		for(Entity e : tempEntities) {
 			if(e != player) {
 				switch(player.facing) {
 				case N:
