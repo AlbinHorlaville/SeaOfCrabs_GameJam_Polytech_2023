@@ -29,6 +29,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import info3.game.Controller;
 import info3.game.GameState;
 import info3.game.modele.MoveableEntityClass.BoatPlayer;
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
@@ -320,4 +321,24 @@ public class GameModele {
 		}
 	}
 
+	/**
+	 * Fonction pour partie perdu
+	 */
+	public void gameover() {
+		reset();
+	}
+	
+	/**
+	 * Fonction pour la victoire
+	 */
+	public void victory() {
+		reset();
+	}
+	
+	private void reset() {
+		entities.clear();
+		this.setCurrentState(GameState.Menu);
+		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
+		PiratePlayer.resetPiratePlayer();
+	}
 }
