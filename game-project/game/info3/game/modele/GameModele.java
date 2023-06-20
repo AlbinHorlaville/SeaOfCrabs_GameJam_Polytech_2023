@@ -351,6 +351,7 @@ public class GameModele {
 	private void reset() {
 		entities.clear();
 		this.setCurrentState(GameState.Menu);
+		onSea = true;
 		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
 		PiratePlayer.resetPiratePlayer();
 		pirateBoat = null;
