@@ -32,7 +32,7 @@ import info3.game.vue.toolkitUI.UIComponent;
 
 public class Controller implements GameCanvasListener {
 
-	GameModele gameModele;
+	private static GameModele gameModele;
 	GameView gameView;
 	static boolean[] buffer = new boolean[600]; // Variable indiquant les inputs du clavier actif ( Pour chaque index == le code le touche )
 	UIComponent focus; // focus is the UIComponent currently hovered on the game canvas
@@ -167,6 +167,10 @@ public class Controller implements GameCanvasListener {
 	
 	public static boolean[] getBuffer() {
 		return buffer;
+	}
+	
+	public static GameModele getGameModele() {
+		return gameModele;
 	}
 	
 }

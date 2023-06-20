@@ -42,12 +42,20 @@ public abstract class Entity {
 	public int getX() {
 		return x;
 	}
+	
+	public int getCenterX() {
+		return x;
+	}
 
 	public void setX(int x) {
 		this.x = x;
 	}
 
 	public int getY() {
+		return y;
+	}
+	
+	public int getCenterY() {
 		return y;
 	}
 
@@ -208,6 +216,11 @@ public abstract class Entity {
 	
 	public void egg() {
 		System.out.println("Cette entité n'a pas de fonction egg()");
+	}
+
+	public boolean closest(EnumCategory cat) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

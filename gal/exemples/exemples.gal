@@ -121,7 +121,7 @@ Crab(Init){
  | True ? : (Init)
  * (Moving) :
  | Cell(F,A) ? Hit : (Init)
- | !Cell(F,V) ? Move(O) : (Init) 
+ | !Cell(F,V) ? Move(O) : (Init)
  | True ? Move(F) : (Init)
  * ()
 }
@@ -152,7 +152,37 @@ CrabsLair(Init){
   * ()
  }
 
+Ship(Init){
+ * (Init) :
+ | !GotPower ? Pop : ()
+ | Closest(A) ? Hit : (Init)
+ | Closest(V) ? Move : (Init)
+ | True ? : (Init)
+ * ()
+}
+
  Sword(Init){
   * (Init) :
   | True ? Move : (Init)
  }
+
+Bonus(Init){
+ * (Init) :
+ | Cell(H,T) ? Power(T) : ()
+ | True ? : (Init)
+ * ()
+}
+
+Rhum(Init){
+ * (Init) :
+ | Cell(H,T) ? Power(T) : ()
+ | True ? : (Init)
+ * ()
+}
+
+Cloud(Init){
+  * (Init) :
+  | Cell(H, T) ? : ()
+  | True ? : (Init)
+  * ()
+}

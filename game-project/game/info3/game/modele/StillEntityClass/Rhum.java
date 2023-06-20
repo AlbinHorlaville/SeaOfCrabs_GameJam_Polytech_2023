@@ -1,28 +1,27 @@
 package info3.game.modele.StillEntityClass;
 
+import automate.AutomateLoader;
+import info3.game.modele.GameEntity;
 import info3.game.modele.StillEntity;
+import info3.game.modele.MoveableEntityClass.PiratePlayer;
+import info3.game.vue.avatar.RhumAvatar;
 
 public class Rhum extends StillEntity {
 
-	private int m_healthPoints;
-	
-	public Rhum(int healthPoints) {
-		this.m_healthPoints = healthPoints;
+	public Rhum(int x, int y) {
+		super(x, y);
+		this.automate = AutomateLoader.findAutomate(GameEntity.Rhum);
+		this.current_state = automate.initial_state;
+		setAvatar(new RhumAvatar(this));
 	}
-	
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
+
+	public void power() { // HEAL FULL LIFE
+		PiratePlayer.setACTUAL_PIRATEPLAYER_LIFE_POINT(PiratePlayer.getACTUAL_MAX_PLAYERS_LIFE());
 	}
 
 	@Override
-	public void die() {
-		// TODO Auto-generated method stub
-	}
-	
-	public void power() {
-		//give heath to players
+	public void move() {
+		setX(getX()+1);
 	}
 
 }

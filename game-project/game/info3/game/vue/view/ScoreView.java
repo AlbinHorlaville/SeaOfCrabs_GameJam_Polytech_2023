@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import info3.game.GameState;
+import info3.game.SeaOfCrabes;
 import info3.game.modele.GameModele;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIButton;
@@ -61,8 +62,10 @@ public class ScoreView extends View {
 
 		addComponent(buttonRetour);
 		addComponent(title);
-		if (GameModele.user!=null) {
-			addComponent(new UILabel(10, 30, "Connected as @"+GameModele.user.getUsername(), FONT4, Color.black));
+		if (SeaOfCrabes.connectedToDatabase) {
+			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.red));
+		} else {
+			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 		}
 		for (UILabel x : listScore) {
 			addComponent(x);

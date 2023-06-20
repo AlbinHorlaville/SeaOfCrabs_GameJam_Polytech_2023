@@ -19,7 +19,7 @@ public class BoatPlayer extends Player {
 
 	private static final int DEFAULT_MAX_BOATPLAYER_LIFE_POINT = 100;
 
-	public static final int DEFAULT_BOATPLAYER_SPEED = 10;
+	public static final int DEFAULT_BOATPLAYER_SPEED = 1;
 	
 	private int currentSection;
 
@@ -77,16 +77,20 @@ public class BoatPlayer extends Player {
 	@Override
 	public void move(EnumDirection eval) {
 		facing = eval;
+		int tempX = x;
+		int tempY = y;
 		// if(!cell()) {
 		this.moveEntity(eval, DEFAULT_BOATPLAYER_SPEED);
 		// }
 
-		int tempY = y - (this.avatar.getHeight() / Avatar.SCALE_IMG);
-		Tiles under = GameModele.map.getTileUnderEntity(this.x, tempY);
+		Tiles under = GameModele.map.getTileUnderEntity(this.x, y);
 		int tileY = under.getTileY();
-		int section = GameModele.map.getSectionOfEntity(this.x, tempY);
-
-		if (under.isIsland()) {
+		int section = GameModele.map.getSectionOfEntity(this.x, y);
+		if(under.notIslandAndNotWater()) {
+			x = tempX;
+			y = tempY;
+		}
+		else if (under.isIsland()) {
 			GameModele.entities.remove(this);
 			GameModele.player1.setLocation(under.getX(), under.getY());
 			GameModele.player1.facing = this.facing;
@@ -98,7 +102,6 @@ public class BoatPlayer extends Player {
 			}
 			
 			GameModele.entities.add(GameModele.player1);
-			GameModele.entities.add(Sword.getInstance());
 			GameModele.onSea = !GameModele.onSea;
 		}
 

@@ -11,8 +11,6 @@ import info3.game.vue.SpriteLoader.SpriteType;
 
 public class CrabslairAvatar extends Avatar {
 
-	BufferedImage[] m_images;
-
 	public CrabslairAvatar(Entity entity) {
 		super(entity);
 		m_images = SpriteLoader.get(SpriteType.Crabslair);
