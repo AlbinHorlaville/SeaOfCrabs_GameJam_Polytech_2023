@@ -323,7 +323,7 @@ public class Crab extends Ennemy {
 		return m_crabLair;
 	}
 
-	public void setM_crabLair(CrabLair m_crabLair) {
+	public void setCrabLair(CrabLair m_crabLair) {
 		this.m_crabLair = m_crabLair;
 	}
 

@@ -16,7 +16,7 @@ import info3.game.vue.avatar.CrabslairAvatar;
 public class CrabLair extends StillEntity{
 	
 	public static final int SCRAB_SPANWING_RANGE = 400;
-	public static final int DEFAULT_CRAB_NUMBER = 20;
+	public static final int DEFAULT_CRAB_NUMBER = 1;
 	
 	private int m_level;
 	private int m_nbCrabsToEgg;
@@ -57,6 +57,8 @@ public class CrabLair extends StillEntity{
 	
 	public void aCrabDied() {
 		this.m_nbCrabsAlive--;
+		if(!this.gotPower())
+			this.die();
 	}
 	
 	public  boolean closest() {

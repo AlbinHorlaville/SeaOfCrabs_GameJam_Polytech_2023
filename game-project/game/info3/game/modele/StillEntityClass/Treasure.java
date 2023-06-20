@@ -14,6 +14,12 @@ public class Treasure extends StillEntity {
 		this.bonus = bonus;
 		this.malus = malus;
 	}
+	
+	public Treasure(Object bonus, Object malus, int x,int y) {
+		super(x, y);
+		this.bonus = bonus;
+		this.malus = malus;
+	}
 
 	@Override
 	public void move() {

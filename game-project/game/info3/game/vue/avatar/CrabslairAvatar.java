@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
+import info3.game.modele.StillEntityClass.CrabLair;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
@@ -20,7 +21,9 @@ public class CrabslairAvatar extends Avatar {
 
 	@Override
 	public void tick(long elapsed) {
-
+		if(((CrabLair)this.entity).isDead()) {
+			this.imageIndex = 1;
+		}
 	}
 
 	@Override
