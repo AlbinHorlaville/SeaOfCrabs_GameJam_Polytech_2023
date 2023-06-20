@@ -202,3 +202,4 @@
 
 - Alexandre: développement d'une classe DAO (singleton) pour la base de données
 - Rémi: Fonction move des bateaux ennemie et amélioration de la génération des troncons (ajout des tiles de spawn des ennemie)
+- Romain: Création du Rhum + Réinitialisation de la partie + Mise à jour de la Base de données + 
