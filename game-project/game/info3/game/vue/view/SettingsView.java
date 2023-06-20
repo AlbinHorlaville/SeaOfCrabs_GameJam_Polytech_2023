@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import automate.AutomateLoader;
 import info3.game.GameState;
+import info3.game.SeaOfCrabes;
 import info3.game.modele.GameModele;
 import info3.game.sound.BackgroundMusic;
 import info3.game.sound.SoundTool;
@@ -174,8 +175,10 @@ public class SettingsView extends View {
 		addComponent(effectSoundVolumeLabel);
 		addComponent(effectSoundChecker);
 		addComponent(buttonAutomatonView);
-		if (GameModele.user!=null) {
-			addComponent(new UILabel(10, 30, "Connected as @"+GameModele.user.getUsername(), FONT4, Color.black));
+		if (SeaOfCrabes.connectedToDatabase) {
+			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.red));
+		} else {
+			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 		}
 	}
 

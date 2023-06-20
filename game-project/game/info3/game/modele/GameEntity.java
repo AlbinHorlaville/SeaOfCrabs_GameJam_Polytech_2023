@@ -14,5 +14,7 @@ public enum GameEntity {
 	Philosopher,
 	CannonBall, 
 	Crab,
-	Bonus
+	Bonus,
+	Rhum,
+	Cloud
 }

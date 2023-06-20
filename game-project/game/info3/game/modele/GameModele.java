@@ -27,8 +27,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import info3.game.DAO;
+import info3.game.Controller;
 import info3.game.GameState;
+import info3.game.SeaOfCrabes;
+import info3.game.User;
 import info3.game.modele.MoveableEntityClass.BoatPlayer;
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
 import info3.game.modele.MoveableEntityClass.Ship;
@@ -74,18 +77,22 @@ public class GameModele {
 
 	GameState currentState;
 
-	public static User user;
+	public static User currentUser;
 	private static File userFile;
 
 	public GameModele() throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		userFile = new File("resources/.USER");
-		if (!userFile.exists()) {
-			currentState = GameState.Utilisateur;
+		if (SeaOfCrabes.connectedToDatabase) {
+			userFile = new File("resources/.USER");
+			if (!userFile.exists()) {
+				currentState = GameState.Utilisateur; // we create a user through SetUpUserView
+			} else {
+				currentUser = new User(readUsernameFromFile()); // we load the current user from file
+				currentState = GameState.Menu;
+			}
 		} else {
-			user = new User(readUsernameFromFile());
-			currentState = GameState.Menu;
+			currentState = GameState.Menu; // there is no user in local mode
 		}
 	}
 
@@ -107,18 +114,22 @@ public class GameModele {
 		return null;
 	}
 
-	public static void createUser(String name) {
-		try {
-			if (userFile.createNewFile()) {
-				BufferedWriter writer = new BufferedWriter(new FileWriter(userFile.getPath()));
-				writer.write(name);
-				writer.close();
-				user = new User(readUsernameFromFile());
-				userFile.setWritable(false);
+	public static boolean createUser(String name) {
+		if (DAO.getInstance().addUser(name)) {
+			try {
+				if (userFile.createNewFile()) {
+					BufferedWriter writer = new BufferedWriter(new FileWriter(userFile.getPath()));
+					writer.write(name);
+					writer.close();
+					currentUser = new User(name);
+					userFile.setWritable(false);
+				}
+			} catch (IOException e) {
+				return false;
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -302,14 +313,15 @@ public class GameModele {
 						newEntity = new Tree();
 						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);
-					}
-					else if (Current.getType() == EnumTiles.RAGING_SEA_CHEST || Current.getType() == EnumTiles.STORMY_SEA_CHEST || Current.getType() == EnumTiles.CALM_SEA_CHEST) {
+					} else if (Current.getType() == EnumTiles.RAGING_SEA_CHEST
+							|| Current.getType() == EnumTiles.STORMY_SEA_CHEST
+							|| Current.getType() == EnumTiles.CALM_SEA_CHEST) {
 						newEntity = new SeaTreasure(Current.getX(), Current.getY());// de section) avec 20 points de vie
 						entities.add(newEntity);
-						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le numéro
+						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le
+																						// numéro
 						entities.add(newEntity);
-					} 
-					else if (Current.getType() == EnumTiles.CALM_SEA_ENNEMIE
+					} else if (Current.getType() == EnumTiles.CALM_SEA_ENNEMIE
 							|| Current.getType() == EnumTiles.STORMY_SEA_ENNEMIE
 							|| Current.getType() == EnumTiles.RAGING_SEA_ENNEMIE) {
 						newEntity = new Ship(k);
@@ -321,4 +333,24 @@ public class GameModele {
 		}
 	}
 
+	/**
+	 * Fonction pour partie perdu
+	 */
+	public void gameover() {
+		reset();
+	}
+	
+	/**
+	 * Fonction pour la victoire
+	 */
+	public void victory() {
+		reset();
+	}
+	
+	private void reset() {
+		entities.clear();
+		this.setCurrentState(GameState.Menu);
+		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
+		PiratePlayer.resetPiratePlayer();
+	}
 }

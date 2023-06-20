@@ -9,6 +9,7 @@ import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
 import info3.game.GameState;
+import info3.game.SeaOfCrabes;
 import info3.game.modele.GameModele;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIButton;
@@ -190,8 +191,13 @@ public class MenuView extends View {
 		addComponent(buttonSettings);
 		addComponent(buttonCredits);
 		addComponent(title);
-		if (GameModele.user!=null) {
+		/*if (GameModele.user!=null) {
 			addComponent(new UILabel(10, 30, "Connected as @"+GameModele.user.getUsername(), FONT4, Color.black));
+		}*/
+		if (SeaOfCrabes.connectedToDatabase) {
+			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.red));
+		} else {
+			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 		}
 	}
 
