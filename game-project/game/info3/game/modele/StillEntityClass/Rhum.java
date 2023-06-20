@@ -16,7 +16,7 @@ public class Rhum extends StillEntity {
 	}
 
 	public void power() { // HEAL FULL LIFE
-		PiratePlayer.setACTUAL_PIRATEPLAYER_LIFE_POINT(PiratePlayer.ACTUAL_MAX_PLAYERS_LIFE);
+		PiratePlayer.setACTUAL_PIRATEPLAYER_LIFE_POINT(PiratePlayer.getACTUAL_MAX_PLAYERS_LIFE());
 	}
 
 	@Override

@@ -272,4 +272,8 @@ public class PiratePlayer extends Player {
 	public static int getACTUAL_PIRATEPLAYER_LIFE_POINT() {
 		return ACTUAL_PIRATEPLAYER_LIFE_POINT;
 	}
+
+	public static void setACTUAL_PIRATEPLAYER_LIFE_POINT(int lifePoint) {
+		ACTUAL_PIRATEPLAYER_LIFE_POINT = lifePoint;
+	}
 }
