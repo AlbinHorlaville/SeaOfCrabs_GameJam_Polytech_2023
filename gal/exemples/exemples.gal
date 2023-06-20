@@ -133,14 +133,21 @@ CrabsLair(Init){
  	| True ? : (Init)
  * (Spawn) :
  	| GotStuff ? Egg : (Init)
- 	| !GotPower ? : ()
+ 	| !GotPower ? : (Dead)
  	| True ? : (Init)
- * ()
+ * (Dead)
  }
 
  CannonBall(Init){
   * (Init) :
   | GotPower ? Move(N) : (Init)
+  | True ? : ()
+  * ()
+ }
+ 
+ RedCross(Init){
+  * (Init) :
+  | GotPower ? Egg : (Init)
   | True ? : ()
   * ()
  }

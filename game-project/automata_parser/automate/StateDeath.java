@@ -6,7 +6,7 @@ public class StateDeath extends State{
 
 	public StateDeath() {
 		super("()");
-		this.died = true;
+		this.died = false;
 	}
 	
 	@Override
@@ -18,6 +18,12 @@ public class StateDeath extends State{
 	@Override
 	public void print() {
 		System.out.println("State : " + name);
+	}
+	
+	public State step(Entity e) {
+		e.die();
+		this.died = true;
+		return this;
 	}
 
 }
