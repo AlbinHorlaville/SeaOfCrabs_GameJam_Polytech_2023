@@ -518,6 +518,7 @@ public class MapRepresentation {
 						case TRANSITION_GRASS_UNDER_AND_ON_RIGHT_OF_SAND:
 							img = this.grassTransitionTwoSide[5];// grassUnderAndOnRightOfSand
 							break;
+						case CRAB_KING_LAND:
 						default:
 							img = defaultImage;
 							break;
