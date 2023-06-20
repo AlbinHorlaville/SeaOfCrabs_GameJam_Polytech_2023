@@ -201,3 +201,4 @@
 # 20 Juin
 
 - Alexandre: développement d'une classe DAO (singleton) pour la base de données
+- Rémi: Fonction move des bateaux ennemie et amélioration de la génération des troncons (ajout des tiles de spawn des ennemie)
