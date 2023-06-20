@@ -219,4 +219,12 @@ public class PiratePlayer extends Player {
 		this.m_maxHealthCoeff += f;
 		ACTUAL_MAX_PLAYERS_LIFE += lvl;
 	}
+
+	public static int getACTUAL_PIRATEPLAYER_LIFE_POINT() {
+		return ACTUAL_PIRATEPLAYER_LIFE_POINT;
+	}
+
+	public static void setACTUAL_PIRATEPLAYER_LIFE_POINT(int life_point) {
+		ACTUAL_PIRATEPLAYER_LIFE_POINT = life_point;
+	}
 }
