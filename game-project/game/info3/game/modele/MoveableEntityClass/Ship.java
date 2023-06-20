@@ -63,8 +63,8 @@ public class Ship extends Ennemy {
 
 	public void hit() {
 		// GameModele.player1.takeDamage(DEFAULT_DAMAGE);
-		System.out.println(GameModele.map.getSectionOfEntity(this.x, this.y));
-		System.out.println("MOVE SANS HITTTTTT");
+		//System.out.println(GameModele.map.getSectionOfEntity(this.x, this.y));
+		//System.out.println("MOVE SANS HITTTTTT");
 	}
 
 	@Override

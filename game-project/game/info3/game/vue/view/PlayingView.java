@@ -19,6 +19,8 @@ import info3.game.modele.MoveableEntityClass.Scythe;
 import info3.game.modele.MoveableEntityClass.Sword;
 import info3.game.modele.StillEntityClass.CloudCluster;
 import info3.game.vue.GameView;
+import info3.game.vue.SpriteLoader.SpriteLoader;
+import info3.game.vue.SpriteLoader.SpriteType;
 import info3.game.vue.toolkitUI.UIBarrePointDeVie;
 import info3.game.vue.toolkitUI.UIBarreVieMer;
 import info3.game.vue.toolkitUI.UIBarreVieTerre;
@@ -49,7 +51,7 @@ public class PlayingView extends View {
 		labelTimer = new UILabel(windowWidth / 2, 25, "0'", FONT4, Color.black);
 
 		cannonBallBox = new UIBoxes((windowWidth - 100) / 2, windowHeight - 114);
-		boxSword = new UIBox(64, new Sword(), new UIImage(0, 0, "resources/img/Sword.png", 1F));
+		boxSword = new UIBox(64, new Sword(), new UIImage(0, 0, SpriteLoader.get(SpriteType.Sword)[0], 1F));
 		boxScythe = new UIBox(64, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 1F));
 		cannonBallBox.addBox(boxSword);
 		cannonBallBox.addBox(boxScythe);

@@ -25,6 +25,12 @@ public class UIImage extends UIComponent{
             e.printStackTrace();
         }
     }
+    
+    public UIImage(int x, int y, BufferedImage img, float scale) {
+    	super(x, y, 0, 0);
+    	image = img;
+    	this.scale = scale;
+    }
 
     public void setImage(BufferedImage i) {
         image = i;
