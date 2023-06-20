@@ -12,7 +12,7 @@ import info3.game.vue.GameView;
 
 
 public abstract class Avatar {
-	BufferedImage[] m_images;
+	public BufferedImage[] m_images;
 	int imageIndex;
 	long imageElapsed;
 	long moveElapsed;

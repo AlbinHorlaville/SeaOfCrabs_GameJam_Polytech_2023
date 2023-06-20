@@ -144,8 +144,3 @@ CrabsLair(Init){
   | True ? : ()
   * ()
  }
-
- Sword(Init){
-  * (Init) :
-  | True ? Move : (Init)
- }

@@ -55,9 +55,9 @@ public class BeforePlayingView extends View {
 		weaponLabelPlayer1 = new UILabel(50, 221, "Player 1's weapon : ", FONT1, Color.black);
 		weaponLabelPlayer2 = new UILabel(50, 321, "Player 2's weapon : ", FONT1, Color.black);
 
-		boxSwordPlayer1 = new UIBox(96, Sword.getInstance(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
+		boxSwordPlayer1 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
 		boxScythePlayer1 = new UIBox(96, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 2F));
-		boxSwordPlayer2 = new UIBox(96, Sword.getInstance(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
+		boxSwordPlayer2 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
 		boxScythePlayer2 = new UIBox(96, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 2F));
 
 		weaponSelectedLabel1 = new UILabel(550, 221, "", FONT1, Color.black);
@@ -89,6 +89,9 @@ public class BeforePlayingView extends View {
 							seedInput.setInputText(Integer.toString(i));
 						}
 						weapon1 = weaponsBoxesPlayer1.getSelectedBox().getWeapon();
+						if(!GameModele.solo) {
+							weapon2 = weaponsBoxesPlayer2.getSelectedBox().getWeapon();
+						}
 						// TODO : relier la vue au modele avant d'appeler start
 						gameView.getGame().start(i);
 					} else {
