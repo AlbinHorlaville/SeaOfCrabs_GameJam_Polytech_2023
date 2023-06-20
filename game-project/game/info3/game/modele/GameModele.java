@@ -331,7 +331,7 @@ public class GameModele {
 						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.CRAB_KING) {
-						newEntity = new CrabKing(i, k, i, j);
+						newEntity = new CrabKing(k, 500, 10, 1);
 						newEntity.setLocation(Current.getX(), Current.getY());
 					}
 				}
