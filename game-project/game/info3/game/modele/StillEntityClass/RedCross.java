@@ -24,14 +24,12 @@ public class RedCross extends StillEntity {
 	}
 	
 	public void egg() {
-		System.out.println("Je egg petit batard");
 		GameModele.entities.add(new Treasure(null, null, this.x, this.y));
 	}
 	
 	/*
 	 */
 	public boolean gotPower() {
-		System.out.println(this.m_section.getCrabLair().isDead());
 		return this.m_section.getCrabLair().isDead();
 	}
 

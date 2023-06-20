@@ -238,7 +238,10 @@ public class PiratePlayer extends Player {
 	public void takeDamage(int damage) {
 		int time = GameModele.timer.getSecondes();
 		if(!invincible) {
-			super.takeDamage(damage);
+			this.ACTUAL_PIRATEPLAYER_LIFE_POINT -= damage;
+			if(this.ACTUAL_PIRATEPLAYER_LIFE_POINT <= 0) {
+				this.die();
+			}
 			invincible = true;
 			timerInvicible = time;
 		}
