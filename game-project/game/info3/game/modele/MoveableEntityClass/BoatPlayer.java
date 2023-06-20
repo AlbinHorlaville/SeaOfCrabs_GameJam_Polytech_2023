@@ -20,6 +20,8 @@ public class BoatPlayer extends Player {
 	private static final int DEFAULT_MAX_BOATPLAYER_LIFE_POINT = 100;
 
 	public static final int DEFAULT_BOATPLAYER_SPEED = 10;
+	
+	private int currentSection;
 
 	public BoatPlayer() {
 		super(DEFAULT_BOATPLAYER_LIFE_POINT, 0, DEFAULT_MAX_BOATPLAYER_LIFE_POINT);
@@ -31,6 +33,7 @@ public class BoatPlayer extends Player {
 		this.current_state = automate.initial_state;
 
 		this.facing = EnumDirection.N;
+		this.currentSection = 0;
 	}
 
 	public BoatPlayer(int x, int y) {
@@ -43,6 +46,7 @@ public class BoatPlayer extends Player {
 		this.current_state = automate.initial_state;
 
 		this.facing = EnumDirection.N;
+		this.currentSection = 0;
 	}
 
 	public void addHealthPoints(int healthPoints) {
@@ -109,6 +113,12 @@ public class BoatPlayer extends Player {
 			this.x = GameModele.map.getMap()[section].getTiles()[tileY][10].getX();
 			this.y = GameModele.map.getMap()[section].getTiles()[tileY][10].getY();
 		}
+		
+		this.currentSection = section;
+	}
+	
+	public int getCurrentSection() {
+		return this.currentSection;
 	}
 
 	@Override
