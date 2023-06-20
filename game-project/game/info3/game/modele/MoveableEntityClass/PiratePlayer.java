@@ -26,8 +26,20 @@ public class PiratePlayer extends Player {
 	
 	private static final int DEFAULT_PIRATEPLAYER_RANGE_COEFF = 1;
 	
+	private static int ACTUAL_PIRATEPLAYER_LIFE_POINT = 100;
+	
+	public static int ACTUAL_MAX_PLAYERS_LIFE = 1;
+	
+	private static int ACTUAL_PIRATEPLAYER_ATTACKSPEED = 1;
+	
+	private static int ACTUAL_PIRATEPLAYER_SPEED = 1;
+
+	private static int ACTUAL_PIRATEPLAYER_DAMAGE = 1;
+	
+	private static int ACTUAL_PIRATEPLAYER_RANGE = 1;
+	
 	protected float m_attackspeedCoeff;
-	protected int m_speedCoeff;
+	protected float m_speedCoeff;
 	protected float m_damageCoeff;
 	protected float m_rangeCoeff;
 	protected float m_maxHealthCoeff;
@@ -167,7 +179,7 @@ public class PiratePlayer extends Player {
 	}
 
 
-	public void addDamageCoeff(float f) {
+	public void addDamageCoeff(float f, int lvl) {
 		this.m_damageCoeff += f;
 	}
 
@@ -177,8 +189,9 @@ public class PiratePlayer extends Player {
 	}
 
 
-	public void addSpeedCoeff(int f) {
-		this.m_speedCoeff =+ f;
+	public void addSpeedCoeff(float f, int lvl) {
+		this.m_speedCoeff = f;
+		ACTUAL_PIRATEPLAYER_SPEED += lvl;
 	}
 	
 	public float getAttackspeedCoeff() {
@@ -186,8 +199,9 @@ public class PiratePlayer extends Player {
 	}
 
 
-	public void addAttackpeedCoeff(float m_attackm_speedCoeff) {
-		this.m_attackspeedCoeff += m_attackspeedCoeff;
+	public void addAttackpeedCoeff(float f, int lvl) {
+		this.m_attackspeedCoeff += f;
+		ACTUAL_PIRATEPLAYER_ATTACKSPEED += lvl;
 	}
 
 
@@ -196,7 +210,13 @@ public class PiratePlayer extends Player {
 	}
 
 
-	public void addRangeCoeff(float rangeCoeff) {
-		this.m_rangeCoeff += rangeCoeff;
+	public void addRangeCoeff(float f, int lvl) {
+		this.m_rangeCoeff += f;
+		ACTUAL_PIRATEPLAYER_RANGE += lvl;
+	}
+
+	public void addMaxLifePointsCoeff(float f, int lvl) {
+		this.m_maxHealthCoeff += f;
+		ACTUAL_MAX_PLAYERS_LIFE += lvl;
 	}
 }
