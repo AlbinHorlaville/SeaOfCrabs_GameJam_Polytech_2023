@@ -167,3 +167,26 @@
 <br>
 <br>
 
+# 14 Juin
+
+Albin: Ajout de l'interface de commandes pour J1 et J2, Création de la barre de points de vie, Ajout de Sprites
+
+# 15 Juin
+
+Albin: Conception d'un modèle de collision entre une arme et une entité (hit box en cône), Implémentation CrabLair (Avatar et génération des entités), Ajout de Sprites
+
+# 16 Juin
+
+Albin: Implémentation Tree, avatar, génération des entités dans GameModele, Conception et implémentation Cloud, Fix d'affichage comme alignement des sprites sur les cases de la map, des animations des personnages, ..., Ajout de Sprites
+
+
+# 17 Juin
+
+# 18 Juin
+
+# 19 Juin
+
+Albin: Tentative d'implémenter un GIF sur le menu, non fructueuse, les joueurs passent désormais derrière les palmiers si ils sont censés le faire (et autres entités), implémentation Avatar trésor de la mer, bateau ennemi Ajout de Sprites
+
+# 20 Juin
+
