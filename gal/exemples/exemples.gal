@@ -117,10 +117,16 @@ Player2(Init){
  
 Crab(Init){
  * (Init) :
- | Closest ? Move : (Init)
+ | !GotPower ? : ()
+ | Closest ? : (Moving)
  | True ? : (Init)
+ * (Moving) :
+ | Cell(F,A) ? Hit : (Init)
+ | !Cell(F,V) ? Move(O) : (Init) 
+ | True ? Move(F) : (Init)
  * ()
 }
+
 
 CrabsLair(Init){
  * (Init) :
