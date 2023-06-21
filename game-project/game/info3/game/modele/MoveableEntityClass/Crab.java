@@ -18,7 +18,8 @@ import java.util.Random;
 public class Crab extends Ennemy {
 	
 	public final static int DEFAULT_HEALTH_POINTS = 100;
-	public final static int DEFAULT_DAMAGE = 20;
+	public final static int DEFAULT_DAMAGE = 1;
+	public final static int RANGE = 100;
 
 	private CrabLair m_crabLair;
 	protected float m_coeff;
@@ -144,7 +145,6 @@ public class Crab extends Ennemy {
 	public void move(EnumDirection dir) {
 		//Nearer pirate to me 
 		PiratePlayer closestPlayer = this.closestPirateToMe();
-		
 		//Get next coordinate
 		int nextX = this.x;
 		int nextY = this.y;
@@ -255,12 +255,8 @@ public class Crab extends Ennemy {
 		Tiles tile = GameModele.map.getTileUnderEntity(nextX,nextY);
 		
 		if(cat == EnumCategory.A) {
-			if ((GameModele.map.getTileUnderEntity(closestPlayer.x, closestPlayer.y)).equals(tile)) {
-				return true;
-			}
-			return false;
+			return Math.abs(closestPlayer.getCenterX() - getCenterX()) < RANGE && Math.abs(closestPlayer.getCenterY() - getCenterY()) < RANGE;
 		}else if (cat == EnumCategory.V){
-
 			if(tile.isIsland())
 				return true;
 			return false;
@@ -344,7 +340,7 @@ public class Crab extends Ennemy {
 	}
 
 	public int getCenterX() {
-		return this.x + (Avatar.SCALE_IMG* (this.avatar.getWidth() /Avatar.SCALE_IMG))/2;
+		return this.x; //+ (Avatar.SCALE_IMG* (this.avatar.getWidth() /Avatar.SCALE_IMG))/2;
 	}
 	
 	public int getCenterY() {

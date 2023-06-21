@@ -96,7 +96,7 @@ public class CrabKing extends Crab {
 	}
 	
 	public int getCenterX() {
-		return this.x + (2* this.avatar.getWidth() /Avatar.SCALE_IMG);
+		return this.x - ((this.avatar.getWidth() /Avatar.SCALE_IMG)/2);
 	}
 	
 	public int getCenterY() {
