@@ -25,7 +25,7 @@ public class Map {
 	private MapRepresentation mapRepres; // The graphic representation of the map
 
 	private MiniMap miniMap; // The graphic representation of the map
-	
+
 	private SectionTitle title;
 
 	private int tileWidth;
@@ -54,14 +54,13 @@ public class Map {
 		generateBaseMap();
 
 		generateWave();
-		
+
 		this.title = new SectionTitle();
 
 		this.mapRepres = new MapRepresentation(this);
 
 		this.miniMap = new MiniMap(this);
-		
-		
+
 	}
 
 	/*
@@ -91,7 +90,7 @@ public class Map {
 		this.mapRepres = new MapRepresentation(this);
 
 		this.miniMap = new MiniMap(this);
-		
+
 		this.title = new SectionTitle();
 	}
 
@@ -203,8 +202,107 @@ public class Map {
 			y -= this.sectionHeight;
 			numSection--;
 		}
-
 		return numSection;
+	}
+
+	public void updateDamagingTick() {
+		Tiles[][] section;
+		for (int i = 0; i < this.nbSection; i++) {
+			section = this.map[i].getTiles();
+			for (int j = 0; j < this.sectionHeight; j++) {
+				for (int k = 0; k < this.sectionWidth; k++) {
+					if (section[j][k].isWaterDamaging() || section[j][k].isWaterPreDamage()) {
+						section[j][k].update();
+					}
+				}
+			}
+		}
+	}
+
+	public void setDamaging(int xPos, int yPos) {
+		int section = this.getSectionOfEntity(xPos, yPos);
+		int tileX = this.getTileUnderEntity(xPos, yPos).getTileX();
+		int tileY = this.getTileUnderEntity(xPos, yPos).getTileY();
+
+		Tiles[] tile = getTileAttackOfShip(section, tileX, tileY);
+
+		for (int i = 0; i < tile.length; i++) {
+			if (tile[i] != null) {
+				tile[i].setPreDamaging();
+			}
+		}
+	}
+
+	public Tiles[] getTileAttackOfShip(int section, int tileX, int tileY) {
+		Tiles[] tilesAround = new Tiles[9];
+
+		if (tileX > 0) {
+			if (tileY < this.sectionHeight - 1) {
+				// Angle bas gauche OK
+				tilesAround[6] = this.map[section].getTiles()[tileY + 1][tileX - 1];
+			} else {
+				// Angle bas gauche not OK
+				tilesAround[6] = null;
+			}
+
+			if (tileY > 0) {
+				// Angle haut gauche OK
+				tilesAround[0] = this.map[section].getTiles()[tileY - 1][tileX - 1];
+			} else {
+				// Angle haut gauche not OK
+				tilesAround[0] = null;
+			}
+
+			// Cote gauche OK
+			tilesAround[3] = this.map[section].getTiles()[tileY][tileX - 1];
+		} else {
+			// Cote gauche not OK
+			tilesAround[3] = null;
+		}
+
+		if (tileY > 0) {
+			// Haut OK
+			tilesAround[1] = this.map[section].getTiles()[tileY - 1][tileX];
+		} else {
+			// Haut not OK
+			tilesAround[1] = null;
+		}
+
+		if (tileY < this.sectionHeight - 1) {
+			// bas OK
+			tilesAround[7] = this.map[section].getTiles()[tileY + 1][tileX];
+		} else {
+			// bas not OK
+			tilesAround[7] = null;
+		}
+
+		tilesAround[4] = this.map[section].getTiles()[tileY][tileX];
+
+		if (tileX < this.sectionWidth - 1) {
+			if (tileY < this.sectionHeight - 1) {
+				// Angle bas droite OK
+				tilesAround[8] = this.map[section].getTiles()[tileY + 1][tileX + 1];
+			} else {
+				// Angle bas droite not OK
+				tilesAround[8] = null;
+			}
+
+			if (tileY > 0) {
+				// Angle haut droite OK
+				tilesAround[2] = this.map[section].getTiles()[tileY - 1][tileX + 1];
+			} else {
+				// Angle haut droite not OK
+				tilesAround[2] = null;
+			}
+
+			// Cote droit OK
+			tilesAround[5] = this.map[section].getTiles()[tileY][tileX + 1];
+		} else {
+			// Cote droit not OK
+			tilesAround[5] = null;
+		}
+
+		return tilesAround;
 	}
 
 	public Tiles getTileUnderEntity(int xPos, int yPos) {
@@ -544,7 +642,7 @@ public class Map {
 	public MiniMap getMiniMap() {
 		return this.miniMap;
 	}
-	
+
 	public SectionTitle getSectionTitle() {
 		return this.title;
 	}

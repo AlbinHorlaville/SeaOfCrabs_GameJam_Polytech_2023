@@ -58,7 +58,8 @@ public class PiratePlayer extends Player {
 			
 	public Weapon weapon;
 	public boolean invincible;
-	public int timerInvicible;
+	public int timerInvicibleMili;
+	public int timerInvicibleSec;
 	
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
@@ -238,16 +239,18 @@ public class PiratePlayer extends Player {
 	}
 	
 	public void takeDamage(int damage) {
-		int time = GameModele.timer.getSecondes();
+		int timeMili = GameModele.timer.getMiliSecondes();
+		int timeSec = GameModele.timer.getSecondes();
 		if(!invincible) {
 			this.ACTUAL_PIRATEPLAYER_LIFE_POINT -= damage;
 			if(this.ACTUAL_PIRATEPLAYER_LIFE_POINT <= 0) {
 				this.die();
 			}
 			invincible = true;
-			timerInvicible = time;
+			this.timerInvicibleMili = timeMili;
+			this.timerInvicibleSec = timeSec;
 		}
-		else if(time >= timerInvicible + 1){
+		else if(timerInvicibleMili <= timeMili && timerInvicibleSec + 1 <= timeSec){
 			invincible = false;
 		}
 	}
