@@ -1,6 +1,18 @@
 package info3.game.sound;
 
 public enum SoundEffect {
-	SwordSound,
-	Test
+	BoatAttack("pirateBoatAttack.ogg"),
+	Start("UI/Start.ogg"),
+	Confirm("UI/Confirm.ogg"),
+	Cursor("UI/Cursor.ogg");
+
+	private String fileName;
+	
+	SoundEffect(String string) {
+		fileName = string;
+	}
+	
+	public String getFileName() {
+		return fileName;
+	}
 }

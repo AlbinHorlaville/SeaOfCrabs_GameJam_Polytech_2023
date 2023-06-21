@@ -10,6 +10,8 @@ import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Tiles;
+import info3.game.sound.SoundEffect;
+import info3.game.sound.SoundTool;
 import info3.game.vue.avatar.Avatar;
 
 public class BoatPlayer extends Player {
@@ -156,6 +158,7 @@ public class BoatPlayer extends Player {
 	}
 
 	public void startFire(int mouseX, int mouseY) {
+		SoundTool.playSoundEffect(SoundEffect.BoatAttack, 0);
 		// A modifier pour choisir le boulet de cannon à tirer
 		CannonBall b;
 		if (bouletDeCannon.size() > 0)
