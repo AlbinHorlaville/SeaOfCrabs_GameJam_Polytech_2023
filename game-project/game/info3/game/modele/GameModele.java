@@ -41,7 +41,8 @@ public class GameModele {
 	GameView gameview;
 
 	public static ArrayList<Entity> entities = new ArrayList<>();
-
+	public static ArrayList<Ship> seaEnnemies = new ArrayList<>(); // A modifier
+	
 	public static PiratePlayer player1;
 
 	public static PiratePlayer player2;

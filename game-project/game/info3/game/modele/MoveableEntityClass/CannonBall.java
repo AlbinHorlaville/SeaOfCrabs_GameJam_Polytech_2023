@@ -1,10 +1,14 @@
 package info3.game.modele.MoveableEntityClass;
 
+import automate.EnumCategory;
 import automate.EnumDirection;
 import automate.StateDeath;
+import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
 import info3.game.modele.MoveableEntity;
+import info3.game.modele.map.Tiles;
 import info3.game.vue.GameView;
+import info3.game.vue.avatar.Avatar;
 
 public abstract class CannonBall extends MoveableEntity{
 	protected int endX;
@@ -53,11 +57,45 @@ public abstract class CannonBall extends MoveableEntity{
 			return false;
 		}
 		else {
+			Tiles tile = GameModele.map.getTileUnderEntity(x, y);
 			radiusX = Math.abs(startX - x) ;
 			radiusY = Math.abs(startY - y) ;
-			boolean b = fire && (radiusX < range) && (radiusY< range) && !GameModele.map.getTileUnderEntity(x, y).isIsland();
+			boolean b = fire && (radiusX < range) && (radiusY< range) && !tile.isIsland() ;
+			b = tile.getTileX() > 8 && tile.getTileX() < GameModele.map.getSectionWidth() - 9;
 			return b;
 		}
+		
+		
+	}
+	
+	@Override
+	public boolean cell(EnumDirection d, EnumCategory c) {
+			switch(c) {
+			case A:
+				for (Ship s : GameModele.seaEnnemies) {
+					if (collide(this, x - speedX, y - speedY, s)) {
+						System.out.println("hit");
+						s.takeDamage(damage);
+						return false;
+					}
+				}
+				
+			default:
+				return true;
+
+			}
+	}
+	
+	public boolean collide (MoveableEntity m, int x, int y, Entity e) {  // Code propre lvl 1
+		int centerx = x - m.getAvatar().getWidth()/(2*Avatar.SCALE_IMG); 
+		int centery = y - m.getAvatar().getHeight()/(2*Avatar.SCALE_IMG); 
+		
+		int w = e.getAvatar().getWidth();
+		int h = e.getAvatar().getHeight();
+		
+		double rayon = Math.sqrt(Math.pow(w,2) + Math.pow(h, 2))/2;
+		double distance = Math.sqrt(Math.pow(e.getX() - e.getAvatar().getWidth()/(2*Avatar.SCALE_IMG) -centerx, 2) + Math.pow(e.getY() - e.getAvatar().getHeight()/(2*Avatar.SCALE_IMG) - centery, 2));
+		return distance <= rayon;
 	}
 	
 	@Override
@@ -70,6 +108,5 @@ public abstract class CannonBall extends MoveableEntity{
 		}
 			
 	}
-	
 	
 }
