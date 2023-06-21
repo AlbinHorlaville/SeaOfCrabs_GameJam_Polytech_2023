@@ -361,7 +361,7 @@ public class GameModele {
 					} else if (Current.getType() == EnumTiles.RAGING_SEA_CHEST
 							|| Current.getType() == EnumTiles.STORMY_SEA_CHEST
 							|| Current.getType() == EnumTiles.CALM_SEA_CHEST) {
-						newEntity = new SeaTreasure(Current.getX(), Current.getY());// de section) avec 20 points de vie
+						newEntity = new SeaTreasure(map.getMap()[k], Current.getX(), Current.getY());// de section) avec 20 points de vie
 						entities.add(newEntity);
 						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le
 																						// numéro
