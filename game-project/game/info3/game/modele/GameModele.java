@@ -41,8 +41,7 @@ public class GameModele {
 	GameView gameview;
 
 	public static ArrayList<Entity> entities = new ArrayList<>();
-	public static ArrayList<Ship> seaEnnemies = new ArrayList<>(); // A modifier
-	
+
 	public static PiratePlayer player1;
 
 	public static PiratePlayer player2;
@@ -203,8 +202,8 @@ public class GameModele {
 		for (Entity entity : tempEntities) {
 			if (entity instanceof CloudCluster) {
 				for (Entity cloud : ((CloudCluster) entity).getClouds()) {
-					//cloud.step();
-					//cloud.tick(elapsed);
+					// cloud.step();
+					// cloud.tick(elapsed);
 				}
 			} else {
 				entity.step();
@@ -216,8 +215,8 @@ public class GameModele {
 		for (Entity entity : entities) {
 			if (entity instanceof CloudCluster) {
 				for (Entity cloud : ((CloudCluster) entity).getClouds()) {
-					//if (!cloud.current_state.isDead())
-						//newEntities.add(cloud);
+					// if (!cloud.current_state.isDead())
+					// newEntities.add(cloud);
 				}
 			} else {
 				if (!entity.current_state.isDead())
@@ -379,7 +378,9 @@ public class GameModele {
 					} else if (Current.getType() == EnumTiles.RAGING_SEA_CHEST
 							|| Current.getType() == EnumTiles.STORMY_SEA_CHEST
 							|| Current.getType() == EnumTiles.CALM_SEA_CHEST) {
-						newEntity = new SeaTreasure(map.getMap()[k], Current.getX(), Current.getY());// de section) avec 20 points de vie
+						newEntity = new SeaTreasure(map.getMap()[k], Current.getX(), Current.getY());// de section) avec
+																										// 20 points de
+																										// vie
 						entities.add(newEntity);
 						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le
 																						// numéro
@@ -393,7 +394,7 @@ public class GameModele {
 					} else if (Current.getType() == EnumTiles.CRAB_KING) {
 						newEntity = new CrabKing(k, 500, Current.getX(), Current.getY(), 10, 1); // TODO CHANGE PARAM
 						GameModele.entities.add(newEntity);
-						//entities.add(newEntity);
+						// entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.KRAKEN_TENTACLE) {
 						newEntity = new Tentacle(k, 500, 10, 1); // TODO CHANGE PARAM
 						newEntity.setLocation(Current.getX(), Current.getY());

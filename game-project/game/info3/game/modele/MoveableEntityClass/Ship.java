@@ -31,7 +31,7 @@ public class Ship extends Ennemy {
 		this.automate = AutomateLoader.findAutomate(GameEntity.Ship);
 		this.current_state = automate.initial_state;
 		GameModele.entities.add(this);
-		GameModele.seaEnnemies.add(this); // A modifier
+
 	}
 
 	public void move() {
@@ -87,7 +87,6 @@ public class Ship extends Ennemy {
 		Rhum rhum = new Rhum(this.x, this.y);
 		GameModele.entities.add(rhum);
 		GameModele.entities.remove(this);
-		GameModele.seaEnnemies.remove(this);
 
 	}
 
