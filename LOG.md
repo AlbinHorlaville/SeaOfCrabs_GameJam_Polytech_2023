@@ -6,7 +6,7 @@
 - Emin: Réalisation du diagramme de séquence Client-Serveur
 - Rémi: Amélioration de la génération procédurale
 - Alexandre: Mise en place du Git
-- Albin et Emin: Introuction automates et prototypes
+- Albin et Emin: Introduction automates et prototypes
 <br>
 <br>
 
@@ -213,3 +213,6 @@
 
 # 21 Juin
  Axel : Ajout des croix rouges fonctionnels, des trésors fonctionnels (sur terre et en mer), des Bonus qui peuvent maintenant être utilisé en jeu par le joueur.
+ Rémi: Réalisation de l'attaque utilisé par les bateau ennemies ainsi que le kraken. Et réalisation des fonctions des automates de ship et krakenTentacle. 
+
+ # 22 Juin
