@@ -26,6 +26,7 @@ import java.awt.event.MouseEvent;
 
 import info3.game.graphics.GameCanvasListener;
 import info3.game.modele.GameModele;
+import info3.game.sound.SoundEffect;
 import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIComponent;
@@ -51,6 +52,7 @@ public class Controller implements GameCanvasListener {
 	public void mouseClicked(MouseEvent e) { // when the mouse is clicked
 		if (focus != null) {
 			focus.clicked(e.getX(), e.getY()); // calls to the focus'clicked behavior
+			SoundTool.playSoundEffect(SoundEffect.Confirm, 0);
 		}
 		else if(GameModele.onSea && GameModele.pirateBoat!=null){
 			GameModele.pirateBoat.startFire(e.getX(), e.getY());
