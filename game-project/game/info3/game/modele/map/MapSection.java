@@ -99,6 +99,10 @@ public class MapSection {
 				|| seaType == EnumSectionType.STORMY_SEA_FROM_CALM_SEA || seaType == EnumSectionType.STORMY_SEA
 				|| seaType == EnumSectionType.RAGING_SEA) {
 			generateNormalSectionElement();
+		} else if (seaType == EnumSectionType.CRAB_KING_SEA) {
+			generateCrabKing();
+		} else if (seaType == EnumSectionType.KRAKEN_SEA) {
+			generateKraken();
 		}
 	}
 	
@@ -122,15 +126,15 @@ public class MapSection {
 			generateMoutainSectionHeight(height);
 		}
 	}
-	
+
 	private void generateMoutainSectionHeight(int[] height) {
 		for (int i = 0; i < this.sectionWidth; i++) {
 			this.tiles[this.sectionHeight - 1][i].setHeight(height[i]);
 		}
-		
+
 		for (int i = this.sectionHeight - 2; i >= 0; i--) {
 			for (int j = 0; j < this.sectionWidth; j++) {
-				this.tiles[i][j].setHeight(this.tiles[i+1][j].getHeight() - 1);
+				this.tiles[i][j].setHeight(this.tiles[i + 1][j].getHeight() - 1);
 			}
 		}
 	}
@@ -298,16 +302,10 @@ public class MapSection {
 
 	private double[][] generateHarborGradient(double[][] harbor) {
 		double value;
-		for (int i = 0; i < 5; i++) {
-			value = (5 - i) * 0.1;
+		for (int i = 0; i < 8; i++) {
+			value = (8 - i) * 0.1;
 			for (int j = 0; j < this.sectionWidth; j++) {
 				harbor[this.sectionHeight - 1 - i][j] += value;
-			}
-		}
-
-		for (int i = this.sectionHeight - 6; i >= 0; i--) {
-			for (int j = 0; j < this.sectionWidth; j++) {
-				harbor[i][j] -= 1;
 			}
 		}
 
@@ -317,7 +315,7 @@ public class MapSection {
 	private void insertHarborInSection(double[][] harbor) {
 		for (int i = 0; i < this.sectionHeight; i++) {
 			for (int j = 0; j < this.sectionWidth; j++) {
-				if ((i == this.sectionHeight - 6 || i == this.sectionHeight - 7) && j == this.sectionWidth / 2) {
+				if ((i == this.sectionHeight - 9 || i == this.sectionHeight - 10) && j == this.sectionWidth / 2) {
 					this.tiles[i][j].setType(EnumTiles.PONTOON);
 				} else if (harbor[i][j] == 0) {
 					this.tiles[i][j].setType(EnumTiles.CALM_WATER);
@@ -398,7 +396,7 @@ public class MapSection {
 					this.tiles[i][j].setType(EnumTiles.RAGING_WATER);
 				}
 				if (this.tiles[i][j].getType() == EnumTiles.GRASS) {
-					this.tiles[i][j].setType(EnumTiles.CRAB_SPAWNER);
+					this.tiles[i][j].setType(EnumTiles.CRAB_KING_LAND);
 				}
 			}
 		}
@@ -444,7 +442,8 @@ public class MapSection {
 
 		for (int i = 0; i < this.sectionHeight; i++) {
 			for (int j = 0; j < this.sectionWidth; j++) {
-				if (this.tiles[i][j].getType() == EnumTiles.KRAKEN_WATER || this.tiles[i][j].getType() == EnumTiles.RAGING_WATER) {
+				if (this.tiles[i][j].getType() == EnumTiles.KRAKEN_WATER
+						|| this.tiles[i][j].getType() == EnumTiles.RAGING_WATER) {
 					height[i][j] = -1;
 				} else {
 					height[i][j] = -2;
@@ -518,7 +517,7 @@ public class MapSection {
 				this.tiles[i][this.sectionWidth / 2 - j].setType(EnumTiles.KRAKEN_WATER);
 			}
 		}
-		
+
 		for (int i = 0; i < this.sectionWidth; i++) {
 			this.tiles[this.sectionHeight - 1][i].setType(EnumTiles.RAGING_WATER);
 		}
@@ -955,7 +954,7 @@ public class MapSection {
 		int rand;
 		boolean added = false;
 		for (int i = 0; i < this.sectionHeight && !added; i++) {
-			for (int j = 0; j < this.sectionWidth && !added; j++) {
+			for (int j = 10; j < this.sectionWidth - 11 && !added; j++) {
 				if (this.tiles[i][j].getType() == EnumTiles.CALM_WATER
 						|| this.tiles[i][j].getType() == EnumTiles.RAGING_WATER
 						|| this.tiles[i][j].getType() == EnumTiles.STORMY_WATER) {
@@ -973,7 +972,7 @@ public class MapSection {
 							this.tiles[i][j].setType(EnumTiles.RAGING_SEA_CHEST);
 							break;
 						}
-						
+
 					}
 				}
 			}
@@ -982,14 +981,14 @@ public class MapSection {
 			generateSeaChestTile();
 		}
 	}
-	
+
 	public int[] getMountainHeight() {
 		int[] height = new int[this.sectionWidth];
-		
+
 		for (int i = 0; i < this.sectionWidth; i++) {
 			height[i] = this.tiles[0][i].getHeight() - 1;
 		}
-		
+
 		return height;
 	}
 
@@ -997,7 +996,7 @@ public class MapSection {
 		int rand;
 		boolean added = false;
 		for (int i = 0; i < this.sectionHeight && !added; i++) {
-			for (int j = 0; j < this.sectionWidth && !added; j++) {
+			for (int j = 10; j < this.sectionWidth - 11 && !added; j++) {
 				if (this.tiles[i][j].getType() == EnumTiles.CALM_WATER
 						|| this.tiles[i][j].getType() == EnumTiles.RAGING_WATER
 						|| this.tiles[i][j].getType() == EnumTiles.STORMY_WATER) {
@@ -1023,6 +1022,32 @@ public class MapSection {
 		if (!added) {
 			generateSeaEnnemieTile();
 		}
+	}
+
+	public void generateCrabKing() {
+		int rand;
+		boolean added = false;
+		for (int i = 0; i < this.sectionHeight && !added; i++) {
+			for (int j = 0; j < this.sectionWidth && !added; j++) {
+				if (this.tiles[i][j].getType() == EnumTiles.CRAB_KING_LAND) {
+					rand = this.randomGenerator.nextInt(2000);
+					if (rand == 500 && !added) {
+						added = true;
+						this.tiles[i][j].setType(EnumTiles.CRAB_KING);
+					}
+				}
+			}
+		}
+		if (!added) {
+			generateCrabKing();
+		}
+	}
+
+	public void generateKraken() {
+		this.tiles[this.sectionHeight / 2 - 5][this.sectionWidth / 2 - 10].setType(EnumTiles.KRAKEN_TENTACLE);
+		this.tiles[this.sectionHeight / 2 - 5][this.sectionWidth / 2 + 10].setType(EnumTiles.KRAKEN_TENTACLE);
+		this.tiles[this.sectionHeight / 2 - 15][this.sectionWidth / 2 + 5].setType(EnumTiles.KRAKEN_TENTACLE);
+		this.tiles[this.sectionHeight / 2 - 15][this.sectionWidth / 2 - 5].setType(EnumTiles.KRAKEN_TENTACLE);
 	}
 
 	public void generateTree() {

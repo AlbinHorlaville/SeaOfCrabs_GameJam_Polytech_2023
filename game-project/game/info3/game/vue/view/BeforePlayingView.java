@@ -13,6 +13,8 @@ import info3.game.modele.Weapon;
 import info3.game.modele.MoveableEntityClass.Scythe;
 import info3.game.modele.MoveableEntityClass.Sword;
 import info3.game.vue.GameView;
+import info3.game.vue.SpriteLoader.SpriteLoader;
+import info3.game.vue.SpriteLoader.SpriteType;
 import info3.game.vue.toolkitUI.UIBox;
 import info3.game.vue.toolkitUI.UIBoxes;
 import info3.game.vue.toolkitUI.UIButton;
@@ -56,9 +58,11 @@ public class BeforePlayingView extends View {
 		weaponLabelPlayer1 = new UILabel(50, 221, "Player 1's weapon : ", FONT1, Color.black);
 		weaponLabelPlayer2 = new UILabel(50, 321, "Player 2's weapon : ", FONT1, Color.black);
 
-		boxSwordPlayer1 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
+		//boxSwordPlayer1 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
+		boxSwordPlayer1 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Epee.png", 2F));
+		
 		boxScythePlayer1 = new UIBox(96, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 2F));
-		boxSwordPlayer2 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
+		boxSwordPlayer2 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Epee.png", 2F));
 		boxScythePlayer2 = new UIBox(96, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 2F));
 
 		weaponSelectedLabel1 = new UILabel(550, 221, "", FONT1, Color.black);
@@ -94,11 +98,13 @@ public class BeforePlayingView extends View {
 							weapon2 = weaponsBoxesPlayer2.getSelectedBox().getWeapon();
 						}
 						// TODO : relier la vue au modele avant d'appeler start
-						gameView.getGame().start(i);
+						GameModele.seed = i;
+						gameView.getGame().start();
 					} else {
 						seedInput.setInputText(Integer.toString(i));
 						// TODO : relier la vue au modele avant d'appeler start
-						gameView.getGame().start(i);
+						GameModele.seed = i;
+						gameView.getGame().start();
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

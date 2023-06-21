@@ -19,7 +19,7 @@ public class BoatPlayer extends Player {
 
 	private static final int DEFAULT_MAX_BOATPLAYER_LIFE_POINT = 100;
 
-	public static final int DEFAULT_BOATPLAYER_SPEED = 1;
+	public static final int DEFAULT_BOATPLAYER_SPEED = 4;
 	
 	private int currentSection;
 

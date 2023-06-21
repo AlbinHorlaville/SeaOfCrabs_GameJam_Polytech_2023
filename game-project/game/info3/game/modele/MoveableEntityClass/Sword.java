@@ -1,7 +1,7 @@
 package info3.game.modele.MoveableEntityClass;
 
+
 import automate.AutomateLoader;
-import automate.EnumDirection;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.Weapon;
@@ -15,6 +15,9 @@ public class Sword extends Weapon{
 
 	public Sword() {
 		super("Sword", DAMAGE, RANGE, ALPHA);
+		setAvatar(new SwordAvatar(this));
+		GameModele.entities.add(this);
+		this.automate = AutomateLoader.findAutomate(GameEntity.Philosopher);
+		this.current_state = automate.initial_state;
 	}
-
 }

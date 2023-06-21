@@ -53,12 +53,14 @@ public class SpriteLoader {
 		load(SpriteType.CrabKing, "assets/img/ennemi/" + "CrabeKing.png", 1, 1);
 		load(SpriteType.LandTreasure, "assets/img/autre/" + "Coffre_dirt_sand.png", 1, 1);
 		load(SpriteType.SeaTreasure, "assets/img/autre/" + "Coffre_sea.png", 1, 1);
-		load(SpriteType.Sword, "resources/img/" + "Sword.png", 1, 1);
+		load(SpriteType.Sword, "resources/img/" + "Sword.png", 2, 2);
+		load(SpriteType.SwordEW, "resources/img/" + "SwordEW.png", 4, 2);
+		load(SpriteType.SwordNS, "resources/img/" + "SwordNS.png", 2, 4);
 		load(SpriteType.Scythe, "resources/img/" + "Scythe.png", 1, 1);
 		load(SpriteType.PirateBoatEnnemie, "assets/img/ennemi/" + "PirateBoatEnnemie.png", 2, 2);
 		load(SpriteType.Rhum, "assets/img/utilities/" + "Rhum.png", 2, 2);
 		load(SpriteType.Bonus, "assets/img/utilities/" + "Bonus.png", 2, 3);
-
+		load(SpriteType.Tentacle, "assets/img/ennemi/" + "Crabe.png", 1, 1);
 	}
 
 	/*

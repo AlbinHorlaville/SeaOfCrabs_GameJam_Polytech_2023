@@ -30,11 +30,14 @@ import java.util.Scanner;
 import info3.game.DAO;
 import info3.game.Controller;
 import info3.game.GameState;
+import info3.game.Score;
 import info3.game.SeaOfCrabes;
 import info3.game.User;
 import info3.game.modele.MoveableEntityClass.BoatPlayer;
+import info3.game.modele.MoveableEntityClass.CrabKing;
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
 import info3.game.modele.MoveableEntityClass.Ship;
+import info3.game.modele.MoveableEntityClass.Tentacle;
 import info3.game.modele.StillEntityClass.CloudCluster;
 import info3.game.modele.StillEntityClass.CrabLair;
 import info3.game.modele.StillEntityClass.RedCross;
@@ -73,27 +76,34 @@ public class GameModele {
 
 	public static Map map;
 
+	public static int seed;
+
 	int waveTick = 0;
 
 	GameState currentState;
 
 	public static User currentUser;
-	private static File userFile;
+	public static Score currentScore;
+
+	private static File userFile, scoreFile;
 
 	public GameModele() throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		if (SeaOfCrabes.connectedToDatabase) {
 			userFile = new File("resources/.USER");
+			scoreFile = new File("resources/.SCORE");
 			if (!userFile.exists()) {
 				currentState = GameState.Utilisateur; // we create a user through SetUpUserView
 			} else {
 				currentUser = new User(readUsernameFromFile()); // we load the current user from file
+				currentScore = new Score(readScoreFromFile());
 				currentState = GameState.Menu;
 			}
 		} else {
 			currentState = GameState.Menu; // there is no user in local mode
 		}
+
 	}
 
 	public void setGameview(GameView gameview) {
@@ -114,6 +124,22 @@ public class GameModele {
 		return null;
 	}
 
+	private static String[] readScoreFromFile() {
+		Scanner myReader;
+		String[] score;
+		try {
+			myReader = new Scanner(scoreFile);
+			if (myReader.hasNextLine()) {
+				score = myReader.nextLine().split(":");
+				return score;
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public static boolean createUser(String name) {
 		if (DAO.getInstance().addUser(name)) {
 			try {
@@ -124,12 +150,29 @@ public class GameModele {
 					currentUser = new User(name);
 					userFile.setWritable(false);
 				}
+				if (scoreFile.createNewFile()) {
+					updateScoreFile();
+					scoreFile.setWritable(false);
+				}
 			} catch (IOException e) {
 				return false;
 			}
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	private static void updateScoreFile() {
+		BufferedWriter writer;
+		try {
+			writer = new BufferedWriter(new FileWriter(scoreFile.getPath()));
+			writer.write(timer.toSQLStringFormat());
+			writer.close();
+			currentScore = new Score(timer.getHeures(), timer.getMinutes(), timer.getSecondes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -140,7 +183,7 @@ public class GameModele {
 				waveTick = 0;
 			}
 		}
-		ArrayList<Entity> tempEntities = (ArrayList)entities.clone();
+		ArrayList<Entity> tempEntities = (ArrayList) entities.clone();
 		for (Entity entity : tempEntities) {
 			if (entity instanceof CloudCluster) {
 				for (Entity cloud : ((CloudCluster) entity).getClouds()) {
@@ -152,7 +195,7 @@ public class GameModele {
 				entity.tick(elapsed);
 			}
 		}
-		
+
 		ArrayList<Entity> newEntities = new ArrayList<>();
 		for (Entity entity : entities) {
 			if (entity instanceof CloudCluster) {
@@ -166,6 +209,7 @@ public class GameModele {
 			}
 		}
 		entities = newEntities;
+
 		// System.out.print("\n\n x : " +
 		// -map.getMap()[0].getTiles()[26][map.getSectionWidth() / 2].getX() + "\n\n");
 		/*
@@ -187,20 +231,21 @@ public class GameModele {
 		this.gameview.update_view(state);
 	}
 
-	public void start(int s) throws Exception {
+	public void start() throws Exception {
 		if (currentState == GameState.AvantJeu) {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
 
-			
+			map = new Map(seed);
 
-			// GameModele.entities.add(player1);
 			if (!solo) {
-				player1 = new PiratePlayer(GameEntity.Player2);
-				player1.setAvatar(new Player1(player1));
-
 				player2 = new PiratePlayer(GameEntity.Player1);
 				player2.setAvatar(new Player2(player2));
+				player2.setWeapon(BeforePlayingView.weapon2);
+				BeforePlayingView.weapon2.setPlayer(player2);
+				
+				player1 = new PiratePlayer(GameEntity.Player2);
+				player1.setAvatar(new Player1(player1));
 				player1.setWeapon(BeforePlayingView.weapon1);
 				BeforePlayingView.weapon1.setPlayer(player1);
 			} else {
@@ -209,14 +254,13 @@ public class GameModele {
 				player1.setWeapon(BeforePlayingView.weapon1);
 				BeforePlayingView.weapon1.setPlayer(player1);
 			}
-			
-			map = new Map(s);
-			
+
 			pirateBoat = new BoatPlayer(
-					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 10][map.getSectionWidth() / 2].getX(),
-					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 10][map.getSectionWidth() / 2].getY());
+					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 13][map.getSectionWidth() / 2].getX(),
+					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 13][map.getSectionWidth() / 2].getY());
 			pirateBoat.setAvatar(new BoatPlayerAvatar(pirateBoat));
 			GameModele.entities.add(pirateBoat);
+			map = new Map(seed);
 
 			genereEntity(map);
 		}
@@ -328,6 +372,14 @@ public class GameModele {
 						newEntity = new Ship(k);
 						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);
+					} else if (Current.getType() == EnumTiles.CRAB_KING) {
+						newEntity = new CrabKing(k, 500, Current.getX(), Current.getY(), 10, 1); // TODO CHANGE PARAM
+						GameModele.entities.add(newEntity);
+						//entities.add(newEntity);
+					} else if (Current.getType() == EnumTiles.KRAKEN_TENTACLE) {
+						newEntity = new Tentacle(k, 500, 10, 1); // TODO CHANGE PARAM
+						newEntity.setLocation(Current.getX(), Current.getY());
+						entities.add(newEntity);
 					}
 				}
 			}
@@ -340,17 +392,40 @@ public class GameModele {
 	public void gameover() {
 		reset();
 	}
-	
+
+	/**
+	 * Compare le score réalisé avec celui du fichier .SCORE
+	 * 
+	 * @return
+	 */
+	public boolean isBestScore() {
+		return (GameModele.timer.getHeures() <= currentScore.getHeures())
+				&& (GameModele.timer.getMinutes() <= currentScore.getMinutes())
+				&& (GameModele.timer.getMinutes() <= currentScore.getSecondes());
+	}
+
 	/**
 	 * Fonction pour la victoire
 	 */
 	public void victory() {
+		if (isBestScore()) {
+			if (SeaOfCrabes.connectedToDatabase) {
+				if (GameModele.solo) {
+					DAO.getInstance().updateScoreSolo(currentUser, GameModele.timer.toSQLStringFormat(), seed);
+				} else {
+					DAO.getInstance().updateScoreDuo(currentUser, GameModele.timer.toSQLStringFormat(), seed);
+				}
+			}
+			updateScoreFile();
+		}
 		reset();
 	}
-	
+
 	private void reset() {
 		entities.clear();
+		timer.resetTimer();
 		this.setCurrentState(GameState.Menu);
+		onSea = true;
 		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
 		PiratePlayer.resetPiratePlayer();
 		pirateBoat = null;

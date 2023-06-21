@@ -32,7 +32,7 @@ public class CloudCluster extends Entity {
 			int posX = (int) (java.lang.Math.random() * SIZE_CLOUDCLSUTER + getX());
 			int posY = (int) (java.lang.Math.random() * SIZE_CLOUDCLSUTER + getY());
 			int size = (int) (java.lang.Math.random() * (SIZE_CLOUD_MAX - SIZE_CLOUD_MIN) + SIZE_CLOUD_MIN);
-			Cloud Current = new Cloud(size, posX, posY); // sizeCloud>0 ? sizeCloud+1 : -sizeCloud+1
+			Cloud Current = new Cloud(size, posX, posY, this); // sizeCloud>0 ? sizeCloud+1 : -sizeCloud+1
 			Current.setAvatar(new CloudAvatar(Current, Current.getSize()));
 			cluster.add(Current);
 		}

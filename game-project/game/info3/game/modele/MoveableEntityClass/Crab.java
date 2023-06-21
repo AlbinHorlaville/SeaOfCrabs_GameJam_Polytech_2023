@@ -21,7 +21,19 @@ public class Crab extends Ennemy {
 	public final static int DEFAULT_DAMAGE = 20;
 
 	private CrabLair m_crabLair;
-	private float m_coeff;
+	protected float m_coeff;
+
+	public Crab(int level, CrabLair crabLair) {
+		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE);
+		this.m_coeff = (new Level(level)).getCoeffBasedOnLevel();
+		this.m_healthPoints *= this.m_coeff;
+		this.m_damage *= this.m_coeff;
+		this.m_crabLair = crabLair;
+		this.automate = AutomateLoader.findAutomate(GameEntity.Crab);
+		this.current_state = automate.initial_state;
+		this.setAvatar(new CrabAvatar(this));
+
+	}
 	
 	public Crab(int level, CrabLair crabLair, int x, int y) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE, x, y);
@@ -32,7 +44,6 @@ public class Crab extends Ennemy {
 		this.m_crabLair = crabLair;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Crab);
 		this.current_state = automate.initial_state;
-		GameModele.entities.add(this);
 		
 //		System.out.println("Coord Player : (" +  GameModele.player1.x + ", " + GameModele.player1.y + ")");
 //		System.out.println("Coord Crab : (" +  this.x + ", " + this.y + ")");
@@ -295,7 +306,8 @@ public class Crab extends Ennemy {
 	}
 
 	public void die() {
-		this.m_crabLair.aCrabDied();
+		if(m_crabLair != null)
+			this.m_crabLair.aCrabDied();
 		super.die();
 	}
 	
@@ -304,8 +316,11 @@ public class Crab extends Ennemy {
 
 	@Override
 	public boolean closest() {
-		return (GameModele.map.getTileUnderEntity(GameModele.player1.x, GameModele.player1.y).isIsland() 
-				&& GameModele.map.getTileUnderEntity(GameModele.player1.x, GameModele.player1.y).isIsland());
+		return GameModele.map.getSectionOfEntity(GameModele.player1.x, GameModele.player1.y)
+				== GameModele.map.getSectionOfEntity(x,y)
+				&& !GameModele.onSea;
+		//return (GameModele.map.getTileUnderEntity(GameModele.player1.x, GameModele.player1.y).isIsland() 
+			//	&& GameModele.map.getTileUnderEntity(GameModele.player1.x, GameModele.player1.y).isIsland());
 	}
 
 	public CrabLair getCrabLair() {
