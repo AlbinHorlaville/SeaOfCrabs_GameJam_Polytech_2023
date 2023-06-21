@@ -18,12 +18,22 @@ public abstract class Entity {
 	protected Automate automate;
 	protected State current_state;
 
+	public Entity(int hitbox) {
+		this.r = hitbox;
+	}
+	
 	public Entity() {
 	}
 	
 	public Entity(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	public Entity(int x, int y, int hitbox) {
+		this.x = x;
+		this.y = y;
+		this.r = hitbox;
 	}
 
 	public void initAvatar(Avatar avatar) {

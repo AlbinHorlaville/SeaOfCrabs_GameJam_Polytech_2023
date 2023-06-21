@@ -19,12 +19,13 @@ public class Crab extends Ennemy {
 	
 	public final static int DEFAULT_HEALTH_POINTS = 100;
 	public final static int DEFAULT_DAMAGE = 20;
+	public final static int HIT_BOX = 50;
 
 	private CrabLair m_crabLair;
 	protected float m_coeff;
 
 	public Crab(int level, CrabLair crabLair) {
-		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE);
+		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE, HIT_BOX);
 		this.m_coeff = (new Level(level)).getCoeffBasedOnLevel();
 		this.m_healthPoints *= this.m_coeff;
 		this.m_damage *= this.m_coeff;
@@ -36,7 +37,7 @@ public class Crab extends Ennemy {
 	}
 	
 	public Crab(int level, CrabLair crabLair, int x, int y) {
-		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE, x, y);
+		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE, HIT_BOX, x, y);
 		this.m_coeff = (new Level(level)).getCoeffBasedOnLevel();
 		this.avatar = new CrabAvatar(this);
 		this.m_healthPoints *= this.m_coeff;

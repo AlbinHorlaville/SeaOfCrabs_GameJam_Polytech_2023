@@ -24,7 +24,7 @@ public class PiratePlayer extends Player {
 	
 	private static final int DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF = 1;
 	
-	private static final int DEFAULT_PIRATEPLAYER_SPEED_COEFF = 1;
+	private static final int DEFAULT_PIRATEPLAYER_SPEED_COEFF = 10;
 
 	private static final int DEFAULT_PIRATEPLAYER_DAMAGE_COEFF = 1;
 	
@@ -182,11 +182,13 @@ public class PiratePlayer extends Player {
 	}
 	
 	public int getCenterX() {
-		return this.x + (2* this.avatar.getWidth() /Avatar.SCALE_IMG);
+		//return this.x + ( this.avatar.getWidth()  / (2 * Avatar.SCALE_IMG));
+		return this.x + this.avatar.getWidth()/2;
 	}
 	
 	public int getCenterY() {
-		return this.y + ( this.avatar.getHeight() / Avatar.SCALE_IMG);
+		//return this.y + ( this.avatar.getHeight() / Avatar.SCALE_IMG);
+		return this.y + this.avatar.getHeight();
 	}
 	
 	public float getDamageCoeff() {

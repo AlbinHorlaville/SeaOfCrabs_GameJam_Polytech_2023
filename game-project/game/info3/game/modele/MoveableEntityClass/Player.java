@@ -9,7 +9,7 @@ public abstract class Player extends MoveableEntity {
 	protected int m_maxHealthPoints;
 	
 	public Player(int healthPoints, int damage, int maxHealthPoints) {
-		super(healthPoints, damage);
+		super(healthPoints, damage, 0);
 		this.m_maxHealthPoints = DEFAULT_MAX_PLAYERS_LIFE;
 	}
 	
