@@ -147,8 +147,8 @@ CrabsLair(Init){
  
  RedCross(Init){
   * (Init) :
-  | GotPower ? Egg : (Init)
-  | True ? : ()
+  | GotPower ? Egg : ()
+  | True ? : (Init)
   * ()
  }
 
@@ -169,6 +169,7 @@ Ship(Init){
 Bonus(Init){
  * (Init) :
  | Cell(H,T) ? Power(T) : ()
+ | GotPower ? : ()
  | True ? : (Init)
  * ()
 }
@@ -185,4 +186,18 @@ Cloud(Init){
   | Cell(H, T) ? : ()
   | True ? : (Init)
   * ()
+}
+
+SeaTreasure(Init){
+ * (Init) : 
+ | Cell(H,T) ? Egg : ()
+ | True ? : (Init)
+ * ()
+}
+
+Treasure(Init){
+ * (Init) : 
+ | Cell(H,T) ? Power : ()
+ | True ? : (Init)
+ * ()
 }

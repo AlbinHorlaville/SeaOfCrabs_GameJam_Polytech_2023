@@ -22,18 +22,6 @@ public class Crab extends Ennemy {
 
 	private CrabLair m_crabLair;
 	private float m_coeff;
-
-	public Crab(int level, CrabLair crabLair) {
-		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE);
-		this.m_coeff = (new Level(level)).getCoeffBasedOnLevel();
-		this.m_healthPoints *= this.m_coeff;
-		this.m_damage *= this.m_coeff;
-		this.m_crabLair = crabLair;
-		this.automate = AutomateLoader.findAutomate(GameEntity.Crab);
-		this.current_state = automate.initial_state;
-		GameModele.entities.add(this);
-
-	}
 	
 	public Crab(int level, CrabLair crabLair, int x, int y) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE, x, y);

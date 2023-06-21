@@ -12,6 +12,11 @@ public class SpeedBonus extends Bonus {
 		super(level, x, y);
 		setAvatar(new BonusAvatar(this));
 	}
+	
+	public SpeedBonus(int level) {
+		super(level);
+		setAvatar(new BonusAvatar(this));
+	}
 
 	@Override
 	public void power() {

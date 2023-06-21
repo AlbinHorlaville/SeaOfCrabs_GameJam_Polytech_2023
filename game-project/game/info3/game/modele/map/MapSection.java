@@ -25,6 +25,8 @@ public class MapSection {
 
 	private RedCross redCross;
 	private CrabLair crabLair;
+	
+	private int sectionNumber;
 
 	/*
 	 * @param seaType : The type of sea
@@ -34,12 +36,14 @@ public class MapSection {
 	 * @param rand : the random generator
 	 * 
 	 */
-	public MapSection(EnumSectionType seaType, int sectionWidth, int sectionHeight, Random rand) throws Exception {
+	public MapSection(EnumSectionType seaType, int sectionWidth, int sectionHeight, Random rand, int sectionNumber) throws Exception {
 
 		this.noiseGenerator = new PerlinNoiseGenerator(0.05);
 		this.randomGenerator = rand;
 
 		this.seaType = seaType;
+		
+		this.sectionNumber = sectionNumber;
 
 		this.sectionHeight = sectionHeight;
 		this.sectionWidth = sectionWidth;
@@ -98,7 +102,7 @@ public class MapSection {
 		}
 	}
 	
-	public MapSection(EnumSectionType seaType, int sectionWidth, int sectionHeight, Random rand, int[] height) throws Exception {
+	public MapSection(EnumSectionType seaType, int sectionWidth, int sectionHeight, Random rand, int[] height, int sectionNumber) throws Exception {
 
 		this.noiseGenerator = new PerlinNoiseGenerator(0.05);
 		this.randomGenerator = rand;
@@ -107,6 +111,8 @@ public class MapSection {
 
 		this.sectionHeight = sectionHeight;
 		this.sectionWidth = sectionWidth;
+		
+		this.sectionNumber = sectionNumber;
 
 		this.tiles = new Tiles[this.sectionHeight][this.sectionWidth];
 
@@ -1128,5 +1134,17 @@ public class MapSection {
 
 	public CrabLair getCrabLair() {
 		return this.crabLair;
+	}
+
+	public void setRedCross(RedCross redCross) {
+		this.redCross = redCross;
+	}
+
+	public void setCrabLair(CrabLair crabLair) {
+		this.crabLair = crabLair;
+	}
+	
+	public int getSectionNumber() {
+		return this.sectionNumber;
 	}
 }

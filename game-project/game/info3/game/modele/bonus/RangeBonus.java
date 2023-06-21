@@ -12,6 +12,11 @@ public class RangeBonus extends Bonus {
 		super(level, x, y);
 		setAvatar(new BonusAvatar(this));
 	}
+	
+	public RangeBonus(int level) {
+		super(level);
+		setAvatar(new BonusAvatar(this));
+	}
 
 	@Override
 	public void power() {

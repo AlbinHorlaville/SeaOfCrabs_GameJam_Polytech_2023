@@ -18,5 +18,7 @@ public enum GameEntity {
 	Bonus,
 	Rhum,
 	Cloud,
-	RedCross
+	RedCross,
+	Treasure,
+	SeaTreasure
 }

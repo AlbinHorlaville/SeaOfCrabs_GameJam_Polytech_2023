@@ -9,7 +9,11 @@ public class AttackSpeedbonus extends Bonus{
 	public AttackSpeedbonus(int level, int x, int y) {
 		super(level, x, y);
 		setAvatar(new BonusAvatar(this));
-		
+	}
+	
+	public AttackSpeedbonus(int level) {
+		super(level);
+		setAvatar(new BonusAvatar(this));
 	}
 
 	@Override
