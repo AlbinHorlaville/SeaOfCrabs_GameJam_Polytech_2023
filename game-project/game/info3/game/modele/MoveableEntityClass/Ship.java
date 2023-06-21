@@ -15,6 +15,10 @@ public class Ship extends Ennemy {
 	public final static int DEFAULT_DAMAGE = 20;
 
 	private float m_coeff;
+	
+	private int timerAttackMili;
+	private int timerAttackSec;
+	private boolean reloading;
 
 	public Ship(int level) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE);
@@ -62,7 +66,18 @@ public class Ship extends Ennemy {
 	}
 
 	public void hit() {
-		// GameModele.player1.takeDamage(DEFAULT_DAMAGE);
+		int timeMili = GameModele.timer.getMiliSecondes();
+		int timeSec = GameModele.timer.getSecondes();
+		
+		if (!this.reloading) {
+			GameModele.map.setDamaging(GameModele.getCurrentPlayerX(), GameModele.getCurrentPlayerY());
+			this.reloading = true;
+			this.timerAttackMili = timeMili;
+			this.timerAttackSec = timeSec;
+		} else if (timerAttackMili <= timeMili + 20 && timerAttackSec + 1 <= timeSec) {
+			this.reloading = false;
+		}
+		
 	}
 
 	@Override

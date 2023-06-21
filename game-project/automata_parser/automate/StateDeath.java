@@ -10,14 +10,14 @@ public class StateDeath extends State{
 	}
 	
 	@Override
-	public State step(Entity e) {
-		e.die();
-		return this;
-	}
-	
-	@Override
 	public void print() {
 		System.out.println("State : " + name);
+	}
+	
+	public State step(Entity e) {
+		e.die();
+		this.died = true;
+		return this;
 	}
 
 }

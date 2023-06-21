@@ -1,7 +1,6 @@
 package info3.game.sound;
 
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.util.HashMap;
 
@@ -13,11 +12,10 @@ public class SoundTool {
 
 	static BackgroundMusic currenBackgroundSound = BackgroundMusic.MainMenu;
 
-	public final static String pathBGM = "assets/audio/bgm/";
-	public final static String pathSE = "assets/audio/se/";
+	public final static String path = "assets/audio/";
 
-	private static HashMap<BackgroundMusic, InputStream> backgroundSounds;
-	private static HashMap<SoundEffect, InputStream> soundEffects;
+	private static HashMap<BackgroundMusic, String> backgroundSounds;
+	private static HashMap<SoundEffect, String> soundEffects;
 
 	/**
 	 * Change la musique actuel du background
@@ -37,9 +35,12 @@ public class SoundTool {
 	 * @param volume
 	 * @throws FileNotFoundException
 	 */
-	public static void playSoundEffect(SoundEffect se, long duration) throws FileNotFoundException {
+	public static void playSoundEffect(SoundEffect se, long duration){
+		String filename = path + "se/" + soundEffects.get(se);
 		try {
-			canvas.playSound(se.getFileName(), soundEffects.get(se), duration, 1f);
+			RandomAccessFile file = new RandomAccessFile(filename, "r");
+			RandomFileInputStream fis = new RandomFileInputStream(file);
+			canvas.playSound(filename, fis, duration, 1f);
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 			System.exit(-1);
@@ -51,8 +52,11 @@ public class SoundTool {
 	 * changeBackgroundMusic() pour changer la musique
 	 */
 	public static void playBackgroundMusic() {
+		String filename = path + "bgm/" + backgroundSounds.get(currenBackgroundSound);
 		try {
-			canvas.playMusic(backgroundSounds.get(currenBackgroundSound), 0, 1f);
+			RandomAccessFile file = new RandomAccessFile(filename, "r");
+			RandomFileInputStream fis = new RandomFileInputStream(file);
+			canvas.playMusic(fis, 0, 1f);
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 			System.exit(-1);
@@ -60,7 +64,17 @@ public class SoundTool {
 	}
 
 	public static BackgroundMusic stopBackgroundMusic() {
-		canvas.stopMusic(pathBGM + currenBackgroundSound.getFileName());
+		String m = null;
+		switch (currenBackgroundSound) {
+		case MainMenu:
+			m = "Town8.ogg";
+			break;
+		case Game:
+			m = "Town1.ogg";
+			break;
+		default:
+		}
+		canvas.stopMusic(path + m);
 		return currenBackgroundSound;
 	}
 
@@ -78,19 +92,20 @@ public class SoundTool {
 		 * 
 		 */
 		soundEffects = new HashMap<>();
+		
 		for (SoundEffect se: SoundEffect.values()) {
-			loadSoundEffect(se, se.getFileName());
+			SoundTool.soundEffects.put(se, se.getFileName());
 		}
+
+		backgroundSounds = new HashMap<>();
 
 		/********
 		 * 
 		 * HASHMAP DES SONS DE FONDS
 		 * 
 		 */
-		backgroundSounds = new HashMap<>();
-
-		for (BackgroundMusic se: BackgroundMusic.values()) {
-			loadBackground(se, se.getFileName());
+		for (BackgroundMusic bgm: BackgroundMusic.values()) {
+			SoundTool.backgroundSounds.put(bgm, bgm.getFileName());
 		}
 	}
 
@@ -102,42 +117,7 @@ public class SoundTool {
 	 */
 	public static boolean is_background(String name) {
 		// System.out.println(name);
-		for (BackgroundMusic music : BackgroundMusic.values()) {
-			if (name.equals(music.getFileName()));
-		}
-		return false;
-	}
-	
-	/**
-	 * Load Background Music
-	 * @param bgm
-	 * @param filename
-	 */
-	private static void loadBackground(BackgroundMusic bgm, String filename) {
-		try {
-			RandomAccessFile file = new RandomAccessFile( pathBGM + filename, "r");
-			RandomFileInputStream fis = new RandomFileInputStream(file);
-			backgroundSounds.put(bgm, fis);
-		} catch (Throwable th) {
-			th.printStackTrace(System.err);
-			System.exit(-1);
-		}
-	}
-	
-	/**
-	 * Load Sound Effect
-	 * @param se
-	 * @param filename
-	 */
-	private static void loadSoundEffect(SoundEffect se, String filename) {
-		try {
-			RandomAccessFile file = new RandomAccessFile( pathSE + filename, "r");
-			RandomFileInputStream fis = new RandomFileInputStream(file);
-			soundEffects.put(se, fis);
-		} catch (Throwable th) {
-			th.printStackTrace(System.err);
-			System.exit(-1);
-		}
+		return backgroundSounds.containsValue(name);
 	}
 
 }

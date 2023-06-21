@@ -24,7 +24,7 @@ public class PiratePlayer extends Player {
 	
 	private static final int DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF = 1;
 	
-	private static final int DEFAULT_PIRATEPLAYER_SPEED_COEFF = 1;
+	private static final int DEFAULT_PIRATEPLAYER_SPEED_COEFF = 10;
 
 	private static final int DEFAULT_PIRATEPLAYER_DAMAGE_COEFF = 1;
 	
@@ -58,7 +58,8 @@ public class PiratePlayer extends Player {
 			
 	public Weapon weapon;
 	public boolean invincible;
-	public int timerInvicible;
+	public int timerInvicibleMili;
+	public int timerInvicibleSec;
 	
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
@@ -182,11 +183,13 @@ public class PiratePlayer extends Player {
 	}
 	
 	public int getCenterX() {
-		return this.x + (2* this.avatar.getWidth() /Avatar.SCALE_IMG);
+		//return this.x + ( this.avatar.getWidth()  / (2 * Avatar.SCALE_IMG));
+		return this.x + this.avatar.getWidth()/2;
 	}
 	
 	public int getCenterY() {
-		return this.y + ( this.avatar.getHeight() / Avatar.SCALE_IMG);
+		//return this.y + ( this.avatar.getHeight() / Avatar.SCALE_IMG);
+		return this.y + this.avatar.getHeight();
 	}
 	
 	public float getDamageCoeff() {
@@ -236,16 +239,18 @@ public class PiratePlayer extends Player {
 	}
 	
 	public void takeDamage(int damage) {
-		int time = GameModele.timer.getSecondes();
+		int timeMili = GameModele.timer.getMiliSecondes();
+		int timeSec = GameModele.timer.getSecondes();
 		if(!invincible) {
 			this.ACTUAL_PIRATEPLAYER_LIFE_POINT -= damage;
 			if(this.ACTUAL_PIRATEPLAYER_LIFE_POINT <= 0) {
 				this.die();
 			}
 			invincible = true;
-			timerInvicible = time;
+			this.timerInvicibleMili = timeMili;
+			this.timerInvicibleSec = timeSec;
 		}
-		else if(time >= timerInvicible + 1){
+		else if(timerInvicibleMili <= timeMili && timerInvicibleSec + 1 <= timeSec){
 			invincible = false;
 		}
 	}

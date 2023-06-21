@@ -16,7 +16,7 @@ public class Sword extends Weapon{
 	public Sword() {
 		super("Sword", DAMAGE, RANGE, ALPHA);
 		setAvatar(new SwordAvatar(this));
-		GameModele.entities.add(this);
+		GameModele.entities.add(this);	
 		this.automate = AutomateLoader.findAutomate(GameEntity.Philosopher);
 		this.current_state = automate.initial_state;
 	}

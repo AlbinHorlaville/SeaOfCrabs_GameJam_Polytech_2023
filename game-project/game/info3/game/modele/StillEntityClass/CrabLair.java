@@ -20,9 +20,9 @@ public class CrabLair extends StillEntity{
 	
 	private int m_level;
 	private int m_nbCrabsToEgg;
-	private int m_nbCrabsAlive; 
+	private int m_nbCrabsAlive;
 	private ArrayList<Tiles> m_crabLairTiles;
-	private boolean m_isDead = false;
+	private boolean m_isDead;
 	private ArrayList<Tiles> m_tilesForCrabSpanwing;
 	private MapSection m_section;
 	
@@ -31,20 +31,25 @@ public class CrabLair extends StillEntity{
 		this.m_nbCrabsToEgg = (int) ((float)DEFAULT_CRAB_NUMBER * (new Level(level)).getCoeffBasedOnLevel());
 		this.m_nbCrabsAlive = this.m_nbCrabsToEgg;
 		this.m_section = m_section;
+		this.m_section.setCrabLair(this);
 		this.automate = AutomateLoader.findAutomate(GameEntity.CrabsLair);
 		this.current_state = automate.initial_state;
 		this.avatar = new CrabslairAvatar(this);
 		this.m_tilesForCrabSpanwing = null;
+		this.m_isDead = false;
+		//System.out.println(this.m_section.toString());
+
 	}
 
 	@Override
 	public void move() {
-		//entity doesn't move
+		//System.out.println("AAAAAAAAAAAAAAAAAAAAAA : " + this.toString());
 	}
 
 	@Override
 	public void die() {
 		m_isDead = true;
+		
 	}
 	
 	public boolean gotStuff() {

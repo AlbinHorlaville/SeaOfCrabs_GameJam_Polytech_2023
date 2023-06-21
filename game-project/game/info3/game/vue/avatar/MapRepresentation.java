@@ -44,6 +44,8 @@ public class MapRepresentation {
 	private BufferedImage[] sandVariante;
 	private BufferedImage[] sandWaterImage;
 	private BufferedImage[] stoneImage;
+	private BufferedImage[] waterPreDamageImage;
+	private BufferedImage[] waterDamagingImage;
 
 	private int scale;
 
@@ -162,6 +164,50 @@ public class MapRepresentation {
 			this.stoneImage[1] = ImageIO.read(imageFile);
 			this.stoneImage[1] = resize(this.stoneImage[1], this.stoneImage[1].getWidth() * scale,
 					this.stoneImage[1].getHeight() * scale);
+		}
+		
+		this.waterPreDamageImage = new BufferedImage[4];
+
+		imageFile = new File("assets/img/tiles/water_pre_damage.png");
+		if (imageFile.exists()) {
+			waterPreDamageImage[0] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/stormy_water_pre_damage.png");
+		if (imageFile.exists()) {
+			waterPreDamageImage[1] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/raging_water_pre_damage.png");
+		if (imageFile.exists()) {
+			waterPreDamageImage[2] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/kraken_water_pre_damage.png");
+		if (imageFile.exists()) {
+			waterPreDamageImage[3] = ImageIO.read(imageFile);
+		}
+		
+		this.waterDamagingImage = new BufferedImage[4];
+
+		imageFile = new File("assets/img/tiles/water_damaging.png");
+		if (imageFile.exists()) {
+			waterDamagingImage[0] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/stormy_water_damaging.png");
+		if (imageFile.exists()) {
+			waterDamagingImage[1] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/raging_water_damaging.png");
+		if (imageFile.exists()) {
+			waterDamagingImage[2] = ImageIO.read(imageFile);
+		}
+
+		imageFile = new File("assets/img/tiles/kraken_water_damaging.png");
+		if (imageFile.exists()) {
+			waterDamagingImage[3] = ImageIO.read(imageFile);
 		}
 
 		this.grassTransitionAngle = new BufferedImage[4];
@@ -530,6 +576,38 @@ public class MapRepresentation {
 							break;
 						case TRANSITION_GRASS_UNDER_AND_ON_RIGHT_OF_SAND:
 							img = this.grassTransitionTwoSide[5];// grassUnderAndOnRightOfSand
+							break;
+						case CALM_WATER_PRE_DAMAGE:
+							img = this.waterPreDamageImage[0];
+							positionY += (int) waveOffset;
+							break;
+						case STORMY_WATER_PRE_DAMAGE:
+							img = this.waterPreDamageImage[1];
+							positionY += (int) waveOffset;
+							break;
+						case RAGING_WATER_PRE_DAMAGE:
+							img = this.waterPreDamageImage[2];
+							positionY += (int) waveOffset;
+							break;
+						case KRAKEN_WATER_PRE_DAMAGE:
+							img = this.waterPreDamageImage[3];
+							positionY += (int) waveOffset;
+							break;
+						case CALM_WATER_DAMAGING:
+							img = this.waterDamagingImage[0];
+							positionY += (int) waveOffset;
+							break;
+						case STORMY_WATER_DAMAGING:
+							img = this.waterDamagingImage[1];
+							positionY += (int) waveOffset;
+							break;
+						case RAGING_WATER_DAMAGING:
+							img = this.waterDamagingImage[2];
+							positionY += (int) waveOffset;
+							break;
+						case KRAKEN_WATER_DAMAGING:
+							img = this.waterDamagingImage[3];
+							positionY += (int) waveOffset;
 							break;
 						default:
 							img = defaultImage;
