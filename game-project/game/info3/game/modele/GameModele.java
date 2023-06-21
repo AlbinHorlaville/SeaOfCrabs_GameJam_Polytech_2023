@@ -187,8 +187,8 @@ public class GameModele {
 		for (Entity entity : tempEntities) {
 			if (entity instanceof CloudCluster) {
 				for (Entity cloud : ((CloudCluster) entity).getClouds()) {
-					cloud.step();
-					cloud.tick(elapsed);
+					//cloud.step();
+					//cloud.tick(elapsed);
 				}
 			} else {
 				entity.step();
@@ -200,8 +200,8 @@ public class GameModele {
 		for (Entity entity : entities) {
 			if (entity instanceof CloudCluster) {
 				for (Entity cloud : ((CloudCluster) entity).getClouds()) {
-					if (!cloud.current_state.isDead())
-						newEntities.add(cloud);
+					//if (!cloud.current_state.isDead())
+						//newEntities.add(cloud);
 				}
 			} else {
 				if (!entity.current_state.isDead())
@@ -355,13 +355,13 @@ public class GameModele {
 						// newEntity.setLocation(Current.getX(),Current.getY());
 						entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.TREE) {
-						newEntity = new Tree();
+						newEntity = new Tree(k);
 						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.RAGING_SEA_CHEST
 							|| Current.getType() == EnumTiles.STORMY_SEA_CHEST
 							|| Current.getType() == EnumTiles.CALM_SEA_CHEST) {
-						newEntity = new SeaTreasure(Current.getX(), Current.getY());// de section) avec 20 points de vie
+						newEntity = new SeaTreasure(map.getMap()[k], Current.getX(), Current.getY());// de section) avec 20 points de vie
 						entities.add(newEntity);
 						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le
 																						// numéro

@@ -239,5 +239,9 @@ public abstract class Entity {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void takeDamage(int damage) {
+		System.out.println("Cette entité n'a pas de fonction takeDamage()");
+	}
 
 }
