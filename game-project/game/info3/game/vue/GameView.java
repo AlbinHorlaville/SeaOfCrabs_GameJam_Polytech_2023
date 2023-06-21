@@ -81,7 +81,7 @@ public class GameView {
 			frame = canvas.createFrame(d);
 
 			System.out.println("  - setting up the frame...");
-			File backgroundImageFile = new File("resources/GIFMenu.gif");
+			File backgroundImageFile = new File("resources/background.png");
 			try {
 				backgroundImage = ImageIO.read(backgroundImageFile);
 
