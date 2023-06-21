@@ -19,5 +19,7 @@ public enum GameEntity {
 	Rhum,
 	Cloud,
 	RedCross,
+	Treasure,
+	SeaTreasure,
 	CrabKing
 }

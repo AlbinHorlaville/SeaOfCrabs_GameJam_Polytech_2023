@@ -9,7 +9,7 @@ public class Scythe extends Weapon{
 	public static int RANGE  = 5;
 	public static double ALPHA  = 80.0;
 
-	private Scythe() {
+	public Scythe() {
 		super("Scythe", DAMAGE, RANGE, ALPHA);
 	}
 	

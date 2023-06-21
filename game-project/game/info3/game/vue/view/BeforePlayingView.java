@@ -59,10 +59,10 @@ public class BeforePlayingView extends View {
 		weaponLabelPlayer2 = new UILabel(50, 321, "Player 2's weapon : ", FONT1, Color.black);
 
 		//boxSwordPlayer1 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
-		boxSwordPlayer1 = new UIBox(96, new Sword(), new UIImage(0, 0, SpriteLoader.get(SpriteType.Sword)[0], 2F));
+		boxSwordPlayer1 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Epee.png", 2F));
 		
 		boxScythePlayer1 = new UIBox(96, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 2F));
-		boxSwordPlayer2 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Sword.png", 2F));
+		boxSwordPlayer2 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Epee.png", 2F));
 		boxScythePlayer2 = new UIBox(96, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 2F));
 
 		weaponSelectedLabel1 = new UILabel(550, 221, "", FONT1, Color.black);

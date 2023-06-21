@@ -238,13 +238,14 @@ public class GameModele {
 
 			map = new Map(seed);
 
-			// GameModele.entities.add(player1);
 			if (!solo) {
-				player1 = new PiratePlayer(GameEntity.Player2);
-				player1.setAvatar(new Player1(player1));
-
 				player2 = new PiratePlayer(GameEntity.Player1);
 				player2.setAvatar(new Player2(player2));
+				player2.setWeapon(BeforePlayingView.weapon2);
+				BeforePlayingView.weapon2.setPlayer(player2);
+				
+				player1 = new PiratePlayer(GameEntity.Player2);
+				player1.setAvatar(new Player1(player1));
 				player1.setWeapon(BeforePlayingView.weapon1);
 				BeforePlayingView.weapon1.setPlayer(player1);
 			} else {
@@ -372,9 +373,9 @@ public class GameModele {
 						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.CRAB_KING) {
-						newEntity = new CrabKing(k, 500, 10, 1); // TODO CHANGE PARAM
-						newEntity.setLocation(Current.getX(), Current.getY());
-						// entities.add(newEntity);
+						newEntity = new CrabKing(k, 500, Current.getX(), Current.getY(), 10, 1); // TODO CHANGE PARAM
+						GameModele.entities.add(newEntity);
+						//entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.KRAKEN_TENTACLE) {
 						newEntity = new Tentacle(k, 500, 10, 1); // TODO CHANGE PARAM
 						newEntity.setLocation(Current.getX(), Current.getY());

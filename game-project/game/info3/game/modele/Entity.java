@@ -83,7 +83,9 @@ public abstract class Entity {
 	}
 	
 	public void step() {
-		current_state = this.automate.step(this, current_state);
+		current_state = this.automate.step(
+				this,
+				current_state);
 	}
 	
 	public void die() {
@@ -231,6 +233,11 @@ public abstract class Entity {
 	public boolean closest(EnumCategory cat) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public void power() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
