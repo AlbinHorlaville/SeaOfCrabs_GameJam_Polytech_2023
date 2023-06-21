@@ -35,7 +35,7 @@ public class SoundTool {
 	 * @param volume
 	 * @throws FileNotFoundException
 	 */
-	public static void playSoundEffect(SoundEffect se, long duration) throws FileNotFoundException {
+	public static void playSoundEffect(SoundEffect se, long duration){
 		String filename = path + "se/" + soundEffects.get(se);
 		try {
 			RandomAccessFile file = new RandomAccessFile(filename, "r");
@@ -92,16 +92,21 @@ public class SoundTool {
 		 * 
 		 */
 		soundEffects = new HashMap<>();
-		SoundTool.soundEffects.put(SoundEffect.Test, "Sword4.ogg");
+		
+		for (SoundEffect se: SoundEffect.values()) {
+			SoundTool.soundEffects.put(se, se.getFileName());
+		}
+
+		backgroundSounds = new HashMap<>();
 
 		/********
 		 * 
 		 * HASHMAP DES SONS DE FONDS
 		 * 
 		 */
-		backgroundSounds = new HashMap<>();
-		SoundTool.backgroundSounds.put(BackgroundMusic.Game, "Town1.ogg");
-		SoundTool.backgroundSounds.put(BackgroundMusic.MainMenu, "Town8.ogg");
+		for (BackgroundMusic bgm: BackgroundMusic.values()) {
+			SoundTool.backgroundSounds.put(bgm, bgm.getFileName());
+		}
 	}
 
 	/**
