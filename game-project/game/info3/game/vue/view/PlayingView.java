@@ -32,7 +32,7 @@ import info3.game.vue.toolkitUI.UILabel;
 public class PlayingView extends View {
 
 	UIBarrePointDeVie barreVieMer, barreVieTerre;
-	UIBoxes cannonBallBox;
+	UIBoxes cannonBallBox, boxPlayer1, boxPlayer2;
 	UIBox boxSword, boxScythe;
 	UILabel labelTimer;
 
@@ -51,20 +51,20 @@ public class PlayingView extends View {
 		labelTimer = new UILabel(windowWidth / 2, 25, "0'", FONT4, Color.black);
 
 		cannonBallBox = new UIBoxes((windowWidth - 100) / 2, windowHeight - 114);
-		boxSword = new UIBox(64, new Sword(), new UIImage(0, 0, SpriteLoader.get(SpriteType.Sword)[0], 1F));
+		boxSword = new UIBox(64, new Sword(), new UIImage(0, 0, "resources/img/Epee.png", 1F));
 		boxScythe = new UIBox(64, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 1F));
 		cannonBallBox.addBox(boxSword);
 		cannonBallBox.addBox(boxScythe);
 
 		addComponent(cannonBallBox);
-		
+
 	}
 
 	@Override
 	public void tick(long elapsed) {
 
 		for (Entity entity : GameModele.entities) {
-			if(! (entity instanceof CloudCluster))
+			if (!(entity instanceof CloudCluster))
 				entity.getAvatar().tick(elapsed);
 		}
 
@@ -195,6 +195,36 @@ public class PlayingView extends View {
 		}
 
 		cannonBallBox.paint(g);
+		
+
+		if (!GameModele.solo) {
+			boxPlayer1 = new UIBoxes(50, 602);
+			if (GameModele.player1.weapon.getName() == "Sword") {
+				weaponPlayer1 = new UIBox(50, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 1F), new UIImage(0,0,"resources/img/logo-pirate-1.png",1F));
+			} else {
+				weaponPlayer1 = new UIBox(50, 602, 64, new UIImage(0, 0, "resources/img/Scythe.png", 1F), new UIImage(0,0,"resources/img/logo-pirate-1.png",1F));
+			}
+			boxPlayer1.addBox(weaponPlayer1);
+			boxPlayer1.paint(g);
+			boxPlayer2 = new UIBoxes(910, 602);
+			if (GameModele.player2.weapon.getName() == "Sword") {
+				weaponPlayer2 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 1F), new UIImage(0,0,"resources/img/logo-pirate-2.png",1F));
+			} else {
+				weaponPlayer2 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Scythe.png", 1F), new UIImage(0,0,"resources/img/logo-pirate-2.png",1F));
+			}
+			boxPlayer2.addBox(weaponPlayer2);
+			boxPlayer2.paint(g);
+		} else {
+			boxPlayer1 = new UIBoxes(910, 602);
+			if (GameModele.player1.weapon.getName() == "Sword") {
+				weaponPlayer1 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 1F), new UIImage(0,0,"resources/img/logo-pirate-1.png",1F));
+			} else {
+				weaponPlayer1 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Scythe.png", 1F), new UIImage(0,0,"resources/img/logo-pirate-1.png",1F));
+			}
+			boxPlayer1.addBox(weaponPlayer1);
+			boxPlayer1.paint(g);
+		}
+
 		labelTimer.setText(GameModele.timer.toString());
 		labelTimer.paint(g);
 
