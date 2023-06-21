@@ -183,13 +183,11 @@ public class PiratePlayer extends Player {
 	}
 	
 	public int getCenterX() {
-		//return this.x + ( this.avatar.getWidth()  / (2 * Avatar.SCALE_IMG));
-		return this.x + this.avatar.getWidth()/2;
+		return this.x + (2 * this.avatar.getWidth()  / (Avatar.SCALE_IMG));
 	}
 	
 	public int getCenterY() {
-		//return this.y + ( this.avatar.getHeight() / Avatar.SCALE_IMG);
-		return this.y + this.avatar.getHeight();
+		return this.y + ( this.avatar.getHeight() / Avatar.SCALE_IMG);
 	}
 	
 	public float getDamageCoeff() {
