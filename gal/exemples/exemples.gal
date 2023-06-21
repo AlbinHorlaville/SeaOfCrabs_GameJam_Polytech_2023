@@ -129,14 +129,14 @@ Crab(Init){
 CrabKing(Init){
  * (Init) :
  | !GotPower ? : ()
- | Closest ? : (Moving)
+ | Closest ? : (Spawn)
  | True ? : (Init)
- * (Moving) :
- | Cell(F,A) ? Hit : (Combat)
- | !Cell(F,V) ? Move(O) : (Init)
- | True ? Move(F) : (Init)
- * (Combat)
+ * (Spawn)
  | GotStuff ? Egg : (Moving)
+ | True ? : (Moving)
+ * (Moving) :
+ | Cell(F,A) ? Hit : (Moving)
+ | !Cell(F,V) ? Move(O) : (Init)
  | True ? Move(F) : (Init)
  * ()
 }

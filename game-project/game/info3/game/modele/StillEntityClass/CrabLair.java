@@ -87,6 +87,7 @@ public class CrabLair extends StillEntity{
 			
 			//Create crab and addint it to the List
 			Crab crab = new Crab(this.m_level, this, tile.getX(), tile.getY());
+			GameModele.entities.add(crab);
 			this.m_nbCrabsToEgg --;
 		}
 		

@@ -32,7 +32,6 @@ public class Crab extends Ennemy {
 		this.automate = AutomateLoader.findAutomate(GameEntity.Crab);
 		this.current_state = automate.initial_state;
 		this.setAvatar(new CrabAvatar(this));
-		GameModele.entities.add(this);
 
 	}
 	
@@ -45,7 +44,6 @@ public class Crab extends Ennemy {
 		this.m_crabLair = crabLair;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Crab);
 		this.current_state = automate.initial_state;
-		GameModele.entities.add(this);
 		
 //		System.out.println("Coord Player : (" +  GameModele.player1.x + ", " + GameModele.player1.y + ")");
 //		System.out.println("Coord Crab : (" +  this.x + ", " + this.y + ")");
@@ -318,8 +316,11 @@ public class Crab extends Ennemy {
 
 	@Override
 	public boolean closest() {
-		return (GameModele.map.getTileUnderEntity(GameModele.player1.x, GameModele.player1.y).isIsland() 
-				&& GameModele.map.getTileUnderEntity(GameModele.player1.x, GameModele.player1.y).isIsland());
+		return GameModele.map.getSectionOfEntity(GameModele.player1.x, GameModele.player1.y)
+				== GameModele.map.getSectionOfEntity(x,y)
+				&& !GameModele.onSea;
+		//return (GameModele.map.getTileUnderEntity(GameModele.player1.x, GameModele.player1.y).isIsland() 
+			//	&& GameModele.map.getTileUnderEntity(GameModele.player1.x, GameModele.player1.y).isIsland());
 	}
 
 	public CrabLair getCrabLair() {
