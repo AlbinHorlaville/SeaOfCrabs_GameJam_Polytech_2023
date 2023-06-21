@@ -133,7 +133,7 @@
 - Animation Pirate: de dos, de face: Terminé
   
 ### Axel et Emin :
-- 
+- Afficher l'automate créé à partir du parser
 
 ### Brice et Romain :
 - Base du modèle du jeu: Finalisation des déclarations des sous-classes de Entities.
@@ -156,7 +156,7 @@
 
 # 13 Juin
 - Albin et Alexandre: Toolkit UI/Vue du menu : Finalisation écran de démarrage et implémentation tableau des scores
-- Axel et Emin: Premier tests automates
+- Axel et Emin: Faire marcher le cowBoy en utilisant un automate (.gal) + Merger les les automates
 - Brice : Sprite Loader
 - Romain: Deplacement du joueur dans le modéle (Début de liaison à l'automate) + SoundManager
 - Rémi: Fixer bug vagues
@@ -169,6 +169,8 @@
 - Romain: Multi Buffering de touche (On peut appuyer sur plusieurs touche à la fois) + Déplacement du bateau
 - Rémi: Otimisation de la vue (affichage uniquement des tiles dans le viewport) et ajout getter pour tiles sous une certaine position
 - Alexandre: création de la vue d'avant jeu (selection des armes, selection de la graine...) + création des composants nécessaires (input, box)
+- Axel : Correction des fonctions pour le parser d'automate + Implémenations des classes des entités faisant partie du décors
+
 
 # 15 Juin
 
@@ -177,6 +179,7 @@
 - Brice: Equation de déplacement à deux joueurs 
 - Rémi: Amélioration de la génération des troncons (ajout de tuile de transition entre la terre et le sable) et ajout de getter pratique pour des informations sur le modèle de la map
 - Alexandre : création de composant pour la vue de jeu, barre de vie et timer
+- Axel : Liaison des classes qui permettent l'interaction des des joueurs avec le décors au niveau du modèle + Ajout des fonctions non implementées dans l'automate (Closest, GotStuff, GotPower, Cell ...)
 
 # 16 Juin
 
@@ -184,6 +187,7 @@
 - Romain:  Générateur D'automate pour chaque entité (Permet de changer les automates de nos entités facilement via ConfigFile) + Génération des entités sur la carte (SpawnerCrab, Crab) + Début de leurs avatars.
 - Rémi: Fix "gros bug" concernant la positions sur la map (bug découvert la veille). 
 - Alexandre: création de la vue de config des automates
+- Axel : Dévbut du travail sur les crabes et les cavernes à crabes. Rendre le Crab lair's fonctionnel avant de gérer les crabes.
 
 # 17 Juin (Samedi)
 
@@ -197,6 +201,7 @@
 - Romain: Liaison de l'interface graphique de changement d'avatar avec le fichier de config de chargement des automates. Ajout Avatar: Cloud, Ship, SeaTreasure
 - Rémi: Ajout de la minimap. Ajout de nouvelle tiles pour faire spawner les entitées. Ajout d'un titre lorsque l'on change de section
 - Alexandre: création de la vue d'entrée sur le jeu. Le joueur doit entrer son nom d'utilisateur + début création de la base de données pour enregistrer les utilisateurs et leur score
+- Axel : Fonction de déplacement vers le joueur pour les ennemis crabes et de débloquages lorsqyue le crabe est bloqué. + Essai de faire bouger les crabes vers le joueur sans qu'il se regroupe (C'est une échec).
 
 # 20 Juin
 
@@ -204,3 +209,7 @@
 - Rémi: Fonction move des bateaux ennemie et amélioration de la génération des troncons (ajout des tiles de spawn des ennemie)
 - Romain: Création du Rhum + Réinitialisation de la partie + Mise à jour de la Base de données + 
 - Albin: Fix du problème de perspective entre les joueurs et les palmiers, implémentation des Bonus, Modèle du nuage, Vue de l'épée et animation de celle-ci dans les 4 directions
+- Axel : Implèmentation d'une version stable des crabes et merge de celle-ci + Fix de la barre de vie + Début du travail sur les trésors
+
+# 21 Juin
+ Axel : Ajout des croix rouges fonctionnels, des trésors fonctionnels (sur terre et en mer), des Bonus qui peuvent maintenant être utilisé en jeu par le joueur.
