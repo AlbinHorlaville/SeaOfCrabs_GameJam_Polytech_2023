@@ -22,5 +22,6 @@ public enum GameEntity {
 	Treasure,
 	SeaTreasure,
 	CrabKing,
+	KrakenTentacle,
 	Tree
 }
