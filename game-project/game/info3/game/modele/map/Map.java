@@ -339,10 +339,7 @@ public class Map {
 	 * @return
 	 */
 	public double getWaveOffset(int xPos, int yPos) {
-		if (getTileUnderEntity(xPos, yPos).getType() == EnumTiles.CALM_WATER
-				|| getTileUnderEntity(xPos, yPos).getType() == EnumTiles.STORMY_WATER
-				|| getTileUnderEntity(xPos, yPos).getType() == EnumTiles.RAGING_WATER
-				|| getTileUnderEntity(xPos, yPos).getType() == EnumTiles.KRAKEN_WATER) {
+		if (getTileUnderEntity(xPos, yPos).isWater()) {
 			int x = transpoXCoordinateToTile(-(xPos - GameView.screenWidth / 2), -(yPos - GameView.screenHeight / 2));
 			int y = transpoYCoordinateToTile(-(xPos - GameView.screenWidth / 2), -(yPos - GameView.screenHeight / 2))
 					% 48;
