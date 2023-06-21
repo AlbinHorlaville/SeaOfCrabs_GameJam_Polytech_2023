@@ -150,6 +150,11 @@ public class SettingsView extends View {
 
 			public void onComponentClicked(int x, int y) {
 				effectSoundChecker.check();
+				if (!effectSoundChecker.isState()) {
+					SoundTool.setCancelSoundEffect(true);
+				} else {
+					SoundTool.setCancelSoundEffect(false);
+				}
 			}
 
 			@Override

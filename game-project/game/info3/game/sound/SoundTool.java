@@ -11,6 +11,8 @@ public class SoundTool {
 	static GameCanvas canvas;
 
 	static BackgroundMusic currenBackgroundSound = BackgroundMusic.MainMenu;
+	
+	static private boolean cancelSoundEffect = false;
 
 	public final static String path = "assets/audio/";
 
@@ -40,7 +42,9 @@ public class SoundTool {
 		try {
 			RandomAccessFile file = new RandomAccessFile(filename, "r");
 			RandomFileInputStream fis = new RandomFileInputStream(file);
-			canvas.playSound(filename, fis, duration, 1f);
+			
+			float volume = (cancelSoundEffect) ? 0:1f;
+			canvas.playSound(filename, fis, duration, volume);
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 			System.exit(-1);
@@ -118,6 +122,10 @@ public class SoundTool {
 	public static boolean is_background(String name) {
 		// System.out.println(name);
 		return backgroundSounds.containsValue(name);
+	}
+
+	public static void setCancelSoundEffect(boolean cancelSoundEffect) {
+		SoundTool.cancelSoundEffect = cancelSoundEffect;
 	}
 
 }
