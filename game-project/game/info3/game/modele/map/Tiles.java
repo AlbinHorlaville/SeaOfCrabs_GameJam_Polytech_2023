@@ -140,13 +140,18 @@ public class Tiles {
 				|| this.type == EnumTiles.TRANSITION_GRASS_ANGLE_SAND_BOTTOM_RIGHT;
 
 	}
-	
+
 	public boolean isKraken() {
 		return this.type == EnumTiles.KRAKEN_TENTACLE;
 	}
-	
+
 	public boolean isCrabLand() {
 		return this.type == EnumTiles.CRAB_KING_LAND || this.type == EnumTiles.CRAB_KING;
+	}
+
+	public boolean isWaterDamaging() {
+		return this.type == EnumTiles.CALM_WATER_DAMAGING || this.type == EnumTiles.STORMY_WATER_DAMAGING
+				|| this.type == EnumTiles.RAGING_WATER_DAMAGING || this.type == EnumTiles.KRAKEN_WATER_DAMAGING;
 	}
 
 	public boolean isWater() {
@@ -155,7 +160,11 @@ public class Tiles {
 				|| this.type == EnumTiles.CALM_SEA_CHEST || this.type == EnumTiles.STORMY_SEA_CHEST
 				|| this.type == EnumTiles.RAGING_SEA_CHEST || this.type == EnumTiles.CALM_SEA_ENNEMIE
 				|| this.type == EnumTiles.STORMY_SEA_ENNEMIE || this.type == EnumTiles.RAGING_SEA_ENNEMIE
-				|| this.type == EnumTiles.KRAKEN_TENTACLE;
+				|| this.type == EnumTiles.KRAKEN_TENTACLE || this.type == EnumTiles.CALM_WATER_PRE_DAMAGE
+				|| this.type == EnumTiles.STORMY_WATER_PRE_DAMAGE || this.type == EnumTiles.RAGING_WATER_PRE_DAMAGE
+				|| this.type == EnumTiles.KRAKEN_WATER_PRE_DAMAGE || this.type == EnumTiles.CALM_WATER_DAMAGING
+				|| this.type == EnumTiles.STORMY_WATER_DAMAGING || this.type == EnumTiles.RAGING_WATER_DAMAGING
+				|| this.type == EnumTiles.KRAKEN_WATER_DAMAGING;
 	}
 
 	public boolean isSand() {
