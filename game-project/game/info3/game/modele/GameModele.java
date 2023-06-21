@@ -203,8 +203,8 @@ public class GameModele {
 		for (Entity entity : tempEntities) {
 			if (entity instanceof CloudCluster) {
 				for (Entity cloud : ((CloudCluster) entity).getClouds()) {
-					// cloud.step();
-					// cloud.tick(elapsed);
+					cloud.step();
+					cloud.tick(elapsed);
 				}
 			} else {
 				entity.step();
@@ -216,8 +216,8 @@ public class GameModele {
 		for (Entity entity : entities) {
 			if (entity instanceof CloudCluster) {
 				for (Entity cloud : ((CloudCluster) entity).getClouds()) {
-					// if (!cloud.current_state.isDead())
-					// newEntities.add(cloud);
+					if (!cloud.current_state.isDead())
+						newEntities.add(cloud);
 				}
 			} else {
 				if (!entity.current_state.isDead())
@@ -345,10 +345,10 @@ public class GameModele {
 	}
 
 	void genereEntity(Map map) {
-		
+
 		Kraken kraken = new Kraken();
 		int tentacle_number = 0;
-		
+
 		int nbSection = map.getNbSection();
 		int mapWidth = map.getSectionWidth();
 		int mapHeight = map.getSectionHeight();
@@ -367,9 +367,11 @@ public class GameModele {
 						entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.CRAB_SPAWNER && crab == false) {
 						crab = true;
-						newEntity = new CrabLair(k, map.getMap()[k], Current.getX(), Current.getY()); // Créer 10 crabes
+						newEntity = new CrabLair(k, map.getMap()[k], Current.getX(), Current.getY()); // Créer 10
+																										// crabes
 																										// de niveau k
-																										// (le numéro //
+																										// (le numéro
+																										// //
 																										// de section)
 																										// avec 20
 																										// points de vie
@@ -386,7 +388,8 @@ public class GameModele {
 																										// 20 points de
 																										// vie
 						entities.add(newEntity);
-						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k (le
+						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k
+																						// (le
 																						// numéro
 						entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.CALM_SEA_ENNEMIE
@@ -400,7 +403,7 @@ public class GameModele {
 						GameModele.entities.add(newEntity);
 						// entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.KRAKEN_TENTACLE) {
-						kraken.addTentacle(Current.getX(), Current.getY(),tentacle_number++);
+						kraken.addTentacle(Current.getX(), Current.getY(), tentacle_number++);
 					}
 				}
 			}
