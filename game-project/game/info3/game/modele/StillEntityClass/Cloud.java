@@ -14,10 +14,11 @@ public class Cloud extends StillEntity {
 	private int size;
 	private CloudCluster cluster;
 
-	protected Cloud(int s, int x, int y) {
+	protected Cloud(int s, int x, int y, CloudCluster cluster) {
 		this.size = s;
 		this.x = x;
 		this.y = y;
+		this.cluster = cluster;
 		this.avatar = new CloudAvatar(this, y);
 		this.automate = AutomateLoader.findAutomate(GameEntity.Cloud);
 		this.current_state = automate.initial_state;
