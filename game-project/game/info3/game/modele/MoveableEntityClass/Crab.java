@@ -290,16 +290,18 @@ public class Crab extends Ennemy {
 	
 	private PiratePlayer closestPirateToMe() {
 		
-		// A jouter pour le mode 2 joueurs
-//		double distanceP1 = Math.sqrt(Math.pow(this.x - GameModele.player1.x,2) + Math.pow(this.y - GameModele.player1.y,2));
-//		double distanceP2 = Math.sqrt(Math.pow(this.x - GameModele.player2.x,2) + Math.pow(this.y - GameModele.player2.y,2));
-//		
-//		if(distanceP1 < distanceP2) {
-//			return GameModele.player1;
-//		}
-//		return GameModele.player2;
+		if(GameModele.solo) {
+			return GameModele.player1;
+		}
 		
-		return GameModele.player1;
+		double distanceP1 = Math.sqrt(Math.pow(this.x - GameModele.player1.x,2) + Math.pow(this.y - GameModele.player1.y,2));
+		double distanceP2 = Math.sqrt(Math.pow(this.x - GameModele.player2.x,2) + Math.pow(this.y - GameModele.player2.y,2));
+		
+		if(distanceP1 < distanceP2) {
+			return GameModele.player1;
+		}
+		return GameModele.player2;
+		
 	}
 
 	public void die() {
