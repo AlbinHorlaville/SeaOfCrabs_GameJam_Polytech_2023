@@ -57,7 +57,7 @@ public class PlayingView extends View {
 		cannonBallBox.addBox(boxScythe);
 
 		addComponent(cannonBallBox);
-
+		
 	}
 
 	@Override

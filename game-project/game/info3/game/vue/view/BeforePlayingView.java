@@ -83,14 +83,14 @@ public class BeforePlayingView extends View {
 
 			@Override
 			public void onComponentClicked(int x, int y) {
-				Random r = new Random();
-				int i = r.nextInt();
+				Random r = new Random(System.currentTimeMillis());
+				int i = r.nextInt(200);
 				try {
-					if (!seedInput.isTextEmpty()) {
+					if (!seedInput.isTextEmpty() && i>=0 && i<=200) {
 						try {
 							i = Integer.valueOf(seedInput.getInputText());
 						} catch (NumberFormatException e) {
-							i = r.nextInt();
+							i = r.nextInt(200);
 							seedInput.setInputText(Integer.toString(i));
 						}
 						weapon1 = weaponsBoxesPlayer1.getSelectedBox().getWeapon();
@@ -209,7 +209,8 @@ public class BeforePlayingView extends View {
 			@Override
 			public void onComponentClicked(int x, int y) {
 				Random r = new Random();
-				int i = r.nextInt();
+				int i = r.nextInt(200);
+				GameModele.seed = i;
 				seedInput.setInputText(Integer.toString(i));
 				
 			}

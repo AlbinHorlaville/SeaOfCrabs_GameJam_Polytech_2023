@@ -1,23 +1,3 @@
-/*
- * Copyright (C) 2020  Pr. Olivier Gruber
- * Educational software for a basic game development
- * 
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *  Created on: March, 2020
- *      Author: Pr. Olivier Gruber
- */
 package info3.game.modele;
 
 import java.io.BufferedWriter;
@@ -88,20 +68,34 @@ public class GameModele {
 	private static File userFile, scoreFile;
 
 	public GameModele() throws Exception {
-		// creating a cowboy, that would be a model
-		// in an Model-View-Controller pattern (MVC)
-		if (SeaOfCrabes.connectedToDatabase) {
-			userFile = new File("resources/.USER");
-			scoreFile = new File("resources/.SCORE");
-			if (!userFile.exists()) {
+
+		if (SeaOfCrabes.connectedToDatabase) { // connection to database succeed
+
+			userFile = new File("resources/.USER"); // file which contains the username
+			scoreFile = new File("resources/.SCORE"); // file which contains the best score of the user
+
+			if (!userFile.exists()) { // no user created
+
 				currentState = GameState.Utilisateur; // we create a user through SetUpUserView
-			} else {
+
+			} else if (!scoreFile.exists()) { // no score created
+
+				createScore(); // we create a new score file
 				currentUser = new User(readUsernameFromFile()); // we load the current user from file
-				currentScore = new Score(readScoreFromFile());
-				currentState = GameState.Menu;
+				currentState = GameState.Menu; // we display the menu
+
+			} else { // both user and score are created so we only need to load them by reading files
+
+				currentUser = new User(readUsernameFromFile()); // we load the current user from file
+				currentScore = new Score(readScoreFromFile()); // we load the current score from file
+				currentState = GameState.Menu; // we display the menu
+
 			}
-		} else {
-			currentState = GameState.Menu; // there is no user in local mode
+
+		} else { // local mode
+
+			currentState = GameState.Menu; // there is no user/score in local mode
+
 		}
 
 	}
@@ -131,8 +125,10 @@ public class GameModele {
 			myReader = new Scanner(scoreFile);
 			if (myReader.hasNextLine()) {
 				score = myReader.nextLine().split(":");
-				return score;
+			} else {
+				score = new String[] { "noscore" };
 			}
+			return score;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -150,15 +146,28 @@ public class GameModele {
 					currentUser = new User(name);
 					userFile.setWritable(false);
 				}
-				if (scoreFile.createNewFile()) {
-					updateScoreFile();
-					scoreFile.setWritable(false);
+				if (createScore()) {
+					return true;
+				} else {
+					return false;
 				}
 			} catch (IOException e) {
 				return false;
 			}
-			return true;
 		} else {
+			return false;
+		}
+	}
+
+	private static boolean createScore() {
+		try {
+			if (scoreFile.createNewFile()) {
+				currentScore = null;
+				return true;
+			} else {
+				return false;
+			}
+		} catch (IOException e) {
 			return false;
 		}
 	}
@@ -236,6 +245,8 @@ public class GameModele {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
 
+			System.out.println("Seed = " + seed);
+
 			map = new Map(seed);
 
 			if (!solo) {
@@ -243,7 +254,7 @@ public class GameModele {
 				player2.setAvatar(new Player2(player2));
 				player2.setWeapon(BeforePlayingView.weapon2);
 				BeforePlayingView.weapon2.setPlayer(player2);
-				
+
 				player1 = new PiratePlayer(GameEntity.Player2);
 				player1.setAvatar(new Player1(player1));
 				player1.setWeapon(BeforePlayingView.weapon1);
@@ -390,7 +401,8 @@ public class GameModele {
 	 * Fonction pour partie perdu
 	 */
 	public void gameover() {
-		reset();
+		gameview.update_view(GameState.GameOver);
+		gameview.getGame().setCurrentState(GameState.GameOver);
 	}
 
 	/**
@@ -398,33 +410,42 @@ public class GameModele {
 	 * 
 	 * @return
 	 */
-	public boolean isBestScore() {
-		return (GameModele.timer.getHeures() <= currentScore.getHeures())
-				&& (GameModele.timer.getMinutes() <= currentScore.getMinutes())
-				&& (GameModele.timer.getMinutes() <= currentScore.getSecondes());
+	public boolean checkScore() {
+		if (currentScore == null) {
+			return true;
+		} else {
+			return (GameModele.timer.getHeures() < currentScore.getHeures())
+					|| (GameModele.timer.getHeures() == currentScore.getHeures()
+							&& GameModele.timer.getMinutes() < currentScore.getMinutes())
+					|| (GameModele.timer.getHeures() == currentScore.getHeures()
+							&& GameModele.timer.getMinutes() == currentScore.getMinutes()
+							&& GameModele.timer.getSecondes() < currentScore.getSecondes());
+		}
 	}
 
 	/**
 	 * Fonction pour la victoire
 	 */
 	public void victory() {
-		if (isBestScore()) {
-			if (SeaOfCrabes.connectedToDatabase) {
+		gameview.update_view(GameState.Victory);
+		gameview.getGame().setCurrentState(GameState.Victory);
+		if (SeaOfCrabes.connectedToDatabase) {
+			if (checkScore()) {
+
 				if (GameModele.solo) {
 					DAO.getInstance().updateScoreSolo(currentUser, GameModele.timer.toSQLStringFormat(), seed);
-				} else {
-					DAO.getInstance().updateScoreDuo(currentUser, GameModele.timer.toSQLStringFormat(), seed);
-				}
+					updateScoreFile();
+				} /*
+					 * else { DAO.getInstance().updateScoreDuo(currentUser,
+					 * GameModele.timer.toSQLStringFormat(), seed); }
+					 */
 			}
-			updateScoreFile();
 		}
-		reset();
 	}
 
-	private void reset() {
+	public static void reset() {
 		entities.clear();
 		timer.resetTimer();
-		this.setCurrentState(GameState.Menu);
 		onSea = true;
 		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
 		PiratePlayer.resetPiratePlayer();
