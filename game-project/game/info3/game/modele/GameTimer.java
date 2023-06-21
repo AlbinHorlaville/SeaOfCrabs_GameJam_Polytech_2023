@@ -52,6 +52,10 @@ public class GameTimer {
 	public int getSecondes() {
 		return secondes;
 	}
+	
+	public int getMiliSecondes() {
+		return this.milisecondes;
+	}
 
 	public void setPaused(boolean p) {
 		paused = p;

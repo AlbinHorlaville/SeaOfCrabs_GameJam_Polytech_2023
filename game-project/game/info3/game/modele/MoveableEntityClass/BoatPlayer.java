@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import automate.AutomateLoader;
 import automate.EnumCategory;
 import automate.EnumDirection;
+import info3.game.Controller;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
+import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Tiles;
 import info3.game.vue.avatar.Avatar;
 
@@ -21,7 +23,13 @@ public class BoatPlayer extends Player {
 
 	public static final int DEFAULT_BOATPLAYER_SPEED = 1;
 	
+	private static int ACTUAL_PIRATEPLAYER_LIFE_POINT = 100;
+	
 	private int currentSection;
+	
+	public boolean invincible;
+	public int timerInvicibleMili;
+	public int timerInvicibleSec;
 
 	public BoatPlayer() {
 		super(DEFAULT_BOATPLAYER_LIFE_POINT, 0, DEFAULT_MAX_BOATPLAYER_LIFE_POINT);
@@ -73,6 +81,11 @@ public class BoatPlayer extends Player {
 	 * 
 	 * } return false; }
 	 */
+	
+	@Override
+	public void die() {
+		Controller.getGameModele().gameover();
+	}
 
 	@Override
 	public void move(EnumDirection eval) {
@@ -126,8 +139,20 @@ public class BoatPlayer extends Player {
 
 	@Override
 	public void takeDamage(int damage) {
-		// TODO Auto-generated method stub
-
+		int timeMili = GameModele.timer.getMiliSecondes();
+		int timeSec = GameModele.timer.getSecondes();
+		if(!invincible) {
+			this.ACTUAL_PIRATEPLAYER_LIFE_POINT -= damage;
+			if(this.ACTUAL_PIRATEPLAYER_LIFE_POINT <= 0) {
+				this.die();
+			}
+			invincible = true;
+			this.timerInvicibleMili = timeMili;
+			this.timerInvicibleSec = timeSec;
+		}
+		else if(timerInvicibleMili <= timeMili && timerInvicibleSec + 1 <= timeSec){
+			invincible = false;
+		}
 	}
 
 	public void startFire(int mouseX, int mouseY) {

@@ -178,6 +178,12 @@ public class GameModele {
 
 	public void tick(long elapsed) {
 		if (currentState == GameState.Jeu) {
+			if (this.onSea) {
+				if (this.map.getTileUnderEntity(this.pirateBoat.getX(), this.pirateBoat.getY()).isWaterDamaging()) {
+					this.pirateBoat.takeDamage(20);
+				}
+			}
+			this.map.updateDamagingTick();
 			if (waveTick++ == 10) {
 				map.cicleWaveNorth();
 				waveTick = 0;

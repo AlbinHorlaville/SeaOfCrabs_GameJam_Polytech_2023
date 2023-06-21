@@ -579,27 +579,35 @@ public class MapRepresentation {
 							break;
 						case CALM_WATER_PRE_DAMAGE:
 							img = this.waterPreDamageImage[0];
+							positionY += (int) waveOffset;
 							break;
 						case STORMY_WATER_PRE_DAMAGE:
 							img = this.waterPreDamageImage[1];
+							positionY += (int) waveOffset;
 							break;
 						case RAGING_WATER_PRE_DAMAGE:
 							img = this.waterPreDamageImage[2];
+							positionY += (int) waveOffset;
 							break;
 						case KRAKEN_WATER_PRE_DAMAGE:
 							img = this.waterPreDamageImage[3];
+							positionY += (int) waveOffset;
 							break;
 						case CALM_WATER_DAMAGING:
 							img = this.waterDamagingImage[0];
+							positionY += (int) waveOffset;
 							break;
 						case STORMY_WATER_DAMAGING:
 							img = this.waterDamagingImage[1];
+							positionY += (int) waveOffset;
 							break;
 						case RAGING_WATER_DAMAGING:
 							img = this.waterDamagingImage[2];
+							positionY += (int) waveOffset;
 							break;
 						case KRAKEN_WATER_DAMAGING:
 							img = this.waterDamagingImage[3];
+							positionY += (int) waveOffset;
 							break;
 						default:
 							img = defaultImage;
