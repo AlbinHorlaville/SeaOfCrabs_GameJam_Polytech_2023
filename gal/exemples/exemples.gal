@@ -211,3 +211,10 @@ Treasure(Init){
  | True ? : (Init)
  * ()
 }
+
+Tree(Init){
+ * (Init) :
+ | !GotPower ? : ()
+ | True ? : (Init)
+ * ()
+}

@@ -16,24 +16,21 @@ public class Tree extends StillEntity {
 	private int healthPointsToHeal;
 	private float coeff;
 	
-	public Tree() {
+	public Tree(int level) { // mettre le numéro du tronçon
 		super();
 		this.healthPoints = DEFAULT_HEALTH_POINTS;
-		this.healthPointsToHeal = DEFAULT_HEALTH_POINTS_T0_HEAL_PIRATEBOAT;
-		this.automate = AutomateLoader.findAutomate(GameEntity.Philosopher);
+		this.healthPointsToHeal = (int) ((float)DEFAULT_HEALTH_POINTS_T0_HEAL_PIRATEBOAT * this.coeff);		this.coeff = (new Level(level)).getCoeffBasedOnLevel();
+		this.healthPoints = DEFAULT_HEALTH_POINTS;
+		this.automate = AutomateLoader.findAutomate(GameEntity.Tree);
 		this.current_state = automate.initial_state;
 		this.setAvatar(new TreeAvatar(this));
 	}
-	
-	public Tree(int level) { // mettre le numéro du tronçon
-		super();
-		this.coeff = (new Level(level)).getCoeffBasedOnLevel();
-		this.healthPoints = DEFAULT_HEALTH_POINTS;
-		this.healthPointsToHeal = (int) ((float)DEFAULT_HEALTH_POINTS_T0_HEAL_PIRATEBOAT * this.coeff);
-	}
 
 	public void move() {
-		//Mettre la fonction move de Crabe once done
+	}
+	
+	public boolean gotPower() {
+		return this.healthPoints > 0;
 	}
 
 	
@@ -42,7 +39,6 @@ public class Tree extends StillEntity {
 		super.die();
 	}
 
-	//Damage taken by the tree
 	public void takeDamage(int damage) {
 		this.healthPoints -= damage;
 		

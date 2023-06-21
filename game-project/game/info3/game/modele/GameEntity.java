@@ -21,5 +21,6 @@ public enum GameEntity {
 	RedCross,
 	Treasure,
 	SeaTreasure,
-	CrabKing
+	CrabKing,
+	Tree
 }
