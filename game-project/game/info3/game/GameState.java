@@ -9,5 +9,7 @@ public enum GameState {
 	Commandes,
 	AvantJeu,
 	ChoixGameplay,
-	Utilisateur
+	Utilisateur,
+	GameOver,
+	Victory
 }

@@ -27,12 +27,14 @@ import info3.game.sound.SoundTool;
 import info3.game.vue.avatar.Avatar;
 import info3.game.vue.view.BeforePlayingView;
 import info3.game.vue.view.GameModeView;
+import info3.game.vue.view.GameOverView;
 import info3.game.vue.view.CreditsView;
 import info3.game.vue.view.MenuView;
 import info3.game.vue.view.PlayingView;
 import info3.game.vue.view.ScoreView;
 import info3.game.vue.view.SettingsView;
 import info3.game.vue.view.SetupUserView;
+import info3.game.vue.view.VictoryView;
 import info3.game.vue.view.View;
 import info3.game.vue.view.ControlsView;
 
@@ -139,6 +141,8 @@ public class GameView {
 		this.all_views.put(GameState.AvantJeu, new BeforePlayingView(this));
 		this.all_views.put(GameState.ChoixGameplay, new GameModeView(this));
 		this.all_views.put(GameState.Utilisateur, new SetupUserView(this));
+		this.all_views.put(GameState.GameOver, new GameOverView(this));
+		this.all_views.put(GameState.Victory, new VictoryView(this));
 	}
 
 	public void update_view(GameState state) {

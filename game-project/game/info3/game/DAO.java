@@ -35,7 +35,7 @@ public class DAO {
 			try {
 				instance = new DAO();
 			} catch (ClassNotFoundException | SQLException e) {
-				return null;
+				e.printStackTrace();
 			}
 		}
 		return instance;
