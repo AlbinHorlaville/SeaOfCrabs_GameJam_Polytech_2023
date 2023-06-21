@@ -8,6 +8,12 @@ public abstract class MoveableEntity extends Entity{
 	protected float m_damage; 
 	public EnumDirection facing;
 
+	public MoveableEntity(int m_healthPoints, int damage, int hitbox) {
+		super(hitbox);
+		this.m_healthPoints = m_healthPoints;
+		this.m_damage = damage;
+	}
+	
 	public MoveableEntity(int m_healthPoints, int damage) {
 		super();
 		this.m_healthPoints = m_healthPoints;
@@ -18,7 +24,12 @@ public abstract class MoveableEntity extends Entity{
 		super(x, y);
 		this.m_healthPoints = m_healthPoints;
 		this.m_damage = damage;
-
+	}
+	
+	public MoveableEntity(int m_healthPoints, int damage, int x, int y, int hitbox) {
+		super(x, y, hitbox);
+		this.m_healthPoints = m_healthPoints;
+		this.m_damage = damage;
 	}
 
 	public void takeDamage(int damage) {

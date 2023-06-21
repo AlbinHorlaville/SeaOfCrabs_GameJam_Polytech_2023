@@ -20,6 +20,6 @@ public enum SpriteType {
 	Rhum,
 	Bonus,
 	SwordEW,
-	SwordNS
+	SwordNS,
 	Tentacle
 }
