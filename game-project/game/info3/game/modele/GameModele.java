@@ -15,6 +15,7 @@ import info3.game.SeaOfCrabes;
 import info3.game.User;
 import info3.game.modele.MoveableEntityClass.BoatPlayer;
 import info3.game.modele.MoveableEntityClass.CrabKing;
+import info3.game.modele.MoveableEntityClass.Kraken;
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
 import info3.game.modele.MoveableEntityClass.Ship;
 import info3.game.modele.MoveableEntityClass.Tentacle;
@@ -344,7 +345,10 @@ public class GameModele {
 	}
 
 	void genereEntity(Map map) {
-
+		
+		Kraken kraken = new Kraken();
+		int tentacle_number = 0;
+		
 		int nbSection = map.getNbSection();
 		int mapWidth = map.getSectionWidth();
 		int mapHeight = map.getSectionHeight();
@@ -394,9 +398,7 @@ public class GameModele {
 						GameModele.entities.add(newEntity);
 						//entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.KRAKEN_TENTACLE) {
-						newEntity = new Tentacle(k, 500, 10, 1); // TODO CHANGE PARAM
-						newEntity.setLocation(Current.getX(), Current.getY());
-						entities.add(newEntity);
+						kraken.addTentacle(Current.getX(), Current.getY(),tentacle_number++);
 					}
 				}
 			}

@@ -2,32 +2,28 @@ package info3.game.modele.MoveableEntityClass;
 
 import java.util.ArrayList;
 
-public class Kraken extends Ennemy {
+import info3.game.Controller;
 
+public class Kraken {
+	
+	
 	ArrayList<Tentacle> tentacles;
-	int nb_tentacles;
 
-	public Kraken(int lifePoint, int attackCoeff, int speedCoeff, int level, int nb_tentacles) {
-		super(lifePoint, attackCoeff, speedCoeff, level);
-		this.nb_tentacles = nb_tentacles;
+	public Kraken() {		
 		this.tentacles = new ArrayList<>();
-		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
-
+	
+	public void tentacleDead(Tentacle tentacle) {
+		tentacles.remove(tentacle);
+		
+		if (this.tentacles.isEmpty()) {
+			Controller.getGameModele().victory();
+		}
 	}
-
-	@Override
-	public void takeDamage() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void move() {
-		// TODO
+	
+	public void addTentacle(int x,int y,int number) {
+		this.tentacles.add(new Tentacle(x,y,this,number));
+		
 	}
 
 }
