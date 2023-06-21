@@ -23,10 +23,8 @@ public class BoatPlayer extends Player {
 
 	private static final int DEFAULT_MAX_BOATPLAYER_LIFE_POINT = 100;
 
-	public static final int DEFAULT_BOATPLAYER_SPEED = 4;
-	
-	private static int ACTUAL_PIRATEPLAYER_LIFE_POINT = 100;
-	
+	public static final int DEFAULT_BOATPLAYER_SPEED = 25;
+		
 	private int currentSection;
 	
 	public boolean invincible;
@@ -144,8 +142,8 @@ public class BoatPlayer extends Player {
 		int timeMili = GameModele.timer.getMiliSecondes();
 		int timeSec = GameModele.timer.getSecondes();
 		if(!invincible) {
-			this.ACTUAL_PIRATEPLAYER_LIFE_POINT -= damage;
-			if(this.ACTUAL_PIRATEPLAYER_LIFE_POINT <= 0) {
+			this.m_healthPoints -= damage;
+			if(this.m_healthPoints <= 0) {
 				this.die();
 			}
 			invincible = true;
