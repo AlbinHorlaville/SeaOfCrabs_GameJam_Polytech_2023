@@ -18,6 +18,7 @@ public class BoatPlayer extends Player {
 
 	ArrayList<CannonBall> bouletDeCannon;
 	CannonBall current_ball;
+	
 
 	private static final int DEFAULT_BOATPLAYER_LIFE_POINT = 100;
 

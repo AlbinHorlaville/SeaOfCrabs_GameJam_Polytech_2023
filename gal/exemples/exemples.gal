@@ -155,7 +155,7 @@ CrabsLair(Init){
 
  CannonBall(Init){
   * (Init) :
-  | GotPower ? Move(N) : (Init)
+  | GotPower & Cell(F,A) ? Move(N) : (Init)
   | True ? : ()
   * ()
  }

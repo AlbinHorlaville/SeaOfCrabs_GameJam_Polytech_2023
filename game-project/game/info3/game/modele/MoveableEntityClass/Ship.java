@@ -5,6 +5,7 @@ import automate.EnumCategory;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.Level;
+import info3.game.modele.bonus.HealthBonus;
 import info3.game.modele.map.MapSection;
 import info3.game.modele.map.Tiles;
 import info3.game.vue.avatar.ShipAvatar;
@@ -15,7 +16,7 @@ public class Ship extends Ennemy {
 	public final static int DEFAULT_DAMAGE = 20;
 
 	private float m_coeff;
-	
+
 	private int timerAttackMili;
 	private int timerAttackSec;
 	private boolean reloading;
@@ -30,6 +31,7 @@ public class Ship extends Ennemy {
 		this.automate = AutomateLoader.findAutomate(GameEntity.Ship);
 		this.current_state = automate.initial_state;
 		GameModele.entities.add(this);
+
 	}
 
 	public void move() {
@@ -68,7 +70,7 @@ public class Ship extends Ennemy {
 	public void hit() {
 		int timeMili = GameModele.timer.getMiliSecondes();
 		int timeSec = GameModele.timer.getSecondes();
-		
+
 		if (!this.reloading) {
 			GameModele.map.setDamaging(GameModele.getCurrentPlayerX(), GameModele.getCurrentPlayerY());
 			this.reloading = true;
@@ -77,7 +79,15 @@ public class Ship extends Ennemy {
 		} else if (timerAttackMili <= timeMili + 20 && timerAttackSec + 1 <= timeSec) {
 			this.reloading = false;
 		}
-		
+
+	}
+
+	@Override
+	public void die() {
+		Rhum rhum = new Rhum(this.x, this.y);
+		GameModele.entities.add(rhum);
+		GameModele.entities.remove(this);
+
 	}
 
 	@Override
