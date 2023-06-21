@@ -151,10 +151,7 @@ public class GameModele {
 					userFile.setWritable(false);
 				}
 				if (scoreFile.createNewFile()) {
-					BufferedWriter writer = new BufferedWriter(new FileWriter(scoreFile.getPath()));
-					writer.write("00:00:00");
-					writer.close();
-					currentScore = new Score(0, 0, 0);
+					updateScoreFile();
 					scoreFile.setWritable(false);
 				}
 			} catch (IOException e) {
@@ -163,6 +160,19 @@ public class GameModele {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	private static void updateScoreFile() {
+		BufferedWriter writer;
+		try {
+			writer = new BufferedWriter(new FileWriter(scoreFile.getPath()));
+			writer.write(timer.toSQLStringFormat());
+			writer.close();
+			currentScore = new Score(timer.getHeures(), timer.getMinutes(), timer.getSecondes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -199,7 +209,7 @@ public class GameModele {
 			}
 		}
 		entities = newEntities;
-		
+
 		// System.out.print("\n\n x : " +
 		// -map.getMap()[0].getTiles()[26][map.getSectionWidth() / 2].getX() + "\n\n");
 		/*
@@ -243,7 +253,7 @@ public class GameModele {
 				player1.setWeapon(BeforePlayingView.weapon1);
 				BeforePlayingView.weapon1.setPlayer(player1);
 			}
-						
+
 			pirateBoat = new BoatPlayer(
 					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 13][map.getSectionWidth() / 2].getX(),
 					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 13][map.getSectionWidth() / 2].getY());
@@ -364,9 +374,9 @@ public class GameModele {
 					} else if (Current.getType() == EnumTiles.CRAB_KING) {
 						newEntity = new CrabKing(k, 500, 10, 1); // TODO CHANGE PARAM
 						newEntity.setLocation(Current.getX(), Current.getY());
-						//entities.add(newEntity);
+						// entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.KRAKEN_TENTACLE) {
-						newEntity = new Tentacle(k, 500, 10, 1); //TODO CHANGE PARAM
+						newEntity = new Tentacle(k, 500, 10, 1); // TODO CHANGE PARAM
 						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);
 					}
@@ -384,6 +394,7 @@ public class GameModele {
 
 	/**
 	 * Compare le score réalisé avec celui du fichier .SCORE
+	 * 
 	 * @return
 	 */
 	public boolean isBestScore() {
@@ -403,7 +414,8 @@ public class GameModele {
 				} else {
 					DAO.getInstance().updateScoreDuo(currentUser, GameModele.timer.toSQLStringFormat(), seed);
 				}
-			}	
+			}
+			updateScoreFile();
 		}
 		reset();
 	}
