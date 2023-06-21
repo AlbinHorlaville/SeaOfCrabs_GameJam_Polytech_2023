@@ -100,7 +100,7 @@ public class Map {
 	 */
 	public void generateBaseMap() throws Exception {
 		for (int i = 0; i < this.nbSection; i++) {
-			this.map[i] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+			this.map[i] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand, i);
 		}
 	}
 
@@ -108,26 +108,26 @@ public class Map {
 	 * Generate a map based on the seed and the section parameters
 	 */
 	public void generateMap() throws Exception {
-		this.map[0] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		this.map[0] = new MapSection(EnumSectionType.HARBOR, this.sectionWidth, this.sectionHeight, this.rand, 0);
 
-		this.map[1] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		this.map[1] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand, 1);
 		this.map[2] = new MapSection(EnumSectionType.CALM_SEA_TO_STORMY_SEA, this.sectionWidth, this.sectionHeight,
-				this.rand);
+				this.rand, 2);
 
 		this.map[3] = new MapSection(EnumSectionType.STORMY_SEA_FROM_CALM_SEA, this.sectionWidth, this.sectionHeight,
-				this.rand);
+				this.rand, 3);
 		this.map[4] = new MapSection(EnumSectionType.STORMY_SEA_TO_RAGING_SEA, this.sectionWidth, this.sectionHeight,
-				this.rand);
+				this.rand, 4);
 
 		this.map[5] = new MapSection(EnumSectionType.RAGING_SEA_FROM_STORMY_SEA, this.sectionWidth, this.sectionHeight,
-				this.rand);
-		this.map[6] = new MapSection(EnumSectionType.RAGING_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+				this.rand, 5);
+		this.map[6] = new MapSection(EnumSectionType.RAGING_SEA, this.sectionWidth, this.sectionHeight, this.rand, 6);
 
-		this.map[7] = new MapSection(EnumSectionType.CRAB_KING_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		this.map[7] = new MapSection(EnumSectionType.CRAB_KING_SEA, this.sectionWidth, this.sectionHeight, this.rand, 7);
 
-		this.map[8] = new MapSection(EnumSectionType.KRAKEN_SEA, this.sectionWidth, this.sectionHeight, this.rand);
+		this.map[8] = new MapSection(EnumSectionType.KRAKEN_SEA, this.sectionWidth, this.sectionHeight, this.rand, 8);
 		
-		this.map[9] = new MapSection(EnumSectionType.MOUTAIN, this.sectionWidth, this.sectionHeight, this.rand, this.map[8].getMountainHeight());
+		this.map[9] = new MapSection(EnumSectionType.MOUTAIN, this.sectionWidth, this.sectionHeight, this.rand, this.map[8].getMountainHeight(), 9);
 	}
 
 	public void setImageSize(int width, int height) {
@@ -213,7 +213,8 @@ public class Map {
 
 		int numSection = this.getSectionOfEntity(xPos, yPos);
 
-		return this.map[numSection].getTiles()[y][x];
+		return this.map[numSection].
+				getTiles()[y][x];
 	}
 
 	double determinant() {

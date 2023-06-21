@@ -10,6 +10,12 @@ public class DamageBonus extends Bonus {
 		super(level, x, y);
 		setAvatar(new BonusAvatar(this));
 	}
+	
+	public DamageBonus(int level) {
+		super(level);
+		setAvatar(new BonusAvatar(this));
+	}
+
 
 	@Override
 	public void power() {

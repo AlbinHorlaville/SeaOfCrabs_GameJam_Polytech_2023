@@ -17,9 +17,7 @@ public class Power extends FunCall{
 
 	@Override
 	public void exec(Entity e) {
-//		System.out.println(this.toString());
-		// TODO Auto-generated method stub
-		
+		e.power();
 	}
 
 	@Override

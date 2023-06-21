@@ -13,6 +13,7 @@ public class RedCross extends StillEntity {
 	public RedCross(MapSection section) {
 		super();
 		this.m_section = section;
+		this.m_section.setRedCross(this);
 		this.automate = AutomateLoader.findAutomate(GameEntity.RedCross);
 		this.current_state = automate.initial_state;
 	}
@@ -24,7 +25,8 @@ public class RedCross extends StillEntity {
 	}
 	
 	public void egg() {
-		GameModele.entities.add(new Treasure(null, null, this.x, this.y));
+		Treasure treasure = new Treasure(this.m_section, this.x, this.y);
+		GameModele.entities.add(treasure);
 	}
 	
 	/*
