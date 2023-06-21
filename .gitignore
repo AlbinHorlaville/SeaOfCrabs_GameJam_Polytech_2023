@@ -6,3 +6,4 @@ game-project/.project
 *.class
 game-project/resources/CONFIG
 game-project/resources/.USER
+game-project/resources/.SCORE

@@ -98,11 +98,13 @@ public class BeforePlayingView extends View {
 							weapon2 = weaponsBoxesPlayer2.getSelectedBox().getWeapon();
 						}
 						// TODO : relier la vue au modele avant d'appeler start
-						gameView.getGame().start(i);
+						GameModele.seed = i;
+						gameView.getGame().start();
 					} else {
 						seedInput.setInputText(Integer.toString(i));
 						// TODO : relier la vue au modele avant d'appeler start
-						gameView.getGame().start(i);
+						GameModele.seed = i;
+						gameView.getGame().start();
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

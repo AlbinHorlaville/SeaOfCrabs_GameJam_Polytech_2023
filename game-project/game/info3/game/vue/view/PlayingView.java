@@ -57,13 +57,15 @@ public class PlayingView extends View {
 		cannonBallBox.addBox(boxScythe);
 
 		addComponent(cannonBallBox);
+		
 	}
 
 	@Override
 	public void tick(long elapsed) {
 
 		for (Entity entity : GameModele.entities) {
-			entity.getAvatar().tick(elapsed);
+			if(! (entity instanceof CloudCluster))
+				entity.getAvatar().tick(elapsed);
 		}
 
 		GameModele.timer.updateTimer(elapsed);

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
@@ -69,6 +70,32 @@ public class DAO {
 			prepare.setString(1, username);
 			result = prepare.executeQuery();
 			return result.next();
+		} catch (SQLException e) {
+			return false;
+		}
+	}
+
+	public boolean updateScoreSolo(User u, String time, int seed) {
+		try {
+			prepare = connection.prepareStatement("update " + DBNAME + ".user set scoreSolo=?, seedSolo=? where username=?");
+			prepare.setTime(1, Time.valueOf(time));
+			prepare.setInt(2, seed);
+			prepare.setString(3, u.getUsername());
+			prepare.execute();
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
+	}
+	
+	public boolean updateScoreDuo(User u, String time, int seed) {
+		try {
+			prepare = connection.prepareStatement("update " + DBNAME + ".user set scoreDuo=?, seedDuo=? where username=?");
+			prepare.setTime(1, Time.valueOf(time));
+			prepare.setInt(2, seed);
+			prepare.setString(3, u.getUsername());
+			prepare.execute();
+			return true;
 		} catch (SQLException e) {
 			return false;
 		}
