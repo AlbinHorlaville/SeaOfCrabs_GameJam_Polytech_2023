@@ -78,12 +78,10 @@ public class Player2 extends Avatar {
 
 	/**
 	 * Method permettant de savoir si le joueur est entrain  de bouger
-	 * TODO CHANGER LA METHODE D'EMPLACEMENT ???
 	 * @return boolean
 	 */
 	private boolean isMoving() {
-		boolean[] buffer = Controller.getBuffer();
-			return buffer[38] || buffer[39] || buffer[40] || buffer[37];
+		return Controller.getBuffer().isBuffered("FU") || Controller.getBuffer().isBuffered("FD")  || Controller.getBuffer().isBuffered("FL")  || Controller.getBuffer().isBuffered("FR");
 	}
 
 }
