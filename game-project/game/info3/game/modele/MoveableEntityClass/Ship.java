@@ -32,7 +32,6 @@ public class Ship extends Ennemy {
 		GameModele.entities.add(this);
 		
 		this.reloading = false;
-
 	}
 
 	public void move() {

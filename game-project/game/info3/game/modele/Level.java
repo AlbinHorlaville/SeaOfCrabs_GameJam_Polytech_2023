@@ -13,7 +13,7 @@ public class Level {
 		
 		// The goal : Level 1 = 1 ; Level 2 = 1,2 Level; Level 3 = 1,4 Level; Level 4 = 1,6 Level
 		if(level >  1)
-			coeff += level * 0.2f - 0.2f;
+			coeff += level * 2.0f;
 		
 		return coeff;
 	}

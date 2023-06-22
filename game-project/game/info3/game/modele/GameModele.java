@@ -399,7 +399,7 @@ public class GameModele {
 						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.CRAB_KING) {
-						newEntity = new CrabKing(k, 500, Current.getX(), Current.getY(), 10, 1); // TODO CHANGE PARAM
+						newEntity = new CrabKing(k, 2, Current.getX(), Current.getY(), 1); // TODO CHANGE PARAM
 						GameModele.entities.add(newEntity);
 						// entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.KRAKEN_TENTACLE) {

@@ -15,8 +15,8 @@ import info3.game.vue.avatar.CrabslairAvatar;
 
 public class CrabLair extends StillEntity{
 	
-	public static final int SCRAB_SPANWING_RANGE = 400;
-	public static final int DEFAULT_CRAB_NUMBER = 1;
+	public static final int SCRAB_SPANWING_RANGE = 1500;
+	public static final int DEFAULT_CRAB_NUMBER = 5;
 	
 	private int m_level;
 	private int m_nbCrabsToEgg;
@@ -28,7 +28,8 @@ public class CrabLair extends StillEntity{
 	
 	public CrabLair(int level, MapSection m_section, int x, int y) {
 		super(x,y);
-		this.m_nbCrabsToEgg = (int) ((float)DEFAULT_CRAB_NUMBER * (new Level(level)).getCoeffBasedOnLevel());
+		this.m_level = level;
+		this.m_nbCrabsToEgg = (int) ((float)DEFAULT_CRAB_NUMBER * (new Level(m_level)).getCoeffBasedOnLevel());
 		this.m_nbCrabsAlive = this.m_nbCrabsToEgg;
 		this.m_section = m_section;
 		this.m_section.setCrabLair(this);
@@ -37,8 +38,6 @@ public class CrabLair extends StillEntity{
 		this.avatar = new CrabslairAvatar(this);
 		this.m_tilesForCrabSpanwing = null;
 		this.m_isDead = false;
-		//System.out.println(this.m_section.toString());
-
 	}
 
 	@Override
@@ -67,13 +66,16 @@ public class CrabLair extends StillEntity{
 	}
 	
 	public  boolean closest() {
-		double distanceP1 = Math.sqrt(Math.pow(this.x - GameModele.player1.x,2) + Math.pow(this.y - GameModele.player1.y,2));
+		/*double distanceP1 = Math.sqrt(Math.pow(this.x - GameModele.player1.x,2) + Math.pow(this.y - GameModele.player1.y,2));
 		//double distanceP2 = Math.sqrt(Math.pow(this.x - GameModele.player2.x,2) + Math.pow(this.y - GameModele.player2.y,2));
 		
 		if(distanceP1 < SCRAB_SPANWING_RANGE ){//&& distanceP2 < SCRAB_SPANWING_RANGE) {
 			return true;
 		}
-		return false;
+		return false;*/
+		return GameModele.map.getSectionOfEntity(GameModele.player1.x, GameModele.player1.y)
+				== GameModele.map.getSectionOfEntity(x,y)
+				&& !GameModele.onSea;
 		
 	}
 	
