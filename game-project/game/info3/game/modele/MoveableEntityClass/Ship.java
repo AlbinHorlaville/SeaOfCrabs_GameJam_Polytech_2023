@@ -30,7 +30,7 @@ public class Ship extends Ennemy {
 		this.automate = AutomateLoader.findAutomate(GameEntity.Ship);
 		this.current_state = automate.initial_state;
 		GameModele.entities.add(this);
-
+		
 		this.reloading = false;
 
 	}
@@ -115,12 +115,6 @@ public class Ship extends Ennemy {
 		default:
 			return false;
 		}
-
-	}
-
-	public void stunt() {
-		this.automate = AutomateLoader.findAutomate(GameEntity.Philosopher);
-		this.current_state = automate.initial_state;
 
 	}
 
