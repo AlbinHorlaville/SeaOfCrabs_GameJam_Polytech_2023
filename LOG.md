@@ -215,13 +215,14 @@
 - Romain: Création du Rhum + Réinitialisation de la partie + Mise à jour de la Base de données + 
 - Albin: Fix du problème de perspective entre les joueurs et les palmiers, implémentation des Bonus, Modèle du nuage, Vue de l'épée et animation de celle-ci dans les 4 directions
 - Axel : Implèmentation d'une version stable des crabes et merge de celle-ci + Fix de la barre de vie + Début du travail sur les trésors
-- Fix bug CurrentModificationException + Création du premier boss CrabKing
+- Emin: Fix bug CurrentModificationException + Création du premier boss CrabKing
 
 # 21 Juin
- - Axel : Ajout des croix rouges fonctionnels, des trésors fonctionnels (sur terre et en mer), des Bonus qui peuvent maintenant être utilisé en jeu par le joueur.
- - Rémi: Réalisation de l'attaque utilisé par les bateau ennemies ainsi que le kraken. Et réalisation des fonctions des automates de ship et krakenTentacle. 
- Emin : Fin d'implémentation du CrabKing + fix bugs crabs et CrabKing
+- Axel: Ajout des croix rouges fonctionnels, des trésors fonctionnels (sur terre et en mer), des Bonus qui peuvent maintenant être utilisé en jeu par le joueur.
+- Rémi: Réalisation de l'attaque utilisé par les bateau ennemies ainsi que le kraken. Et réalisation des fonctions des automates de ship et krakenTentacle. 
+- Emin: Fin d'implémentation du CrabKing + fix bugs crabs et CrabKing
 - Albin: Jonction Vue modèle de l'épée pour 1 joueur, corrections hitbox. Debug Nuages.
 
 
  # 22 Juin
+ - Rémi: Réalisation de la fonction die du kraken (amenant sur la vue de victoire). Résolution de multiple léger problème (Titre de section mal affiché lorsque l'ont revenait en arrière, l'offset des vagues est peut maintenant être propre au différente section, la génération de l'ile du crab King est plus propre)
