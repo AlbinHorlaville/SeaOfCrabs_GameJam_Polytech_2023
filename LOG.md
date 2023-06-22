@@ -218,8 +218,10 @@
 - Fix bug CurrentModificationException + Création du premier boss CrabKing
 
 # 21 Juin
- Axel : Ajout des croix rouges fonctionnels, des trésors fonctionnels (sur terre et en mer), des Bonus qui peuvent maintenant être utilisé en jeu par le joueur.
- Rémi: Réalisation de l'attaque utilisé par les bateau ennemies ainsi que le kraken. Et réalisation des fonctions des automates de ship et krakenTentacle. 
+ - Axel : Ajout des croix rouges fonctionnels, des trésors fonctionnels (sur terre et en mer), des Bonus qui peuvent maintenant être utilisé en jeu par le joueur.
+ - Rémi: Réalisation de l'attaque utilisé par les bateau ennemies ainsi que le kraken. Et réalisation des fonctions des automates de ship et krakenTentacle. 
  Emin : Fin d'implémentation du CrabKing + fix bugs crabs et CrabKing
+- Albin: Jonction Vue modèle de l'épée pour 1 joueur, corrections hitbox. Debug Nuages.
+
 
  # 22 Juin
