@@ -9,7 +9,7 @@ import info3.game.vue.avatar.TreeAvatar;
 
 public class Tree extends StillEntity {
 	
-	public static final int DEFAULT_HEALTH_POINTS_T0_HEAL_PIRATEBOAT = 50;
+	public static final int DEFAULT_HEALTH_POINTS_T0_HEAL_PIRATEBOAT = 5;
 	public static final int DEFAULT_HEALTH_POINTS = 50;
 	
 	private int healthPoints;
@@ -19,8 +19,7 @@ public class Tree extends StillEntity {
 	public Tree(int level) { // mettre le numéro du tronçon
 		super();
 		this.healthPoints = DEFAULT_HEALTH_POINTS;
-		this.healthPointsToHeal = (int) ((float)DEFAULT_HEALTH_POINTS_T0_HEAL_PIRATEBOAT * this.coeff);		this.coeff = (new Level(level)).getCoeffBasedOnLevel();
-		this.healthPoints = DEFAULT_HEALTH_POINTS;
+		this.healthPointsToHeal =  DEFAULT_HEALTH_POINTS_T0_HEAL_PIRATEBOAT;//(int) ((float)DEFAULT_HEALTH_POINTS_T0_HEAL_PIRATEBOAT * this.coeff);		this.coeff = (new Level(level)).getCoeffBasedOnLevel();
 		this.automate = AutomateLoader.findAutomate(GameEntity.Tree);
 		this.current_state = automate.initial_state;
 		this.setAvatar(new TreeAvatar(this));
@@ -35,7 +34,6 @@ public class Tree extends StillEntity {
 	
 	public void power() {
 		GameModele.pirateBoat.heal(this.healthPointsToHeal);
-		System.out.println("LA vie est donnée au bateau");
 	}
 
 	
