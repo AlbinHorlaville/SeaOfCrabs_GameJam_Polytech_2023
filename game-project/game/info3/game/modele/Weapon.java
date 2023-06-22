@@ -91,6 +91,7 @@ public abstract class Weapon extends MoveableEntity {
 						if (eCenterY + e.r >= tempY && eCenterY - e.r <= tempY + range) {
 							// System.out.println("touché N " + e.getClass());
 							e.takeDamage(damage);
+							return;
 						}
 					}
 					break;
@@ -101,6 +102,7 @@ public abstract class Weapon extends MoveableEntity {
 						if (eCenterY - e.r <= tempY && eCenterY + e.r >= tempY - range) {
 							// System.out.println("touché S " + e.getClass());
 							e.takeDamage(damage);
+							return;
 						}
 					}
 					break;
@@ -111,9 +113,7 @@ public abstract class Weapon extends MoveableEntity {
 						if (eCenterX - e.r <= tempX && eCenterX + e.r >= tempX - range) {
 							// System.out.println("touché E " + e.getClass());
 							e.takeDamage(damage);
-							if (e instanceof Tree) {
-								System.out.println(((Tree)e).getHealth());
-							}
+							return;
 						}
 					}
 					break;
@@ -124,6 +124,7 @@ public abstract class Weapon extends MoveableEntity {
 						if (eCenterX + e.r >= tempX && eCenterX - e.r <= tempX + range) {
 							// System.out.println("touché W " + e.getClass());
 							e.takeDamage(damage);
+							return;
 						}
 					break;
 				}

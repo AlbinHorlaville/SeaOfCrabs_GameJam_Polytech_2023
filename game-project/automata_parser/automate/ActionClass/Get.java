@@ -2,7 +2,6 @@ package automate.ActionClass;
 
 import java.util.List;
 
-import automate.EnumCategory;
 import automate.FunCall;
 import automate.Parameter;
 import info3.game.modele.Entity;
@@ -18,10 +17,9 @@ public class Get extends FunCall{
 
 	@Override
 	public void exec(Entity e) {
-		if (parameters.size() > 0) {
-			e.get((EnumCategory) parameters.get(0).eval());
-		}
-		e.get();
+		System.out.println(this.toString());
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
