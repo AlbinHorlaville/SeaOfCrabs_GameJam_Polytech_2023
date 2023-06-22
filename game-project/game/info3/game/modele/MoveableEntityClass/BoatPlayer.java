@@ -184,7 +184,7 @@ public class BoatPlayer extends Player {
 			
 		
 		case A:
-			currentBall = EnumCannonBall.Basic;
+			currentBall = EnumCannonBall.Stunt;
 			break;
 		}
 	}

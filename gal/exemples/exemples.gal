@@ -173,7 +173,8 @@ CrabsLair(Init){
 
  CannonBall(Init){
   * (Init) :
-  | GotPower & Cell(F,A) ? Move(N) : (Init)
+  | GotPower & !Cell(F,A) ? Move(N) : (Init)
+  | GotPower & Cell(F,A) ? Hit : ()
   | True ? : ()
   * ()
  }

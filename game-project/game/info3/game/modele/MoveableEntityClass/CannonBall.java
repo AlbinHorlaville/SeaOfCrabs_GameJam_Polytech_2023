@@ -98,10 +98,8 @@ public abstract class CannonBall extends MoveableEntity {
 
 		}
 	}
-	@Override
-	public void hit () {
-		ennemyAimed.takeDamage(damage);
-	}
+	
+	
 
 	public boolean collide(MoveableEntity m, int x, int y, Entity e) { // Code propre lvl 1
 		int centerx = x - m.getAvatar().getWidth() / (2 * Avatar.SCALE_IMG);

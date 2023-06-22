@@ -28,4 +28,11 @@ public class BasicCannonBall extends CannonBall {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public void hit() {
+		ennemyAimed.takeDamage(damage);
+		}
+
+	
 }
