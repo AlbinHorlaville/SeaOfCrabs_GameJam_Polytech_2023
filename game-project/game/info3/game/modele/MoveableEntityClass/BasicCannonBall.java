@@ -1,9 +1,5 @@
 package info3.game.modele.MoveableEntityClass;
 
-import automate.AutomateLoader;
-import automate.EnumCategory;
-import automate.EnumDirection;
-import info3.game.modele.GameEntity;
 import info3.game.vue.avatar.BasicCannonBallAvatar;
 
 public class BasicCannonBall extends CannonBall {
