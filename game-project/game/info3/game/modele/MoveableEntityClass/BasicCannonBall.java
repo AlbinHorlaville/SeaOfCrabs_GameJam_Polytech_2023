@@ -25,7 +25,6 @@ public class BasicCannonBall extends CannonBall {
 	
 	@Override
 	public void hit() {
-		System.out.println("aev");
 		if (ennemyAimed instanceof Ship) {
 			((Ship) ennemyAimed).takeDamage(damage);
 		}

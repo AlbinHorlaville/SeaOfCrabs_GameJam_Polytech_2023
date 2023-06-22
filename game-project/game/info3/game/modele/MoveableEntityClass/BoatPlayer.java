@@ -17,7 +17,7 @@ import info3.game.vue.avatar.Avatar;
 public class BoatPlayer extends Player {
 
 	ArrayList<CannonBall> bouletDeCannon;
-	EnumCannonBall currentBall = EnumCannonBall.Stunt;
+	EnumCannonBall currentBall = EnumCannonBall.Basic;
 
 	private static final int DEFAULT_BOATPLAYER_LIFE_POINT = 100;
 

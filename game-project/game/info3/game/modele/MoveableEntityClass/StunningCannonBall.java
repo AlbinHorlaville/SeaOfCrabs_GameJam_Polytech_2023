@@ -34,7 +34,6 @@ public class StunningCannonBall extends CannonBall {
 	
 	@Override
 	public void hit() {
-		System.out.println("STUN");
 		if (ennemyAimed instanceof Ship) {
 			((Ship) ennemyAimed).stunt();
 		}

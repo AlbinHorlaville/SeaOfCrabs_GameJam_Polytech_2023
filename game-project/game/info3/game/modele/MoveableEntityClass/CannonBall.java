@@ -91,7 +91,6 @@ public abstract class CannonBall extends MoveableEntity {
 				if(s instanceof Ship || s instanceof Tentacle) {
 					if (collide(this, x - speedX, y - speedY, s)) {
 						ennemyAimed = s;
-						System.out.println("hit");
 						return true;
 					}
 				}
