@@ -36,6 +36,7 @@ public class Tentacle extends Ennemy  {
 	@Override
 	public void die() {
 		GameModele.entities.remove(this);
+		kraken.tentacleDead(this);
 	}
 	
 	@Override
