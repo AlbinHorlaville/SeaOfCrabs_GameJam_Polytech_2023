@@ -6,6 +6,7 @@ import automate.StateDeath;
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
 import info3.game.modele.MoveableEntity;
+import info3.game.modele.StillEntityClass.SeaTreasure;
 import info3.game.modele.map.Tiles;
 import info3.game.vue.GameView;
 import info3.game.vue.avatar.Avatar;
@@ -78,12 +79,12 @@ public abstract class CannonBall extends MoveableEntity {
 		switch (c) {
 		case A:
 			for (Entity s : GameModele.entities) {
-				if(s instanceof Ship || s instanceof Tentacle) {
-					if (collide(this, x - speedX, y - speedY, s)) {
-						System.out.println("hit");
-						s.takeDamage(damage);
-						return false;
-					}
+				
+				if (s instanceof Ship && collide(this, x - speedX, y - speedY, s) 
+						|| (s instanceof SeaTreasure && collide(this, x - speedX, y - speedY, s))) {
+					System.out.println("hit");
+					s.takeDamage(damage);
+					return false;
 				}
 			}
 

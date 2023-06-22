@@ -6,7 +6,6 @@ public class StateDeath extends State{
 
 	public StateDeath() {
 		super("()");
-		this.died = false;
 	}
 	
 	@Override
@@ -15,9 +14,13 @@ public class StateDeath extends State{
 	}
 	
 	public State step(Entity e) {
-		e.die();
-		this.died = true;
+		//e.die();
+		//this.died = true;
 		return this;
+	}
+	
+	public boolean isDead() {
+		return true;
 	}
 
 }
