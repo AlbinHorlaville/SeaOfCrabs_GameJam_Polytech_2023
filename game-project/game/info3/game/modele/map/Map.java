@@ -102,6 +102,10 @@ public class Map {
 			this.map[i] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand, i);
 		}
 	}
+	
+	public void openKraken() {
+		this.map[this.nbSection - 2].openKraken();
+	}
 
 	/*
 	 * Generate a map based on the seed and the section parameters
