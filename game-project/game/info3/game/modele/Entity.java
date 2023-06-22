@@ -245,12 +245,10 @@ public abstract class Entity {
 	}
 	
 	public void get(EnumCategory category) {
-		System.out.println("Cette entité n'a pas de fonction takeDamage()");
 	}
 	
 	
 	public void get() {
-		System.out.println("Cette entité n'a pas de fonction takeDamage()");
 	}
 
 }

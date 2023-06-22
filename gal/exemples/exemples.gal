@@ -128,6 +128,8 @@ PlayerBoat(Init){
   | Key(s) ? Move(S) :(Init)
   | Key(q) ? Move(W) :(Init)
   | Key(d) ? Move(E) :(Init)
+  | Key(1) ? Get(O) : (Init)
+  | Key(2) ? Get(A) : (Init)  
 }
 
 Crab(Init){

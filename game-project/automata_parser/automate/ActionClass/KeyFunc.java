@@ -18,7 +18,7 @@ public class KeyFunc extends FunCall{
 		Key k = (Key)parameters.get(0);
 		//System.out.println(s);
 		Integer code = (Integer) k.eval();
-		return Controller.getBuffer()[code];
+		return Controller.getBuffer().isBuffered(code);
 	}
 
 	@Override

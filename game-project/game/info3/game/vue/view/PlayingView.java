@@ -248,7 +248,7 @@ public class PlayingView extends View {
 		labelTimer.setText(GameModele.timer.toString());
 		labelTimer.paint(g);
 
-		if (Controller.getBuffer()[77]) { // Quand M push
+		if (Controller.getBuffer().isBuffered("m") ) { // Quand M push
 			GameModele.map.getMiniMap().paint(g, width, height);
 		}
 		GameModele.map.getSectionTitle().paint(g, width, height);
