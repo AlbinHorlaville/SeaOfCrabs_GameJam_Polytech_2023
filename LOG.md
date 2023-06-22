@@ -156,7 +156,7 @@
 
 # 13 Juin
 - Albin et Alexandre: Toolkit UI/Vue du menu : Finalisation écran de démarrage et implémentation tableau des scores
-- Axel et Emin: Faire marcher le cowBoy en utilisant un automate (.gal) + Merger les les automates
+- Axel et Emin: Faire marcher le cowBoy en utilisant un automate (.gal) + Merger les automates
 - Brice : Sprite Loader
 - Romain: Deplacement du joueur dans le modéle (Début de liaison à l'automate) + SoundManager
 - Rémi: Fixer bug vagues
@@ -170,6 +170,7 @@
 - Rémi: Otimisation de la vue (affichage uniquement des tiles dans le viewport) et ajout getter pour tiles sous une certaine position
 - Alexandre: création de la vue d'avant jeu (selection des armes, selection de la graine...) + création des composants nécessaires (input, box)
 - Axel : Correction des fonctions pour le parser d'automate + Implémenations des classes des entités faisant partie du décors
+- Emin : Début d'implémentation des fonctions du modéle pour intéractions automates - entités (test avec joueur sur terre)
 
 
 # 15 Juin
@@ -179,7 +180,8 @@
 - Brice: Equation de déplacement à deux joueurs 
 - Rémi: Amélioration de la génération des troncons (ajout de tuile de transition entre la terre et le sable) et ajout de getter pratique pour des informations sur le modèle de la map
 - Alexandre : création de composant pour la vue de jeu, barre de vie et timer
-- Axel : Liaison des classes qui permettent l'interaction des des joueurs avec le décors au niveau du modèle + Ajout des fonctions non implementées dans l'automate (Closest, GotStuff, GotPower, Cell ...)
+- Axel : Liaison des classes qui permettent l'interaction des joueurs avec le décors au niveau du modèle + Ajout des fonctions non implementées dans l'automate (Closest, GotStuff, GotPower, Cell ...)
+- Emin : Fin d'implémentation de l'automate joueur + début conception et implémentation de l'automate bateau
 
 # 16 Juin
 
@@ -187,13 +189,15 @@
 - Romain:  Générateur D'automate pour chaque entité (Permet de changer les automates de nos entités facilement via ConfigFile) + Génération des entités sur la carte (SpawnerCrab, Crab) + Début de leurs avatars.
 - Rémi: Fix "gros bug" concernant la positions sur la map (bug découvert la veille). 
 - Alexandre: création de la vue de config des automates
-- Axel : Dévbut du travail sur les crabes et les cavernes à crabes. Rendre le Crab lair's fonctionnel avant de gérer les crabes.
+- Axel : Début du travail sur les crabes et les cavernes à crabes. Rendre le Crab lair's fonctionnel avant de gérer les crabes.
+- Emin : Fin d'implémentation du bateau avec automate + debug de colision pirate - environnement pour l'empêcher de marcher sur l'eau ou sur le décors
 
 # 17 Juin (Samedi)
 
 # 18 Juin (Dimanche)
 - Rémi: La map est maintenant cylindrique et implémentation de la génération des troncons du crab King et du kraken
 - Alexandre: avancement de la vue de config des automates
+- Emin : Fix colision pirate - environnement grâce au fix de positions sur la map de Rémi
 
 # 19 Juin
 
@@ -202,6 +206,7 @@
 - Rémi: Ajout de la minimap. Ajout de nouvelle tiles pour faire spawner les entitées. Ajout d'un titre lorsque l'on change de section
 - Alexandre: création de la vue d'entrée sur le jeu. Le joueur doit entrer son nom d'utilisateur + début création de la base de données pour enregistrer les utilisateurs et leur score
 - Axel : Fonction de déplacement vers le joueur pour les ennemis crabes et de débloquages lorsqyue le crabe est bloqué. + Essai de faire bouger les crabes vers le joueur sans qu'il se regroupe (C'est une échec).
+- Emin : Implémentation de combat terrestre + tirer des boulets de canon avec le bateau (sans dégats)
 
 # 20 Juin
 
@@ -210,9 +215,11 @@
 - Romain: Création du Rhum + Réinitialisation de la partie + Mise à jour de la Base de données + 
 - Albin: Fix du problème de perspective entre les joueurs et les palmiers, implémentation des Bonus, Modèle du nuage, Vue de l'épée et animation de celle-ci dans les 4 directions
 - Axel : Implèmentation d'une version stable des crabes et merge de celle-ci + Fix de la barre de vie + Début du travail sur les trésors
+- Fix bug CurrentModificationException + Création du premier boss CrabKing
 
 # 21 Juin
  Axel : Ajout des croix rouges fonctionnels, des trésors fonctionnels (sur terre et en mer), des Bonus qui peuvent maintenant être utilisé en jeu par le joueur.
  Rémi: Réalisation de l'attaque utilisé par les bateau ennemies ainsi que le kraken. Et réalisation des fonctions des automates de ship et krakenTentacle. 
+ Emin : Fin d'implémentation du CrabKing + fix bugs crabs et CrabKing
 
  # 22 Juin
