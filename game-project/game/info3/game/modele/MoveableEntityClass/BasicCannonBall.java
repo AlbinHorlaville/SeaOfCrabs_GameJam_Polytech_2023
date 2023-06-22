@@ -8,10 +8,6 @@ import info3.game.vue.avatar.BasicCannonBallAvatar;
 
 public class BasicCannonBall extends CannonBall {
 
-	static final int BASIC_DAMAGE = 20; // A modifier
-	static final int BASIC_RANGE = 2000;
-	static final int BASIC_RATE_OF_FIRE = 1;
-
 	public BasicCannonBall() {
 		super(BASIC_DAMAGE, BASIC_RANGE, BASIC_RATE_OF_FIRE);
 		this.setAvatar(new BasicCannonBallAvatar(this));
@@ -30,5 +26,12 @@ public class BasicCannonBall extends CannonBall {
 	public void hit(EnumDirection d, EnumCategory c) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void hit() {
+		if (ennemyAimed instanceof Ship) {
+			((Ship) ennemyAimed).takeDamage(damage);
+		}
 	}
 }

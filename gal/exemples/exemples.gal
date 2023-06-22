@@ -99,6 +99,8 @@ PlayerBoat(Init){
   | Key(s) ? Move(S) :(Init)
   | Key(q) ? Move(W) :(Init)
   | Key(d) ? Move(E) :(Init)
+  | Key(1) ? Get(O) : (Init)
+  | Key(2) ? Get(A) : (Init)  
 }
 
 Player2(Init){
@@ -155,7 +157,8 @@ CrabsLair(Init){
 
  CannonBall(Init){
   * (Init) :
-  | GotPower & Cell(F,A) ? Move(N) : (Init)
+  | GotPower & !Cell(F,A) ? Move(N) : (Init)
+  | GotPower & Cell(F,A) ? Hit : ()
   | True ? : ()
   * ()
  }

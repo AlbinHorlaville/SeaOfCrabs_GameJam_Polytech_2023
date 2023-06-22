@@ -2,9 +2,9 @@ package automate;
 
 import java.awt.event.KeyEvent;
 
-public class Key extends Parameter{
+public class Key extends Parameter {
 	public int code;
-	
+
 	public Key(String s) {
 		super(s);
 		code = convertToInt(s);
@@ -14,31 +14,36 @@ public class Key extends Parameter{
 	public Object eval() {
 		return this.code;
 	}
-	
+
 	public int convertToInt(String s) {
-		if(s.equals("FU"))
+		if (s.equals("FU"))
 			return 38;
-		if(s.equals("FD"))
+		if (s.equals("FD"))
 			return 40;
-		if(s.equals("FR"))
+		if (s.equals("FR"))
 			return 39;
-		if(s.equals("FL"))
+		if (s.equals("FL"))
 			return 37;
-		if(s.equals("z"))
+		if (s.equals("z"))
 			return 90;
-		if(s.equals("q"))
+		if (s.equals("q"))
 			return 81;
-		if(s.equals("s"))
+		if (s.equals("s"))
 			return 83;
-		if(s.equals("d"))
+		if (s.equals("d"))
 			return 68;
-		if(s.equals("b"))
+		if (s.equals("b"))
 			return 66;
-		if(s.equals("r"))
+		if (s.equals("r"))
 			return 82;
+		if (s.equals("1"))
+			return 152; // code de 3
+		if (s.equals("2")) // code de 4
+			return 222;
+
 		return s.codePointAt(0);
 	}
-	
+
 //	public void SetKeyPressed(int k) {
 //		this.key_pressed = k;
 //	}

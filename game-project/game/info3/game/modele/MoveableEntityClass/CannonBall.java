@@ -24,6 +24,10 @@ public abstract class CannonBall extends MoveableEntity {
 	protected int radiusY;
 	public boolean fire;
 	
+	static final int BASIC_DAMAGE = 20; // A modifier
+	static final int BASIC_RANGE = 2000;
+	static final int BASIC_RATE_OF_FIRE = 1;
+	
 	public Entity ennemyAimed;
 
 	public CannonBall(int damage, int range, int rateOfFire) {
@@ -84,7 +88,6 @@ public abstract class CannonBall extends MoveableEntity {
 					if (collide(this, x - speedX, y - speedY, s)) {
 						ennemyAimed = s;
 						System.out.println("hit");
-						s.takeDamage(damage);
 						return true;
 					}
 				}
