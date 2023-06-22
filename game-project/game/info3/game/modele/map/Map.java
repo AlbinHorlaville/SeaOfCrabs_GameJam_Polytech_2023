@@ -122,11 +122,13 @@ public class Map {
 				this.rand, 5);
 		this.map[6] = new MapSection(EnumSectionType.RAGING_SEA, this.sectionWidth, this.sectionHeight, this.rand, 6);
 
-		this.map[7] = new MapSection(EnumSectionType.CRAB_KING_SEA, this.sectionWidth, this.sectionHeight, this.rand, 7);
+		this.map[7] = new MapSection(EnumSectionType.CRAB_KING_SEA, this.sectionWidth, this.sectionHeight, this.rand,
+				7);
 
 		this.map[8] = new MapSection(EnumSectionType.KRAKEN_SEA, this.sectionWidth, this.sectionHeight, this.rand, 8);
-		
-		this.map[9] = new MapSection(EnumSectionType.MOUTAIN, this.sectionWidth, this.sectionHeight, this.rand, this.map[8].getMountainHeight(), 9);
+
+		this.map[9] = new MapSection(EnumSectionType.MOUTAIN, this.sectionWidth, this.sectionHeight, this.rand,
+				this.map[8].getMountainHeight(), 9);
 	}
 
 	public void setImageSize(int width, int height) {
@@ -311,8 +313,7 @@ public class Map {
 
 		int numSection = this.getSectionOfEntity(xPos, yPos);
 
-		return this.map[numSection].
-				getTiles()[y][x];
+		return this.map[numSection].getTiles()[y][x];
 	}
 
 	double determinant() {
@@ -346,7 +347,7 @@ public class Map {
 
 			int numSection = this.getSectionOfEntity(xPos, yPos);
 
-			return this.wave[numSection * this.sectionHeight + y][x];
+			return this.wave[(this.nbSection-numSection - 1) * this.sectionHeight + y][x];
 		} else {
 			return 0;
 		}
@@ -397,6 +398,7 @@ public class Map {
 				rand.nextDouble() * 10000, rand.nextDouble() * 10000);
 
 		int waveRange;
+		int heightMax = this.nbSection * this.sectionHeight - 1;
 		for (int i = 0; i < this.nbSection; i++) {
 			switch (this.map[i].getSeaType()) {
 			case HARBOR:
@@ -407,14 +409,14 @@ public class Map {
 			case STORMY_SEA:
 			case STORMY_SEA_FROM_CALM_SEA:
 			case STORMY_SEA_TO_RAGING_SEA:
-				waveRange = 25;
+				waveRange = 35;
 				break;
 			case RAGING_SEA:
 			case RAGING_SEA_FROM_STORMY_SEA:
 			case CRAB_KING_SEA:
 			case KRAKEN_SEA:
 			case MOUTAIN:
-				waveRange = 25;
+				waveRange = 45;
 				break;
 			default:
 				waveRange = 0;
@@ -422,10 +424,10 @@ public class Map {
 			for (int j = 0; j < this.sectionHeight; j++) {
 				for (int k = 0; k < this.sectionWidth; k++) {
 					if (k > 15 && k < this.sectionWidth - 16) {
-						this.wave[i * this.sectionHeight + j][k] = map(waveNoise[i * this.sectionHeight + j][k], -1, 1,
+						this.wave[heightMax-(i * this.sectionHeight + j)][k] = map(waveNoise[i * this.sectionHeight + j][k], -1, 1,
 								-waveRange, waveRange);
 					} else {
-						this.wave[i * this.sectionHeight + j][k] = 0;
+						this.wave[heightMax-(i * this.sectionHeight + j)][k] = 0;
 					}
 				}
 			}
@@ -495,6 +497,34 @@ public class Map {
 		}
 	}
 
+	private int getRangeOfWave(int section) {
+		int waveRange;
+		switch (this.map[section].getSeaType()) {
+		case HARBOR:
+		case CALM_SEA:
+		case CALM_SEA_TO_STORMY_SEA:
+			waveRange = 25;
+			break;
+		case STORMY_SEA:
+		case STORMY_SEA_FROM_CALM_SEA:
+		case STORMY_SEA_TO_RAGING_SEA:
+			waveRange = 35;
+			break;
+		case RAGING_SEA:
+		case RAGING_SEA_FROM_STORMY_SEA:
+		case CRAB_KING_SEA:
+		case KRAKEN_SEA:
+		case MOUTAIN:
+			waveRange = 45;
+			break;
+		default:
+			waveRange = 0;
+			break;
+		}
+
+		return waveRange;
+	}
+
 	/*
 	 * The wave cicle torward the north
 	 */
@@ -503,20 +533,29 @@ public class Map {
 
 		int maxX = this.nbSection * this.sectionHeight - 1;
 
+		int rangeStart = getRangeOfWave(this.nbSection - 1);
+		int rangeEnd = getRangeOfWave(0);
+
 		for (int i = 0; i < this.sectionWidth; i++) {
-			temp[i] = this.wave[maxX][i];
+			temp[i] = this.map(this.wave[0][i], -rangeStart, rangeStart, -rangeEnd, rangeEnd);
 		}
 
 		for (int i = 0; i < this.nbSection; i++) {
-			for (int j = this.sectionHeight - 1; j >= (i == 0 ? 1 : 0); j--) {
+			for (int j = 0; j < (i == this.nbSection-1 ? this.sectionHeight - 1 : this.sectionHeight); j++) {
 				for (int k = 0; k < this.sectionWidth; k++) {
-					this.wave[i * this.sectionHeight + j][k] = this.wave[i * this.sectionHeight + (j - 1)][k];
+					if (j == this.sectionHeight - 1 && i < this.nbSection - 1) {
+						rangeStart = getRangeOfWave(this.nbSection - i - 2);
+						rangeEnd = getRangeOfWave(this.nbSection - i - 1);
+						this.wave[i * this.sectionHeight + j][k] = this.map(this.wave[i * this.sectionHeight + j + 1][k], -rangeStart, rangeStart, -rangeEnd, rangeEnd);
+					} else {
+						this.wave[i * this.sectionHeight + j][k] = this.wave[i * this.sectionHeight + j + 1][k];
+					}
 				}
 			}
 		}
 
 		for (int i = 0; i < this.sectionWidth; i++) {
-			this.wave[0][i] = temp[i];
+			this.wave[maxX][i] = temp[i];
 		}
 	}
 

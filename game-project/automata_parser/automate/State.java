@@ -11,7 +11,8 @@ public class State {
 	
 	public State(String name){
 		this.name = name;
-		died = false;
+		this.died = false;
+
 	}
 	
 	public void SetTransitions(ArrayList<Transition> T) {
@@ -30,6 +31,8 @@ public class State {
 		for(Transition t : transitions) {
 			if(t.GetCondition().eval(e)) {
 				t.GetAction().exec(e);
+				if(t.GetDestination() instanceof StateDeath)
+					e.die();
 				return t.GetDestination();
 			}
 		}
@@ -44,8 +47,8 @@ public class State {
 			t.print();
 		}
 	}
-	
+//	
 	public boolean isDead() {
-		return this.died;
+		return false;
 	}
 }

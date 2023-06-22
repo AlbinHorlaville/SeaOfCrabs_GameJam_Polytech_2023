@@ -257,12 +257,12 @@ public class GameModele {
 			map = new Map(seed);
 
 			if (!solo) {
-				player2 = new PiratePlayer(GameEntity.Player1);
+				player2 = new PiratePlayer(GameEntity.PlayerMulti2);
 				player2.setAvatar(new Player2(player2));
 				player2.setWeapon(BeforePlayingView.weapon2);
 				BeforePlayingView.weapon2.setPlayer(player2);
 
-				player1 = new PiratePlayer(GameEntity.Player2);
+				player1 = new PiratePlayer(GameEntity.PlayerMulti1);
 				player1.setAvatar(new Player1(player1));
 				player1.setWeapon(BeforePlayingView.weapon1);
 				BeforePlayingView.weapon1.setPlayer(player1);

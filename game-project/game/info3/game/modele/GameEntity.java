@@ -8,7 +8,8 @@ package info3.game.modele;
 public enum GameEntity {
 	
 	Player1,
-	Player2,
+	PlayerMulti1,
+	PlayerMulti2,
 	CrabsLair,
 	PlayerBoat,
 	Philosopher,

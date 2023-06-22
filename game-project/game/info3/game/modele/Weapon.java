@@ -3,6 +3,8 @@ package info3.game.modele;
 import java.util.ArrayList;
 
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
+import info3.game.modele.StillEntityClass.Tree;
+import info3.game.vue.GameView;
 import info3.game.vue.avatar.Avatar;
 
 public abstract class Weapon extends MoveableEntity {
@@ -71,17 +73,22 @@ public abstract class Weapon extends MoveableEntity {
 		attacking = true;
 		tempX = player.getX()+player.getAvatar().getWidth()/2;
 		tempY = player.getY()+player.getAvatar().getHeight()/2;	
-		width = player.avatar.getWidth();
-		height = player.avatar.getHeight();
+		width = player.avatar.getWidth() / 2;//player.avatar.getWidth();
+		height = player.avatar.getHeight() / 2	;//player.avatar.getHeight();
 		ArrayList<Entity> tempEntities = (ArrayList) GameModele.entities.clone();
 		for (Entity e : tempEntities) {
 			if (e != player) {
+				int eCenterX = e.getCenterX();
+				int eCenterY = e.getCenterY();
+				if (e instanceof Tree) {
+					eCenterY += 50;
+				}
 				switch (player.facing) {
 				case N:
 					//System.out.println("North "
 					//		+ GameModele.map.getTileUnderEntity(tempX, tempY + range).getType().toString());
-					if (e.getCenterX() - e.r <= tempX + width / 2 && e.getCenterX() + e.r >= tempX - width / 2) {
-						if (e.getCenterY() + e.r >= tempY && e.getCenterY() - e.r <= tempY + range) {
+					if (eCenterX - e.r <= tempX + width / 2 && eCenterX + e.r >= tempX - width / 2) {
+						if (eCenterY + e.r >= tempY && eCenterY - e.r <= tempY + range) {
 							// System.out.println("touché N " + e.getClass());
 							e.takeDamage(damage);
 							return;
@@ -91,8 +98,8 @@ public abstract class Weapon extends MoveableEntity {
 				case S:
 					//System.out.println(
 					//		"South " + GameModele.map.getTileUnderEntity(tempX, tempY - range).getType().toString());
-					if (e.getCenterX() - e.r <= tempX + width / 2 && e.getCenterX() + e.r >= tempX - width / 2) {
-						if (e.getCenterY() - e.r <= tempY && e.getCenterY() + e.r >= tempY - range) {
+					if (eCenterX - e.r <= tempX + width / 2 && eCenterX + e.r >= tempX - width / 2) {
+						if (eCenterY - e.r <= tempY && eCenterY + e.r >= tempY - range) {
 							// System.out.println("touché S " + e.getClass());
 							e.takeDamage(damage);
 							return;
@@ -102,8 +109,8 @@ public abstract class Weapon extends MoveableEntity {
 				case E:
 					//System.out.println("East "
 					//		+ GameModele.map.getTileUnderEntity(tempX - range, tempY).getType().toString());
-					if (e.getCenterY() + e.r >= tempY - height / 2 && e.getCenterY() - e.r <= tempY + height / 2) {
-						if (e.getCenterX() - e.r <= tempX && e.getCenterX() + e.r >= tempX - range) {
+					if (eCenterY + e.r >= tempY + player.getAvatar().getWidth()/4 - height / 2 && eCenterY - e.r <= tempY - player.getAvatar().getWidth()/4 + height / 2) {
+						if (eCenterX - e.r <= tempX && eCenterX + e.r >= tempX - range) {
 							// System.out.println("touché E " + e.getClass());
 							e.takeDamage(damage);
 							return;
@@ -113,8 +120,8 @@ public abstract class Weapon extends MoveableEntity {
 				case W:
 					//System.out.println("West "
 					//		+ GameModele.map.getTileUnderEntity(tempX + range, tempY).getType().toString());
-					if (e.getCenterY() + e.r >= tempY - height / 2 && e.getCenterY() - e.r <= tempY + height / 2)
-						if (e.getCenterX() + e.r >= tempX && e.getCenterX() - e.r <= tempX + range) {
+					if (eCenterY + e.r >= tempY + player.getAvatar().getWidth()/4 - height / 2 && eCenterY - e.r <= tempY - player.getAvatar().getWidth()/4 + height / 2)
+						if (eCenterX + e.r >= tempX && eCenterX - e.r <= tempX + range) {
 							// System.out.println("touché W " + e.getClass());
 							e.takeDamage(damage);
 							return;
