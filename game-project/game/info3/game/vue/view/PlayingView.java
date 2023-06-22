@@ -221,6 +221,12 @@ public class PlayingView extends View {
 			barreVieMer.setWidth(75);
 			barreVieMer.paint(g);
 		}
+		
+		if (GameModele.pirateBoat.getBall()==EnumCannonBall.Basic) {
+			cannonBallBox.setSelectedBox(boxBoulet1);
+		} else if (GameModele.pirateBoat.getBall()==EnumCannonBall.Stunt) {
+			cannonBallBox.setSelectedBox(boxBoulet2);
+		}
 
 		cannonBallBox.paint(g);
 
