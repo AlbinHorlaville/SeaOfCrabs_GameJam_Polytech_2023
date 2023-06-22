@@ -19,7 +19,7 @@ public class Treasure extends StillEntity {
 	private boolean m_opened;
 	
 	public Treasure(MapSection mapSection, int x,int y) {
-		super(x, y);
+		super(x, y, 100);
 		this.m_mapSection = mapSection;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Treasure);
 		this.current_state = automate.initial_state;

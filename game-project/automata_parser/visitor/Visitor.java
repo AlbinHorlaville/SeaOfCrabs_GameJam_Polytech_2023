@@ -57,49 +57,49 @@ public class Visitor implements IVisitor{
 	@Override
 	public Object visit(Category cat) {
 		// TODO Auto-generated method stub
-		System.out.println("Im in category : "+ cat.toString());
+		//System.out.println("Im in category : "+ cat.toString());
 		return new automate.Category(cat.terminal.content);
 	}
 
 	@Override
 	public Object visit(Direction dir) {
 		// TODO Auto-generated method stub
-		System.out.println("Im in direction: "+ dir.toString());
+		//System.out.println("Im in direction: "+ dir.toString());
 		return new automate.Direction(dir.terminal.content);
 	}
 
 	@Override
 	public Object visit(Key key) {
 		// TODO Auto-generated method stub
-		System.out.println("Im in key " + key.toString());
+		//System.out.println("Im in key " + key.toString());
 		return new automate.Key(key.terminal.content);
 	}
 
 	@Override
 	public Object visit(Value v) {
 		// TODO Auto-generated method stub
-		System.out.println("Im in value "+ v.toString());
+		//System.out.println("Im in value "+ v.toString());
 		return v.value;
 	}
 
 	@Override
 	public Object visit(Underscore u) {
 		// TODO Auto-generated method stub
-		System.out.println("Im in underscore "+ u.toString());
+		//System.out.println("Im in underscore "+ u.toString());
 		int rand = new Random().nextInt(states_done.size());
 		return states_done.get(rand);
 	}
 
 	@Override
 	public void enter(FunCall funcall) {
-		System.out.println("Im in funcall "+ funcall.toString());
+		//System.out.println("Im in funcall "+ funcall.toString());
 		// TODO Auto-generated method stub		
 	}
 
 	@Override
 	public Object exit(FunCall funcall, List<Object> parameters) {
 		// TODO Auto-generated method stub
-		System.out.println("Im in funcall with parameters "+ funcall.toString());
+		//System.out.println("Im in funcall with parameters "+ funcall.toString());
 		
 		ArrayList<automate.Parameter> l = new ArrayList<automate.Parameter>();
 		for(Object o : parameters) {
@@ -158,7 +158,7 @@ public class Visitor implements IVisitor{
 	@Override
 	public Object visit(BinaryOp operator, Object left, Object right) {
 		// TODO Auto-generated method stub
-		System.out.println("Im in binary op " + operator.toString());
+		//System.out.println("Im in binary op " + operator.toString());
 		automate.FunCall cL = (automate.FunCall)left;
 		automate.FunCall cR = (automate.FunCall)right;
 		if(operator.operator.equals("&")) {
@@ -170,14 +170,14 @@ public class Visitor implements IVisitor{
 	@Override
 	public Object visit(UnaryOp operator, Object expression) {
 		// TODO Auto-generated method stub
-		System.out.println("Im in unary op " + operator.toString());
+		//System.out.println("Im in unary op " + operator.toString());
 		return new automate.Negation((automate.FunCall)expression);
 	}
 
 	@Override
 	public Object visit(State state) {
 		// TODO Auto-generated method stub
-		System.out.println("Im in state " + state.toString());
+		//System.out.println("Im in state " + state.toString());
 		automate.State s = stateDone(state);
 		if(s == null) {
 			if(state.name.length() == 0)
@@ -196,7 +196,7 @@ public class Visitor implements IVisitor{
 	@Override
 	public void enter(Mode mode) {
 		// TODO Auto-generated method stub
-		System.out.println("I enter in mode "+ mode.toString());
+		//System.out.println("I enter in mode "+ mode.toString());
 		
 	}
 
@@ -204,7 +204,7 @@ public class Visitor implements IVisitor{
 	@Override
 	public Object exit(Mode mode, Object source_state, Object behaviour) {
 		// TODO Auto-generated method stub
-		System.out.println("I exit mode "+ mode.toString());
+		//System.out.println("I exit mode "+ mode.toString());
 		automate.State s = ((automate.State)source_state);
 		ArrayList<automate.Transition> l = new ArrayList<automate.Transition>();
 		for(automate.Transition t : (List<automate.Transition>)behaviour) {
@@ -219,13 +219,13 @@ public class Visitor implements IVisitor{
 	@Override
 	public Object visit(Behaviour behaviour, List<Object> transitions) {
 		// TODO Auto-generated method stub
-		System.out.println("Im in behavior " + behaviour.toString());
+		//System.out.println("Im in behavior " + behaviour.toString());
 		return transitions;
 	}
 
 	@Override
 	public void enter(Condition condition) {
-		System.out.println("I enter condition "+ condition.toString());
+		//System.out.println("I enter condition "+ condition.toString());
 		// TODO Auto-generated method stub
 		
 	}
@@ -233,14 +233,14 @@ public class Visitor implements IVisitor{
 	@Override
 	public Object exit(Condition condition, Object expression) {
 		// TODO Auto-generated method stub
-		System.out.println("I enter condition with expression "+ condition.toString());
+		//System.out.println("I enter condition with expression "+ condition.toString());
 		return expression;
 	}
 
 	@Override
 	public void enter(Action action) {
 		// TODO Auto-generated method stub
-		System.out.println("I enter action " + action.toString());
+		//System.out.println("I enter action " + action.toString());
 		
 	}
 
@@ -260,7 +260,7 @@ public class Visitor implements IVisitor{
 	@Override
 	public Object visit(Transition transition, Object condition, Object action, Object target_state) {
 		// TODO Auto-generated method stub
-		System.out.println("Im in transition condition action target_state "+ transition.toString());
+		//System.out.println("Im in transition condition action target_state "+ transition.toString());
 		automate.Condition c = new automate.Condition((automate.FunCall)condition);
 		return new automate.Transition(
 				c,
@@ -272,7 +272,7 @@ public class Visitor implements IVisitor{
 	@Override
 	public void enter(Automaton automaton) {
 		// TODO Auto-generated method stub
-		System.out.println("I enter automaton " + automaton.toString());
+		//System.out.println("I enter automaton " + automaton.toString());
 		states_done = new ArrayList<>();
 		
 	}
@@ -285,15 +285,15 @@ public class Visitor implements IVisitor{
 		//automates.add(a);
 		a.initial_state = states_done.get(0);
 		a.states = states_done;
-		System.out.println("================Bienvenue dans le debuggage d'automate================");
-		a.print();
+		//System.out.println("================Bienvenue dans le debuggage d'automate================");
+		//a.print();
 		return a;
 	}
 
 	@Override
 	public Object visit(AST bot, List<Object> automata) {
 		// TODO Auto-generated method stub
-		System.out.println("Im in ast " + bot.toString());
+		//System.out.println("Im in ast " + bot.toString());
 		
 		return automata;
 	}

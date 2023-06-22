@@ -4,6 +4,7 @@ import automate.AutomateLoader;
 import automate.EnumCategory;
 import automate.EnumDirection;
 import info3.game.modele.GameEntity;
+import info3.game.modele.StillEntityClass.SeaTreasure;
 import info3.game.vue.avatar.BasicCannonBallAvatar;
 
 public class BasicCannonBall extends CannonBall {
@@ -27,6 +28,10 @@ public class BasicCannonBall extends CannonBall {
 	public void hit() {
 		if (ennemyAimed instanceof Ship) {
 			((Ship) ennemyAimed).takeDamage(damage);
+		}
+		
+		if (ennemyAimed instanceof SeaTreasure ) {
+			((SeaTreasure) ennemyAimed).takeDamage(damage);
 		}
 	}
 
