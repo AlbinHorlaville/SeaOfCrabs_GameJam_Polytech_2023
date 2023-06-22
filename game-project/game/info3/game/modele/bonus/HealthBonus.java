@@ -2,17 +2,13 @@ package info3.game.modele.bonus;
 
 import info3.game.modele.GameModele;
 import info3.game.modele.StillEntityClass.Bonus;
+import info3.game.modele.map.MapSection;
 import info3.game.vue.avatar.BonusAvatar;
 
 public class HealthBonus extends Bonus {
 	
-	public HealthBonus(int level, int x, int y) {
-		super(level, x, y);
-		setAvatar(new BonusAvatar(this));
-	}
-	
-	public HealthBonus(int level) {
-		super(level);
+	public HealthBonus(MapSection mapSection) {
+		super(mapSection);
 		setAvatar(new BonusAvatar(this));
 	}
 

@@ -953,7 +953,7 @@ public class MapSection {
 	public void generateSeaChestTile() {
 		int rand;
 		boolean added = false;
-		for (int i = 0; i < this.sectionHeight && !added; i++) {
+		for (int i = 8; i < this.sectionHeight - 8 && !added; i++) {
 			for (int j = 10; j < this.sectionWidth - 11 && !added; j++) {
 				if (this.tiles[i][j].getType() == EnumTiles.CALM_WATER
 						|| this.tiles[i][j].getType() == EnumTiles.RAGING_WATER

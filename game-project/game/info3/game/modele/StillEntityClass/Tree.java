@@ -32,16 +32,24 @@ public class Tree extends StillEntity {
 	public boolean gotPower() {
 		return this.healthPoints > 0;
 	}
+	
+	public void power() {
+		GameModele.pirateBoat.heal(this.healthPointsToHeal);
+		System.out.println("LA vie est donnée au bateau");
+	}
 
 	
 	public void die() {
-		GameModele.pirateBoat.heal(this.healthPointsToHeal);
 		super.die();
 	}
 
 	public void takeDamage(int damage) {
 		this.healthPoints -= damage;
 		
+	}
+	
+	public int getHealth() {
+		return this.healthPoints;
 	}
 
 }

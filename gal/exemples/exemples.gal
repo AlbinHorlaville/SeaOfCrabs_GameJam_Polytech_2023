@@ -202,8 +202,7 @@ KrakenTentacle(Init){
 
 Bonus(Init){
  * (Init) :
- | Cell(H,T) ? Power(T) : ()
- | GotPower ? : ()
+ | Cell(H,T) ? Power : ()
  | True ? : (Init)
  * ()
 }
@@ -223,22 +222,22 @@ Cloud(Init){
 }
 
 SeaTreasure(Init){
- * (Init) :
- | Cell(H,T) ? Egg : ()
+ * (Init) : 
+ | !GotPower ? Egg : ()
  | True ? : (Init)
  * ()
 }
 
 Treasure(Init){
- * (Init) :
- | Cell(H,T) ? Power : ()
+ * (Init) : 
+ | !GotPower ? Power : ()
  | True ? : (Init)
  * ()
 }
 
 Tree(Init){
  * (Init) :
- | !GotPower ? : ()
+ | !GotPower ? Power : ()
  | True ? : (Init)
  * ()
 }
