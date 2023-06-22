@@ -66,46 +66,89 @@ public class SectionTitle {
 	}
 
 	private void setTitle(int section) {
-		this.section = section;
-		switch (section) {
-		case 0:
-			this.display = true;
-			this.fadeIn = true;
-			this.textTitle = "HARBOUR";
-			break;
-		case 1:
-			this.display = true;
-			this.fadeIn = true;
-			this.textTitle = "CALM SEA";
-			break;
-		case 2:
-			break;
-		case 3:
-			this.display = true;
-			this.fadeIn = true;
-			this.textTitle = "STORMY SEA";
-			break;
-		case 4:
-			break;
-		case 5:
-			this.display = true;
-			this.fadeIn = true;
-			this.textTitle = "RAGING SEA";
-			break;
-		case 6:
-			break;
-		case 7:
-			this.display = true;
-			this.fadeIn = true;
-			this.textTitle = "THE DESOLATE LANDS OF THE KING CRABS";
-			break;
-		case 8:
-			this.display = true;
-			this.fadeIn = true;
-			this.textTitle = "THE KRAKEN'S LAIR";
-			break;
-		default:
-			break;
+		if (this.section < section) {
+			switch (section) {
+			case 0:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "HARBOUR";
+				break;
+			case 1:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "CALM SEA";
+				break;
+			case 2:
+				break;
+			case 3:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "STORMY SEA";
+				break;
+			case 4:
+				break;
+			case 5:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "RAGING SEA";
+				break;
+			case 6:
+				break;
+			case 7:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "THE DESOLATE LANDS OF THE KING CRABS";
+				break;
+			case 8:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "THE KRAKEN'S LAIR";
+				break;
+			default:
+				break;
+			}
+		} else {
+			switch (section) {
+			case 0:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "HARBOUR";
+				break;
+			case 1:
+				break;
+			case 2:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "CALM SEA";
+				break;
+			case 3:
+				break;
+			case 4:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "STORMY SEA";
+				break;
+			case 5:
+				break;
+			case 6:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "RAGING SEA";
+				break;
+			case 7:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "THE DESOLATE LANDS OF THE KING CRABS";
+				break;
+			case 8:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "THE KRAKEN'S LAIR";
+				break;
+			default:
+				break;
+			}
 		}
+		this.section = section;
 	}
 }
