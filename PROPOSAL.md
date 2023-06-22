@@ -54,7 +54,7 @@ Controlez 2 valeureux pirates: Häag and Azs dans leur quête, mais gare aux nav
 #### Méthodes d'obtention des bonus :
 - Tuer des ennemis
 - Ouvrir des coffres
-- Récupérer du rhum ou des planches pour améliorer les points de vie des joueurs et du bateau
+- Récupérer du rhum ou des planches pour récupérer des points de vie pour les joueurs et le bateau
   <br>
 
 ### Ennemis :
