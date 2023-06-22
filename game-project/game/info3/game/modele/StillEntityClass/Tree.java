@@ -43,5 +43,9 @@ public class Tree extends StillEntity {
 		this.healthPoints -= damage;
 		
 	}
+	
+	public int getHealth() {
+		return this.healthPoints;
+	}
 
 }
