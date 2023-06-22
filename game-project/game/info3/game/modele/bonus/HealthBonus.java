@@ -14,7 +14,7 @@ public class HealthBonus extends Bonus {
 
 	@Override
 	public void power() {
-		GameModele.player1.addMaxLifePointsCoeff(this.BONUS_APPLIED, getLevel());
+		GameModele.player1.addMaxLifePointsCoeff(this.BONUS_APPLIED);
 	}
 
 	@Override

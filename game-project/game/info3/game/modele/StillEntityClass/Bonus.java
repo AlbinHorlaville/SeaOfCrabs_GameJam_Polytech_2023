@@ -14,7 +14,7 @@ import info3.game.modele.map.Tiles;
 public abstract class Bonus extends StillEntity{
 	
 	public final static int BonusesNumber = 5;
-	public final float BONUS_APPLIED = 0.10f;
+	public final float BONUS_APPLIED = 4;
 	protected boolean alive;
 	protected MapSection m_mapSection;
 	protected Bonus otherBonus;

@@ -15,11 +15,22 @@ import info3.game.vue.avatar.Avatar;
 
 public class PiratePlayer extends Player {
 	
-	// DEFAULT STAT TO CHANGE
+	// Default stat (at Spawn)
 	private static final int DEFAULT_PIRATEPLAYER_LIFE_POINT = 100;
 	
 	private static final int DEFAULT_PIRATEPLAYER_DAMAGE = 25;
 	
+	private static final int DEFAULT_PIRATEPLAYER_MAX_LIFE_POINT = 100;
+	
+	private static final int DEFAULT_PIRATEPLAYER_RANGE = 1;
+
+	private static final int DEFAULT_PIRATEPLAYER_SPEED = 1;
+	
+	private static final int DEFAULT_PIRATEPLAYER_ATTACKSPEED = 1;
+
+
+	
+	//Default coeff (at spawn)
 	public static final int DEFAULT_MAX_PLAYERS_LIFE_COEFF = 1;
 	
 	private static final int DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF = 1;
@@ -30,31 +41,35 @@ public class PiratePlayer extends Player {
 	
 	private static final int DEFAULT_PIRATEPLAYER_RANGE_COEFF = 1;
 
-	private static final int DEFAULT_PIRATEPLAYER_ATTACKSPEED = 1;
 
-	private static final int DEFAULT_PIRATEPLAYER_RANGE = 1;
 
-	private static final int DEFAULT_PIRATEPLAYER_SPEED = 1;
 	
-	// ACTUAL PIRATE STAT
-	private static int ACTUAL_PIRATEPLAYER_LIFE_POINT = 100;
+//	// ACTUAL PIRATE STAT
+//	private static int ACTUAL_PIRATEPLAYER_LIFE_POINT = 100;
+//	
+//	private static int ACTUAL_MAX_PLAYERS_LIFE = 100;
+//	
+//	private static int ACTUAL_PIRATEPLAYER_ATTACKSPEED = 1;
+//	
+//	private static int ACTUAL_PIRATEPLAYER_SPEED = 1;
+//
+//	private static int ACTUAL_PIRATEPLAYER_DAMAGE = 1;
+//	
+//	private static int ACTUAL_PIRATEPLAYER_RANGE = 1;
 	
-	private static int ACTUAL_MAX_PLAYERS_LIFE = 100;
+	//player caracteristics
+	protected static int m_attackSpeed;
+	protected static int m_speed;
+	protected static int m_range;
+	public static int m_maxHealthPoints;
+	protected static int m_healthPoints;
 	
-	private static int ACTUAL_PIRATEPLAYER_ATTACKSPEED = 1;
-	
-	private static int ACTUAL_PIRATEPLAYER_SPEED = 1;
-
-	private static int ACTUAL_PIRATEPLAYER_DAMAGE = 1;
-	
-	private static int ACTUAL_PIRATEPLAYER_RANGE = 1;
-	
-	protected float m_attackspeedCoeff;
-	protected float m_speedCoeff;
-	protected float m_damageCoeff;
-	protected float m_rangeCoeff;
-	protected float m_maxHealthCoeff;
-
+	//Coeff variables
+	protected static float m_attackspeedCoeff;
+	protected static float m_speedCoeff;
+	protected static float m_damageCoeff;
+	protected static float m_rangeCoeff;
+	protected static float m_maxHealthCoeff;
 			
 	public Weapon weapon;
 	public boolean invincible;
@@ -71,19 +86,27 @@ public class PiratePlayer extends Player {
 		this.automate = AutomateLoader.findAutomate(entity);
 		this.current_state = automate.initial_state;
 		facing = EnumDirection.N;
+		this.invincible = false;
+		
 		this.m_attackspeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
 		this.m_speedCoeff = DEFAULT_PIRATEPLAYER_SPEED_COEFF;
 		this.m_damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
 		this.m_rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
 		this.m_maxHealthCoeff = DEFAULT_MAX_PLAYERS_LIFE_COEFF;
-		this.invincible = false;
+		
+		this.m_maxHealthPoints = DEFAULT_MAX_PLAYERS_LIFE;
+		this.m_healthPoints = DEFAULT_PIRATEPLAYER_LIFE_POINT;
+		this.m_attackSpeed = DEFAULT_PIRATEPLAYER_ATTACKSPEED;
+		this.m_range = DEFAULT_PIRATEPLAYER_RANGE;
+		this.m_speed = DEFAULT_PIRATEPLAYER_SPEED;
+		
 	}
 	
 	
 	@Override
 	public void move(EnumDirection eval) {
 		if(eval == EnumDirection.F) { // CHANGEMENT PIRATE A BATEAU
-			this.moveEntity(facing, DEFAULT_PIRATEPLAYER_SPEED_COEFF);
+			this.moveEntity(facing, (int)(this.m_speed*this.m_speedCoeff));
 			
 			if(GameModele.solo) {
 				GameModele.entities.remove(this);
@@ -100,7 +123,7 @@ public class PiratePlayer extends Player {
 		}
 		else {
 			facing = eval;
-			this.moveEntity(eval, DEFAULT_PIRATEPLAYER_SPEED_COEFF);
+			this.moveEntity(eval, (int)(this.m_speed*this.m_speedCoeff));
 		}
 	}
 	
@@ -108,39 +131,39 @@ public class PiratePlayer extends Player {
 		switch(d) {
 			case N:
 				
-				tempY += this.m_speedCoeff;
+				tempY += (int) (this.m_speed * this.m_speedCoeff);
 				return GameModele.map.getTileUnderEntity(tempX, tempY);
 				
 			case S:
-				tempY -=this.m_speedCoeff;
+				tempY -= (int) (this.m_speed * this.m_speedCoeff);
 				return GameModele.map.getTileUnderEntity(tempX, tempY);
 				
 			case E:
-				tempX -= this.m_speedCoeff;
+				tempX -= (int) (this.m_speed * this.m_speedCoeff);
 				return GameModele.map.getTileUnderEntity(tempX, tempY);
 				
 			case W:
-				tempX += this.m_speedCoeff;
+				tempX += (int) (this.m_speed * this.m_speedCoeff);
 				return GameModele.map.getTileUnderEntity(tempX, tempY);
 				
 			case NE:
-				tempX -= this.m_speedCoeff;
-				tempY += this.m_speedCoeff;
+				tempX -= (int) (this.m_speed * this.m_speedCoeff);
+				tempY += (int) (this.m_speed * this.m_speedCoeff);
 				return GameModele.map.getTileUnderEntity(tempX, tempY);
 				
 			case NW:
-				tempX += this.m_speedCoeff;
-				tempY += this.m_speedCoeff;
+				tempX += (int) (this.m_speed * this.m_speedCoeff);
+				tempY += (int) (this.m_speed * this.m_speedCoeff);
 				return GameModele.map.getTileUnderEntity(tempX, tempY);
 				
 			case SE:
-				tempX -= this.m_speedCoeff;
-				tempY -= this.m_speedCoeff;
+				tempX -= (int) (this.m_speed * this.m_speedCoeff);
+				tempY -= (int) (this.m_speed * this.m_speedCoeff);
 				return GameModele.map.getTileUnderEntity(tempX, tempY);
 				
 			case SW:
-				tempX += this.m_speedCoeff;
-				tempY -= this.m_speedCoeff;
+				tempX += (int) (this.m_speed * this.m_speedCoeff);
+				tempY -= (int) (this.m_speed * this.m_speedCoeff);
 				return GameModele.map.getTileUnderEntity(tempX, tempY);
 			
 			default:
@@ -179,7 +202,7 @@ public class PiratePlayer extends Player {
 	
 	@Override
 	public void hit() {
-		weapon.hit();
+		weapon.hit(this.m_rangeCoeff, this.m_damageCoeff);
 	}
 	
 	public int getCenterX() {
@@ -195,7 +218,7 @@ public class PiratePlayer extends Player {
 	}
 
 
-	public void addDamageCoeff(float f, int lvl) {
+	public void addDamageCoeff(float f) {
 		this.m_damageCoeff += f;
 	}
 
@@ -205,9 +228,8 @@ public class PiratePlayer extends Player {
 	}
 
 
-	public void addSpeedCoeff(float f, int lvl) {
-		this.m_speedCoeff = f;
-		ACTUAL_PIRATEPLAYER_SPEED += lvl;
+	public void addSpeedCoeff(float f) {
+		this.m_speedCoeff += f;
 	}
 	
 	public float getAttackspeedCoeff() {
@@ -215,9 +237,8 @@ public class PiratePlayer extends Player {
 	}
 
 
-	public void addAttackpeedCoeff(float f, int lvl) {
+	public void addAttackpeedCoeff(float f) {
 		this.m_attackspeedCoeff += f;
-		ACTUAL_PIRATEPLAYER_ATTACKSPEED += lvl;
 	}
 
 
@@ -226,26 +247,41 @@ public class PiratePlayer extends Player {
 	}
 
 
-	public void addRangeCoeff(float f, int lvl) {
+	public void addRangeCoeff(float f) {
 		this.m_rangeCoeff += f;
-		ACTUAL_PIRATEPLAYER_RANGE += lvl;
 	}
 	
 	public float getMaxLifePointsCoeff() {
 		return m_maxHealthCoeff;
 	}
 
-	public void addMaxLifePointsCoeff(float f, int lvl) {
+	public void addMaxLifePointsCoeff(float f) {
 		this.m_maxHealthCoeff += f;
-		ACTUAL_MAX_PLAYERS_LIFE += lvl;
+		this.setNewMaxHealthPoints();
+	}
+	
+	public void setHealthPoints(int m_healthPoints) {
+		this.m_healthPoints = m_healthPoints;
+	}
+	
+	public int getMaxHealthPoints() {
+		return PiratePlayer.m_maxHealthPoints;
+	}
+	
+	public int getHealthPoints() {
+		return PiratePlayer.m_healthPoints;
+	}
+	
+	public void setNewMaxHealthPoints() {
+		this.m_maxHealthPoints = (int) (this.m_maxHealthPoints * this.m_maxHealthCoeff);
 	}
 	
 	public void takeDamage(int damage) {
 		int timeMili = GameModele.timer.getMiliSecondes();
 		int timeSec = GameModele.timer.getSecondes();
 		if(!invincible) {
-			this.ACTUAL_PIRATEPLAYER_LIFE_POINT -= damage;
-			if(this.ACTUAL_PIRATEPLAYER_LIFE_POINT <= 0) {
+			this.m_healthPoints -= damage;
+			if(this.m_healthPoints <= 0) {
 				this.die();
 			}
 			invincible = true;
@@ -264,27 +300,15 @@ public class PiratePlayer extends Player {
 	
 	public static void resetPiratePlayer() {
 		//RESET LIFE
-		PiratePlayer.ACTUAL_PIRATEPLAYER_LIFE_POINT = PiratePlayer.DEFAULT_MAX_PLAYERS_LIFE;
-		PiratePlayer.ACTUAL_MAX_PLAYERS_LIFE = PiratePlayer.DEFAULT_MAX_PLAYERS_LIFE;
+		PiratePlayer.m_maxHealthCoeff = PiratePlayer.DEFAULT_MAX_PLAYERS_LIFE;
+		PiratePlayer.m_healthPoints = PiratePlayer.DEFAULT_PIRATEPLAYER_LIFE_POINT;
 		
 		//RESET STAT
-		PiratePlayer.ACTUAL_PIRATEPLAYER_ATTACKSPEED = DEFAULT_PIRATEPLAYER_ATTACKSPEED;
-		PiratePlayer.ACTUAL_PIRATEPLAYER_DAMAGE = DEFAULT_PIRATEPLAYER_DAMAGE;
-		PiratePlayer.ACTUAL_PIRATEPLAYER_RANGE = DEFAULT_PIRATEPLAYER_RANGE;
-		PiratePlayer.ACTUAL_PIRATEPLAYER_SPEED = DEFAULT_PIRATEPLAYER_SPEED;
+		PiratePlayer.m_attackSpeed = DEFAULT_PIRATEPLAYER_ATTACKSPEED;
+		PiratePlayer.m_damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE;
+		PiratePlayer.m_range = DEFAULT_PIRATEPLAYER_RANGE;
+		PiratePlayer.m_speed = DEFAULT_PIRATEPLAYER_SPEED;
 		
 		//TODO CAN ADD COEFF ?
-	}
-
-	public static int getACTUAL_MAX_PLAYERS_LIFE() {
-		return ACTUAL_MAX_PLAYERS_LIFE;
-	}
-
-	public static int getACTUAL_PIRATEPLAYER_LIFE_POINT() {
-		return ACTUAL_PIRATEPLAYER_LIFE_POINT;
-	}
-
-	public static void setACTUAL_PIRATEPLAYER_LIFE_POINT(int lifePoint) {
-		ACTUAL_PIRATEPLAYER_LIFE_POINT = lifePoint;
 	}
 }

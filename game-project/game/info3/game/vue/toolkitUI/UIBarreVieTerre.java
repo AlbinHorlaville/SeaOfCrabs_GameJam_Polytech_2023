@@ -17,8 +17,8 @@ public class UIBarreVieTerre extends UIBarrePointDeVie {
 
 	@Override
 	public void paint(Graphics g) {
-		int max_life = PiratePlayer.getACTUAL_MAX_PLAYERS_LIFE();
-		int current_life = PiratePlayer.getACTUAL_PIRATEPLAYER_LIFE_POINT();
+		int max_life = GameModele.player1.getMaxHealthPoints();
+		int current_life = GameModele.player1.getHealthPoints();
 		g.setColor(Color.black);
 		g.drawRect(getPositionX() - 1, getPositionY() - 1, getWidth() + 1, getHeight() + 1);
 		g.setColor(new Color(255 - current_life * 255 / max_life, current_life * 255 / max_life, 30));
