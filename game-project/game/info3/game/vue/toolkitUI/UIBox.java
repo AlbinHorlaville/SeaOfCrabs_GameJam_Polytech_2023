@@ -89,7 +89,7 @@ public class UIBox extends UIComponent {
 			g.setColor(Color.white);
 				g.setFont(View.FONT4);
 			if (boulet!=EnumCannonBall.Basic) {
-				g.drawString(boulet.getAmount(boulet), getPositionX() + 4, getPositionY() +64);
+				g.drawString(String.valueOf(GameModele.pirateBoat.getAmount(boulet)) , getPositionX() + 4, getPositionY() +64);
 			}
 			else {
 				g.drawString("infini", getPositionX() + 4, getPositionY() +64);

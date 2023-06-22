@@ -9,9 +9,6 @@ public class BasicCannonBall extends CannonBall {
 		super(BASIC_DAMAGE, BASIC_RANGE, BASIC_RATE_OF_FIRE);
 		this.setAvatar(new BasicCannonBallAvatar(this));
 		this.r = this.avatar.getWidth();
-		this.automate = AutomateLoader.findAutomate(GameEntity.CannonBall);
-		this.current_state = automate.initial_state;
-
 	}
 
 	@Override

@@ -22,9 +22,9 @@ public class UIBoxes extends UIComponent {
 
 			@Override
 			public void onComponentClicked(int x, int y) {
-				if (getSelectedBox(x, y) != null) {
-					setSelectedBox(getSelectedBox(x, y));
-				}
+//				if (getSelectedBox(x, y) != null) {
+//					setSelectedBox(getSelectedBox(x, y));
+//				}
 			}
 
 			@Override
@@ -45,8 +45,7 @@ public class UIBoxes extends UIComponent {
 
 			@Override
 			public void onKeyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-
+				
 			}
 
 		});

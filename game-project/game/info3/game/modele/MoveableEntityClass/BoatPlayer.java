@@ -43,7 +43,7 @@ public class BoatPlayer extends Player {
 		bouletDeCannon = new HashMap<>();
 		for(EnumCannonBall ball : EnumCannonBall.values()) {
 			if (ball != EnumCannonBall.Basic) {
-				bouletDeCannon.put(ball, 0);
+				bouletDeCannon.put(ball, 5);
 			}
 		}
 		
@@ -52,7 +52,7 @@ public class BoatPlayer extends Player {
 	public BoatPlayer(int x, int y) {
 		super(DEFAULT_BOATPLAYER_LIFE_POINT, 0, DEFAULT_MAX_BOATPLAYER_LIFE_POINT, x, y);
 
-		bouletDeCannon = new HashMap<>();
+		initHashmap();
 
 		this.automate = AutomateLoader.findAutomate(GameEntity.PlayerBoat);
 		this.current_state = automate.initial_state;
@@ -164,6 +164,8 @@ public class BoatPlayer extends Player {
 		CannonBall b = null;
 		if (EnumCannonBall.Basic == currentBall) {
 			b = new BasicCannonBall();
+			b.setPositions(this.x, this.y, mouseX, mouseY);
+			b.fire();
 		} else if (getAmount(currentBall) != 0) {
 			this.bouletDeCannon.replace(currentBall, getAmount(currentBall)-1);
 			switch (currentBall) {
@@ -173,11 +175,9 @@ public class BoatPlayer extends Player {
 			default:
 				return;
 			}
+			b.setPositions(this.x, this.y, mouseX, mouseY);
+			b.fire();
 		}
-
-		b.setPositions(this.x, this.y, mouseX, mouseY);
-		b.fire();
-
 	}
 		
 	public int getAmount(EnumCannonBall ball) {
