@@ -33,6 +33,7 @@ public abstract class MoveableEntity extends Entity {
 	}
 
 	public void takeDamage(int damage) {
+		System.out.println("h"+ this.m_healthPoints);
 		this.m_healthPoints -= damage;
 		if (this.m_healthPoints <= 0) {
 			this.die();

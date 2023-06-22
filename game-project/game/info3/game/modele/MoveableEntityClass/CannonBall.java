@@ -1,9 +1,11 @@
 package info3.game.modele.MoveableEntityClass;
 
+import automate.AutomateLoader;
 import automate.EnumCategory;
 import automate.EnumDirection;
 import automate.StateDeath;
 import info3.game.modele.Entity;
+import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.MoveableEntity;
 import info3.game.modele.map.Tiles;
@@ -39,6 +41,8 @@ public abstract class CannonBall extends MoveableEntity {
 		startX = 500;
 		startY = 500;
 		GameModele.entities.add(this);
+		this.automate = AutomateLoader.findAutomate(GameEntity.CannonBall);
+		this.current_state = automate.initial_state;
 	}
 
 	public void setPositions(int x, int y, int endX, int endY) {
@@ -98,7 +102,6 @@ public abstract class CannonBall extends MoveableEntity {
 
 		}
 	}
-	
 	
 
 	public boolean collide(MoveableEntity m, int x, int y, Entity e) { // Code propre lvl 1

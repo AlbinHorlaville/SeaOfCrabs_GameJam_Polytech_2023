@@ -122,11 +122,7 @@ public class Ship extends Ennemy {
 		this.current_state = automate.initial_state;
 	}
 	
-	@Override
-	public void takeDamage(int damage) {
-		this.m_healthPoints -= damage;
-		
-	}
+	
 
 	private BoatPlayer closestBoatToMe() {
 

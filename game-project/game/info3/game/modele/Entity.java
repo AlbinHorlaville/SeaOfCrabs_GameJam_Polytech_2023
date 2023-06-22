@@ -3,6 +3,7 @@ package info3.game.modele;
 import automate.Automate;
 import automate.EnumCategory;
 import automate.EnumDirection;
+import automate.Parameter;
 import automate.State;
 import info3.game.vue.avatar.Avatar;
 

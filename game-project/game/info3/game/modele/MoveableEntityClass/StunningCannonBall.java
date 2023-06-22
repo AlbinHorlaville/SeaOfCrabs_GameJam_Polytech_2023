@@ -13,8 +13,6 @@ public class StunningCannonBall extends CannonBall {
 		super(0, BASIC_RANGE, BASIC_RATE_OF_FIRE);
 		this.setAvatar(new BasicCannonBallAvatar(this));
 		this.r = this.avatar.getWidth();
-		this.automate = AutomateLoader.findAutomate(GameEntity.CannonBall);
-		this.current_state = automate.initial_state;
 		this.amount = 1;
 	}
 	
@@ -36,6 +34,7 @@ public class StunningCannonBall extends CannonBall {
 	
 	@Override
 	public void hit() {
+		System.out.println("STUN");
 		if (ennemyAimed instanceof Ship) {
 			((Ship) ennemyAimed).stunt();
 		}
