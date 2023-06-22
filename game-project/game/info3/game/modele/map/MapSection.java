@@ -25,7 +25,7 @@ public class MapSection {
 
 	private RedCross redCross;
 	private CrabLair crabLair;
-	
+
 	private int sectionNumber;
 
 	/*
@@ -36,13 +36,14 @@ public class MapSection {
 	 * @param rand : the random generator
 	 * 
 	 */
-	public MapSection(EnumSectionType seaType, int sectionWidth, int sectionHeight, Random rand, int sectionNumber) throws Exception {
+	public MapSection(EnumSectionType seaType, int sectionWidth, int sectionHeight, Random rand, int sectionNumber)
+			throws Exception {
 
 		this.noiseGenerator = new PerlinNoiseGenerator(0.05);
 		this.randomGenerator = rand;
 
 		this.seaType = seaType;
-		
+
 		this.sectionNumber = sectionNumber;
 
 		this.sectionHeight = sectionHeight;
@@ -105,8 +106,9 @@ public class MapSection {
 			generateKraken();
 		}
 	}
-	
-	public MapSection(EnumSectionType seaType, int sectionWidth, int sectionHeight, Random rand, int[] height, int sectionNumber) throws Exception {
+
+	public MapSection(EnumSectionType seaType, int sectionWidth, int sectionHeight, Random rand, int[] height,
+			int sectionNumber) throws Exception {
 
 		this.noiseGenerator = new PerlinNoiseGenerator(0.05);
 		this.randomGenerator = rand;
@@ -115,7 +117,7 @@ public class MapSection {
 
 		this.sectionHeight = sectionHeight;
 		this.sectionWidth = sectionWidth;
-		
+
 		this.sectionNumber = sectionNumber;
 
 		this.tiles = new Tiles[this.sectionHeight][this.sectionWidth];
@@ -363,13 +365,26 @@ public class MapSection {
 						.sqrt(Math.pow(Math.max(i, this.sectionHeight / 2) - Math.min(i, this.sectionHeight / 2), 2)
 								+ Math.pow(Math.max(j, this.sectionWidth / 2) - Math.min(j, this.sectionWidth / 2), 2));
 
-				island[i][j] -= this.noiseGenerator.smoothing(map(value, 0, maxValue, 0, 1)); // The more the value is
+				island[i][j] += this.noiseGenerator.smoothing(map(value, 0, maxValue, 0.5, 0)); // The more the value is
 																								// far from the center
 																								// of the
 				// array, the closer it is from 1
 			}
 		}
 
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				island[i][j] -= (double) (10 - (double) i) / 10;
+				island[this.sectionHeight - i - 1][j] -= (double) (10 - (double) i) / 10;
+			}
+		}
+
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < this.sectionHeight; j++) {
+				island[j][i + 8] -= (double) (10 - (double) i) / 10;
+				island[j][this.sectionWidth - 9 - i] -= (double) (10 - (double) i) / 10;
+			}
+		}
 		return island;
 	}
 
@@ -1168,7 +1183,7 @@ public class MapSection {
 	public void setCrabLair(CrabLair crabLair) {
 		this.crabLair = crabLair;
 	}
-	
+
 	public int getSectionNumber() {
 		return this.sectionNumber;
 	}
