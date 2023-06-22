@@ -1,6 +1,6 @@
 package info3.game.modele.MoveableEntityClass;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import automate.AutomateLoader;
 import automate.EnumCategory;
@@ -8,15 +8,11 @@ import automate.EnumDirection;
 import info3.game.Controller;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
-import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Tiles;
-import info3.game.sound.SoundEffect;
-import info3.game.sound.SoundTool;
-import info3.game.vue.avatar.Avatar;
 
 public class BoatPlayer extends Player {
 
-	ArrayList<CannonBall> bouletDeCannon;
+	HashMap<EnumCannonBall,Integer> bouletDeCannon;
 	EnumCannonBall currentBall = EnumCannonBall.Basic;
 
 	private static final int DEFAULT_BOATPLAYER_LIFE_POINT = 100;
@@ -34,7 +30,7 @@ public class BoatPlayer extends Player {
 	public BoatPlayer() {
 		super(DEFAULT_BOATPLAYER_LIFE_POINT, 0, DEFAULT_MAX_BOATPLAYER_LIFE_POINT);
 
-		bouletDeCannon = new ArrayList<>();
+		initHashmap();
 
 		this.automate = AutomateLoader.findAutomate(GameEntity.PlayerBoat);
 		this.current_state = automate.initial_state;
@@ -43,10 +39,20 @@ public class BoatPlayer extends Player {
 		this.currentSection = 0;
 	}
 
+	private void initHashmap() {
+		bouletDeCannon = new HashMap<>();
+		for(EnumCannonBall ball : EnumCannonBall.values()) {
+			if (ball != EnumCannonBall.Basic) {
+				bouletDeCannon.put(ball, 0);
+			}
+		}
+		
+	}
+
 	public BoatPlayer(int x, int y) {
 		super(DEFAULT_BOATPLAYER_LIFE_POINT, 0, DEFAULT_MAX_BOATPLAYER_LIFE_POINT, x, y);
 
-		bouletDeCannon = new ArrayList<>();
+		bouletDeCannon = new HashMap<>();
 
 		this.automate = AutomateLoader.findAutomate(GameEntity.PlayerBoat);
 		this.current_state = automate.initial_state;
@@ -65,8 +71,8 @@ public class BoatPlayer extends Player {
 	 * 
 	 * @param boulet
 	 */
-	public void addBoulet(CannonBall boulet) {
-		this.bouletDeCannon.add(boulet);
+	public void addBoulet(EnumCannonBall boulet,int amount) {
+		this.bouletDeCannon.replace(currentBall, getAmount(boulet)+amount);
 	}
 
 	public EnumCannonBall getBall() {
@@ -154,25 +160,28 @@ public class BoatPlayer extends Player {
 	}
 
 	public void startFire(int mouseX, int mouseY) { // A changer
-		SoundTool.playSoundEffect(SoundEffect.BoatAttack, 0);
 		// A modifier pour choisir le boulet de cannon à tirer
-		CannonBall b;
-		if (bouletDeCannon.size() > 0)
-			b = bouletDeCannon.remove(0);
-		else
+		CannonBall b = null;
+		if (EnumCannonBall.Basic == currentBall) {
+			b = new BasicCannonBall();
+		} else if (getAmount(currentBall) != 0) {
+			this.bouletDeCannon.replace(currentBall, getAmount(currentBall)-1);
 			switch (currentBall) {
 			case Stunt:
 				b = new StunningCannonBall();
 				break;
-			case Basic:
-				b = new BasicCannonBall();
-				break;
 			default:
 				return;
 			}
+		}
+
 		b.setPositions(this.x, this.y, mouseX, mouseY);
 		b.fire();
 
+	}
+		
+	public int getAmount(EnumCannonBall ball) {
+		return this.bouletDeCannon.get(ball);
 	}
 
 	@Override
@@ -187,6 +196,10 @@ public class BoatPlayer extends Player {
 			currentBall = EnumCannonBall.Stunt;
 			break;
 		}
+	}
+	
+	public EnumCannonBall getCurrentBall() {
+		return currentBall;
 	}
 	
 	
