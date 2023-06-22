@@ -69,6 +69,11 @@ public class Tentacle extends Ennemy  {
 
 	}
 	
+	public void stunt() {
+		this.automate = AutomateLoader.findAutomate(GameEntity.Philosopher);
+		this.current_state = automate.initial_state;
+
+	}
 	
 	public void move() {
 		// TODO
