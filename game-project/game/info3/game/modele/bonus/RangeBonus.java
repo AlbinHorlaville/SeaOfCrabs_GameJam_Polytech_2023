@@ -4,17 +4,13 @@ import automate.AutomateLoader;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.StillEntityClass.Bonus;
+import info3.game.modele.map.MapSection;
 import info3.game.vue.avatar.BonusAvatar;
 
 public class RangeBonus extends Bonus {
-
-	public RangeBonus(int level, int x, int y) {
-		super(level, x, y);
-		setAvatar(new BonusAvatar(this));
-	}
 	
-	public RangeBonus(int level) {
-		super(level);
+	public RangeBonus(MapSection mapSection) {
+		super(mapSection);
 		setAvatar(new BonusAvatar(this));
 	}
 

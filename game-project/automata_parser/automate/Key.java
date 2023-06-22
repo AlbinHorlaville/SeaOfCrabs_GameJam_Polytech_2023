@@ -34,13 +34,14 @@ public class Key extends Parameter {
 			return 68;
 		if (s.equals("b"))
 			return 66;
-		if (s.equals("r"))
+		if(s.equals("v"))
+			return 86;
+		if(s.equals("r"))
 			return 82;
-		if (s.equals("1"))
-			return 152; // code de 3
-		if (s.equals("2")) // code de 4
-			return 222;
-
+		if(s.equals("a"))
+			return 65;
+		if(s.equals("e"))
+			return 69;
 		return s.codePointAt(0);
 	}
 

@@ -6,6 +6,7 @@ import automate.StateDeath;
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
 import info3.game.modele.MoveableEntity;
+import info3.game.modele.StillEntityClass.SeaTreasure;
 import info3.game.modele.map.Tiles;
 import info3.game.vue.GameView;
 import info3.game.vue.avatar.Avatar;
