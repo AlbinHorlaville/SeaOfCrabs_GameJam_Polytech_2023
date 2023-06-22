@@ -20,7 +20,7 @@ public class DamageBonus extends Bonus {
 
 	@Override
 	public void power() {
-		GameModele.player1.addDamageCoeff(BONUS_APPLIED, getLevel());
+		GameModele.player1.addDamageCoeff(BONUS_APPLIED);
 	}
 
 	@Override

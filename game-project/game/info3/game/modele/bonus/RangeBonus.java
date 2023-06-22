@@ -16,7 +16,7 @@ public class RangeBonus extends Bonus {
 
 	@Override
 	public void power() {
-		GameModele.player1.addRangeCoeff(BONUS_APPLIED, getLevel());
+		GameModele.player1.addRangeCoeff(BONUS_APPLIED);
 	}
 
 	@Override

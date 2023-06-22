@@ -14,13 +14,13 @@ public class SpeedBonus extends Bonus {
 
 	@Override
 	public void power() {
-		GameModele.player1.addSpeedCoeff(this.BONUS_APPLIED, getLevel());
+		GameModele.player1.addSpeedCoeff(this.BONUS_APPLIED);
 	}
 
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
-		setX(getX()+1);
+		
 	}
 
 }
