@@ -28,6 +28,7 @@ public abstract class View {
 	public static final Font FONT3 = new Font(GameView.customFont.getFontName(), Font.PLAIN, 50);
 	public static final Font FONT4 = new Font(GameView.customFont.getFontName(), Font.PLAIN, 30);
 	public static final Font FONT5 = new Font(GameView.customFont.getFontName(), Font.PLAIN, 20);
+	public static final Font FONT6 = new Font("TimesRoman", Font.BOLD, 30);
 	
 	
 	public View(GameView gv) {
