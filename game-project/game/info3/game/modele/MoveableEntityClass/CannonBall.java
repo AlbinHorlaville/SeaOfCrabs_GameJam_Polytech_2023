@@ -71,10 +71,12 @@ public abstract class CannonBall extends MoveableEntity {
 		switch (c) {
 		case A:
 			for (Entity s : GameModele.entities) {
-				if (s instanceof Ship && collide(this, x - speedX, y - speedY, s)) {
-					System.out.println("hit");
-					s.takeDamage(damage);
-					return false;
+				if(s instanceof Ship || s instanceof Tentacle) {
+					if (collide(this, x - speedX, y - speedY, s)) {
+						System.out.println("hit");
+						s.takeDamage(damage);
+						return false;
+					}
 				}
 			}
 
