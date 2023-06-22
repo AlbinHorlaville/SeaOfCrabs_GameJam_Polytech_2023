@@ -34,8 +34,14 @@ public class Key extends Parameter{
 			return 68;
 		if(s.equals("b"))
 			return 66;
+		if(s.equals("v"))
+			return 86;
 		if(s.equals("r"))
 			return 82;
+		if(s.equals("a"))
+			return 65;
+		if(s.equals("e"))
+			return 69;
 		return s.codePointAt(0);
 	}
 	

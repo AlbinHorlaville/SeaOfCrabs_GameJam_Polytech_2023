@@ -89,6 +89,35 @@ Player1(Init){
   | Key(r) ? Hit(F) : (Init)
 }
 
+PlayerMulti2(Init){
+  * (Init):
+  | Key(d) & Key(z) & !Cell(NE,O) ? Move(NE) :(Init)
+  | Key(d) & Key(s) & !Cell(SE,O) ? Move(SE) :(Init)
+  | Key(q) & Key(z) & !Cell(NW,O) ? Move(NW) :(Init)
+  | Key(q) & Key(s) & !Cell(SW,O) ? Move(SW) :(Init)
+  | Key(z) & !Cell(N,O) ? Move(N) :(Init)
+  | Key(s) & !Cell(S,O) ? Move(S) :(Init)
+  | Key(q) & !Cell(W,O) ? Move(W) :(Init)
+  | Key(d) & !Cell(E,O) ? Move(E) :(Init)
+  | Key(e) & Cell(F,J) ? Move(F) : (Init)
+  | Key(a) ? Hit(F) : (Init)
+}
+
+PlayerMulti1(Init){
+  * (Init):
+  | Key(FR) & Key(FU) & !Cell(NE,O)? Move(NE) :(Init)
+  | Key(FR) & Key(FD) & !Cell(SE,O)? Move(SE) :(Init)
+  | Key(FL) & Key(FU) & !Cell(NW,O)? Move(NW) :(Init)
+  | Key(FL) & Key(FD) & !Cell(SW,O)? Move(SW) :(Init)
+  | Key(FU) & !Cell(N,O) ? Move(N) :(Init)
+  | Key(FD) & !Cell(S,O)? Move(S) :(Init)
+  | Key(FL) & !Cell(W,O)? Move(W) :(Init)
+  | Key(FR) & !Cell(E,O) ? Move(E) :(Init)
+  | Key(b) & Cell(F,J) ? Move(F) : (Init)
+  | Key(v) ? Hit(F) : (Init)
+}
+
+
 PlayerBoat(Init){
   * (Init):
   | Key(d) & Key(z) ? Move(NE) :(Init)
@@ -100,19 +129,6 @@ PlayerBoat(Init){
   | Key(q) ? Move(W) :(Init)
   | Key(d) ? Move(E) :(Init)
 }
-
-Player2(Init){
-  * (Init):
-  | Key(FR) & Key(FU) & !Cell(NE,O)? Move(NE) :(Init)
-  | Key(FR) & Key(FD) & !Cell(SE,O)? Move(SE) :(Init)
-  | Key(FL) & Key(FU) & !Cell(NW,O)? Move(NW) :(Init)
-  | Key(FL) & Key(FD) & !Cell(SW,O)? Move(SW) :(Init)
-  | Key(FU) & !Cell(N,O) ? Move(N) :(Init)
-  | Key(FD) & !Cell(S,O)? Move(S) :(Init)
-  | Key(FL) & !Cell(W,O)? Move(W) :(Init)
-  | Key(FR) & !Cell(E,O) ? Move(E) :(Init)
-}
-
 
 Crab(Init){
  * (Init) :
@@ -159,7 +175,7 @@ CrabsLair(Init){
   | True ? : ()
   * ()
  }
- 
+
  RedCross(Init){
   * (Init) :
   | GotPower ? Egg : ()
@@ -207,14 +223,14 @@ Cloud(Init){
 }
 
 SeaTreasure(Init){
- * (Init) : 
+ * (Init) :
  | Cell(H,T) ? Egg : ()
  | True ? : (Init)
  * ()
 }
 
 Treasure(Init){
- * (Init) : 
+ * (Init) :
  | Cell(H,T) ? Power : ()
  | True ? : (Init)
  * ()
