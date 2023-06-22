@@ -54,14 +54,13 @@ public class Controller implements GameCanvasListener {
 			focus.clicked(e.getX(), e.getY()); // calls to the focus'clicked behavior
 			SoundTool.playSoundEffect(SoundEffect.Confirm, 0);
 		}
-		else if(GameModele.onSea && GameModele.pirateBoat!=null){
-			GameModele.pirateBoat.startFire(e.getX(), e.getY());
-		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-
+		if(GameModele.onSea && GameModele.pirateBoat!=null){
+			GameModele.pirateBoat.startFire(e.getX(), e.getY());
+		}
 	}
 
 	@Override
