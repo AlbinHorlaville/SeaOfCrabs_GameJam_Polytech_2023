@@ -243,5 +243,12 @@ public abstract class Entity {
 	public void takeDamage(int damage) {
 		System.out.println("Cette entité n'a pas de fonction takeDamage()");
 	}
+	
+	public void get(EnumCategory category) {
+	}
+	
+	
+	public void get() {
+	}
 
 }

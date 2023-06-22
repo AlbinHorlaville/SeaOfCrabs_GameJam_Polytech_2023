@@ -24,6 +24,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import info3.game.KeyBuffered.KeyBuffered;
 import info3.game.graphics.GameCanvasListener;
 import info3.game.modele.GameModele;
 import info3.game.sound.SoundEffect;
@@ -35,7 +36,7 @@ public class Controller implements GameCanvasListener {
 
 	private static GameModele gameModele;
 	GameView gameView;
-	static boolean[] buffer = new boolean[600]; // Variable indiquant les inputs du clavier actif ( Pour chaque index == le code le touche )
+	static KeyBuffered buffer = new KeyBuffered(); // Variable indiquant les inputs du clavier actif ( Pour chaque index == le code le touche )
 	UIComponent focus; // focus is the UIComponent currently hovered on the game canvas
 
 	public Controller() throws Exception {
@@ -54,14 +55,13 @@ public class Controller implements GameCanvasListener {
 			focus.clicked(e.getX(), e.getY()); // calls to the focus'clicked behavior
 			SoundTool.playSoundEffect(SoundEffect.Confirm, 0);
 		}
-		else if(GameModele.onSea && GameModele.pirateBoat!=null){
-			GameModele.pirateBoat.startFire(e.getX(), e.getY());
-		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-
+		if(GameModele.onSea && GameModele.pirateBoat!=null){
+			GameModele.pirateBoat.startFire(e.getX(), e.getY());
+		}
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		Controller.buffer[e.getKeyCode()] = true; 
+		Controller.buffer.buff(e.getExtendedKeyCode());
 		if (focus != null) {
 			focus.keyPressed(e); // calls to the focus'keyPressed behavior
 		}
@@ -117,7 +117,7 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		Controller.buffer[e.getKeyCode()] = false; 
+		Controller.buffer.unBuff(e.getExtendedKeyCode());
 	}
 
 	@Override
@@ -167,7 +167,7 @@ public class Controller implements GameCanvasListener {
 		}
 	}
 	
-	public static boolean[] getBuffer() {
+	public static KeyBuffered getBuffer() {
 		return buffer;
 	}
 	

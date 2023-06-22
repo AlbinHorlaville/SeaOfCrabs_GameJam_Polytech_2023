@@ -46,7 +46,6 @@ public class Crab extends Ennemy {
 		this.m_crabLair = crabLair;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Crab);
 		this.current_state = automate.initial_state;
-		
 //		System.out.println("Coord Player : (" +  GameModele.player1.x + ", " + GameModele.player1.y + ")");
 //		System.out.println("Coord Crab : (" +  this.x + ", " + this.y + ")");
 	}

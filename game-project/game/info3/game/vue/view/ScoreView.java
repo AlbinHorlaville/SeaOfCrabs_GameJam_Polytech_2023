@@ -1,9 +1,13 @@
 package info3.game.vue.view;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,19 +22,22 @@ import info3.game.vue.toolkitUI.UITitle;
 
 public class ScoreView extends View {
 
-	UIButton buttonRetour;
+	UIButton buttonRetour, buttonScore;
 	UITitle title;
-	ArrayList<UILabel> listScore;
 
 	public ScoreView(GameView gv) {
 		super(gv);
-		
+
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
 
-		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Back", FONT1, Color.black),UIButton.BACKGROUND_COLOR_RED);
+		buttonRetour = new UIButton(50, windowHeight - 100, 200, 70, new UILabel(0, 0, "Back", FONT1, Color.black),
+				UIButton.BACKGROUND_COLOR_RED);
+
+		buttonScore = new UIButton(windowWidth/2-150, windowHeight/2, 300, 70,
+				new UILabel(0, 0, "See World Ranking", FONT1, Color.black), UIButton.BACKGROUND_COLOR_YELLOW);
+
 		title = new UITitle(windowWidth, windowHeight, "Score", FONT2, Color.black);
-		listScore = readScoreFile();
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
@@ -60,39 +67,50 @@ public class ScoreView extends View {
 
 		});
 
+		buttonScore.setUIComponentListener(new UIComponentListener() {
+			@Override
+			public void onComponentClicked(int x, int y) {
+				Desktop desktop = java.awt.Desktop.getDesktop();
+				try {
+					URI oURL = new URI("http://seaofcrabs.000webhostapp.com/pages/home.php");
+					desktop.browse(oURL);
+				} catch (URISyntaxException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			public void onComponentMouseIn(int x, int y) {
+				buttonScore.setBackgroundColor(UIButton.BACKGROUND_COLOR_YELLOW_HOVER);
+			}
+
+			@Override
+			public void onComponentMouseOut(int x, int y) {
+				buttonScore.setBackgroundColor(UIButton.BACKGROUND_COLOR_YELLOW);
+			}
+
+			public void onComponentPressed(int x, int y) {
+			}
+
+			@Override
+			public void onKeyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			};
+
+		});
+
 		addComponent(buttonRetour);
+		addComponent(buttonScore);
+		addComponent(new UILabel(windowWidth/2-280, windowHeight/2-20, "You can consult the Sea Of Crabs world ranking by clicking here", FONT4, Color.black));
 		addComponent(title);
 		if (SeaOfCrabes.connectedToDatabase) {
 			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.red));
 		} else {
 			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 		}
-		for (UILabel x : listScore) {
-			addComponent(x);
-		}
 
-	}
-
-	ArrayList<UILabel> readScoreFile() {
-		try {
-			File score = new File("resources/scorefile.txt");
-			Scanner myReader = new Scanner(score);
-			ArrayList<UILabel> listeScore = new ArrayList<UILabel>();
-			int i = 0;
-			while (myReader.hasNextLine()) {
-				String line = myReader.nextLine();
-				UILabel lineLabel = new UILabel(250, 250 + i, line, FONT1, Color.white);
-				i += 50;
-				listeScore.add(lineLabel);
-			}
-			myReader.close();
-
-			return listeScore;
-		} catch (FileNotFoundException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	@Override

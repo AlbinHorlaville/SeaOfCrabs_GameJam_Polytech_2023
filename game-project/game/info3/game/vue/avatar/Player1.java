@@ -88,12 +88,10 @@ public class Player1 extends Avatar {
 	
 	/**
 	 * Method permettant de savoir si le joueur est entrain  de bouger
-	 * TODO CHANGER LA METHODE D'EMPLACEMENT ???
 	 * @return boolean
 	 */
 	private boolean isMoving() {
-		boolean[] buffer = Controller.getBuffer();
-		return buffer[90] || buffer[68] || buffer[83] || buffer[81];
+		return Controller.getBuffer().isBuffered("q") || Controller.getBuffer().isBuffered("s")  || Controller.getBuffer().isBuffered("d")  || Controller.getBuffer().isBuffered("z");
 	}
 
 }
