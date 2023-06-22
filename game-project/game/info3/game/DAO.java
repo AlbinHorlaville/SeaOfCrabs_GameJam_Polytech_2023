@@ -26,6 +26,7 @@ public class DAO {
 
 	public DAO() throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
+		DriverManager.setLoginTimeout(1);
 		connection = DriverManager.getConnection("jdbc:mysql://" + HOST + ":" + Integer.toString(PORT) + "/" + DBNAME,
 				USERNAME, PASSWORD);
 	}
@@ -77,7 +78,8 @@ public class DAO {
 
 	public boolean updateScoreSolo(User u, String time, int seed) {
 		try {
-			prepare = connection.prepareStatement("update " + DBNAME + ".user set scoreSolo=?, seedSolo=? where username=?");
+			prepare = connection
+					.prepareStatement("update " + DBNAME + ".user set scoreSolo=?, seedSolo=? where username=?");
 			prepare.setTime(1, Time.valueOf(time));
 			prepare.setInt(2, seed);
 			prepare.setString(3, u.getUsername());
@@ -87,10 +89,11 @@ public class DAO {
 			return false;
 		}
 	}
-	
+
 	public boolean updateScoreDuo(User u, String time, int seed) {
 		try {
-			prepare = connection.prepareStatement("update " + DBNAME + ".user set scoreDuo=?, seedDuo=? where username=?");
+			prepare = connection
+					.prepareStatement("update " + DBNAME + ".user set scoreDuo=?, seedDuo=? where username=?");
 			prepare.setTime(1, Time.valueOf(time));
 			prepare.setInt(2, seed);
 			prepare.setString(3, u.getUsername());
