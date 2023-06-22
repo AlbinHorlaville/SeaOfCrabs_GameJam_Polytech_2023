@@ -58,7 +58,6 @@ public class Treasure extends StillEntity {
 		for(int i = 0; i < 6; i++) {
 			GameModele.pirateBoat.addBoulet(new BasicCannonBall());
 		}
-		System.out.println("Les boulets est donnée au bateau");
 	}
 	
 	public boolean gotPower() {

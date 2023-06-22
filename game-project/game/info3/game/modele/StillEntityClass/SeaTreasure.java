@@ -8,6 +8,7 @@ import info3.game.modele.bonus.AttackSpeedbonus;
 import info3.game.modele.bonus.DamageBonus;
 import info3.game.modele.bonus.HealthBonus;
 import info3.game.modele.bonus.RangeBonus;
+import info3.game.modele.bonus.SpeedBonus;
 import info3.game.modele.map.MapSection;
 import info3.game.vue.avatar.SeaTreasureAvatar;
 
@@ -52,6 +53,16 @@ public class SeaTreasure extends StillEntity{
 		this.m_bonusRight.setOtherBonus(m_bonusLeft);
 	}
 	
+//	private boolean areThesameBonuses() {
+//		if(this.m_bonusRight instanceof AttackSpeedbonus && this.m_bonusLeft instanceof AttackSpeedbonus ||
+//				this.m_bonusRight instanceof DamageBonus && this.m_bonusLeft instanceof DamageBonus ||
+//					this.m_bonusRight instanceof HealthBonus && this.m_bonusLeft instanceof HealthBonus ||
+//						this.m_bonusRight instanceof RangeBonus && this.m_bonusLeft instanceof RangeBonus ||
+//							this.m_bonusRight instanceof SpeedBonus && this.m_bonusLeft instanceof SpeedBonus) {
+//			
+//		}
+//	}
+	
 	public Bonus getBonusBasedOnNumber(int rand) {
 		switch (rand) {
 		case 0:
@@ -63,7 +74,7 @@ public class SeaTreasure extends StillEntity{
 		case 3:
 			return new RangeBonus(this.m_mapSection);
 		case 4:
-			return new RangeBonus(this.m_mapSection);
+			return new SpeedBonus(this.m_mapSection);
 		default:
 			return null;
 		}
@@ -96,8 +107,6 @@ public class SeaTreasure extends StillEntity{
 		this.setBonuses();
 		GameModele.entities.add(m_bonusLeft);
 		GameModele.entities.add(m_bonusRight);
-		
-		System.out.println("La trésor a fait spawn les bonus");
 	}
 	
 	public boolean gotPower() {

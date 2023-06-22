@@ -95,8 +95,6 @@ public abstract class Bonus extends StillEntity{
 				for(int j = -1; j < 2; j++)
 					if(X > 0 && Y > 0)
 						if(boatTile.equals(tiles[Y+j][X+i])) {
-							System.out.println("Le bonus est récupéré");
-
 							return true;
 						}
 							
@@ -111,8 +109,6 @@ public abstract class Bonus extends StillEntity{
 	}
 	
 	public void die() {
-
-		System.out.println(alive);
 		if(alive) {
 			this.alive = false;
 			otherBonus.alive = false;
