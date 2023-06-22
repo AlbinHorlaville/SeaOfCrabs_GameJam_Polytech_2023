@@ -60,7 +60,14 @@ public abstract class CannonBall extends MoveableEntity {
 			radiusX = Math.abs(startX - x);
 			radiusY = Math.abs(startY - y);
 			boolean b = fire && (radiusX < range) && (radiusY < range) && !tile.isIsland();
-			b = tile.getTileX() > 8 && tile.getTileX() < GameModele.map.getSectionWidth() - 9;
+			b = b && tile.getTileX() > 8 && tile.getTileX() < GameModele.map.getSectionWidth() - 9;
+			int border = GameModele.map.getSectionOfEntity(x, y);
+			if(border == 0) {
+				return b && tile.getTileY() < 47;
+			}
+			else if(border == 8) {
+				return b && tile.getTileY() > 0;
+			}
 			return b;
 		}
 
