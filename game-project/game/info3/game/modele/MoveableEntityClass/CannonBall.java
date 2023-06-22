@@ -23,6 +23,8 @@ public abstract class CannonBall extends MoveableEntity {
 	protected int radiusX;
 	protected int radiusY;
 	public boolean fire;
+	
+	public Entity ennemyAimed;
 
 	public CannonBall(int damage, int range, int rateOfFire) {
 		super(0, 0, 0, 0);
@@ -80,17 +82,22 @@ public abstract class CannonBall extends MoveableEntity {
 			for (Entity s : GameModele.entities) {
 				if(s instanceof Ship || s instanceof Tentacle) {
 					if (collide(this, x - speedX, y - speedY, s)) {
+						ennemyAimed = s;
 						System.out.println("hit");
 						s.takeDamage(damage);
-						return false;
+						return true;
 					}
 				}
 			}
 
 		default:
-			return true;
+			return false;
 
 		}
+	}
+	
+	public void hit () {
+		ennemyAimed.takeDamage(damage);
 	}
 
 	public boolean collide(MoveableEntity m, int x, int y, Entity e) { // Code propre lvl 1

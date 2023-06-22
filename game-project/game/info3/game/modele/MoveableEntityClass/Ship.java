@@ -117,7 +117,15 @@ public class Ship extends Ennemy {
 		}
 
 	}
-
+	
+	public void stunt() {
+		int start = GameModele.timer.getSecondes();
+		this.automate = AutomateLoader.findAutomate(GameEntity.Philosopher);
+		while(GameModele.timer.getSecondes() < start + 5) {
+			
+		}
+		this.automate = AutomateLoader.findAutomate(GameEntity.Ship);
+	}
 	private BoatPlayer closestBoatToMe() {
 
 		// A jouter pour le mode 2 joueurs

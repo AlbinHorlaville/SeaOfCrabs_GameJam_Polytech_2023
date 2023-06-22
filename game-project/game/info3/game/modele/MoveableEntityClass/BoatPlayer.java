@@ -18,6 +18,7 @@ public class BoatPlayer extends Player {
 
 	ArrayList<CannonBall> bouletDeCannon;
 	CannonBall current_ball;
+	EnumCannonBall b = EnumCannonBall.Stunt;
 	
 
 	private static final int DEFAULT_BOATPLAYER_LIFE_POINT = 100;
@@ -70,6 +71,10 @@ public class BoatPlayer extends Player {
 	 */
 	public void addBoulet(CannonBall boulet) {
 		this.bouletDeCannon.add(boulet);
+	}
+	
+	public EnumCannonBall getBall() {
+		return this.b;
 	}
 
 	/*
@@ -156,7 +161,7 @@ public class BoatPlayer extends Player {
 		}
 	}
 
-	public void startFire(int mouseX, int mouseY) {
+	public void startFire(int mouseX, int mouseY) { // A changer
 		SoundTool.playSoundEffect(SoundEffect.BoatAttack, 0);
 		// A modifier pour choisir le boulet de cannon à tirer
 		CannonBall b;

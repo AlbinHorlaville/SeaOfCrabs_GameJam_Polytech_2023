@@ -25,4 +25,11 @@ public class SpecificCannnonBall extends CannonBall {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void hit() {
+		if (ennemyAimed instanceof Ship) {
+			((Ship) ennemyAimed).stunt();
+		}
+	}
 }
