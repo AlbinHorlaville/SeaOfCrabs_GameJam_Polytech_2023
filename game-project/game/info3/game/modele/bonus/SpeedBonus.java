@@ -1,20 +1,14 @@
 package info3.game.modele.bonus;
 
-import automate.AutomateLoader;
-import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.StillEntityClass.Bonus;
+import info3.game.modele.map.MapSection;
 import info3.game.vue.avatar.BonusAvatar;
 
 public class SpeedBonus extends Bonus {
-
-	public SpeedBonus(int level, int x, int y) {
-		super(level, x, y);
-		setAvatar(new BonusAvatar(this));
-	}
 	
-	public SpeedBonus(int level) {
-		super(level);
+	public SpeedBonus(MapSection mapSection) {
+		super(mapSection);
 		setAvatar(new BonusAvatar(this));
 	}
 
