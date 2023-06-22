@@ -176,6 +176,14 @@ Ship(Init){
  * ()
 }
 
+KrakenTentacle(Init){
+ * (Init) :
+ | !GotPower ? : ()
+ | Closest() ? Hit : (Init)
+ | True ? : (Init)
+ * ()
+}
+
 Bonus(Init){
  * (Init) :
  | Cell(H,T) ? Power(T) : ()

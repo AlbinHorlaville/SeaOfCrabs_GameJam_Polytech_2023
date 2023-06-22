@@ -30,6 +30,8 @@ public class Ship extends Ennemy {
 		this.automate = AutomateLoader.findAutomate(GameEntity.Ship);
 		this.current_state = automate.initial_state;
 		GameModele.entities.add(this);
+		
+		this.reloading = false;
 
 	}
 
