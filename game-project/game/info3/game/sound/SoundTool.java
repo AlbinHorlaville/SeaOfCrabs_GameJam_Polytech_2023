@@ -25,6 +25,7 @@ public class SoundTool {
 	 * @param bgs
 	 */
 	public static void changeBackgroundMusic(BackgroundMusic bgs) {
+		stopBackgroundMusic();
 		SoundTool.currenBackgroundSound = bgs;
 		playBackgroundMusic();
 	}
