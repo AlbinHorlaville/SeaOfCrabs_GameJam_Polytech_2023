@@ -1,6 +1,5 @@
 package info3.game.vue.avatar;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -57,32 +56,33 @@ public class SwordAvatar extends Avatar {
 		BufferedImage img;
 		int iW = 0;
 		int iH = 0;
-		if (((Weapon) entity).player != null) {
+		Weapon weapon = (Weapon) this.entity;
+		if (weapon.player != null) {
 			if (GameModele.solo) {
-				switch (((Weapon) entity).player.facing) {
+				switch (weapon.player.facing) {
 				case N:
 					img = m_imagesNS[imageIndex];
-					orientationX = width / 2 - ((Weapon) entity).width / 2;// width / 2 -
-																			// ((Weapon)entity).player.getAvatar().getWidth()
+					orientationX = width / 2 - weapon.width / 2;// width / 2 -
+																			// weapon.player.getAvatar().getWidth()
 																			// / 2;
-					orientationY = height / 2 - ((Weapon) entity).range;
-					iW = ((Weapon) entity).height;
-					iH = ((Weapon) entity).range;
+					orientationY = height / 2 - weapon.range;
+					iW = weapon.height;
+					iH = weapon.range;
 					break;
 				case W:
 					img = m_imagesEW[imageIndex + 4];
-					orientationX = width / 2 - ((Weapon) entity).range;
-					orientationY = height / 2 - ((Weapon) entity).height / 2
-							+ ((Weapon) entity).player.getAvatar().getWidth() / 4;// (height / 2 -
-																					// ((Weapon)entity).player.getAvatar().getHeight()
+					orientationX = width / 2 - weapon.range;
+					orientationY = height / 2 - weapon.height / 2
+							+ weapon.player.getAvatar().getWidth() / 4;// (height / 2 -
+																					// weapon.player.getAvatar().getHeight()
 																					// / 2);
-					iW = ((Weapon) entity).range;
-					iH = ((Weapon) entity).height;
+					iW = weapon.range;
+					iH = weapon.height;
 					break;
 				case S:
 					img = m_imagesNS[imageIndex + 4];
-					orientationX = width / 2 - ((Weapon) entity).width / 2;// width / 2 -
-																			// ((Weapon)entity).player.getAvatar().getWidth()
+					orientationX = width / 2 - weapon.width / 2;// width / 2 -
+																			// weapon.player.getAvatar().getWidth()
 																			// / 2;
 					orientationY = height / 2;
 					iW = weapon.height;
@@ -90,9 +90,9 @@ public class SwordAvatar extends Avatar {
 					break;
 				case E:
 					orientationX = width / 2;
-					orientationY = height / 2 - ((Weapon) entity).height / 2
-							+ ((Weapon) entity).player.getAvatar().getWidth() / 4;// height / 2 -
-																					// ((Weapon)entity).player.getAvatar().getHeight()
+					orientationY = height / 2 - weapon.height / 2
+							+ weapon.player.getAvatar().getWidth() / 4;// height / 2 -
+																					// weapon.player.getAvatar().getHeight()
 																					// / 2;
 					img = m_imagesEW[imageIndex];
 					iW = weapon.range;

@@ -85,8 +85,8 @@ Player1(Init){
   | Key(s) & !Cell(S,O) ? Move(S) :(Init)
   | Key(q) & !Cell(W,O) ? Move(W) :(Init)
   | Key(d) & !Cell(E,O) ? Move(E) :(Init)
-  | Key(b) & Cell(F,J) ? Move(F) : (Init)
-  | Key(r) ? Hit(F) : (Init)
+  | Key(e) & Cell(F,J) ? Move(F) : (Init)
+  | Key(a) ? Hit(F) : (Init)
 }
 
 PlayerMulti2(Init){
@@ -222,14 +222,14 @@ Cloud(Init){
 }
 
 SeaTreasure(Init){
- * (Init) : 
+ * (Init) :
  | !GotPower ? Egg : ()
  | True ? : (Init)
  * ()
 }
 
 Treasure(Init){
- * (Init) : 
+ * (Init) :
  | !GotPower ? Power : ()
  | True ? : (Init)
  * ()
