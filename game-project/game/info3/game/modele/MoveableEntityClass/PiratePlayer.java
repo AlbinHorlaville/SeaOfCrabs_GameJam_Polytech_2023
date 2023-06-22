@@ -230,6 +230,10 @@ public class PiratePlayer extends Player {
 		this.m_rangeCoeff += f;
 		ACTUAL_PIRATEPLAYER_RANGE += lvl;
 	}
+	
+	public float getMaxLifePointsCoeff() {
+		return m_maxHealthCoeff;
+	}
 
 	public void addMaxLifePointsCoeff(float f, int lvl) {
 		this.m_maxHealthCoeff += f;
