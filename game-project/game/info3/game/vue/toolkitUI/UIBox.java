@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 
 import automate.EnumCategory;
 import info3.game.modele.GameModele;
@@ -50,7 +52,7 @@ public class UIBox extends UIComponent {
 		return weapon;
 	}
 	
-	public CannonBall getBoulet() {
+	public EnumCannonBall getBoulet() {
 		return boulet;
 	}
 
@@ -92,7 +94,12 @@ public class UIBox extends UIComponent {
 				g.drawString(String.valueOf(GameModele.pirateBoat.getAmount(boulet)) , getPositionX() + 4, getPositionY() +64);
 			}
 			else {
-				g.drawString("infini", getPositionX() + 4, getPositionY() +64);
+				g.setFont(View.FONT6);
+				String rawString = "∞";
+				ByteBuffer buffer = StandardCharsets.UTF_8.encode(rawString); 
+
+				String utf8EncodedString = StandardCharsets.UTF_8.decode(buffer).toString();
+				g.drawString(utf8EncodedString, getPositionX() + 4, getPositionY() +64);
 			}
 		}
 
