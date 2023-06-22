@@ -38,7 +38,6 @@ public class CrabLair extends StillEntity{
 		this.avatar = new CrabslairAvatar(this);
 		this.m_tilesForCrabSpanwing = null;
 		this.m_isDead = false;
-
 	}
 
 	@Override
