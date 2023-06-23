@@ -62,10 +62,10 @@ public class PlayingView extends View {
 		cannonBallBox.addBox(boxSword);
 		cannonBallBox.addBox(boxScythe);*/
 		
-		boxBoulet1 = new UIBox(64, EnumCannonBall.Basic, new UIImage(0, 0, SpriteLoader.get(SpriteType.CannonBall)[0], 1F));
-		boxBoulet2 = new UIBox(64, EnumCannonBall.Stunt, new UIImage(0, 0,SpriteLoader.get(SpriteType.CannonBall)[2], 1F));
-		boxBoulet3 = new UIBox(64, EnumCannonBall.KrakenSlayer, new UIImage(0, 0, SpriteLoader.get(SpriteType.CannonBall)[4], 1F));
-		boxBoulet4 = new UIBox(64, EnumCannonBall.Damaged, new UIImage(0, 0, SpriteLoader.get(SpriteType.CannonBall)[1], 1F));
+		boxBoulet1 = new UIBox(64, EnumCannonBall.Basic, new UIImage(0, 0, SpriteLoader.get(SpriteType.CannonBall)[0], 2F));
+		boxBoulet2 = new UIBox(64, EnumCannonBall.Stunt, new UIImage(0, 0,SpriteLoader.get(SpriteType.CannonBall)[2], 2F));
+		boxBoulet3 = new UIBox(64, EnumCannonBall.KrakenSlayer, new UIImage(0, 0, SpriteLoader.get(SpriteType.CannonBall)[4], 2F));
+		boxBoulet4 = new UIBox(64, EnumCannonBall.Damaged, new UIImage(0, 0, SpriteLoader.get(SpriteType.CannonBall)[1], 2F));
 		
 		cannonBallBox.addBox(boxBoulet1);
 		cannonBallBox.addBox(boxBoulet2);
@@ -237,20 +237,20 @@ public class PlayingView extends View {
 		if (!GameModele.solo) {
 			boxPlayer1 = new UIBoxes(50, 602);
 			if (GameModele.player1.weapon.getName() == "Sword") {
-				weaponPlayer1 = new UIBox(50, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 1F),
+				weaponPlayer1 = new UIBox(50, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 2F),
 						new UIImage(0, 0, "resources/img/logo-pirate-1.png", 1F));
 			} else {
-				weaponPlayer1 = new UIBox(50, 602, 64, new UIImage(0, 0, "resources/img/Scythe.png", 1F),
+				weaponPlayer1 = new UIBox(50, 602, 64, new UIImage(0, 0, "resources/img/Scythe.png", 2F),
 						new UIImage(0, 0, "resources/img/logo-pirate-1.png", 1F));
 			}
 			boxPlayer1.addBox(weaponPlayer1);
 			boxPlayer1.paint(g);
 			boxPlayer2 = new UIBoxes(910, 602);
 			if (GameModele.player2.weapon.getName() == "Sword") {
-				weaponPlayer2 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 1F),
+				weaponPlayer2 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 2F),
 						new UIImage(0, 0, "resources/img/logo-pirate-2.png", 1F));
 			} else {
-				weaponPlayer2 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Scythe.png", 1F),
+				weaponPlayer2 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Scythe.png", 2F),
 						new UIImage(0, 0, "resources/img/logo-pirate-2.png", 1F));
 			}
 			boxPlayer2.addBox(weaponPlayer2);
@@ -258,10 +258,10 @@ public class PlayingView extends View {
 		} else {
 			boxPlayer1 = new UIBoxes(910, 602);
 			if (GameModele.player1.weapon.getName() == "Sword") {
-				weaponPlayer1 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 1F),
+				weaponPlayer1 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 2F),
 						new UIImage(0, 0, "resources/img/logo-pirate-1.png", 1F));
 			} else {
-				weaponPlayer1 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Scythe.png", 1F),
+				weaponPlayer1 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Scythe.png", 2F),
 						new UIImage(0, 0, "resources/img/logo-pirate-1.png", 1F));
 			}
 			boxPlayer1.addBox(weaponPlayer1);

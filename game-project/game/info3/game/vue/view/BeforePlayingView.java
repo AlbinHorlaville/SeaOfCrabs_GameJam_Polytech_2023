@@ -10,6 +10,7 @@ import info3.game.GameState;
 import info3.game.SeaOfCrabes;
 import info3.game.modele.GameModele;
 import info3.game.modele.Weapon;
+import info3.game.modele.MoveableEntityClass.Perroquet;
 import info3.game.modele.MoveableEntityClass.Scythe;
 import info3.game.modele.MoveableEntityClass.Sword;
 import info3.game.vue.GameView;
@@ -18,6 +19,7 @@ import info3.game.vue.SpriteLoader.SpriteType;
 import info3.game.vue.toolkitUI.UIBox;
 import info3.game.vue.toolkitUI.UIBoxes;
 import info3.game.vue.toolkitUI.UIButton;
+import info3.game.vue.toolkitUI.UIChecker;
 import info3.game.vue.toolkitUI.UIComponent;
 import info3.game.vue.toolkitUI.UIComponentListener;
 import info3.game.vue.toolkitUI.UIImage;
@@ -30,18 +32,24 @@ public class BeforePlayingView extends View {
 	UILabel seedLabel, weaponLabelPlayer1, weaponLabelPlayer2;
 	UITextInput seedInput;
 	UIBoxes weaponsBoxesPlayer1, weaponsBoxesPlayer2;
+	UIChecker perroquetBox;
 	UILabel weaponSelectedLabel1, weaponSelectedLabel2;
 
 	UIBox boxSwordPlayer1, boxScythePlayer1, boxSwordPlayer2, boxScythePlayer2;
-	
+
 	public static Weapon weapon1;
 	public static Weapon weapon2;
+
+	public static Perroquet perroquet;
 
 	public BeforePlayingView(GameView gv) {
 		super(gv);
 
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
+
+		perroquetBox = new UIChecker(100, 500,
+				new UILabel(0, 0, "BinGru le perroquet ?", FONT1, Color.black), c1, false);
 
 		buttonRetour = new UIButton(50, windowHeight - 100, 200, 70, new UILabel(0, 0, "Back", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_RED);
@@ -57,9 +65,9 @@ public class BeforePlayingView extends View {
 
 		weaponLabelPlayer1 = new UILabel(50, 221, "Player 1's weapon : ", FONT1, Color.black);
 		weaponLabelPlayer2 = new UILabel(50, 321, "Player 2's weapon : ", FONT1, Color.black);
-		
+
 		boxSwordPlayer1 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Epee.png", 2F));
-		
+
 		boxScythePlayer1 = new UIBox(96, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 2F));
 		boxSwordPlayer2 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Epee.png", 2F));
 		boxScythePlayer2 = new UIBox(96, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 2F));
@@ -78,6 +86,44 @@ public class BeforePlayingView extends View {
 		weaponsBoxesPlayer2.addBox(boxScythePlayer2);
 		weaponsBoxesPlayer2.setSelectedBox(boxSwordPlayer2);
 
+		perroquetBox.setUIComponentListener(new UIComponentListener() {
+
+			@Override
+			public void onComponentClicked(int x, int y) {
+				perroquetBox.check();
+				if (perroquetBox.isState()) {
+					perroquet = new Perroquet(100, 0, 10);
+				}
+				else {
+					perroquet = null;
+				}
+			}
+
+			@Override
+			public void onComponentMouseIn(int x, int y) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onComponentMouseOut(int x, int y) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onComponentPressed(int x, int y) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onKeyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
 		buttonPlay.setUIComponentListener(new UIComponentListener() {
 
 			@Override
@@ -85,7 +131,7 @@ public class BeforePlayingView extends View {
 				Random r = new Random(System.currentTimeMillis());
 				int i = r.nextInt(200);
 				try {
-					if (!seedInput.isTextEmpty() && i>=0 && i<=200) {
+					if (!seedInput.isTextEmpty() && i >= 0 && i <= 200) {
 						try {
 							i = Integer.valueOf(seedInput.getInputText());
 						} catch (NumberFormatException e) {
@@ -93,7 +139,7 @@ public class BeforePlayingView extends View {
 							seedInput.setInputText(Integer.toString(i));
 						}
 						weapon1 = weaponsBoxesPlayer1.getSelectedBox().getWeapon();
-						if(!GameModele.solo) {
+						if (!GameModele.solo) {
 							weapon2 = weaponsBoxesPlayer2.getSelectedBox().getWeapon();
 						}
 						// TODO : relier la vue au modele avant d'appeler start
@@ -211,7 +257,7 @@ public class BeforePlayingView extends View {
 				int i = r.nextInt(200);
 				GameModele.seed = i;
 				seedInput.setInputText(Integer.toString(i));
-				
+
 			}
 
 			@Override
@@ -313,6 +359,8 @@ public class BeforePlayingView extends View {
 		addComponent(seedInput);
 		addComponent(buttonRandomSeed);
 
+		addComponent(perroquetBox);
+
 		addComponent(weaponLabelPlayer1);
 		addComponent(weaponsBoxesPlayer1);
 		addComponent(weaponSelectedLabel1);
@@ -335,7 +383,8 @@ public class BeforePlayingView extends View {
 			weaponLabelPlayer1.setText("Player 1's weapon : ");
 		}
 		for (UIComponent c : components) {
-			if ((c == weaponLabelPlayer2 || c == weaponsBoxesPlayer2 || c == weaponSelectedLabel2) && GameModele.solo) continue;
+			if ((c == weaponLabelPlayer2 || c == weaponsBoxesPlayer2 || c == weaponSelectedLabel2) && GameModele.solo)
+				continue;
 			c.paint(g);
 		}
 	}

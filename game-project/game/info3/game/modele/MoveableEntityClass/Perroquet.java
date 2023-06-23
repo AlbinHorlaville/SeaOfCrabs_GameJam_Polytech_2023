@@ -22,6 +22,10 @@ public class Perroquet extends MoveableEntity {
 		this.setAvatar(new PerroquetAvatar(this));
 		speed = 2;
 	}
+	
+	public void takeDamage(int damage) {
+			m_healthPoints -= damage;
+	}
 
 	private Player closestPirateToMe() {
 		if (GameModele.onSea) {
