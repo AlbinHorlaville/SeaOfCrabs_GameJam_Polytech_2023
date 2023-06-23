@@ -247,7 +247,7 @@ public class Visitor implements IVisitor{
 	@Override
 	public Object exit(Action action, List<Object> funcalls) {
 		// TODO Auto-generated method stub
-		System.out.println("I enter action with funcalls "+ action.toString());
+		//System.out.println("I enter action with funcalls "+ action.toString());
 		ArrayList<automate.FunCall> l = new ArrayList<automate.FunCall>();
 		for(Object f : funcalls) {
 			l.add((automate.FunCall)f);
@@ -280,7 +280,7 @@ public class Visitor implements IVisitor{
 	@Override
 	public Object exit(Automaton automaton, Object initial_state, List<Object> modes) {
 		// TODO Auto-generated method stub
-		System.out.println("I exit autpmaton " + automaton.toString());
+		//System.out.println("I exit autpmaton " + automaton.toString());
 		Automate a = new Automate(automaton.name);
 		//automates.add(a);
 		a.initial_state = states_done.get(0);
