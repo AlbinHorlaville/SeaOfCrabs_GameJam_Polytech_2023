@@ -7,6 +7,8 @@ import info3.game.vue.avatar.BonusAvatar;
 
 public class SpeedBonus extends Bonus {
 	
+	public final float BONUS_APPLIED = 0.5f;
+	
 	public SpeedBonus(MapSection mapSection) {
 		super(mapSection);
 		setAvatar(new BonusAvatar(this));

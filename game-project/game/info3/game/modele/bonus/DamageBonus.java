@@ -6,11 +6,8 @@ import info3.game.modele.map.MapSection;
 import info3.game.vue.avatar.BonusAvatar;
 
 public class DamageBonus extends Bonus {
-//
-//	public DamageBonus(MapSection mapSection, int x, int y) {
-//		super(mapSection, x, y);
-//		setAvatar(new BonusAvatar(this));
-//	}
+	
+	public final float BONUS_APPLIED = 1;
 	
 	public DamageBonus(MapSection mapSection) {
 		super(mapSection);

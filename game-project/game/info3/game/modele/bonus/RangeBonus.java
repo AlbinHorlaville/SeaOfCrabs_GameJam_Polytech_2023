@@ -9,6 +9,8 @@ import info3.game.vue.avatar.BonusAvatar;
 
 public class RangeBonus extends Bonus {
 	
+	public final float BONUS_APPLIED = 1;
+	
 	public RangeBonus(MapSection mapSection) {
 		super(mapSection);
 		setAvatar(new BonusAvatar(this));

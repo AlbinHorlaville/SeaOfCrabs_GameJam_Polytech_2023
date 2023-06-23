@@ -98,7 +98,7 @@ public class Ship extends Ennemy {
 
 	@Override
 	public void die() {
-		Rhum rhum = new Rhum(this.x, this.y, this.m_mapSection);
+		Rhum rhum = new Rhum(this.x, this.y, GameModele.map.getMap()[GameModele.map.getSectionOfEntity(this.x, this.y)]);
 		GameModele.entities.add(rhum);
 		GameModele.entities.remove(this);
 

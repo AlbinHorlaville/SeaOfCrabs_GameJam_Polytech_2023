@@ -24,7 +24,7 @@ public class PiratePlayer extends Player {
 
 	private static final int DEFAULT_PIRATEPLAYER_RANGE = 1;
 
-	private static final int DEFAULT_PIRATEPLAYER_SPEED = 10;
+	private static final int DEFAULT_PIRATEPLAYER_SPEED = 1;
 
 	private static final int DEFAULT_PIRATEPLAYER_ATTACKSPEED = 1;
 
@@ -95,6 +95,7 @@ public class PiratePlayer extends Player {
 		this.m_damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
 		this.m_rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
 		this.m_maxHealthCoeff = DEFAULT_MAX_PLAYERS_LIFE_COEFF;
+		
 		this.m_damage = DEFAULT_PIRATEPLAYER_DAMAGE;
 		this.m_maxHealthPoints = DEFAULT_MAX_PLAYERS_LIFE;
 		this.m_healthPoints = DEFAULT_PIRATEPLAYER_LIFE_POINT;

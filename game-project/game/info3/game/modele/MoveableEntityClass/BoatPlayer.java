@@ -189,7 +189,7 @@ public class BoatPlayer extends Player {
 				b.fire();
 			}
 			
-			this.reloading = true;
+			//this.reloading = true;
 			this.timerAttackMili = timeMili;
 			this.timerAttackSec = timeSec;
 		} else if (timerAttackMili <= timeMili && timerAttackSec + 1 <= timeSec) {
