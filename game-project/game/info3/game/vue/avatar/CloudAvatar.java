@@ -36,8 +36,8 @@ public class CloudAvatar extends Avatar {
 		int width_painted = img.getWidth() * size;
 		int heigth_painted = img.getHeight() * size;
 
-		int coeffX = -entity.getX() + GameModele.getCurrentPlayerX() + width / 2;
-		int coeffY = -entity.getY() + GameModele.getCurrentPlayerY() + height / 2;
+		int coeffX = -entity.getX() + GameModele.getCurrentPlayerX() + width / 2 - width_painted/2;
+		int coeffY = -entity.getY() + GameModele.getCurrentPlayerY() + height / 2 - heigth_painted/2;
 
 		g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
 	}

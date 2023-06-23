@@ -24,13 +24,13 @@ public class TentacleAvatar extends Avatar {
 	@Override
 	public void tick(long elapsed) {
 		k++;
-		if (k == 30) {
+		if (k == 90) {
 			k = 0;
 			imageI = 0;
 		}
-		if (k == 10)
+		if (k == 30)
 			imageI++;
-		if (k == 20)
+		if (k == 60)
 			imageI++;
 	}
 
