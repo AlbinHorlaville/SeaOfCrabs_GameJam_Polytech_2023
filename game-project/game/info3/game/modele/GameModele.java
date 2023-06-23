@@ -259,7 +259,8 @@ public class GameModele {
 
 			System.out.println("Seed = " + seed);
 
-			map = new Map(seed);
+			//Remplacer 13 par le nombre de section souhaité (10 minimum par défaut et si + forcement 10 + un multiple de 3 donc 10, 13, 16, 19, 22...)
+			map = new Map(seed, 13);
 
 			if (!solo) {
 				player2 = new PiratePlayer(GameEntity.PlayerMulti2);
@@ -287,7 +288,8 @@ public class GameModele {
 					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 13][map.getSectionWidth() / 2].getY());
 			pirateBoat.setAvatar(new BoatPlayerAvatar(pirateBoat));
 			GameModele.entities.add(pirateBoat);
-			map = new Map(seed);
+			//Remplacer 13 par le nombre de section souhaité (10 minimum par défaut et si + forcement 10 + un multiple de 3 donc 10, 13, 16, 19, 22...)
+			map = new Map(seed, 13);
 
 			genereEntity(map);
 			if (perroquet != null) {
@@ -365,20 +367,26 @@ public class GameModele {
 		int nbSection = map.getNbSection();
 		int mapWidth = map.getSectionWidth();
 		int mapHeight = map.getSectionHeight();
+		
+		Tiles[][] tiles;
+		
 		for (int k = 0; k < nbSection; k++) {
 			boolean crab = false; // Boolean to spawn only once
 			boolean treasure = false; // Boolean to spawn only once
+			
+			tiles = map.getMap()[k].getTiles();
+			
 			for (int i = 0; i < mapHeight; i++) {
 				for (int j = 0; j < mapWidth; j++) {
-					Tiles Current = map.getMap()[k].getTiles()[i][j];
+					Tiles Current = tiles[i][j];
 					Entity newEntity;
-					if (Current.getType() == EnumTiles.TREASUR && treasure == false) {
+					if (treasure == false && Current.isTreasur()) {
 						treasure = true;
 						newEntity = new RedCross(map.getMap()[k]);
 						newEntity.setLocation(Current.getX(), Current.getY());
 						newEntity.setAvatar(new RedCrossAvatar(newEntity)); // TODO Mettre dans le constructeur
 						entities.add(newEntity);
-					} else if (Current.getType() == EnumTiles.CRAB_SPAWNER && crab == false) {
+					} else if (crab == false && Current.isSwpaner()) {
 						crab = true;
 						newEntity = new CrabLair(k, map.getMap()[k], Current.getX(), Current.getY()); // Créer 10
 																										// crabes
@@ -390,7 +398,7 @@ public class GameModele {
 																										// points de vie
 						// newEntity.setLocation(Current.getX(),Current.getY());
 						entities.add(newEntity);
-					} else if (Current.getType() == EnumTiles.TREE) {
+					} else if (Current.isTree()) {
 						newEntity = new Tree(k);
 						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);
