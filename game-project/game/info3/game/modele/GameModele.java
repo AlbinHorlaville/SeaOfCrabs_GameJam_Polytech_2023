@@ -49,7 +49,7 @@ public class GameModele {
 	public static PiratePlayer player2;
 
 	public static BoatPlayer pirateBoat;
-	
+
 	public static Perroquet perroquet;
 
 	public static GameTimer timer;
@@ -279,7 +279,7 @@ public class GameModele {
 			}
 
 			perroquet = BeforePlayingView.perroquet;
-			if (perroquet!=null)
+			if (perroquet != null)
 				GameModele.entities.add(perroquet);
 
 			pirateBoat = new BoatPlayer(
@@ -290,7 +290,7 @@ public class GameModele {
 			map = new Map(seed);
 
 			genereEntity(map);
-			if (perroquet!=null) {
+			if (perroquet != null) {
 				perroquet.setX(GameModele.pirateBoat.getX());
 				perroquet.setY(GameModele.pirateBoat.getY());
 			}
@@ -394,20 +394,21 @@ public class GameModele {
 						newEntity = new Tree(k);
 						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);
-					} else if (Current.getType() == EnumTiles.RAGING_SEA_CHEST
-							|| Current.getType() == EnumTiles.STORMY_SEA_CHEST
-							|| Current.getType() == EnumTiles.CALM_SEA_CHEST) {
+					} else if (Current.isSeaChest()) {
 						newEntity = new SeaTreasure(map.getMap()[k], Current.getX(), Current.getY());// de section) avec
 																										// 20 points de
 																										// vie
+
 						entities.add(newEntity);
-						newEntity = new CloudCluster(Current.getX(), Current.getY(),map.getMap()[k]); // Créer 10 crabes de niveau k
-																						// (le
-																						// numéro
+					} else if (Current.isCloud()) {
+
+						newEntity = new CloudCluster(Current.getX(), Current.getY(), map.getMap()[k]); // Créer 10
+																										// crabes de
+																										// niveau k
+						// (le
+						// numéro
 						entities.add(newEntity);
-					} else if (Current.getType() == EnumTiles.CALM_SEA_ENNEMIE
-							|| Current.getType() == EnumTiles.STORMY_SEA_ENNEMIE
-							|| Current.getType() == EnumTiles.RAGING_SEA_ENNEMIE) {
+					} else if (Current.isBoatEnnemi()) {
 						newEntity = new Ship(map.getMap()[k]);
 						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);

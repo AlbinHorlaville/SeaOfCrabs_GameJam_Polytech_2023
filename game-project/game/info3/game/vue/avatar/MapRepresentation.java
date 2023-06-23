@@ -446,18 +446,21 @@ public class MapRepresentation {
 						case CALM_WATER:
 						case CALM_SEA_ENNEMIE:
 						case CALM_SEA_CHEST:
+						case CALM_FAKE_SEA_CHEST:
 							img = calmWaterImage;
 							positionY += (int) waveOffset;
 							break;
 						case STORMY_WATER:
 						case STORMY_SEA_ENNEMIE:
 						case STORMY_SEA_CHEST:
+						case STORMY_FAKE_SEA_CHEST:
 							img = stormyWaterImage;
 							positionY += (int) waveOffset;
 							break;
 						case RAGING_WATER:
 						case RAGING_SEA_ENNEMIE:
 						case RAGING_SEA_CHEST:
+						case RAGING_FAKE_SEA_CHEST:
 							img = ragingWaterImage;
 							positionY += (int) waveOffset;
 							break;

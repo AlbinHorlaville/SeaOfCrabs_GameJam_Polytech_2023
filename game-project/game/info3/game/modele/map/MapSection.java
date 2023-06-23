@@ -147,8 +147,26 @@ public class MapSection {
 		generateShellfish();
 		generateTree();
 		generateRedCross();
-		generateSeaEnnemieTile();
 		generateSeaChestTile();
+		generateFakeSeaChestTile(0);
+
+		switch (this.sectionNumber) {
+		case 1:
+			generateSeaEnnemieTile(1);
+			break;
+		case 2:
+		case 3:
+			generateSeaEnnemieTile(2);
+			break;
+		case 4:
+		case 5:
+			generateSeaEnnemieTile(3);
+			break;
+		case 6:
+		default:
+			generateSeaEnnemieTile(4);
+			break;
+		}
 	}
 
 	/*
@@ -496,7 +514,7 @@ public class MapSection {
 			}
 			currentHeight++;
 		}
-		
+
 		for (int i = 0; i < this.sectionHeight; i++) {
 			for (int j = 0; j < this.sectionWidth; j++) {
 				if (this.tiles[i][j].isWater()) {
@@ -530,12 +548,12 @@ public class MapSection {
 				}
 			}
 		}
-		
+
 		for (int i = 0; i < this.sectionWidth; i++) {
 			this.tiles[this.sectionHeight - 1][i].setType(EnumTiles.RAGING_WATER);
 		}
 	}
-	
+
 	public void openKraken() {
 		for (int i = this.sectionHeight / 2; i < this.sectionHeight; i++) {
 			for (int j = 0; j < 10; j++) {
@@ -547,9 +565,9 @@ public class MapSection {
 		for (int i = this.sectionWidth / 2 - 10; i < this.sectionWidth / 2 + 10; i++) {
 			this.tiles[this.sectionHeight - 1][i].setType(EnumTiles.KRAKEN_WATER);
 		}
-		
+
 		int[][] height = new int[this.sectionHeight][this.sectionWidth];
-		
+
 		for (int i = 0; i < this.sectionHeight; i++) {
 			for (int j = 0; j < this.sectionWidth; j++) {
 				height[i][j] = 0;
@@ -985,8 +1003,8 @@ public class MapSection {
 	public void generateSeaChestTile() {
 		int rand;
 		boolean added = false;
-		for (int i = 8; i < this.sectionHeight - 8 && !added; i++) {
-			for (int j = 10; j < this.sectionWidth - 11 && !added; j++) {
+		for (int i = 10; i < this.sectionHeight - 10 && !added; i++) {
+			for (int j = 15; j < this.sectionWidth - 17 && !added; j++) {
 				if (this.tiles[i][j].getType() == EnumTiles.CALM_WATER
 						|| this.tiles[i][j].getType() == EnumTiles.RAGING_WATER
 						|| this.tiles[i][j].getType() == EnumTiles.STORMY_WATER) {
@@ -1014,6 +1032,38 @@ public class MapSection {
 		}
 	}
 
+	public void generateFakeSeaChestTile(int previouslyAdded) {
+		int rand;
+		int added = previouslyAdded;
+		for (int i = 10; i < this.sectionHeight - 10 && added < 3; i++) {
+			for (int j = 15; j < this.sectionWidth - 17 && added < 3; j++) {
+				if (this.tiles[i][j].getType() == EnumTiles.CALM_WATER
+						|| this.tiles[i][j].getType() == EnumTiles.RAGING_WATER
+						|| this.tiles[i][j].getType() == EnumTiles.STORMY_WATER) {
+					rand = this.randomGenerator.nextInt(10000);
+					if (rand == 500 && added < 3) {
+						added++;
+						switch (this.tiles[i][j].getType()) {
+						case CALM_WATER:
+							this.tiles[i][j].setType(EnumTiles.CALM_FAKE_SEA_CHEST);
+							break;
+						case STORMY_WATER:
+							this.tiles[i][j].setType(EnumTiles.STORMY_FAKE_SEA_CHEST);
+							break;
+						default:
+							this.tiles[i][j].setType(EnumTiles.RAGING_FAKE_SEA_CHEST);
+							break;
+						}
+
+					}
+				}
+			}
+		}
+		if (added < 3) {
+			generateFakeSeaChestTile(added);
+		}
+	}
+
 	public int[] getMountainHeight() {
 		int[] height = new int[this.sectionWidth];
 
@@ -1024,17 +1074,17 @@ public class MapSection {
 		return height;
 	}
 
-	public void generateSeaEnnemieTile() {
+	public void generateSeaEnnemieTile(int amount) {
 		int rand;
-		boolean added = false;
-		for (int i = 0; i < this.sectionHeight && !added; i++) {
-			for (int j = 10; j < this.sectionWidth - 11 && !added; j++) {
+		int added = amount;
+		for (int i = 0; i < this.sectionHeight && added > 0; i++) {
+			for (int j = 10; j < this.sectionWidth - 11 && added > 0; j++) {
 				if (this.tiles[i][j].getType() == EnumTiles.CALM_WATER
 						|| this.tiles[i][j].getType() == EnumTiles.RAGING_WATER
 						|| this.tiles[i][j].getType() == EnumTiles.STORMY_WATER) {
 					rand = this.randomGenerator.nextInt(10000);
-					if (rand == 500 && !added) {
-						added = true;
+					if (rand == 500 && added > 0) {
+						added--;
 						switch (this.tiles[i][j].getType()) {
 						case CALM_WATER:
 							this.tiles[i][j].setType(EnumTiles.CALM_SEA_ENNEMIE);
@@ -1051,8 +1101,8 @@ public class MapSection {
 				}
 			}
 		}
-		if (!added) {
-			generateSeaEnnemieTile();
+		if (added > 0) {
+			generateSeaEnnemieTile(added);
 		}
 	}
 
