@@ -226,3 +226,4 @@
 
  # 22 Juin
  - Rémi: Réalisation de la fonction die du kraken (amenant sur la vue de victoire). Résolution de multiple léger problème (Titre de section mal affiché lorsque l'ont revenait en arrière, l'offset des vagues est peut maintenant être propre au différente section, la génération de l'ile du crab King est plus propre)
+ - Albin: Inventaire des boulets de canon, fix de l'épée dans le mode 2 joueurs, équilibrage hit-box épée et palmier, Sprites
