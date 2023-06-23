@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
+import info3.game.modele.map.MapSection;
 import info3.game.vue.avatar.CloudAvatar;
 
 public class CloudCluster extends Entity {
@@ -15,6 +16,8 @@ public class CloudCluster extends Entity {
 	private static final int SIZE_CLOUDCLSUTER = 400;
 	private static final int SIZE_CLOUD_MIN = 6;
 	private static final int SIZE_CLOUD_MAX = 12;
+	
+	private MapSection m_mapSection;
 
 	/**
 	 * Créer un amas de nuages composés de NB_CLOUD nuages. Il y a 2 nuages par
@@ -23,8 +26,9 @@ public class CloudCluster extends Entity {
 	 * deisparaît. l'usage d'un boulet de canon dissipe aussi le nuage. ATTENTION NE
 	 * PAS ADD A ENTITY LE CLOUDCLUSTER
 	 */
-	public CloudCluster(int x, int y) {
+	public CloudCluster(int x, int y, MapSection mapSection) {
 		super(x, y);
+		this.m_mapSection = mapSection;
 		this.cluster = new ArrayList<Cloud>();
 		for (int i = NB_CLOUD; i > 0; i--) {
 			// Génère une position aléatoire dans un carré de 200 par 200 à partir des
@@ -47,5 +51,9 @@ public class CloudCluster extends Entity {
 
 	public int getNbCloud() {
 		return NB_CLOUD;
+	}
+	
+	public MapSection getMapSection() {
+		return this.m_mapSection;
 	}
 }

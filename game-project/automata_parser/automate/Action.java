@@ -14,14 +14,17 @@ public class Action {
 	
 	public void exec(Entity e) {
 		if(funcalls.size() > 1) {
-			int total = 100;
-			int rand = new Random().nextInt(total);
+			int total = 0;
+			int rand = new Random().nextInt(100);
+			System.out.println("proba : " + rand);
 			for(FunCall f : funcalls) {
-				if(rand <= f.probability) {
+				System.out.println("probaFonc : " + total);
+				total += f.probability;
+				System.out.println("probaFonc : " + total);
+				if(rand <= total) {
 					f.exec(e);
 					return;
 				}
-				total -= f.probability;
 			}
 		}
 		else if(funcalls.size() == 1){
