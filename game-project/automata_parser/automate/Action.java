@@ -16,11 +16,8 @@ public class Action {
 		if(funcalls.size() > 1) {
 			int total = 0;
 			int rand = new Random().nextInt(100);
-			System.out.println("proba : " + rand);
 			for(FunCall f : funcalls) {
-				System.out.println("probaFonc : " + total);
 				total += f.probability;
-				System.out.println("probaFonc : " + total);
 				if(rand <= total) {
 					f.exec(e);
 					return;
