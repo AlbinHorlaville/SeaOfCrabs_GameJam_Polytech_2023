@@ -52,9 +52,6 @@ public class UIBox extends UIComponent {
 		return weapon;
 	}
 	
-	public EnumCannonBall getBoulet() {
-		return boulet;
-	}
 
 	public String getStringWeapon() {
 		return weapon.getName();
