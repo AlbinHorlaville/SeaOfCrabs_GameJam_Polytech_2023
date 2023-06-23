@@ -21,15 +21,15 @@ public class CrabKingAvatar extends Avatar{
 	@Override
 	public void tick(long elapsed) {
 		k++;
-		if (k==40) {
+		if (k==80) {
 			k = 0;
 			imageIndex = 0;
 		}
-		if (k==10)
-			imageIndex++;
 		if (k==20)
 			imageIndex++;
-		if (k==30)
+		if (k==40)
+			imageIndex++;
+		if (k==60)
 			imageIndex++;
 	}
 
