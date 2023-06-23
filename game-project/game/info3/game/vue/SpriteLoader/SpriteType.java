@@ -20,5 +20,8 @@ public enum SpriteType {
 	Bonus,
 	SwordEW,
 	SwordNS,
-	Tentacle, CannonBall
+	Tentacle,
+	Perroquet,
+	Tentacle, 
+	CannonBall
 }
