@@ -6,6 +6,8 @@ import automate.EnumDirection;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.StillEntity;
+import info3.game.modele.MoveableEntityClass.BoatPlayer;
+import info3.game.modele.map.Map;
 import info3.game.modele.map.Tiles;
 import info3.game.vue.avatar.CloudAvatar;
 
@@ -46,9 +48,27 @@ public class Cloud extends StillEntity {
 	}
 	
 	@Override
-	public boolean cell(EnumDirection dir, EnumCategory cat) {
-		Tiles tile_cloud = GameModele.map.getTileUnderEntity(getX(),getY());
-		Tiles tile_player = GameModele.map.getTileUnderEntity(GameModele.getCurrentPlayerX(),GameModele.getCurrentPlayerY());
-		return tile_cloud == tile_player;
+	public boolean cell(EnumDirection d, EnumCategory c) {
+		if(d == EnumDirection.H && c == EnumCategory.T) {
+			
+			Map map = GameModele.map;
+			BoatPlayer boatPlayer = GameModele.pirateBoat;
+			Tiles bonusTile = map.getTileUnderEntity(this.x, this.y);
+			Tiles boatTile = map.getTileUnderEntity(boatPlayer.x,boatPlayer.y );
+			int X = bonusTile.getTileX();
+			int Y = bonusTile.getTileY();
+			Tiles[][] tiles = this.cluster.getMapSection().getTiles();			
+			
+			for(int i = -1; i < 2; i++)
+				for(int j = -1; j < 2; j++)
+					if(X > 0 && Y > 0)
+						if(boatTile.equals(tiles[Y+j][X+i])) {
+							return true;
+						}
+							
+			
+			
+		}
+		return false;
 	}
 }
