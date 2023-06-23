@@ -38,6 +38,7 @@ public class ScoreView extends View {
 				new UILabel(0, 0, "See World Ranking", FONT1, Color.black), UIButton.BACKGROUND_COLOR_YELLOW);
 
 		title = new UITitle(windowWidth, windowHeight, "Score", FONT2, Color.black);
+		
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
@@ -72,11 +73,10 @@ public class ScoreView extends View {
 			public void onComponentClicked(int x, int y) {
 				Desktop desktop = java.awt.Desktop.getDesktop();
 				try {
-					URI oURL = new URI("http://seaofcrabs.000webhostapp.com/pages/home.php");
+					URI oURL = new URI("http://seaofcrabs.000webhostapp.com/pages/ranking.php");
 					desktop.browse(oURL);
 				} catch (URISyntaxException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					return;
 				}
 			}
 
