@@ -29,6 +29,7 @@ public class CrabLair extends StillEntity{
 	public CrabLair(int level, MapSection m_section, int x, int y) {
 		super(x,y);
 		this.m_level = level;
+		m_section.setCrabLair(this);
 		this.m_nbCrabsToEgg = (int) ((float)DEFAULT_CRAB_NUMBER * (new Level(m_level)).getCoeffBasedOnLevel());
 		this.m_nbCrabsAlive = this.m_nbCrabsToEgg;
 		this.m_section = m_section;
