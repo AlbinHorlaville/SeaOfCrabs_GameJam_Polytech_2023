@@ -413,6 +413,13 @@ public class MapSection {
 				}
 			}
 		}
+		
+		for (int i = 0; i < sectionHeight; i++) {
+			for (int j = 0; j < 10; j++) {
+					this.tiles[i][j].setType(EnumTiles.RAGING_WATER);
+					this.tiles[i][this.sectionWidth - 1 - j].setType(EnumTiles.RAGING_WATER);
+			}
+		}
 	}
 
 	private double[][] krakenMountainGradien(double[][] noise) {

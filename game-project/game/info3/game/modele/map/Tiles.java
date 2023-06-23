@@ -327,6 +327,10 @@ public class Tiles {
 				|| this.type == EnumTiles.TRANSITION_GRASS_ANGLE_SAND_BOTTOM_RIGHT;
 	}
 
+	public boolean isTree() {
+		return this.type == EnumTiles.TREE;
+	}
+	
 	public boolean isBoatEnnemi() {
 		return this.type == EnumTiles.CALM_SEA_ENNEMIE || this.type == EnumTiles.RAGING_SEA_ENNEMIE
 				|| this.type == EnumTiles.STORMY_SEA_ENNEMIE;

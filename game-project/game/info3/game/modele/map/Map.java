@@ -71,19 +71,28 @@ public class Map {
 	 * @param sectionWidth and sectionHeight : the dimension of a section
 	 * 
 	 */
-	public Map(int seed) throws Exception {
+	public Map(int seed, int nbSection) throws Exception {
+
+		if ((nbSection - 10) % 3 != 0) {
+			throw new Exception("Number of section not OK (must be 10 + a multiple of 3 (10, 13, 16, 19, 22...))");
+		}
+
 		this.seed = seed;
 		this.rand = new Random(this.seed);
 
 		this.sectionHeight = 48;
 		this.sectionWidth = 128;
-		this.nbSection = 10;
+		this.nbSection = nbSection;
 
 		this.map = new MapSection[this.nbSection];
 
 		this.wave = new double[this.sectionHeight * this.nbSection][this.sectionWidth];
 
-		generateMap();
+		if (this.nbSection == 10) {
+			generateMapClassic();
+		} else {
+			generateMap();
+		}
 
 		generateWave();
 
@@ -102,7 +111,7 @@ public class Map {
 			this.map[i] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand, i);
 		}
 	}
-	
+
 	public void openKraken() {
 		this.map[this.nbSection - 3].addTransitionCrabToKraken();
 		this.map[this.nbSection - 2].openKraken();
@@ -111,7 +120,7 @@ public class Map {
 	/*
 	 * Generate a map based on the seed and the section parameters
 	 */
-	public void generateMap() throws Exception {
+	public void generateMapClassic() throws Exception {
 		this.map[0] = new MapSection(EnumSectionType.HARBOR, this.sectionWidth, this.sectionHeight, this.rand, 0);
 
 		this.map[1] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight, this.rand, 1);
@@ -134,6 +143,69 @@ public class Map {
 
 		this.map[9] = new MapSection(EnumSectionType.MOUTAIN, this.sectionWidth, this.sectionHeight, this.rand,
 				this.map[8].getMountainHeight(), 9);
+	}
+
+	/*
+	 * Generate a map based on the seed and the section parameters
+	 */
+	public void generateMap() throws Exception {
+
+		int currentSection = 0;
+
+		this.map[currentSection] = new MapSection(EnumSectionType.HARBOR, this.sectionWidth, this.sectionHeight,
+				this.rand, currentSection);
+		currentSection++;
+
+		this.map[currentSection] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight,
+				this.rand, currentSection);
+		currentSection++;
+
+		for (int i = 0; i < (this.nbSection - 10) / 3; i++) {
+			this.map[currentSection] = new MapSection(EnumSectionType.CALM_SEA, this.sectionWidth, this.sectionHeight,
+					this.rand, currentSection);
+			currentSection++;
+		}
+
+		this.map[currentSection] = new MapSection(EnumSectionType.CALM_SEA_TO_STORMY_SEA, this.sectionWidth,
+				this.sectionHeight, this.rand, currentSection);
+		currentSection++;
+
+		this.map[currentSection] = new MapSection(EnumSectionType.STORMY_SEA_FROM_CALM_SEA, this.sectionWidth,
+				this.sectionHeight, this.rand, currentSection);
+		currentSection++;
+
+		for (int i = 0; i < (this.nbSection - 10) / 3; i++) {
+			this.map[currentSection] = new MapSection(EnumSectionType.STORMY_SEA, this.sectionWidth, this.sectionHeight,
+					this.rand, currentSection);
+			currentSection++;
+		}
+
+		this.map[currentSection] = new MapSection(EnumSectionType.STORMY_SEA_TO_RAGING_SEA, this.sectionWidth,
+				this.sectionHeight, this.rand, currentSection);
+		currentSection++;
+
+		this.map[currentSection] = new MapSection(EnumSectionType.RAGING_SEA_FROM_STORMY_SEA, this.sectionWidth,
+				this.sectionHeight, this.rand, currentSection);
+		currentSection++;
+		this.map[currentSection] = new MapSection(EnumSectionType.RAGING_SEA, this.sectionWidth, this.sectionHeight,
+				this.rand, currentSection);
+		currentSection++;
+		for (int i = 0; i < (this.nbSection - 10) / 3; i++) {
+			this.map[currentSection] = new MapSection(EnumSectionType.RAGING_SEA, this.sectionWidth, this.sectionHeight,
+					this.rand, currentSection);
+			currentSection++;
+		}
+
+		this.map[currentSection] = new MapSection(EnumSectionType.CRAB_KING_SEA, this.sectionWidth, this.sectionHeight,
+				this.rand, currentSection);
+		currentSection++;
+
+		this.map[currentSection] = new MapSection(EnumSectionType.KRAKEN_SEA, this.sectionWidth, this.sectionHeight,
+				this.rand, currentSection);
+		currentSection++;
+
+		this.map[currentSection] = new MapSection(EnumSectionType.MOUTAIN, this.sectionWidth, this.sectionHeight,
+				this.rand, this.map[currentSection - 1].getMountainHeight(), currentSection);
 	}
 
 	public void setImageSize(int width, int height) {
@@ -352,7 +424,7 @@ public class Map {
 
 			int numSection = this.getSectionOfEntity(xPos, yPos);
 
-			return this.wave[(this.nbSection-numSection - 1) * this.sectionHeight + y][x];
+			return this.wave[(this.nbSection - numSection - 1) * this.sectionHeight + y][x];
 		} else {
 			return 0;
 		}
@@ -429,10 +501,10 @@ public class Map {
 			for (int j = 0; j < this.sectionHeight; j++) {
 				for (int k = 0; k < this.sectionWidth; k++) {
 					if (k > 15 && k < this.sectionWidth - 16) {
-						this.wave[heightMax-(i * this.sectionHeight + j)][k] = map(waveNoise[i * this.sectionHeight + j][k], -1, 1,
-								-waveRange, waveRange);
+						this.wave[heightMax - (i * this.sectionHeight + j)][k] = map(
+								waveNoise[i * this.sectionHeight + j][k], -1, 1, -waveRange, waveRange);
 					} else {
-						this.wave[heightMax-(i * this.sectionHeight + j)][k] = 0;
+						this.wave[heightMax - (i * this.sectionHeight + j)][k] = 0;
 					}
 				}
 			}
@@ -546,12 +618,14 @@ public class Map {
 		}
 
 		for (int i = 0; i < this.nbSection; i++) {
-			for (int j = 0; j < (i == this.nbSection-1 ? this.sectionHeight - 1 : this.sectionHeight); j++) {
+			for (int j = 0; j < (i == this.nbSection - 1 ? this.sectionHeight - 1 : this.sectionHeight); j++) {
 				for (int k = 0; k < this.sectionWidth; k++) {
 					if (j == this.sectionHeight - 1 && i < this.nbSection - 1) {
 						rangeStart = getRangeOfWave(this.nbSection - i - 2);
 						rangeEnd = getRangeOfWave(this.nbSection - i - 1);
-						this.wave[i * this.sectionHeight + j][k] = this.map(this.wave[i * this.sectionHeight + j + 1][k], -rangeStart, rangeStart, -rangeEnd, rangeEnd);
+						this.wave[i * this.sectionHeight + j][k] = this.map(
+								this.wave[i * this.sectionHeight + j + 1][k], -rangeStart, rangeStart, -rangeEnd,
+								rangeEnd);
 					} else {
 						this.wave[i * this.sectionHeight + j][k] = this.wave[i * this.sectionHeight + j + 1][k];
 					}
