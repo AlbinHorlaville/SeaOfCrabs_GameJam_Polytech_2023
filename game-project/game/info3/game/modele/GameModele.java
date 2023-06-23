@@ -278,8 +278,9 @@ public class GameModele {
 				BeforePlayingView.weapon1.setPlayer(player1);
 			}
 
-			perroquet = new Perroquet(100, 0, 10);
-			GameModele.entities.add(perroquet);
+			perroquet = BeforePlayingView.perroquet;
+			if (perroquet!=null)
+				GameModele.entities.add(perroquet);
 
 			pirateBoat = new BoatPlayer(
 					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 13][map.getSectionWidth() / 2].getX(),
@@ -289,9 +290,10 @@ public class GameModele {
 			map = new Map(seed);
 
 			genereEntity(map);
-			
-			perroquet.setX(GameModele.pirateBoat.getX());
-			perroquet.setY(GameModele.pirateBoat.getY());
+			if (perroquet!=null) {
+				perroquet.setX(GameModele.pirateBoat.getX());
+				perroquet.setY(GameModele.pirateBoat.getY());
+			}
 		}
 	}
 

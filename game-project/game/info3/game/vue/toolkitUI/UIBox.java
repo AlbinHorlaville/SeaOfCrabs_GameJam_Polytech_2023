@@ -74,8 +74,8 @@ public class UIBox extends UIComponent {
 		int imageHeight = image.getHeight();
 		int centerX = this.getPositionX();
 		int centerY = this.getPositionY();
-		image.setPositionX(centerX + imageWidth + 16);
-		image.setPositionY(centerY + imageHeight + 16);
+		image.setPositionX(centerX + imageWidth + 1);
+		image.setPositionY(centerY + imageHeight + 1);
 		image.paint(g);
 
 		if (playerImage!=null) {

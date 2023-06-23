@@ -7,12 +7,14 @@ import java.awt.Graphics;
 
 public class UIChecker extends UIButton {
 	private boolean state;
+	UILabel label;
 
 	public UIChecker(int x, int y, UILabel l, Color c, boolean baseState) {
 		super(x, y, 0, 0, l,0);
 		this.state = baseState;
 		setHeight(30);
 		setWidth(30);
+		label = l;
 	}
 
 	public boolean isState() {
@@ -46,6 +48,7 @@ public class UIChecker extends UIButton {
 		} else {
 			g.drawString("Off", getPositionX() + 2 * getWidth(), getPositionY() + getWidth() * 4 / 5);
 		}
+		g.drawString(label.getText(), getPositionX(), getPositionY() - 10);
 	}
 
 }
