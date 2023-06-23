@@ -35,6 +35,10 @@ public class CrabKing extends Crab {
 		return spawnable;
 	}
 	
+	public void die() {
+		GameModele.map.openKraken();
+	}
+	
 	@Override
 	public void takeDamage(int damage) {
 		super.takeDamage(damage);
