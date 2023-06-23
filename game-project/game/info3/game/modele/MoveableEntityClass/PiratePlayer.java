@@ -212,7 +212,7 @@ public class PiratePlayer extends Player {
 		if (!reloading) {
 			weapon.hit(m_rangeCoeff, m_damageCoeff);
 
-			reloading = true;
+			//reloading = true;
 			timerReloadingMili = timeMili;
 			timerReloadingSec = timeSec;
 		} else if (reloadingTimePassed(timerReloadingMili, timerReloadingSec, timeMili, timeSec)) {

@@ -48,7 +48,7 @@ public class BoatPlayer extends Player {
 		bouletDeCannon = new HashMap<>();
 		for(EnumCannonBall ball : EnumCannonBall.values()) {
 			if (ball != EnumCannonBall.Basic) {
-				bouletDeCannon.put(ball, 5);
+				bouletDeCannon.put(ball, 0);
 			}
 		}
 		
@@ -196,7 +196,7 @@ public class BoatPlayer extends Player {
 				b.fire();
 			}
 			
-			this.reloading = true;
+			//this.reloading = true;
 			this.timerAttackMili = timeMili;
 			this.timerAttackSec = timeSec;
 		} else if (timerAttackMili <= timeMili && timerAttackSec + 1 <= timeSec) {
