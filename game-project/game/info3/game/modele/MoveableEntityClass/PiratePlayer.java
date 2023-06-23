@@ -289,7 +289,7 @@ public class PiratePlayer extends Player {
 	}
 
 	public void setHealthPoints(int m_healthPoints) {
-		m_healthPoints = m_healthPoints;
+		PiratePlayer.m_healthPoints = m_healthPoints;
 	}
 
 	public int getMaxHealthPoints() {
@@ -338,4 +338,5 @@ public class PiratePlayer extends Player {
 		m_range = DEFAULT_PIRATEPLAYER_RANGE;
 		m_speed = DEFAULT_PIRATEPLAYER_SPEED;
 	}
+
 }

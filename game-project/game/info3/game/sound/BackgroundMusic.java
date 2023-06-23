@@ -2,7 +2,7 @@ package info3.game.sound;
 
 public enum BackgroundMusic {
 	MainMenu("Town8.ogg"),
-	Game("Town1.ogg");
+	Game("MainTheme.ogg");
 	
 	private String fileName;
 	
