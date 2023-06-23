@@ -106,7 +106,7 @@ public class ScoreView extends View {
 		addComponent(new UILabel(windowWidth/2-280, windowHeight/2-20, "You can consult the Sea Of Crabs world ranking by clicking here", FONT4, Color.black));
 		addComponent(title);
 		if (SeaOfCrabes.connectedToDatabase) {
-			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.red));
+			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
 		} else {
 			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 		}

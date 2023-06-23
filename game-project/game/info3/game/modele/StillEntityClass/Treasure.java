@@ -1,16 +1,11 @@
 package info3.game.modele.StillEntityClass;
 
 import automate.AutomateLoader;
-import automate.EnumCategory;
-import automate.EnumDirection;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.StillEntity;
-import info3.game.modele.MoveableEntityClass.BasicCannonBall;
-import info3.game.modele.MoveableEntityClass.PiratePlayer;
-import info3.game.modele.map.Map;
+import info3.game.modele.MoveableEntityClass.EnumCannonBall;
 import info3.game.modele.map.MapSection;
-import info3.game.modele.map.Tiles;
 import info3.game.vue.avatar.LandTreasureAvatar;
 
 public class Treasure extends StillEntity {
@@ -55,9 +50,8 @@ public class Treasure extends StillEntity {
 	
 	@Override
 	public void power() {
-		for(int i = 0; i < 6; i++) {
-			GameModele.pirateBoat.addBoulet(new BasicCannonBall());
-		}
+		System.out.println("TRIGGER");
+		GameModele.pirateBoat.addBoulet(EnumCannonBall.Stunt, m_mapSection.getSectionNumber());
 	}
 	
 	public boolean gotPower() {

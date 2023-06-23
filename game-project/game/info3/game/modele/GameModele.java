@@ -388,14 +388,14 @@ public class GameModele {
 																										// 20 points de
 																										// vie
 						entities.add(newEntity);
-						newEntity = new CloudCluster(Current.getX(), Current.getY()); // Créer 10 crabes de niveau k
+						newEntity = new CloudCluster(Current.getX(), Current.getY(),map.getMap()[k]); // Créer 10 crabes de niveau k
 																						// (le
 																						// numéro
 						entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.CALM_SEA_ENNEMIE
 							|| Current.getType() == EnumTiles.STORMY_SEA_ENNEMIE
 							|| Current.getType() == EnumTiles.RAGING_SEA_ENNEMIE) {
-						newEntity = new Ship(k);
+						newEntity = new Ship(map.getMap()[k]);
 						newEntity.setLocation(Current.getX(), Current.getY());
 						entities.add(newEntity);
 					} else if (Current.getType() == EnumTiles.CRAB_KING) {

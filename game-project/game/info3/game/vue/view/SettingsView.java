@@ -181,7 +181,7 @@ public class SettingsView extends View {
 		addComponent(effectSoundChecker);
 		addComponent(buttonAutomatonView);
 		if (SeaOfCrabes.connectedToDatabase) {
-			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.red));
+			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
 		} else {
 			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 		}

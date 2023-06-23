@@ -76,7 +76,7 @@ public class BoatPlayer extends Player {
 	 * @param boulet
 	 */
 	public void addBoulet(EnumCannonBall boulet,int amount) {
-		this.bouletDeCannon.replace(currentBall, getAmount(boulet)+amount);
+		this.bouletDeCannon.replace(boulet, getAmount(boulet)+amount);
 	}
 
 	public EnumCannonBall getBall() {

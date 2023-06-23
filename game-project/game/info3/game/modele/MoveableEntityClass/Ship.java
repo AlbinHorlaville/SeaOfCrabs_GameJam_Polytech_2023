@@ -6,6 +6,7 @@ import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.Level;
 import info3.game.modele.StillEntityClass.Rhum;
+import info3.game.modele.map.MapSection;
 import info3.game.modele.map.Tiles;
 import info3.game.vue.avatar.ShipAvatar;
 
@@ -19,16 +20,16 @@ public class Ship extends Ennemy {
 	private int timerAttackMili;
 	private int timerAttackSec;
 	private boolean reloading;
-
+	private MapSection m_mapSection;
 	private boolean stunned;
 	private int timerStunMili;
 	private int timerStunSec;
 
-	public Ship(int level) {
+	public Ship(MapSection mapSection) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE);
 		this.avatar = new ShipAvatar(this);
-
-		this.m_coeff = (new Level(level)).getCoeffBasedOnLevel();
+		this.m_mapSection = mapSection;
+		this.m_coeff = (new Level(this.m_mapSection.getSectionNumber())).getCoeffBasedOnLevel();
 		this.m_healthPoints *= this.m_coeff;
 		this.m_damage *= this.m_coeff;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Ship);
@@ -97,7 +98,7 @@ public class Ship extends Ennemy {
 
 	@Override
 	public void die() {
-		Rhum rhum = new Rhum(this.x, this.y);
+		Rhum rhum = new Rhum(this.x, this.y, this.m_mapSection);
 		GameModele.entities.add(rhum);
 		GameModele.entities.remove(this);
 
