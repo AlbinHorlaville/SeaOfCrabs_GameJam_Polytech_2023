@@ -75,8 +75,7 @@ public class MiniMap {
 			for (int j = 8; j < this.sectionWidth - 8; j++) {
 				if (!(i == tilesY && j == tilesX)) {
 					Tiles tile = this.map[currentSection].getTiles()[i][j];
-					if (tile.isIsland() || tile.notIslandAndNotWater() || tile.isIslandObstacle()
-							|| tile.isSeaChest() || tile.isBoatEnnemi()) {
+					if (tile.isIsland() || tile.notIslandAndNotWater() || tile.isIslandObstacle() || tile.isCloud()) {
 						if (tile.isGrass()) {
 							g.setColor(Color.green);
 						} else if (tile.isTreasur()) {
@@ -85,14 +84,12 @@ public class MiniMap {
 							g.setColor(Color.yellow);
 						} else if (tile.isMoutain()) {
 							g.setColor(Color.gray);
-						} else if (tile.isSeaChest()) {
+						} else if (tile.isCloud()) {
 							g.setColor(Color.magenta);
 						} else if (tile.isSwpaner()) {
 							g.setColor(Color.gray);
 						} else if (tile.isPooton()) {
 							g.setColor(new Color(88, 41, 0));
-						}else if (tile.isBoatEnnemi()) {
-							g.setColor(Color.orange);
 						} else if (tile.isCrabLand()) {
 							g.setColor(new Color(255, 140, 0));
 						} else {
@@ -107,33 +104,24 @@ public class MiniMap {
 		}
 		if (GameModele.onSea) {
 			g.drawImage(this.boatIcon,
-					width / 2 - (this.sectionWidth * mapPixelSize) / 2 + tilesX * mapPixelSize
-							- this.iconWidth / 2,
-					height / 2 - (this.sectionHeight * mapPixelSize) / 2 + tilesY * mapPixelSize
-							- this.iconHeight / 2,
+					width / 2 - (this.sectionWidth * mapPixelSize) / 2 + tilesX * mapPixelSize - this.iconWidth / 2,
+					height / 2 - (this.sectionHeight * mapPixelSize) / 2 + tilesY * mapPixelSize - this.iconHeight / 2,
 					iconWidth, iconHeight, null);
 		} else {
-			//if (GameModele.solo) {
-				g.drawImage(this.playerIcon[0],
-						width / 2 - (this.sectionWidth * mapPixelSize) / 2 + tilesX * mapPixelSize
-								- this.iconWidth / 2,
-						height / 2 - (this.sectionHeight * mapPixelSize) / 2 + tilesY * mapPixelSize
-								- this.iconHeight / 2,
-						iconWidth, iconHeight, null);
-			/*} else {
-				g.drawImage(this.playerIcon[0],
-						width / 2 - (this.sectionWidth * mapPixelSize) / 2 + j * mapPixelSize
-								- this.iconWidth / 2,
-						height / 2 - (this.sectionHeight * mapPixelSize) / 2 + i * mapPixelSize
-								- this.iconHeight / 2,
-						iconWidth, iconHeight, null);
-				g.drawImage(this.playerIcon[1],
-						width / 2 - (this.sectionWidth * mapPixelSize) / 2 + j * mapPixelSize
-								- this.iconWidth / 2,
-						height / 2 - (this.sectionHeight * mapPixelSize) / 2 + i * mapPixelSize
-								- this.iconHeight / 2,
-						iconWidth, iconHeight, null);
-			}*/
+			// if (GameModele.solo) {
+			g.drawImage(this.playerIcon[0],
+					width / 2 - (this.sectionWidth * mapPixelSize) / 2 + tilesX * mapPixelSize - this.iconWidth / 2,
+					height / 2 - (this.sectionHeight * mapPixelSize) / 2 + tilesY * mapPixelSize - this.iconHeight / 2,
+					iconWidth, iconHeight, null);
+			/*
+			 * } else { g.drawImage(this.playerIcon[0], width / 2 - (this.sectionWidth *
+			 * mapPixelSize) / 2 + j * mapPixelSize - this.iconWidth / 2, height / 2 -
+			 * (this.sectionHeight * mapPixelSize) / 2 + i * mapPixelSize - this.iconHeight
+			 * / 2, iconWidth, iconHeight, null); g.drawImage(this.playerIcon[1], width / 2
+			 * - (this.sectionWidth * mapPixelSize) / 2 + j * mapPixelSize - this.iconWidth
+			 * / 2, height / 2 - (this.sectionHeight * mapPixelSize) / 2 + i * mapPixelSize
+			 * - this.iconHeight / 2, iconWidth, iconHeight, null); }
+			 */
 		}
 	}
 }

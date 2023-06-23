@@ -66,7 +66,7 @@ public class Tiles {
 			break;
 		}
 	}
-	
+
 	public void setDamaging() {
 		switch (this.type) {
 		case CALM_WATER_PRE_DAMAGE:
@@ -89,7 +89,7 @@ public class Tiles {
 			break;
 		}
 	}
-	
+
 	public void setNotDamaging() {
 		switch (this.type) {
 		case CALM_WATER_DAMAGING:
@@ -109,7 +109,7 @@ public class Tiles {
 		}
 	}
 
-	public void update () {
+	public void update() {
 		if (this.isWaterPreDamage()) {
 			if (this.preDamagingTick > 0) {
 				this.preDamagingTick--;
@@ -271,7 +271,8 @@ public class Tiles {
 				|| this.type == EnumTiles.STORMY_WATER_PRE_DAMAGE || this.type == EnumTiles.RAGING_WATER_PRE_DAMAGE
 				|| this.type == EnumTiles.KRAKEN_WATER_PRE_DAMAGE || this.type == EnumTiles.CALM_WATER_DAMAGING
 				|| this.type == EnumTiles.STORMY_WATER_DAMAGING || this.type == EnumTiles.RAGING_WATER_DAMAGING
-				|| this.type == EnumTiles.KRAKEN_WATER_DAMAGING;
+				|| this.type == EnumTiles.KRAKEN_WATER_DAMAGING || this.type == EnumTiles.CALM_SEA_CHEST
+				|| this.type == EnumTiles.STORMY_SEA_CHEST || this.type == EnumTiles.RAGING_SEA_CHEST;
 	}
 
 	public boolean isSand() {
@@ -297,6 +298,12 @@ public class Tiles {
 	public boolean isSeaChest() {
 		return this.type == EnumTiles.CALM_SEA_CHEST || this.type == EnumTiles.STORMY_SEA_CHEST
 				|| this.type == EnumTiles.RAGING_SEA_CHEST;
+	}
+
+	public boolean isCloud() {
+		return this.type == EnumTiles.CALM_SEA_CHEST || this.type == EnumTiles.STORMY_SEA_CHEST
+				|| this.type == EnumTiles.RAGING_SEA_CHEST || this.type == EnumTiles.CALM_FAKE_SEA_CHEST
+				|| this.type == EnumTiles.STORMY_FAKE_SEA_CHEST || this.type == EnumTiles.RAGING_FAKE_SEA_CHEST;
 	}
 
 	public boolean isSwpaner() {
