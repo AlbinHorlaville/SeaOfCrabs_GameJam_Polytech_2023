@@ -75,7 +75,7 @@ public class MiniMap {
 			for (int j = 8; j < this.sectionWidth - 8; j++) {
 				if (!(i == tilesY && j == tilesX)) {
 					Tiles tile = this.map[currentSection].getTiles()[i][j];
-					if (tile.isIsland() || tile.notIslandAndNotWater() || tile.isIslandObstacle() || tile.isCloud()) {
+					if (tile.isIsland() || tile.notIslandAndNotWater() || tile.isIslandObstacle() || tile.isCloud() || tile.isBoatEnnemi()) {
 						if (tile.isGrass()) {
 							g.setColor(Color.green);
 						} else if (tile.isTreasur()) {
