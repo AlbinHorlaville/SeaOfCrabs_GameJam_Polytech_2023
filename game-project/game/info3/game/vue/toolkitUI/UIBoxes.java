@@ -45,8 +45,7 @@ public class UIBoxes extends UIComponent {
 
 			@Override
 			public void onKeyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-
+				
 			}
 
 		});

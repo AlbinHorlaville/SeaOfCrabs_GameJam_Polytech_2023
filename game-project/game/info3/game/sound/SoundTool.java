@@ -90,7 +90,7 @@ public class SoundTool {
 	 */
 	public static void initSoundTool(GameCanvas canvas) {
 		SoundTool.canvas = canvas;
-
+		
 		/********
 		 * 
 		 * HASHMAP DES EFFECTS SONORES

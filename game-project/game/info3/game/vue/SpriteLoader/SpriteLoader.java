@@ -49,6 +49,7 @@ public class SpriteLoader {
 		load(SpriteType.Palmer, "assets/img/autre/" + "Palmer.png", 2, 2);
 		load(SpriteType.Cloud, "assets/img/autre/" + "Cloud.png", 1, 1);
 		load(SpriteType.BasicCannonBall, "assets/img/utilities/" + "BouletDeCanon.png", 1, 1);
+		load(SpriteType.StunningCannonBall, "assets/img/utilities/" + "CannonBallStunt.png", 1, 1);
 		load(SpriteType.Crab, "assets/img/ennemi/" + "Crabe.png", 1, 1);
 		load(SpriteType.CrabKing, "assets/img/ennemi/" + "CrabeKing.png", 1, 1);
 		load(SpriteType.LandTreasure, "assets/img/autre/" + "Coffre_dirt_sand.png", 1, 1);

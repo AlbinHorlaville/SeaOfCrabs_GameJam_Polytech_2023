@@ -10,6 +10,8 @@ import info3.game.modele.GameModele;
 import info3.game.modele.MoveableEntity;
 import info3.game.modele.StillEntityClass.SeaTreasure;
 import info3.game.modele.map.Tiles;
+import info3.game.sound.SoundEffect;
+import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 import info3.game.vue.avatar.Avatar;
 
@@ -44,6 +46,7 @@ public abstract class CannonBall extends MoveableEntity {
 		GameModele.entities.add(this);
 		this.automate = AutomateLoader.findAutomate(GameEntity.CannonBall);
 		this.current_state = automate.initial_state;
+		SoundTool.playSoundEffect(SoundEffect.BoatAttack, 0);
 	}
 
 	public void setPositions(int x, int y, int endX, int endY) {
@@ -59,7 +62,6 @@ public abstract class CannonBall extends MoveableEntity {
 
 	public void fire() {
 		fire = true;
-
 	}
 
 	@Override
