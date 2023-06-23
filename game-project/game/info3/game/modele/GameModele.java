@@ -463,7 +463,6 @@ public class GameModele {
 		timer.resetTimer();
 		onSea = true;
 		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
-		PiratePlayer.resetPiratePlayer();
 		pirateBoat = null;
 	}
 }
