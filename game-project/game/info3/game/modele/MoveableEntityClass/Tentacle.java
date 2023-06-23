@@ -20,6 +20,10 @@ public class Tentacle extends Ennemy {
 	private boolean stunned;
 	private int timerStunMili;
 	private int timerStunSec;
+	private int timerAttackMin;
+	
+	private int reloadTimeSec;
+	private int reloadTimeMili;
 
 	int number;
 	Kraken kraken;
@@ -34,6 +38,9 @@ public class Tentacle extends Ennemy {
 
 		this.reloading = false;
 		GameModele.entities.add(this);
+		
+		this.reloadTimeMili = 0;
+		this.reloadTimeSec = 1;
 	}
 
 	@Override
@@ -84,16 +91,26 @@ public class Tentacle extends Ennemy {
 	public void hit() {
 		int timeMili = GameModele.timer.getMiliSecondes();
 		int timeSec = GameModele.timer.getSecondes();
+		int timeMin = GameModele.timer.getMinutes();
 
 		if (!this.reloading) {
 			GameModele.map.setDamaging(GameModele.getCurrentPlayerX(), GameModele.getCurrentPlayerY());
 			this.reloading = true;
-			this.timerAttackMili = timeMili;
+			this.timerAttackMili = timeMili - 20;
 			this.timerAttackSec = timeSec;
-		} else if (timerAttackMili <= timeMili && timerAttackSec + 1 <= timeSec) {
+			this.timerAttackMin = timeMin;
+		} else if (reloadingTimePassed(timerAttackMili, timerAttackSec, timeMili, timeSec) || timerAttackMin < timeMin) {
 			this.reloading = false;
 		}
-
+	}
+	
+	public boolean reloadingTimePassed(int debutReloadMili, int debutReloadSec, int actualMili, int actualSec) {
+		if (debutReloadSec * 1000 + reloadTimeSec * 1000 + debutReloadMili + reloadTimeMili < actualSec * 1000
+				+ actualMili) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void move() {

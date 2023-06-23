@@ -20,7 +20,7 @@ public class BoatPlayer extends Player {
 
 	private static final int DEFAULT_MAX_BOATPLAYER_LIFE_POINT = 100;
 
-	public static final int DEFAULT_BOATPLAYER_SPEED = 4;
+	public static final int DEFAULT_BOATPLAYER_SPEED = 2;
 
 	private int currentSection;
 
@@ -30,7 +30,10 @@ public class BoatPlayer extends Player {
 	
 	private int timerAttackMili;
 	private int timerAttackSec;
+	private int timerAttackMin;
 	private boolean reloading;
+	private int reloadTimeSec;
+	private int reloadTimeMili;
 
 	public BoatPlayer() {
 		super(DEFAULT_BOATPLAYER_LIFE_POINT, 0, DEFAULT_MAX_BOATPLAYER_LIFE_POINT);
@@ -42,6 +45,9 @@ public class BoatPlayer extends Player {
 
 		this.facing = EnumDirection.N;
 		this.currentSection = 0;
+		
+		this.reloadTimeMili = 0;
+		this.reloadTimeSec = 1;
 	}
 
 	private void initHashmap() {
@@ -169,6 +175,7 @@ public class BoatPlayer extends Player {
 		
 		int timeMili = GameModele.timer.getMiliSecondes();
 		int timeSec = GameModele.timer.getSecondes();
+		int timeMin = GameModele.timer.getMinutes();
 
 		if (!this.reloading) {
 			
@@ -196,15 +203,22 @@ public class BoatPlayer extends Player {
 				b.fire();
 			}
 			
-			//this.reloading = true;
-			this.timerAttackMili = timeMili;
+			this.reloading = true;
+			this.timerAttackMili = timeMili - 20;
 			this.timerAttackSec = timeSec;
-		} else if (timerAttackMili <= timeMili && timerAttackSec + 1 <= timeSec) {
+			this.timerAttackMin = timeMin;
+		} else if (reloadingTimePassed(timerAttackMili, timerAttackSec, timeMili, timeSec) || timerAttackMin < timeMin) {
 			this.reloading = false;
 		}
-		
-		
-		
+	}
+	
+	public boolean reloadingTimePassed(int debutReloadMili, int debutReloadSec, int actualMili, int actualSec) {
+		if (debutReloadSec * 1000 + reloadTimeSec * 1000 + debutReloadMili + reloadTimeMili < actualSec * 1000
+				+ actualMili) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 		
 	public int getAmount(EnumCannonBall ball) {

@@ -18,7 +18,7 @@ public class PiratePlayer extends Player {
 	// Default stat (at Spawn)
 	private static final int DEFAULT_PIRATEPLAYER_LIFE_POINT = 100;
 	
-	private static final int DEFAULT_PIRATEPLAYER_DAMAGE = 1;
+	private static final int DEFAULT_PIRATEPLAYER_DAMAGE = 1000;
 	
 	private static final int DEFAULT_PIRATEPLAYER_MAX_LIFE_POINT = 100;
 
@@ -75,6 +75,7 @@ public class PiratePlayer extends Player {
 	public boolean reloading;
 	public int timerReloadingMili;
 	public int timerReloadingSec;
+	public int timerReloadingMin;
 
 	public int reloadTimeSec;
 	public int reloadTimeMili;
@@ -210,13 +211,16 @@ public class PiratePlayer extends Player {
 
 		int timeMili = GameModele.timer.getMiliSecondes();
 		int timeSec = GameModele.timer.getSecondes();
+		int timeMin = GameModele.timer.getMinutes();
+		
 		if (!reloading) {
 			weapon.hit(m_rangeCoeff, m_damageCoeff);
 
-			//reloading = true;
-			timerReloadingMili = timeMili;
+			reloading = true;
+			timerReloadingMili = timeMili - 20;
 			timerReloadingSec = timeSec;
-		} else if (reloadingTimePassed(timerReloadingMili, timerReloadingSec, timeMili, timeSec)) {
+			timerReloadingMin = timeMin;
+		} else if (reloadingTimePassed(timerReloadingMili, timerReloadingSec, timeMili, timeSec) || timerReloadingMin < timeMin) {
 			reloading = false;
 		}
 	}
