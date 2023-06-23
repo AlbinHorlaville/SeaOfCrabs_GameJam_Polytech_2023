@@ -55,9 +55,9 @@ public class Treasure extends StillEntity {
 		Random ran = new Random();
 		EnumCannonBall[] listeBall = EnumCannonBall.values();
 		//r.nextInt((max - min) + 1) + min;
-		int first_ball_index = ran.nextInt((3 - 1) + 1) + 1;
+		int first_ball_index = ran.nextInt(3) + 1;
 		GameModele.pirateBoat.addBoulet(listeBall[first_ball_index], m_mapSection.getSectionNumber());
-		int second_ball_index = ran.nextInt((3 - 1) + 1) + 1;
+		int second_ball_index = ran.nextInt(3) + 1;
 		GameModele.pirateBoat.addBoulet(listeBall[second_ball_index], m_mapSection.getSectionNumber());
 	}
 	

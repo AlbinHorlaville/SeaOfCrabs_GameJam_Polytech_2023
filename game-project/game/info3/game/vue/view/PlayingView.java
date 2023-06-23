@@ -41,7 +41,9 @@ public class PlayingView extends View {
 
 	UIBox weaponPlayer1, weaponPlayer2;
 
-	UILabel attackSpeedBonusLabel, damageBonusLabel, healthBonusLabel, rangeBonusLabel, speedBonusLabel;
+	private boolean playerOnSea;
+
+	public UILabel attackSpeedBonusLabel, damageBonusLabel, healthBonusLabel, rangeBonusLabel, speedBonusLabel;
 	UIImage attackSpeedBonusImage, damageBonusImage, healthBonusImage, rangeBonusImage, speedBonusImage;
 
 	public PlayingView(GameView gv) {
@@ -57,16 +59,22 @@ public class PlayingView extends View {
 		labelTimer = new UILabel(windowWidth / 2, 35, "0'", FONT3, Color.black);
 
 		cannonBallBox = new UIBoxes((windowWidth) / 2 - 130, windowHeight - 114);
-		/*boxSword = new UIBox(64, new Sword(), new UIImage(0, 0, "resources/img/Epee.png", 1F));
-		boxScythe = new UIBox(64, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 1F));
-		cannonBallBox.addBox(boxSword);
-		cannonBallBox.addBox(boxScythe);*/
-		
-		boxBoulet1 = new UIBox(64, EnumCannonBall.Basic, new UIImage(0, 0, SpriteLoader.get(SpriteType.CannonBall)[0], 2F));
-		boxBoulet2 = new UIBox(64, EnumCannonBall.Stunt, new UIImage(0, 0,SpriteLoader.get(SpriteType.CannonBall)[2], 2F));
-		boxBoulet3 = new UIBox(64, EnumCannonBall.KrakenSlayer, new UIImage(0, 0, SpriteLoader.get(SpriteType.CannonBall)[4], 2F));
-		boxBoulet4 = new UIBox(64, EnumCannonBall.Damaged, new UIImage(0, 0, SpriteLoader.get(SpriteType.CannonBall)[1], 2F));
-		
+		/*
+		 * boxSword = new UIBox(64, new Sword(), new UIImage(0, 0,
+		 * "resources/img/Epee.png", 1F)); boxScythe = new UIBox(64,
+		 * Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 1F));
+		 * cannonBallBox.addBox(boxSword); cannonBallBox.addBox(boxScythe);
+		 */
+
+		boxBoulet1 = new UIBox(64, EnumCannonBall.Basic,
+				new UIImage(0, 0, SpriteLoader.get(SpriteType.CannonBall)[0], 2F));
+		boxBoulet2 = new UIBox(64, EnumCannonBall.Stunt,
+				new UIImage(0, 0, SpriteLoader.get(SpriteType.CannonBall)[2], 2F));
+		boxBoulet3 = new UIBox(64, EnumCannonBall.KrakenSlayer,
+				new UIImage(0, 0, SpriteLoader.get(SpriteType.CannonBall)[4], 2F));
+		boxBoulet4 = new UIBox(64, EnumCannonBall.Damaged,
+				new UIImage(0, 0, SpriteLoader.get(SpriteType.CannonBall)[1], 2F));
+
 		cannonBallBox.addBox(boxBoulet1);
 		cannonBallBox.addBox(boxBoulet2);
 		cannonBallBox.addBox(boxBoulet3);
@@ -86,6 +94,21 @@ public class PlayingView extends View {
 
 		addComponent(cannonBallBox);
 
+		attackSpeedBonusLabel.setText(Float.toString(1f));
+		damageBonusLabel.setText(Float.toString(1f));
+		healthBonusLabel.setText(Float.toString(1f));
+		rangeBonusLabel.setText(Float.toString(1f));
+		speedBonusLabel.setText(Float.toString(1f));
+		
+		barreVieMer.setPositionX(20);
+		barreVieMer.setPositionY(15);
+		barreVieMer.setWidth(150);
+
+		barreVieTerre.setPositionX(20);
+		barreVieTerre.setPositionY(50);
+		barreVieTerre.setWidth(75);
+
+		playerOnSea = true;
 	}
 
 	@Override
@@ -101,25 +124,31 @@ public class PlayingView extends View {
 
 	@Override
 	public void paint(Graphics g, int width, int height) {
-		g.setColor(Color.gray);
-		g.fillRect(0, 0, width, height);
-		if (GameModele.onSea) {
-			GameModele.map.getRepresentation().paint(g, width, height, GameModele.pirateBoat.getX(),
-					GameModele.pirateBoat.getY());
-		} else {
-			if (GameModele.solo) {
-				GameModele.map.getRepresentation().paint(g, width, height, GameModele.player1.getX(),
-						GameModele.player1.getY());
-			} else {
-				GameModele.map.getRepresentation().paint(g, width, height,
-						(GameModele.player1.getX() + GameModele.player2.getX()) / 2,
-						(GameModele.player1.getY() + GameModele.player2.getY()) / 2);
-			}
+		// g.setColor(Color.gray);
+		// g.fillRect(0, 0, width, height);
+		
+		boolean onSea = GameModele.onSea;
+		boolean solo = GameModele.solo;
+		
+		int player1Y = GameModele.player1.getY();
+		int player2Y = 0;
+		if (!solo) {
+			player2Y = GameModele.player2.getY();
 		}
 
-		if (GameModele.solo) {
+		if (onSea || solo) {
+			GameModele.map.getRepresentation().paint(g, width, height, GameModele.getCurrentPlayerX(),
+					GameModele.getCurrentPlayerY());
+		} else {
+			GameModele.map.getRepresentation().paint(g, width, height,
+					(GameModele.player1.getX() + GameModele.player2.getX()) / 2,
+					(player1Y + player2Y) / 2);
+		}
+
+		if (solo) {
+			// Paint all entity behind player
 			for (Entity entity : GameModele.entities) {
-				if (entity.getY() >= GameModele.player1.getY()) {
+				if (entity.getY() >= player1Y) {
 					if (entity instanceof CloudCluster) {
 						for (Entity cloud : ((CloudCluster) entity).getClouds()) {
 							cloud.getAvatar().paint(g, width, height);
@@ -130,11 +159,13 @@ public class PlayingView extends View {
 				}
 			}
 
-			if (!GameModele.onSea)
+			// Paint player
+			if (!onSea)
 				GameModele.player1.getAvatar().paint(g, width, height);
 
+			// Paint all entity in front of the player
 			for (Entity entity : GameModele.entities) {
-				if (entity.getY() < GameModele.player1.getY()) {
+				if (entity.getY() < player1Y) {
 					if (entity instanceof CloudCluster) {
 						for (Entity cloud : ((CloudCluster) entity).getClouds()) {
 							cloud.getAvatar().paint(g, width, height);
@@ -146,30 +177,23 @@ public class PlayingView extends View {
 			}
 		} else { // Mode 2 joueurs
 			PiratePlayer higher, lower;
-			if (GameModele.player1.getY() < GameModele.player2.getY()) {
+			int higherY;
+			int lowerY;
+			
+			if (player1Y < player2Y) {
 				higher = GameModele.player2;
 				lower = GameModele.player1;
+				higherY = player2Y;
+				lowerY = player1Y;
 			} else {
 				higher = GameModele.player1;
 				lower = GameModele.player2;
+				higherY = player1Y;
+				lowerY = player2Y;
 			}
-			for (Entity entity : GameModele.entities) {
-				if (entity.getY() > higher.getY() && entity != higher && entity != lower) {
-					if (entity instanceof CloudCluster) {
-						for (Entity cloud : ((CloudCluster) entity).getClouds()) {
-							cloud.getAvatar().paint(g, width, height);
-						}
-					} else {
-						entity.getAvatar().paint(g, width, height);
-					}
-				}
-			}
-			if (!GameModele.onSea)
-				lower.getAvatar().paint(g, width, height);
 
 			for (Entity entity : GameModele.entities) {
-				if (entity.getY() >= lower.getY() && entity.getY() <= higher.getY() && entity != higher
-						&& entity != lower) {
+				if (entity.getY() > higherY && entity != higher && entity != lower) {
 					if (entity instanceof CloudCluster) {
 						for (Entity cloud : ((CloudCluster) entity).getClouds()) {
 							cloud.getAvatar().paint(g, width, height);
@@ -179,11 +203,25 @@ public class PlayingView extends View {
 					}
 				}
 			}
-			if (!GameModele.onSea)
+			if (!onSea)
+				lower.getAvatar().paint(g, width, height);
+			
+			for (Entity entity : GameModele.entities) {
+				if (entity.getY() >= lowerY && entity.getY() <= higherY && entity != higher && entity != lower) {
+					if (entity instanceof CloudCluster) {
+						for (Entity cloud : ((CloudCluster) entity).getClouds()) {
+							cloud.getAvatar().paint(g, width, height);
+						}
+					} else {
+						entity.getAvatar().paint(g, width, height);
+					}
+				}
+			}
+			if (!onSea)
 				higher.getAvatar().paint(g, width, height);
 
 			for (Entity entity : GameModele.entities) {
-				if (entity.getY() < lower.getY() && entity != higher && entity != lower) {
+				if (entity.getY() < lowerY && entity != higher && entity != lower) {
 					if (entity instanceof CloudCluster) {
 						for (Entity cloud : ((CloudCluster) entity).getClouds()) {
 							cloud.getAvatar().paint(g, width, height);
@@ -200,78 +238,65 @@ public class PlayingView extends View {
 		// Components
 		// ***************************************//
 
-		if (GameModele.onSea) {
-			barreVieMer.setPositionX(20);
-			barreVieMer.setPositionY(15);
-			barreVieMer.setWidth(150);
-			barreVieMer.paint(g);
+		if (playerOnSea != onSea) {
+			playerOnSea = onSea;
+			if (playerOnSea) {
+				barreVieMer.setPositionX(20);
+				barreVieMer.setPositionY(15);
+				barreVieMer.setWidth(150);
 
-			barreVieTerre.setPositionX(20);
-			barreVieTerre.setPositionY(50);
-			barreVieTerre.setWidth(75);
-			barreVieTerre.paint(g);
-		} else {
-			barreVieTerre.setPositionX(20);
-			barreVieTerre.setPositionY(15);
-			barreVieTerre.setWidth(150);
-			barreVieTerre.paint(g);
+				barreVieTerre.setPositionX(20);
+				barreVieTerre.setPositionY(50);
+				barreVieTerre.setWidth(75);
+			} else {
+				barreVieTerre.setPositionX(20);
+				barreVieTerre.setPositionY(15);
+				barreVieTerre.setWidth(150);
 
-			barreVieMer.setPositionX(20);
-			barreVieMer.setPositionY(50);
-			barreVieMer.setWidth(75);
-			barreVieMer.paint(g);
+				barreVieMer.setPositionX(20);
+				barreVieMer.setPositionY(50);
+				barreVieMer.setWidth(75);
+			}
+
 		}
-		
-		if (GameModele.pirateBoat.getBall()==EnumCannonBall.Basic) {
+		barreVieMer.paint(g);
+		barreVieTerre.paint(g);
+
+		switch (GameModele.pirateBoat.getBall()) {
+		case Basic:
 			cannonBallBox.setSelectedBox(boxBoulet1);
-		} else if (GameModele.pirateBoat.getBall()==EnumCannonBall.Stunt) {
+			break;
+		case Stunt:
 			cannonBallBox.setSelectedBox(boxBoulet2);
-		} else if (GameModele.pirateBoat.getBall()==EnumCannonBall.KrakenSlayer) {
+			break;
+		case KrakenSlayer:
 			cannonBallBox.setSelectedBox(boxBoulet3);
-		} else if (GameModele.pirateBoat.getBall()==EnumCannonBall.Damaged) {
+			break;
+		default:
 			cannonBallBox.setSelectedBox(boxBoulet4);
+			break;
 		}
 
 		cannonBallBox.paint(g);
 
+		boxPlayer1 = new UIBoxes(50, 602);
+		weaponPlayer1 = new UIBox(50, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 2F),
+				new UIImage(0, 0, "resources/img/logo-pirate-1.png", 1F));
+		boxPlayer1.addBox(weaponPlayer1);
+		boxPlayer1.paint(g);
+
 		if (!GameModele.solo) {
-			boxPlayer1 = new UIBoxes(50, 602);
-			if (GameModele.player1.weapon.getName() == "Sword") {
-				weaponPlayer1 = new UIBox(50, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 2F),
-						new UIImage(0, 0, "resources/img/logo-pirate-1.png", 1F));
-			} else {
-				weaponPlayer1 = new UIBox(50, 602, 64, new UIImage(0, 0, "resources/img/Scythe.png", 2F),
-						new UIImage(0, 0, "resources/img/logo-pirate-1.png", 1F));
-			}
-			boxPlayer1.addBox(weaponPlayer1);
-			boxPlayer1.paint(g);
 			boxPlayer2 = new UIBoxes(910, 602);
-			if (GameModele.player2.weapon.getName() == "Sword") {
-				weaponPlayer2 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 2F),
-						new UIImage(0, 0, "resources/img/logo-pirate-2.png", 1F));
-			} else {
-				weaponPlayer2 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Scythe.png", 2F),
-						new UIImage(0, 0, "resources/img/logo-pirate-2.png", 1F));
-			}
+			weaponPlayer2 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 2F),
+					new UIImage(0, 0, "resources/img/logo-pirate-2.png", 1F));
 			boxPlayer2.addBox(weaponPlayer2);
 			boxPlayer2.paint(g);
-		} else {
-			boxPlayer1 = new UIBoxes(910, 602);
-			if (GameModele.player1.weapon.getName() == "Sword") {
-				weaponPlayer1 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 2F),
-						new UIImage(0, 0, "resources/img/logo-pirate-1.png", 1F));
-			} else {
-				weaponPlayer1 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Scythe.png", 2F),
-						new UIImage(0, 0, "resources/img/logo-pirate-1.png", 1F));
-			}
-			boxPlayer1.addBox(weaponPlayer1);
-			boxPlayer1.paint(g);
 		}
 
 		labelTimer.setText(GameModele.timer.toString());
 		labelTimer.paint(g);
 
-		if (Controller.getBuffer().isBuffered("m") ) { // Quand M push
+		if (Controller.getBuffer().isBuffered("m")) { // Quand M push
 			GameModele.map.getMiniMap().paint(g, width, height);
 		}
 		GameModele.map.getSectionTitle().paint(g, width, height);
@@ -285,21 +310,11 @@ public class PlayingView extends View {
 		healthBonusImage.paint(g);
 		rangeBonusImage.paint(g);
 		speedBonusImage.paint(g);
-		
-		attackSpeedBonusLabel.setText(Float.toString(GameModele.player1.getAttackspeedCoeff()));
+
 		attackSpeedBonusLabel.paint(g);
-		
-		damageBonusLabel.setText(Float.toString(GameModele.player1.getDamageCoeff()));
 		damageBonusLabel.paint(g);
-		
-		healthBonusLabel.setText(Float.toString(GameModele.player1.getMaxLifePointsCoeff()));
 		healthBonusLabel.paint(g);
-		
-		rangeBonusLabel.setText(Float.toString(GameModele.player1.getRangeCoeff()));
 		rangeBonusLabel.paint(g);
-		
-		speedBonusLabel.setText(Float.toString(GameModele.player1.getSpeedCoeff()));
 		speedBonusLabel.paint(g);
 	}
-
 }

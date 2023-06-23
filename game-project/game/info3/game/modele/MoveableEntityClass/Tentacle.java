@@ -41,6 +41,9 @@ public class Tentacle extends Ennemy {
 		
 		this.reloadTimeMili = 0;
 		this.reloadTimeSec = 1;
+		
+		TentacleAvatar tentacle = (TentacleAvatar)this.avatar;
+		tentacle.setTentacleNumber(this.number * 3);
 	}
 
 	@Override

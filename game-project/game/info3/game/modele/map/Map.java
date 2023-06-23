@@ -575,31 +575,24 @@ public class Map {
 	}
 
 	private int getRangeOfWave(int section) {
-		int waveRange;
 		switch (this.map[section].getSeaType()) {
 		case HARBOR:
 		case CALM_SEA:
 		case CALM_SEA_TO_STORMY_SEA:
-			waveRange = 25;
-			break;
+			return 25;
 		case STORMY_SEA:
 		case STORMY_SEA_FROM_CALM_SEA:
 		case STORMY_SEA_TO_RAGING_SEA:
-			waveRange = 35;
-			break;
+			return 35;
 		case RAGING_SEA:
 		case RAGING_SEA_FROM_STORMY_SEA:
 		case CRAB_KING_SEA:
 		case KRAKEN_SEA:
 		case MOUTAIN:
-			waveRange = 45;
-			break;
+			return 45;
 		default:
-			waveRange = 0;
-			break;
+			return 0;
 		}
-
-		return waveRange;
 	}
 
 	/*
@@ -632,30 +625,6 @@ public class Map {
 				}
 			}
 		}
-
-		for (int i = 0; i < this.sectionWidth; i++) {
-			this.wave[maxX][i] = temp[i];
-		}
-	}
-
-	/*
-	 * The wave cicle torward the South
-	 */
-	public void cicleWaveSouth() {
-		double temp[] = new double[this.sectionWidth];
-		for (int i = 0; i < this.sectionWidth; i++) {
-			temp[i] = this.wave[0][i];
-		}
-
-		for (int i = 0; i < this.nbSection; i++) {
-			for (int j = 0; j < (i == this.nbSection - 1 ? this.sectionHeight - 1 : this.sectionHeight); j++) {
-				for (int k = 0; k < this.sectionWidth; k++) {
-					this.wave[i * this.sectionHeight + j][k] = this.wave[i * this.sectionHeight + (j + 1)][k];
-				}
-			}
-		}
-
-		int maxX = this.nbSection * this.sectionHeight - 1;
 
 		for (int i = 0; i < this.sectionWidth; i++) {
 			this.wave[maxX][i] = temp[i];

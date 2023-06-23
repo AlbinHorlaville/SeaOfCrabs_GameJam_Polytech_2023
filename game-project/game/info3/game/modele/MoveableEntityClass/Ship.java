@@ -34,31 +34,33 @@ public class Ship extends Ennemy {
 	}
 
 	public void move() {
-		// Nearer pirate to me
-		BoatPlayer closestPlayer = this.closestBoatToMe();
+		if ((int) tick(this.timeElapsed) % 3 == 0) {
+			// Nearer pirate to me
+			BoatPlayer closestPlayer = this.closestBoatToMe();
 
-		// Get next coordinate
-		int nextX = this.x;
-		int nextY = this.y;
+			// Get next coordinate
+			int nextX = this.x;
+			int nextY = this.y;
 
-		if (this.x > closestPlayer.x)
-			nextX--;
-		else if (this.x < closestPlayer.x)
-			nextX++;
+			if (this.x > closestPlayer.x)
+				nextX--;
+			else if (this.x < closestPlayer.x)
+				nextX++;
 
-		if (this.y > closestPlayer.y)
-			nextY--;
-		else if (this.y < closestPlayer.y)
-			nextY++;
+			if (this.y > closestPlayer.y)
+				nextY--;
+			else if (this.y < closestPlayer.y)
+				nextY++;
 
-//		int nextX = this.x - ((this.x - closestPlayer.x) * 1);
-//		int nextY = this.y - ((this.y - closestPlayer.y) * 1);
+//			int nextX = this.x - ((this.x - closestPlayer.x) * 1);
+//			int nextY = this.y - ((this.y - closestPlayer.y) * 1);
 
-		// Can the the tile be moved on buy a crab
-		Tiles tile = GameModele.map.getTileUnderEntity(nextX, nextY);
-		if (tile.isWater() && (int) tick(this.timeElapsed) % 3 == 0) {
-			this.x = nextX;
-			this.y = nextY;
+			// Can the the tile be moved on buy a crab
+			Tiles tile = GameModele.map.getTileUnderEntity(nextX, nextY);
+			if (tile.isWater()) {
+				this.x = nextX;
+				this.y = nextY;
+			}
 		}
 	}
 
@@ -81,7 +83,7 @@ public class Ship extends Ennemy {
 		int timeSec = GameModele.timer.getSecondes();
 
 		if (!this.reloading) {
-			GameModele.map.setDamaging(GameModele.getCurrentPlayerX(), GameModele.getCurrentPlayerY());
+			GameModele.map.setDamaging(GameModele.pirateBoat.getCenterX(), GameModele.pirateBoat.getCenterY());
 			this.reloading = true;
 			this.timerAttackMili = timeMili;
 			this.timerAttackSec = timeSec;
@@ -92,7 +94,8 @@ public class Ship extends Ennemy {
 
 	@Override
 	public void die() {
-		Rhum rhum = new Rhum(this.x, this.y, GameModele.map.getMap()[GameModele.map.getSectionOfEntity(this.x, this.y)]);
+		Rhum rhum = new Rhum(this.x, this.y,
+				GameModele.map.getMap()[GameModele.map.getSectionOfEntity(this.x, this.y)]);
 		GameModele.entities.add(rhum);
 		GameModele.entities.remove(this);
 
@@ -100,17 +103,18 @@ public class Ship extends Ennemy {
 
 	@Override
 	public boolean closest(EnumCategory cat) {
+		
+		int height = GameModele.map.getSectionHeight();
 
 		Tiles tileUnderPlayer = GameModele.map.getTileUnderEntity(GameModele.getCurrentPlayerX(),
 				GameModele.getCurrentPlayerY());
 		Tiles tileUnderThis = GameModele.map.getTileUnderEntity(this.x, this.y);
 
-		int playerTileY = GameModele.map.getSectionOfEntity(GameModele.getCurrentPlayerX(),
-				GameModele.getCurrentPlayerY()) * GameModele.map.getSectionHeight() + GameModele.map.getSectionHeight()
+		int playerTileY = GameModele.currentSection * height + height
 				- tileUnderPlayer.getTileY();
 
-		int EntityTileY = GameModele.map.getSectionOfEntity(this.x, this.y) * GameModele.map.getSectionHeight()
-				+ GameModele.map.getSectionHeight() - tileUnderThis.getTileY();
+		int EntityTileY = GameModele.map.getSectionOfEntity(this.x, this.y) * height
+				+ height - tileUnderThis.getTileY();
 
 		switch (cat) {
 		case A:

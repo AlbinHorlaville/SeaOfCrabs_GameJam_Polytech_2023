@@ -46,7 +46,7 @@ public class GameView {
 	private View currentView;
 	Controller controller;
 
-	HashMap<GameState, View> all_views;
+	public static HashMap<GameState, View> all_views;
 
 	BufferedImage backgroundImage;
 

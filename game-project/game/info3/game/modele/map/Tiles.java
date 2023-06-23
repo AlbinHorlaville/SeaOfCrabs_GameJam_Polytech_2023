@@ -111,15 +111,11 @@ public class Tiles {
 
 	public void update() {
 		if (this.isWaterPreDamage()) {
-			if (this.preDamagingTick > 0) {
-				this.preDamagingTick--;
-			} else {
+			if (this.preDamagingTick-- <= 0) {
 				this.setDamaging();
 			}
 		} else {
-			if (this.damagingTick > 0) {
-				this.damagingTick--;
-			} else {
+			if (this.damagingTick-- <= 0) {
 				this.setNotDamaging();
 			}
 		}
@@ -275,6 +271,36 @@ public class Tiles {
 				|| this.type == EnumTiles.STORMY_SEA_CHEST || this.type == EnumTiles.RAGING_SEA_CHEST;
 	}
 
+	public boolean isBasicTiles() {
+		return this.type == EnumTiles.CALM_WATER || this.type == EnumTiles.GRASS || this.type == EnumTiles.STORMY_WATER
+				|| this.type == EnumTiles.RAGING_WATER || this.type == EnumTiles.SAND
+				|| this.type == EnumTiles.KRAKEN_WATER || this.type == EnumTiles.HARBOR_SAND
+				|| this.type == EnumTiles.MOUTAIN || this.type == EnumTiles.SAND_WATER
+				|| this.type == EnumTiles.STORMY_SAND_WATER || this.type == EnumTiles.RAGING_SAND_WATER
+				|| this.type == EnumTiles.HARBOR_SAND || this.type == EnumTiles.SHELLFISH_1
+				|| this.type == EnumTiles.SHELLFISH_2 || this.type == EnumTiles.SHELLFISH_3
+				|| this.type == EnumTiles.BLUE_FLOWER || this.type == EnumTiles.YELLOW_FLOWER
+				|| this.type == EnumTiles.RED_FLOWER || this.type == EnumTiles.GRASS_WITH_ROCK_1
+				|| this.type == EnumTiles.GRASS_WITH_ROCK_2 || this.type == EnumTiles.TRANSITION_GRASS_UNDER_SAND
+				|| this.type == EnumTiles.TRANSITION_GRASS_ON_TOP_OF_SAND
+				|| this.type == EnumTiles.TRANSITION_GRASS_ON_LEFT_OF_SAND
+				|| this.type == EnumTiles.TRANSITION_GRASS_ON_RIGHT_OF_SAND
+				|| this.type == EnumTiles.TRANSITION_GRASS_ON_TOP_AND_UNDER_OF_SAND
+				|| this.type == EnumTiles.TRANSITION_GRASS_UNDER_AND_ON_LEFT_OF_SAND
+				|| this.type == EnumTiles.TRANSITION_GRASS_UNDER_AND_ON_RIGHT_OF_SAND
+				|| this.type == EnumTiles.TRANSITION_GRASS_ON_TOP_AND_ON_LEFT_OF_SAND
+				|| this.type == EnumTiles.TRANSITION_GRASS_ON_TOP_AND_ON_RIGHT_OF_SAND
+				|| this.type == EnumTiles.TRANSITION_GRASS_ON_LEFT_AND_ON_RIGHT_OF_SAND
+				|| this.type == EnumTiles.TRANSITION_GRASS_UNDER_AND_ON_LEFT_AND_ON_TOP_OF_SAND
+				|| this.type == EnumTiles.TRANSITION_GRASS_UNDER_AND_ON_RIGHT_AND_ON_TOP_OF_SAND
+				|| this.type == EnumTiles.TRANSITION_GRASS_UNDER_AND_ON_LEFT_AND_ON_RIGHT_OF_SAND
+				|| this.type == EnumTiles.TRANSITION_GRASS_ON_RIGHT_AND_ON_LEFT_AND_ON_TOP_OF_SAND
+				|| this.type == EnumTiles.TRANSITION_GRASS_ANGLE_SAND_TOP_LEFT
+				|| this.type == EnumTiles.TRANSITION_GRASS_ANGLE_SAND_TOP_RIGHT
+				|| this.type == EnumTiles.TRANSITION_GRASS_ANGLE_SAND_BOTTOM_LEFT
+				|| this.type == EnumTiles.TRANSITION_GRASS_ANGLE_SAND_BOTTOM_RIGHT;
+	}
+
 	public boolean isSand() {
 		return this.type == EnumTiles.SAND_WATER || this.type == EnumTiles.STORMY_SAND_WATER
 				|| this.type == EnumTiles.RAGING_SAND_WATER || this.type == EnumTiles.SAND
@@ -337,7 +363,7 @@ public class Tiles {
 	public boolean isTree() {
 		return this.type == EnumTiles.TREE;
 	}
-	
+
 	public boolean isBoatEnnemi() {
 		return this.type == EnumTiles.CALM_SEA_ENNEMIE || this.type == EnumTiles.RAGING_SEA_ENNEMIE
 				|| this.type == EnumTiles.STORMY_SEA_ENNEMIE;

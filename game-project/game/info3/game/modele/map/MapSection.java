@@ -1144,7 +1144,7 @@ public class MapSection {
 		for (int i = 0; i < this.sectionHeight; i++) {
 			for (int j = 0; j < this.sectionWidth; j++) {
 				if (this.tiles[i][j].getType() == EnumTiles.GRASS) {
-					rand = this.randomGenerator.nextInt(12);
+					rand = this.randomGenerator.nextInt(20);
 					if (rand == 5) {
 						this.tiles[i][j].setType(EnumTiles.TREE);
 					}

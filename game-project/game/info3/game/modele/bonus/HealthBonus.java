@@ -1,14 +1,17 @@
 package info3.game.modele.bonus;
 
+import info3.game.GameState;
 import info3.game.modele.GameModele;
 import info3.game.modele.StillEntityClass.Bonus;
 import info3.game.modele.map.MapSection;
+import info3.game.vue.GameView;
 import info3.game.vue.avatar.BonusAvatar;
+import info3.game.vue.view.PlayingView;
 
 public class HealthBonus extends Bonus {
-	
+
 	public final float BONUS_APPLIED = 1;
-	
+
 	public HealthBonus(MapSection mapSection) {
 		super(mapSection);
 		setAvatar(new BonusAvatar(this));
@@ -17,11 +20,13 @@ public class HealthBonus extends Bonus {
 	@Override
 	public void power() {
 		GameModele.player1.addMaxLifePointsCoeff(this.BONUS_APPLIED);
+		((PlayingView) GameView.all_views.get(GameState.Jeu)).healthBonusLabel
+				.setText(Float.toString(GameModele.player1.getMaxLifePointsCoeff()));
 	}
 
 	@Override
 	public void move() {
-		setX(getX()+1);
+		setX(getX() + 1);
 	}
 
 }
