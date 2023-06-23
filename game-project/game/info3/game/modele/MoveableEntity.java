@@ -65,7 +65,7 @@ public abstract class MoveableEntity extends Entity {
 	}
 
 	public void setDamage(float m_damage) {
-		this.m_damage = m_damage;
+		this.m_damage = (int) m_damage;
 	}
 
 }
