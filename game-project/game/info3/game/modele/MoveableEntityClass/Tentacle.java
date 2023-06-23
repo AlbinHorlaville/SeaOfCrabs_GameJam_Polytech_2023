@@ -10,8 +10,8 @@ import info3.game.vue.avatar.TentacleAvatar;
 
 public class Tentacle extends Ennemy {
 
-	private final static int LIFEPOINT = 100;
-	private final static int DAMAGE = 0;
+	private final static int LIFEPOINT = 200;
+	private final static int DAMAGE = 50;
 
 	private int timerAttackMili;
 	private int timerAttackSec;
@@ -33,7 +33,6 @@ public class Tentacle extends Ennemy {
 		this.avatar = new TentacleAvatar(this);
 
 		this.reloading = false;
-
 		GameModele.entities.add(this);
 	}
 

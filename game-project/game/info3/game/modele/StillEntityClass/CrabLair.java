@@ -16,7 +16,7 @@ import info3.game.vue.avatar.CrabslairAvatar;
 public class CrabLair extends StillEntity{
 	
 	public static final int SCRAB_SPANWING_RANGE = 1500;
-	public static final int DEFAULT_CRAB_NUMBER = 5;
+	public static final int DEFAULT_CRAB_NUMBER = 2;
 	
 	private int m_level;
 	private int m_nbCrabsToEgg;
@@ -30,7 +30,7 @@ public class CrabLair extends StillEntity{
 		super(x,y);
 		this.m_level = level;
 		m_section.setCrabLair(this);
-		this.m_nbCrabsToEgg = (int) ((float)DEFAULT_CRAB_NUMBER * (new Level(m_level)).getCoeffBasedOnLevel());
+		this.m_nbCrabsToEgg = DEFAULT_CRAB_NUMBER + Level.getNbCrabsToEgg(level);
 		this.m_nbCrabsAlive = this.m_nbCrabsToEgg;
 		this.m_section = m_section;
 		this.m_section.setCrabLair(this);

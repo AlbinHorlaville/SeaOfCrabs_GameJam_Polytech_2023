@@ -9,6 +9,7 @@ import info3.game.vue.avatar.BasicCannonBallAvatar;
 
 public class BasicCannonBall extends CannonBall {
 
+	static final int BASIC_DAMAGE = 20;
 
 	public BasicCannonBall() {
 		super(BASIC_DAMAGE, BASIC_RANGE, BASIC_RATE_OF_FIRE);

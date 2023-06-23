@@ -13,7 +13,6 @@ import info3.game.vue.avatar.Avatar;
 import info3.game.vue.avatar.CrabAvatar;
 import java.lang.Math;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Crab extends Ennemy {
 	
@@ -23,13 +22,11 @@ public class Crab extends Ennemy {
 	public final static int HIT_BOX = 50;
 
 	private CrabLair m_crabLair;
-	protected float m_coeff;
 
 	public Crab(int level, CrabLair crabLair) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE, HIT_BOX);
-		this.m_coeff = (new Level(level)).getCoeffBasedOnLevel();
-		this.m_healthPoints *= this.m_coeff;
-		this.m_damage *= this.m_coeff;
+		this.m_healthPoints += Level.getAugmentLifeCrab(level);
+		this.m_damage += Level.getAugmentDamageCrab(level);
 		this.m_crabLair = crabLair;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Crab);
 		this.current_state = automate.initial_state;
@@ -39,10 +36,9 @@ public class Crab extends Ennemy {
 	
 	public Crab(int level, CrabLair crabLair, int x, int y) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE, HIT_BOX, x, y);
-		this.m_coeff = (new Level(level)).getCoeffBasedOnLevel();
 		this.avatar = new CrabAvatar(this);
-		this.m_healthPoints *= this.m_coeff;
-		this.m_damage *= this.m_coeff;
+		this.m_healthPoints += Level.getAugmentLifeCrab(level);
+		this.m_damage += Level.getAugmentDamageCrab(level);
 		this.m_crabLair = crabLair;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Crab);
 		this.current_state = automate.initial_state;
@@ -333,14 +329,6 @@ public class Crab extends Ennemy {
 	public void setCrabLair(CrabLair m_crabLair) {
 		this.m_crabLair = m_crabLair;
 	}
-
-	public float getCoeff() {
-		return m_coeff;
-	}
-
-	public void setCoeff(float m_coeff) {
-		this.m_coeff = m_coeff;
-	}	
 	
 	public boolean gotPower() {
 		return this.m_healthPoints > 0;
