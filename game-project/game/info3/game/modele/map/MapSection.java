@@ -446,7 +446,7 @@ public class MapSection {
 	private void applyHeight(int[][] height) {
 		for (int i = 0; i < this.sectionHeight; i++) {
 			for (int j = 0; j < this.sectionWidth; j++) {
-				if (height[i][j] > 0) {
+				if (height[i][j] >= 0) {
 					this.tiles[i][j].setHeight(-height[i][j]);
 				}
 			}
@@ -457,8 +457,7 @@ public class MapSection {
 
 		for (int i = 0; i < this.sectionHeight; i++) {
 			for (int j = 0; j < this.sectionWidth; j++) {
-				if (this.tiles[i][j].getType() == EnumTiles.KRAKEN_WATER
-						|| this.tiles[i][j].getType() == EnumTiles.RAGING_WATER) {
+				if (this.tiles[i][j].isWater()) {
 					height[i][j] = -1;
 				} else {
 					height[i][j] = -2;
@@ -499,6 +498,14 @@ public class MapSection {
 			}
 			currentHeight++;
 		}
+		
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				if (this.tiles[i][j].isWater()) {
+					height[i][j] = 0;
+				}
+			}
+		}
 
 		return height;
 	}
@@ -525,7 +532,13 @@ public class MapSection {
 				}
 			}
 		}
-
+		
+		for (int i = 0; i < this.sectionWidth; i++) {
+			this.tiles[this.sectionHeight - 1][i].setType(EnumTiles.RAGING_WATER);
+		}
+	}
+	
+	public void openKraken() {
 		for (int i = this.sectionHeight / 2; i < this.sectionHeight; i++) {
 			for (int j = 0; j < 10; j++) {
 				this.tiles[i][this.sectionWidth / 2 + j].setType(EnumTiles.KRAKEN_WATER);
@@ -533,13 +546,19 @@ public class MapSection {
 			}
 		}
 
-		for (int i = 0; i < this.sectionWidth; i++) {
-			this.tiles[this.sectionHeight - 1][i].setType(EnumTiles.RAGING_WATER);
-		}
-
 		for (int i = this.sectionWidth / 2 - 10; i < this.sectionWidth / 2 + 10; i++) {
 			this.tiles[this.sectionHeight - 1][i].setType(EnumTiles.KRAKEN_WATER);
 		}
+		
+		int[][] height = new int[this.sectionHeight][this.sectionWidth];
+		
+		for (int i = 0; i < this.sectionHeight; i++) {
+			for (int j = 0; j < this.sectionWidth; j++) {
+				height[i][j] = 0;
+			}
+		}
+		height = generateHeight(height);
+		applyHeight(height);
 	}
 
 	/*

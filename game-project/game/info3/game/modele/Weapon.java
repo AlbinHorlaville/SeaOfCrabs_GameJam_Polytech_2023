@@ -3,6 +3,7 @@ package info3.game.modele;
 import java.util.ArrayList;
 
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
+import info3.game.modele.StillEntityClass.Treasure;
 import info3.game.modele.StillEntityClass.Tree;
 import info3.game.vue.GameView;
 import info3.game.vue.avatar.Avatar;
@@ -91,6 +92,7 @@ public abstract class Weapon extends MoveableEntity {
 						if (eCenterY + e.r >= tempY && eCenterY - e.r <= tempY + (int)(range*rangeCoeff)) {
 							// System.out.println("touché N " + e.getClass());
 							e.takeDamage((int)(damage * damageCoeff));
+
 						}
 					}
 					break;
@@ -101,6 +103,7 @@ public abstract class Weapon extends MoveableEntity {
 						if (eCenterY - e.r <= tempY && eCenterY + e.r >= tempY - (int)(range*rangeCoeff)) {
 							// System.out.println("touché S " + e.getClass());
 							e.takeDamage((int)(damage * damageCoeff));
+
 						}
 					}
 					break;
@@ -111,6 +114,7 @@ public abstract class Weapon extends MoveableEntity {
 						if (eCenterX - e.r <= tempX && eCenterX + e.r >= tempX - (int)(range*rangeCoeff)) {
 							// System.out.println("touché E " + e.getClass());
 							e.takeDamage((int)(damage * damageCoeff));
+
 						}
 					}
 					break;
@@ -120,7 +124,7 @@ public abstract class Weapon extends MoveableEntity {
 					if (eCenterY + e.r >= tempY + player.getAvatar().getWidth()/4 - height / 2 && eCenterY - e.r <= tempY - player.getAvatar().getWidth()/4 + height / 2)
 						if (eCenterX + e.r >= tempX && eCenterX - e.r <= tempX + (int)(range*rangeCoeff)) {
 							// System.out.println("touché W " + e.getClass());
-							e.takeDamage((int)(damage * damageCoeff));
+							e.takeDamage((int)(damage * damageCoeff));							
 						}
 					break;
 				}

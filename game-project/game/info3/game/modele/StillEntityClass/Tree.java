@@ -14,7 +14,6 @@ public class Tree extends StillEntity {
 	
 	private int healthPoints;
 	private int healthPointsToHeal;
-	private float coeff;
 	
 	public Tree(int level) { // mettre le numéro du tronçon
 		super();
