@@ -32,7 +32,7 @@ public abstract class CannonBall extends MoveableEntity {
 	static final int BASIC_DAMAGE = 20; // A modifier
 	static final int BASIC_RANGE = 2000;
 	static final int BASIC_RATE_OF_FIRE = 1;
-	
+
 	public Entity ennemyAimed;
 
 	public CannonBall(int damage, int range, int rateOfFire) {
@@ -43,10 +43,10 @@ public abstract class CannonBall extends MoveableEntity {
 		fire = false;
 		startX = 500;
 		startY = 500;
-		GameModele.entities.add(this);
 		this.automate = AutomateLoader.findAutomate(GameEntity.CannonBall);
 		this.current_state = automate.initial_state;
 		SoundTool.playSoundEffect(SoundEffect.BoatAttack, 0);
+		GameModele.entities.add(this);
 	}
 
 	public void setPositions(int x, int y, int endX, int endY) {

@@ -9,6 +9,7 @@ import info3.game.Controller;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.map.Tiles;
+import info3.game.vue.avatar.DamagedCannonBallAvatar;
 
 public class BoatPlayer extends Player {
 
@@ -182,6 +183,12 @@ public class BoatPlayer extends Player {
 				case Stunt:
 					b = new StunningCannonBall();
 					break;
+				case KrakenSlayer:
+					b = new KrakenSlayerCannonBall();
+					break;
+				case Damaged:
+					b = new DamagedCannonBall();
+					break;
 				default:
 					return;
 				}
@@ -210,10 +217,16 @@ public class BoatPlayer extends Player {
 		case O:
 			currentBall = EnumCannonBall.Basic;
 			break;
-			
-		
 		case A:
 			currentBall = EnumCannonBall.Stunt;
+			break;
+		case D:
+			currentBall = EnumCannonBall.KrakenSlayer;
+			break;
+		case G:
+			currentBall = EnumCannonBall.Damaged;
+			break;
+		default:
 			break;
 		}
 	}

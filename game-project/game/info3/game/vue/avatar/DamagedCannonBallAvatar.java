@@ -9,15 +9,15 @@ import info3.game.vue.GameView;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
-public class StunningCannonBallAvatar extends Avatar{
+public class DamagedCannonBallAvatar extends Avatar{
 
 	
 	public static int SCALE_CANNON_BALL = GameView.SCALE/2;
 
-	public StunningCannonBallAvatar(Entity entity) {
+	public DamagedCannonBallAvatar(Entity entity) {
 		super(entity);
 		m_images = SpriteLoader.get(SpriteType.CannonBall);
-		imageIndex = 2;
+		imageIndex = 1;
 	}
 
 	@Override
