@@ -103,6 +103,11 @@ public class ScoreView extends View {
 
 		addComponent(buttonRetour);
 		addComponent(buttonScore);
+		if (GameModele.bestUserScore!=null) {
+			addComponent(new UILabel(windowWidth/2-200, windowHeight/2-100, "My best score : "+GameModele.bestUserScore.toSQLStringFormat(), FONT3, Color.black));
+		} else {
+			addComponent(new UILabel(windowWidth/2-230, windowHeight/2-50, "Please connect to database to see your best score", FONT4, Color.black));
+		}
 		addComponent(new UILabel(windowWidth/2-280, windowHeight/2-20, "You can consult the Sea Of Crabs world ranking by clicking here", FONT4, Color.black));
 		addComponent(title);
 		if (SeaOfCrabes.connectedToDatabase) {
