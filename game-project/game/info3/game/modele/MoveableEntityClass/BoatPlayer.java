@@ -9,6 +9,7 @@ import info3.game.Controller;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.map.Tiles;
+import info3.game.vue.avatar.DamagedCannonBallAvatar;
 
 public class BoatPlayer extends Player {
 
@@ -26,6 +27,10 @@ public class BoatPlayer extends Player {
 	public boolean invincible;
 	public int timerInvicibleMili;
 	public int timerInvicibleSec;
+	
+	private int timerAttackMili;
+	private int timerAttackSec;
+	private boolean reloading;
 
 	public BoatPlayer() {
 		super(DEFAULT_BOATPLAYER_LIFE_POINT, 0, DEFAULT_MAX_BOATPLAYER_LIFE_POINT);
@@ -43,7 +48,7 @@ public class BoatPlayer extends Player {
 		bouletDeCannon = new HashMap<>();
 		for(EnumCannonBall ball : EnumCannonBall.values()) {
 			if (ball != EnumCannonBall.Basic) {
-				bouletDeCannon.put(ball, 5);
+				bouletDeCannon.put(ball, 0);
 			}
 		}
 		
@@ -161,23 +166,45 @@ public class BoatPlayer extends Player {
 
 	public void startFire(int mouseX, int mouseY) { // A changer
 		// A modifier pour choisir le boulet de cannon à tirer
-		CannonBall b = null;
-		if (EnumCannonBall.Basic == currentBall) {
-			b = new BasicCannonBall();
-			b.setPositions(this.x, this.y, mouseX, mouseY);
-			b.fire();
-		} else if (getAmount(currentBall) != 0) {
-			this.bouletDeCannon.replace(currentBall, getAmount(currentBall)-1);
-			switch (currentBall) {
-			case Stunt:
-				b = new StunningCannonBall();
-				break;
-			default:
-				return;
+		
+		int timeMili = GameModele.timer.getMiliSecondes();
+		int timeSec = GameModele.timer.getSecondes();
+
+		if (!this.reloading) {
+			
+			CannonBall b = null;
+			if (EnumCannonBall.Basic == currentBall) {
+				b = new BasicCannonBall();
+				b.setPositions(this.x, this.y, mouseX, mouseY);
+				b.fire();
+			} else if (getAmount(currentBall) != 0) {
+				this.bouletDeCannon.replace(currentBall, getAmount(currentBall)-1);
+				switch (currentBall) {
+				case Stunt:
+					b = new StunningCannonBall();
+					break;
+				case KrakenSlayer:
+					b = new KrakenSlayerCannonBall();
+					break;
+				case Damaged:
+					b = new DamagedCannonBall();
+					break;
+				default:
+					return;
+				}
+				b.setPositions(this.x, this.y, mouseX, mouseY);
+				b.fire();
 			}
-			b.setPositions(this.x, this.y, mouseX, mouseY);
-			b.fire();
+			
+			//this.reloading = true;
+			this.timerAttackMili = timeMili;
+			this.timerAttackSec = timeSec;
+		} else if (timerAttackMili <= timeMili && timerAttackSec + 1 <= timeSec) {
+			this.reloading = false;
 		}
+		
+		
+		
 	}
 		
 	public int getAmount(EnumCannonBall ball) {
@@ -190,10 +217,16 @@ public class BoatPlayer extends Player {
 		case O:
 			currentBall = EnumCannonBall.Basic;
 			break;
-			
-		
 		case A:
 			currentBall = EnumCannonBall.Stunt;
+			break;
+		case D:
+			currentBall = EnumCannonBall.KrakenSlayer;
+			break;
+		case G:
+			currentBall = EnumCannonBall.Damaged;
+			break;
+		default:
 			break;
 		}
 	}

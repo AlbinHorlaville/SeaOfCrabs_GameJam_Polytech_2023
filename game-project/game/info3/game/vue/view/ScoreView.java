@@ -38,6 +38,7 @@ public class ScoreView extends View {
 				new UILabel(0, 0, "See World Ranking", FONT1, Color.black), UIButton.BACKGROUND_COLOR_YELLOW);
 
 		title = new UITitle(windowWidth, windowHeight, "Score", FONT2, Color.black);
+		
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
@@ -72,11 +73,10 @@ public class ScoreView extends View {
 			public void onComponentClicked(int x, int y) {
 				Desktop desktop = java.awt.Desktop.getDesktop();
 				try {
-					URI oURL = new URI("http://seaofcrabs.000webhostapp.com/pages/home.php");
+					URI oURL = new URI("http://seaofcrabs.000webhostapp.com/pages/ranking.php");
 					desktop.browse(oURL);
 				} catch (URISyntaxException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					return;
 				}
 			}
 
@@ -103,6 +103,11 @@ public class ScoreView extends View {
 
 		addComponent(buttonRetour);
 		addComponent(buttonScore);
+		if (GameModele.bestUserScore!=null) {
+			addComponent(new UILabel(windowWidth/2-200, windowHeight/2-100, "My best score : "+GameModele.bestUserScore.toSQLStringFormat(), FONT3, Color.black));
+		} else {
+			addComponent(new UILabel(windowWidth/2-230, windowHeight/2-50, "Please connect to database to see your best score", FONT4, Color.black));
+		}
 		addComponent(new UILabel(windowWidth/2-280, windowHeight/2-20, "You can consult the Sea Of Crabs world ranking by clicking here", FONT4, Color.black));
 		addComponent(title);
 		if (SeaOfCrabes.connectedToDatabase) {

@@ -18,7 +18,6 @@ public abstract class Weapon extends MoveableEntity {
 	protected String name;
 	protected int damage;
 	public int range;
-	protected double alpha;
 	public int tempX;
 	public int tempY;
 	public int width;
@@ -26,12 +25,10 @@ public abstract class Weapon extends MoveableEntity {
 
 	private boolean attacking; // Sert à l'animation de l'arme
 
-	public Weapon(String name, int damage, int range, double alpha) {
+	public Weapon(String name, int range) {
 		super(0, 0, 0);
 		this.name = name;
-		this.damage = damage;
 		this.range = range;
-		this.alpha = alpha;
 	}
 
 	/*
@@ -137,6 +134,7 @@ public abstract class Weapon extends MoveableEntity {
 
 	public void setPlayer(PiratePlayer player) {
 		this.player = player;
+		this.damage = player.getDamage();
 	}
 
 	public String getName() {

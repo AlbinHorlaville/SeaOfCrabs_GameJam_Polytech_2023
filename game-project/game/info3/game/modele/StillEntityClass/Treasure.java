@@ -1,5 +1,7 @@
 package info3.game.modele.StillEntityClass;
 
+import java.util.Random;
+
 import automate.AutomateLoader;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
@@ -50,8 +52,9 @@ public class Treasure extends StillEntity {
 	
 	@Override
 	public void power() {
-		System.out.println("TRIGGER");
-		GameModele.pirateBoat.addBoulet(EnumCannonBall.Stunt, m_mapSection.getSectionNumber());
+		Random ran = new Random();
+		EnumCannonBall[] listeBall = EnumCannonBall.values();
+		GameModele.pirateBoat.addBoulet(listeBall[ran.nextInt(listeBall.length)], m_mapSection.getSectionNumber());
 	}
 	
 	public boolean gotPower() {

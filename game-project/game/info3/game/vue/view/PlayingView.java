@@ -62,15 +62,15 @@ public class PlayingView extends View {
 		cannonBallBox.addBox(boxSword);
 		cannonBallBox.addBox(boxScythe);*/
 		
-		boxBoulet1 = new UIBox(64, EnumCannonBall.Basic, new UIImage(0, 0, "assets/img/utilities/BouletDeCanon.png", 1F));
-		boxBoulet2 = new UIBox(64, EnumCannonBall.Stunt, new UIImage(0, 0, "assets/img/utilities/CannonBallStunt.png", 1F));
-		//boxBoulet3 = new UIBox(64, new BasicCannonBall(), new UIImage(0, 0, "assets/img/utilities/BouletDeCanon.png", 1F));
-		//boxBoulet4 = new UIBox(64, new BasicCannonBall(), new UIImage(0, 0, "assets/img/utilities/BouletDeCanon.png", 1F));
+		boxBoulet1 = new UIBox(64, EnumCannonBall.Basic, new UIImage(0, 0, SpriteLoader.get(SpriteType.CannonBall)[0], 1F));
+		boxBoulet2 = new UIBox(64, EnumCannonBall.Stunt, new UIImage(0, 0,SpriteLoader.get(SpriteType.CannonBall)[2], 1F));
+		boxBoulet3 = new UIBox(64, EnumCannonBall.KrakenSlayer, new UIImage(0, 0, SpriteLoader.get(SpriteType.CannonBall)[4], 1F));
+		boxBoulet4 = new UIBox(64, EnumCannonBall.Damaged, new UIImage(0, 0, SpriteLoader.get(SpriteType.CannonBall)[1], 1F));
 		
 		cannonBallBox.addBox(boxBoulet1);
 		cannonBallBox.addBox(boxBoulet2);
-		//cannonBallBox.addBox(boxBoulet3);
-		//cannonBallBox.addBox(boxBoulet4);
+		cannonBallBox.addBox(boxBoulet3);
+		cannonBallBox.addBox(boxBoulet4);
 
 		attackSpeedBonusLabel = new UILabel(windowWidth - 375 + 30, 20, "0'", FONT4, Color.black);
 		damageBonusLabel = new UILabel(windowWidth - 300 + 30, 20, "0'", FONT4, Color.black);
@@ -226,6 +226,10 @@ public class PlayingView extends View {
 			cannonBallBox.setSelectedBox(boxBoulet1);
 		} else if (GameModele.pirateBoat.getBall()==EnumCannonBall.Stunt) {
 			cannonBallBox.setSelectedBox(boxBoulet2);
+		} else if (GameModele.pirateBoat.getBall()==EnumCannonBall.KrakenSlayer) {
+			cannonBallBox.setSelectedBox(boxBoulet3);
+		} else if (GameModele.pirateBoat.getBall()==EnumCannonBall.Damaged) {
+			cannonBallBox.setSelectedBox(boxBoulet4);
 		}
 
 		cannonBallBox.paint(g);

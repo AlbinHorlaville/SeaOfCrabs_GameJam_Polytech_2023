@@ -21,6 +21,9 @@ public class Ship extends Ennemy {
 	private int timerAttackSec;
 	private boolean reloading;
 	private MapSection m_mapSection;
+	private boolean stunned;
+	private int timerStunMili;
+	private int timerStunSec;
 
 	public Ship(MapSection mapSection) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE);
@@ -32,7 +35,7 @@ public class Ship extends Ennemy {
 		this.automate = AutomateLoader.findAutomate(GameEntity.Ship);
 		this.current_state = automate.initial_state;
 		GameModele.entities.add(this);
-		
+
 		this.reloading = false;
 	}
 
@@ -66,6 +69,16 @@ public class Ship extends Ennemy {
 	}
 
 	public boolean gotPower() {
+		if (this.stunned) {
+			int timeMili = GameModele.timer.getMiliSecondes();
+			int timeSec = GameModele.timer.getSecondes();
+			if (this.timerStunMili <= timeMili && this.timerStunSec + 1 <= timeSec) {
+				this.stunned = false;
+				this.automate = AutomateLoader.findAutomate(GameEntity.KrakenTentacle);
+				this.current_state = automate.initial_state;
+			}
+		}
+
 		return this.m_healthPoints > 0;
 	}
 
@@ -78,10 +91,9 @@ public class Ship extends Ennemy {
 			this.reloading = true;
 			this.timerAttackMili = timeMili;
 			this.timerAttackSec = timeSec;
-		} else if (timerAttackMili <= timeMili + 20 && timerAttackSec + 1 <= timeSec) {
+		} else if (timerAttackMili <= timeMili && timerAttackSec + 1 <= timeSec) {
 			this.reloading = false;
 		}
-
 	}
 
 	@Override
@@ -118,13 +130,16 @@ public class Ship extends Ennemy {
 		}
 
 	}
-	
+
 	public void stunt() {
-		this.automate = AutomateLoader.findAutomate(GameEntity.Philosopher);
+		this.automate = AutomateLoader.findAutomate(GameEntity.Stunned);
 		this.current_state = automate.initial_state;
+
+		this.stunned = true;
+
+		this.timerStunMili = GameModele.timer.getMiliSecondes();
+		this.timerStunSec = GameModele.timer.getSecondes();
 	}
-	
-	
 
 	private BoatPlayer closestBoatToMe() {
 

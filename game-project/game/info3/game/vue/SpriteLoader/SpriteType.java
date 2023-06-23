@@ -9,7 +9,6 @@ public enum SpriteType {
 	RedCross,
 	Palmer,
 	Cloud,
-	BasicCannonBall, 
 	Crab, 
 	CrabKing,
 	LandTreasure,
@@ -22,6 +21,7 @@ public enum SpriteType {
 	SwordEW,
 	SwordNS,
 	Tentacle,
-	StunningCannonBall,
-	Perroquet
+	Perroquet,
+	Tentacle, 
+	CannonBall
 }

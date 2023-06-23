@@ -129,7 +129,9 @@ PlayerBoat(Init){
   | Key(q) ? Move(W) :(Init)
   | Key(d) ? Move(E) :(Init)
   | Key(1) ? Get(O) : (Init)
-  | Key(2) ? Get(A) : (Init)  
+  | Key(2) ? Get(A) : (Init)
+  | Key(3) ? Get(D) : (Init)
+  | Key(4) ? Get(G) : (Init)  
 }
 
 Crab(Init){
@@ -200,6 +202,13 @@ KrakenTentacle(Init){
  | !GotPower ? : ()
  | Closest() ? Hit : (Init)
  | True ? : (Init)
+ * ()
+}
+
+Stunned(Init){
+ * (Init) :
+ | GotPower ? : (Init)
+ | True ? : ()
  * ()
 }
 
