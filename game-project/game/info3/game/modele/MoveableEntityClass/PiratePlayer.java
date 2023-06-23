@@ -18,7 +18,7 @@ public class PiratePlayer extends Player {
 	// Default stat (at Spawn)
 	private static final int DEFAULT_PIRATEPLAYER_LIFE_POINT = 100;
 	
-	private static final int DEFAULT_PIRATEPLAYER_DAMAGE = 25;
+	private static final int DEFAULT_PIRATEPLAYER_DAMAGE = 50;
 	
 	private static final int DEFAULT_PIRATEPLAYER_MAX_LIFE_POINT = 100;
 	
@@ -59,6 +59,7 @@ public class PiratePlayer extends Player {
 	
 	//player caracteristics
 	protected static int m_attackSpeed;
+	protected static int m_damage;
 	protected static int m_speed;
 	protected static int m_range;
 	public static int m_maxHealthPoints;
@@ -93,7 +94,7 @@ public class PiratePlayer extends Player {
 		this.m_damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
 		this.m_rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
 		this.m_maxHealthCoeff = DEFAULT_MAX_PLAYERS_LIFE_COEFF;
-		
+		this.m_damage = DEFAULT_PIRATEPLAYER_DAMAGE;
 		this.m_maxHealthPoints = DEFAULT_MAX_PLAYERS_LIFE;
 		this.m_healthPoints = DEFAULT_PIRATEPLAYER_LIFE_POINT;
 		this.m_attackSpeed = DEFAULT_PIRATEPLAYER_ATTACKSPEED;
@@ -215,6 +216,10 @@ public class PiratePlayer extends Player {
 	
 	public float getDamageCoeff() {
 		return this.m_damageCoeff;
+	}
+	
+	public int getDamage() {
+		return m_damage;
 	}
 
 

@@ -9,12 +9,10 @@ import info3.game.vue.avatar.SwordAvatar;
 
 public class Sword extends Weapon{
 	
-	public static int DAMAGE = 2;
 	public static int RANGE  = 200;
-	public static double ALPHA  = 45.0;
 
 	public Sword() {
-		super("Sword", DAMAGE, RANGE, ALPHA);
+		super("Sword", RANGE);
 		setAvatar(new SwordAvatar(this));
 		GameModele.entities.add(this);	
 		this.automate = AutomateLoader.findAutomate(GameEntity.Philosopher);

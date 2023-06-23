@@ -5,7 +5,7 @@ import automate.EnumDirection;
 public abstract class MoveableEntity extends Entity {
 
 	protected int m_healthPoints;
-	protected float m_damage;
+	protected int m_damage;
 	public EnumDirection facing;
 
 	public MoveableEntity(int m_healthPoints, int damage, int hitbox) {
@@ -34,9 +34,6 @@ public abstract class MoveableEntity extends Entity {
 
 	public void takeDamage(int damage) {
 		this.m_healthPoints -= damage;
-		if (this.m_healthPoints <= 0) {
-			this.die();
-		}
 	}
 
 	public boolean gotPower() {
@@ -63,7 +60,7 @@ public abstract class MoveableEntity extends Entity {
 		this.m_healthPoints = m_healthPoints;
 	}
 
-	public float getDamage() {
+	public int getDamage() {
 		return m_damage;
 	}
 
