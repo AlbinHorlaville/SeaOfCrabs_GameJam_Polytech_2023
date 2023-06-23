@@ -3,7 +3,7 @@ Philosopher(Think){
 }
 
 Mine(Banzai){
-  * (Banzai) 
+  * (Banzai)
   | Cell(F,E) ? Explode  :()
   | True ?               :(Banzai)
   * ()
@@ -17,7 +17,7 @@ Poule(Pondre){
   | Cell(F,T) ? Move    :(Attendre)
 
   * (Attendre)
-  | Cell(H,V) ?          :(Pondre) 
+  | Cell(H,V) ?          :(Pondre)
 }
 
 Fire(Forward){
@@ -28,7 +28,7 @@ Fire(Forward){
 
  * (Copy)
  | Cell(F,O) ? Explode(H) :()
- | Cell(B,V) ? Egg(B)     :(Forward) 
+ | Cell(B,V) ? Egg(B)     :(Forward)
 }
 
 Egyptologue(Explore){
@@ -75,21 +75,188 @@ Escape(Init){
   | Cell(B,V) ? Move(B) :(Init)
 }
 
-Player(Init){
+Player1(Init){
   * (Init):
-  | Key(FU) ? Move(N) :(Init)
-  | Key(FD) ? Move(S) :(Init)
-  | Key(FL) ? Move(O) :(Init)
-  | Key(FR) ? Move(E) :(Init)
-  | Key(SPACE) ? Hit  :(Init)
-  | Key(ENTER) ? Jump :(Init)
-  | Key(b)  ? Jump(B) :(Init)
-  | Key(d)  ? Move(D) :(Init)
-  | Key(e)  ? Move(E) :(Init)
-  | Key(f)  ? Turn(B) :(Init)
-  | Key(p)  ? Pop     :(Init)
-  | Key(w)  ? Wizz    :(Init)
-  | Key(g)  ? Get     :(Init)
-  | Key(t)  ? Throw   :(Init)
-  | True    ? Power   :(Init)
+  | Key(d) & Key(z) & !Cell(NE,O) ? Move(NE) :(Init)
+  | Key(d) & Key(s) & !Cell(SE,O) ? Move(SE) :(Init)
+  | Key(q) & Key(z) & !Cell(NW,O) ? Move(NW) :(Init)
+  | Key(q) & Key(s) & !Cell(SW,O) ? Move(SW) :(Init)
+  | Key(z) & !Cell(N,O) ? Move(N) :(Init)
+  | Key(s) & !Cell(S,O) ? Move(S) :(Init)
+  | Key(q) & !Cell(W,O) ? Move(W) :(Init)
+  | Key(d) & !Cell(E,O) ? Move(E) :(Init)
+  | Key(e) & Cell(F,J) ? Move(F) : (Init)
+  | Key(a) ? Hit(F) : (Init)
+}
+
+PlayerMulti2(Init){
+  * (Init):
+  | Key(d) & Key(z) & !Cell(NE,O) ? Move(NE) :(Init)
+  | Key(d) & Key(s) & !Cell(SE,O) ? Move(SE) :(Init)
+  | Key(q) & Key(z) & !Cell(NW,O) ? Move(NW) :(Init)
+  | Key(q) & Key(s) & !Cell(SW,O) ? Move(SW) :(Init)
+  | Key(z) & !Cell(N,O) ? Move(N) :(Init)
+  | Key(s) & !Cell(S,O) ? Move(S) :(Init)
+  | Key(q) & !Cell(W,O) ? Move(W) :(Init)
+  | Key(d) & !Cell(E,O) ? Move(E) :(Init)
+  | Key(e) & Cell(F,J) ? Move(F) : (Init)
+  | Key(a) ? Hit(F) : (Init)
+}
+
+PlayerMulti1(Init){
+  * (Init):
+  | Key(FR) & Key(FU) & !Cell(NE,O)? Move(NE) :(Init)
+  | Key(FR) & Key(FD) & !Cell(SE,O)? Move(SE) :(Init)
+  | Key(FL) & Key(FU) & !Cell(NW,O)? Move(NW) :(Init)
+  | Key(FL) & Key(FD) & !Cell(SW,O)? Move(SW) :(Init)
+  | Key(FU) & !Cell(N,O) ? Move(N) :(Init)
+  | Key(FD) & !Cell(S,O)? Move(S) :(Init)
+  | Key(FL) & !Cell(W,O)? Move(W) :(Init)
+  | Key(FR) & !Cell(E,O) ? Move(E) :(Init)
+  | Key(b) & Cell(F,J) ? Move(F) : (Init)
+  | Key(v) ? Hit(F) : (Init)
+}
+
+
+PlayerBoat(Init){
+  * (Init):
+  | Key(d) & Key(z) ? Move(NE) :(Init)
+  | Key(d) & Key(s) ? Move(SE) :(Init)
+  | Key(q) & Key(z) ? Move(NW) :(Init)
+  | Key(q) & Key(s) ? Move(SW) :(Init)
+  | Key(z) ? Move(N) :(Init)
+  | Key(s) ? Move(S) :(Init)
+  | Key(q) ? Move(W) :(Init)
+  | Key(d) ? Move(E) :(Init)
+  | Key(1) ? Get(O) : (Init)
+  | Key(2) ? Get(A) : (Init)
+  | Key(3) ? Get(D) : (Init)
+  | Key(4) ? Get(G) : (Init)  
+}
+
+Crab(Init){
+ * (Init) :
+ | !GotPower ? : ()
+ | Closest ? : (Moving)
+ | True ? : (Init)
+ * (Moving) :
+ | Cell(F,A) ? Hit : (Init)
+ | !Cell(F,V) ? Move(O) : (Init)
+ | True ? Move(F) : (Init)
+ * ()
+}
+
+CrabKing(Init){
+ * (Init) :
+ | !GotPower ? : ()
+ | Closest ? : (Spawn)
+ | True ? : (Init)
+ * (Spawn)
+ | GotStuff ? Egg : (Moving)
+ | True ? : (Moving)
+ * (Moving) :
+ | Cell(F,A) ? Hit : (Moving)
+ | !Cell(F,V) ? Move(O) : (Init)
+ | True ? Move(F) : (Init)
+ * ()
+}
+
+
+CrabsLair(Init){
+ * (Init) :
+ 	| Closest ? : (Spawn)
+ 	| True ? : (Init)
+ * (Spawn) :
+ 	| GotStuff ? Egg : (Init)
+ 	| !GotPower ? : (Dead)
+ 	| True ? : (Init)
+ * (Dead)
+ }
+
+ CannonBall(Init){
+  * (Init) :
+  | GotPower & !Cell(F,A) ? Move(N) : (Init)
+  | GotPower & Cell(F,A) ? Hit : ()
+  | True ? : ()
+  * ()
+ }
+
+ RedCross(Init){
+  * (Init) :
+  | GotPower ? Egg : ()
+  | True ? : (Init)
+  * ()
+ }
+
+Ship(Init){
+ * (Init) :
+ | !GotPower ? Pop : ()
+ | Closest(A) ? Hit : (Init)
+ | Closest(V) ? Move : (Init)
+ | True ? : (Init)
+ * ()
+}
+
+KrakenTentacle(Init){
+ * (Init) :
+ | !GotPower ? : ()
+ | Closest() ? Hit : (Init)
+ | True ? : (Init)
+ * ()
+}
+
+Stunned(Init){
+ * (Init) :
+ | GotPower ? : (Init)
+ | True ? : ()
+ * ()
+}
+
+Bonus(Init){
+ * (Init) :
+ | Cell(H,T) ? Power : ()
+ | True ? : (Init)
+ * ()
+}
+
+Rhum(Init){
+ * (Init) :
+ | Cell(H,T) ? Power(T) : ()
+ | True ? : (Init)
+ * ()
+}
+
+Cloud(Init){
+  * (Init) :
+  | Cell(H, T) ? : ()
+  | True ? : (Init)
+  * ()
+}
+
+SeaTreasure(Init){
+ * (Init) :
+ | !GotPower ? Egg : ()
+ | True ? : (Init)
+ * ()
+}
+
+Treasure(Init){
+ * (Init) :
+ | !GotPower ? Power : ()
+ | True ? : (Init)
+ * ()
+}
+
+Tree(Init){
+ * (Init) :
+ | !GotPower ? Power : ()
+ | True ? : (Init)
+ * ()
+}
+
+Perroquet(Init){
+ * (Init) :
+ | !GotPower ? : ()
+ | True ? Move(F) : (Init)
+ * ()
 }
