@@ -42,7 +42,7 @@ public class SeaTreasure extends StillEntity{
 		rand = GameModele.map.getRand().nextInt(Bonus.BonusesNumber);
 		this.m_bonusRight = this.getBonusBasedOnNumber(rand);
 		
-		while(this.m_bonusLeft.equals(this.m_bonusRight)) {
+		while(this.m_bonusLeft.getClass().equals(this.m_bonusRight.getClass())) {
 			rand = GameModele.map.getRand().nextInt(Bonus.BonusesNumber);
 			this.m_bonusRight = this.getBonusBasedOnNumber(rand);
 		}

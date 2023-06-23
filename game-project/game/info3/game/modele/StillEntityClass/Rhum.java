@@ -34,18 +34,20 @@ public class Rhum extends StillEntity {
 			Tiles boatTile = map.getTileUnderEntity(boatPlayer.x,boatPlayer.y );
 			int X = bonusTile.getTileX();
 			int Y = bonusTile.getTileY();
-			Tiles[][] tiles = this.m_mapSection.getTiles();			
+			Tiles[][] tiles = this.m_mapSection.getTiles();	
+			
+			
 			
 			for(int i = -1; i < 2; i++)
 				for(int j = -1; j < 2; j++)
-					if(X > 0 && Y > 0)
+					if(X > 0 && Y > 0) {
 						if(boatTile.equals(tiles[Y+j][X+i])) {
 							return true;
 						}
-							
-			
+					}
 			
 		}
+		
 		return false;
 	}
 

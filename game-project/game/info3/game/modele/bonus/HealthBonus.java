@@ -7,6 +7,8 @@ import info3.game.vue.avatar.BonusAvatar;
 
 public class HealthBonus extends Bonus {
 	
+	public final float BONUS_APPLIED = 1;
+	
 	public HealthBonus(MapSection mapSection) {
 		super(mapSection);
 		setAvatar(new BonusAvatar(this));
