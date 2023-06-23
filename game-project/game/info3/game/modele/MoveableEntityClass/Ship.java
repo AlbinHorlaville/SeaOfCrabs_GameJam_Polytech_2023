@@ -13,9 +13,7 @@ import info3.game.vue.avatar.ShipAvatar;
 public class Ship extends Ennemy {
 
 	public final static int DEFAULT_HEALTH_POINTS = 100;
-	public final static int DEFAULT_DAMAGE = 20;
-
-	private float m_coeff;
+	public final static int DEFAULT_DAMAGE = 25;
 
 	private int timerAttackMili;
 	private int timerAttackSec;
@@ -29,13 +27,9 @@ public class Ship extends Ennemy {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE);
 		this.avatar = new ShipAvatar(this);
 		this.m_mapSection = mapSection;
-		this.m_coeff = (new Level(this.m_mapSection.getSectionNumber())).getCoeffBasedOnLevel();
-		this.m_healthPoints *= this.m_coeff;
-		this.m_damage *= this.m_coeff;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Ship);
 		this.current_state = automate.initial_state;
 		GameModele.entities.add(this);
-
 		this.reloading = false;
 	}
 

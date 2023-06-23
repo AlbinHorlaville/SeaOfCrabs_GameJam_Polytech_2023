@@ -1,20 +1,32 @@
 package info3.game.modele;
 
 public class Level {
-
-	private int level;
 	
-	public Level(int level) {
-		this.level = level;
+	public static int getAugmentDamageCrab(int section) {
+		switch(section) {
+		case 1:
+		case 2:
+			return 0;
+		case 3:
+			return 5;
+		case 4:
+			return 20;
+		case 5:
+			return 30;
+		case 6:
+			return 50;
+		case 7:
+			return 80;
+		default: 
+			return 0;
+		}
 	}
 	
-	public float getCoeffBasedOnLevel(){
-		float coeff = 1;
-		
-		// The goal : Level 1 = 1 ; Level 2 = 1,2 Level; Level 3 = 1,4 Level; Level 4 = 1,6 Level
-		if(level >  1)
-			coeff += level * 2.0f;
-		
-		return coeff;
+	public static int getAugmentLifeCrab(int section) {
+		return 50 * (section - 1);
+	}
+	
+	public static int getNbCrabsToEgg(int section) {
+		return 3 * section;
 	}
 }
