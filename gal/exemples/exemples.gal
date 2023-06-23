@@ -244,3 +244,10 @@ Tree(Init){
  | True ? : (Init)
  * ()
 }
+
+Perroquet(Init){
+ * (Init) :
+ | !GotPower ? : ()
+ | True ? Move(F) : (Init)
+ * ()
+}

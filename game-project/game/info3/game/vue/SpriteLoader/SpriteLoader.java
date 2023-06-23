@@ -62,6 +62,7 @@ public class SpriteLoader {
 		load(SpriteType.Rhum, "assets/img/utilities/" + "Rhum.png", 2, 2);
 		load(SpriteType.Bonus, "assets/img/utilities/" + "Bonus.png", 2, 3);
 		load(SpriteType.Tentacle, "assets/img/ennemi/" + "Tentacule.png", 1, 4);
+		load(SpriteType.Perroquet, "assets/img/autre/" + "Perroquet.png", 1, 8);
 	}
 
 	/*

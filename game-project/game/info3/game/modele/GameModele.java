@@ -16,6 +16,7 @@ import info3.game.User;
 import info3.game.modele.MoveableEntityClass.BoatPlayer;
 import info3.game.modele.MoveableEntityClass.CrabKing;
 import info3.game.modele.MoveableEntityClass.Kraken;
+import info3.game.modele.MoveableEntityClass.Perroquet;
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
 import info3.game.modele.MoveableEntityClass.Ship;
 import info3.game.modele.MoveableEntityClass.Tentacle;
@@ -48,6 +49,8 @@ public class GameModele {
 	public static PiratePlayer player2;
 
 	public static BoatPlayer pirateBoat;
+	
+	public static Perroquet perroquet;
 
 	public static GameTimer timer;
 
@@ -273,6 +276,9 @@ public class GameModele {
 				BeforePlayingView.weapon1.setPlayer(player1);
 			}
 
+			perroquet = new Perroquet(100, 0, 10);
+			GameModele.entities.add(perroquet);
+
 			pirateBoat = new BoatPlayer(
 					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 13][map.getSectionWidth() / 2].getX(),
 					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 13][map.getSectionWidth() / 2].getY());
@@ -281,6 +287,9 @@ public class GameModele {
 			map = new Map(seed);
 
 			genereEntity(map);
+			
+			perroquet.setX(GameModele.pirateBoat.getX());
+			perroquet.setY(GameModele.pirateBoat.getY());
 		}
 	}
 

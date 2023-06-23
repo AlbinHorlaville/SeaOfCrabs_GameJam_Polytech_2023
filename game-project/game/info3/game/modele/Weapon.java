@@ -78,7 +78,7 @@ public abstract class Weapon extends MoveableEntity {
 		height = player.avatar.getHeight() / 2	;//player.avatar.getHeight();
 		ArrayList<Entity> tempEntities = (ArrayList) GameModele.entities.clone();
 		for (Entity e : tempEntities) {
-			if (e != player) {
+			if (e != player && e!= GameModele.perroquet) {
 				int eCenterX = e.getCenterX();
 				int eCenterY = e.getCenterY();
 				if (e instanceof Tree) {
