@@ -104,6 +104,7 @@ public class Map {
 	}
 	
 	public void openKraken() {
+		this.map[this.nbSection - 3].addTransitionCrabToKraken();
 		this.map[this.nbSection - 2].openKraken();
 	}
 

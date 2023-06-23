@@ -203,6 +203,13 @@ KrakenTentacle(Init){
  * ()
 }
 
+Stunned(Init){
+ * (Init) :
+ | GotPower ? : (Init)
+ | True ? : ()
+ * ()
+}
+
 Bonus(Init){
  * (Init) :
  | Cell(H,T) ? Power : ()

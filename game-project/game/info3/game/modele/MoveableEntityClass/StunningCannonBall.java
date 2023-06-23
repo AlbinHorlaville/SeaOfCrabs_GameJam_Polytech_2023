@@ -16,8 +16,7 @@ public class StunningCannonBall extends CannonBall {
 			((Ship) ennemyAimed).stunt();
 		}
 		else if (ennemyAimed instanceof Tentacle){
-			
+			((Tentacle) ennemyAimed).stunt();
 		}
-
 	}
 }

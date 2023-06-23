@@ -84,11 +84,9 @@ public class MapSection {
 			break;
 		case CRAB_KING_SEA:
 			generateKingCrabSea();
-			addTransitionCrabToKraken();
 			break;
 		case KRAKEN_SEA:
 			generateKrakenSea();
-			addTransitionKrakenFromCrab();
 			break;
 		default:
 			throw new Exception("Type de section inexistante");
@@ -266,7 +264,7 @@ public class MapSection {
 		}
 	}
 
-	private void addTransitionCrabToKraken() {
+	public void addTransitionCrabToKraken() {
 		for (int i = 0; i < 4; i++) {
 			for (int j = this.sectionWidth / 2 - 10; j < this.sectionWidth / 2 + 10; j++) {
 				if (this.tiles[i][j].getType() == EnumTiles.RAGING_WATER) {
@@ -559,6 +557,7 @@ public class MapSection {
 		}
 		height = generateHeight(height);
 		applyHeight(height);
+		addTransitionKrakenFromCrab();
 	}
 
 	/*
