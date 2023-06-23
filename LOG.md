@@ -229,3 +229,4 @@
  - Albin: Inventaire des boulets de canon, fix de l'épée dans le mode 2 joueurs, équilibrage hit-box épée et palmier, Sprites
 - Romain: 2 Joueurs Rendu fonctionnel + Amélioration du double buffering de touche + Création de l'inventaire fonctionnelle pour le bateau
  # 23 Juin
+ - Albin: Correction de bugs, conception / design / implémentation / correction / appréciation du perroquet. Animation du kraken et du crabking
