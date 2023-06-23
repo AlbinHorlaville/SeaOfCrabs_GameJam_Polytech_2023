@@ -18,7 +18,7 @@ public class PiratePlayer extends Player {
 	// Default stat (at Spawn)
 	private static final int DEFAULT_PIRATEPLAYER_LIFE_POINT = 100;
 	
-	private static final int DEFAULT_PIRATEPLAYER_DAMAGE = 1000;
+	private static final int DEFAULT_PIRATEPLAYER_DAMAGE = 50;
 	
 	private static final int DEFAULT_PIRATEPLAYER_MAX_LIFE_POINT = 100;
 
