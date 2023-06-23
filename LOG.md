@@ -222,8 +222,10 @@
 - Rémi: Réalisation de l'attaque utilisé par les bateau ennemies ainsi que le kraken. Et réalisation des fonctions des automates de ship et krakenTentacle. 
 - Emin: Fin d'implémentation du CrabKing + fix bugs crabs et CrabKing
 - Albin: Jonction Vue modèle de l'épée pour 1 joueur, corrections hitbox. Debug Nuages.
-
+- Romain: Amélioration de la gestion du son + Spawn des entités Tentacules Rhum Nuages 
 
  # 22 Juin
  - Rémi: Réalisation de la fonction die du kraken (amenant sur la vue de victoire). Résolution de multiple léger problème (Titre de section mal affiché lorsque l'ont revenait en arrière, l'offset des vagues est peut maintenant être propre au différente section, la génération de l'ile du crab King est plus propre)
  - Albin: Inventaire des boulets de canon, fix de l'épée dans le mode 2 joueurs, équilibrage hit-box épée et palmier, Sprites
+- Romain: 2 Joueurs Rendu fonctionnel + Amélioration du double buffering de touche + Création de l'inventaire fonctionnelle pour le bateau
+ # 23 Juin
