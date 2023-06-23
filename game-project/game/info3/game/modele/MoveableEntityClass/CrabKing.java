@@ -9,16 +9,16 @@ import info3.game.vue.avatar.CrabKingAvatar;
 
 public class CrabKing extends Crab {
 	
-	public static int NB_CRABS = 20;
+	public static int NB_CRABS = 3;
 	private int level;
 
 	private int crabsRemaining;
 	
-	public CrabKing(int level,int lifePoint,int x, int y, int attackCoeff) {
+	public CrabKing(int level,int lifePoint,int x, int y, int damage) {
 		super(level, null, x, y);
 		this.level = level;
-		this.m_healthPoints *= lifePoint;
-		this.m_damage *= attackCoeff;
+		this.m_healthPoints = lifePoint;
+		this.m_damage = damage;
 		crabsRemaining = NB_CRABS;
 		this.automate = AutomateLoader.findAutomate(GameEntity.CrabKing);
 		this.current_state = automate.initial_state;
