@@ -22,6 +22,5 @@ public enum SpriteType {
 	SwordNS,
 	Tentacle,
 	Perroquet,
-	Tentacle, 
 	CannonBall
 }
