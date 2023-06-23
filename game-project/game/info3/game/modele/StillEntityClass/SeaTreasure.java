@@ -21,7 +21,7 @@ public class SeaTreasure extends StillEntity{
 
 	
 	public SeaTreasure(MapSection mapSection, int x, int y) {
-		super(x, y);
+		super(x, y, 100);
 		this.m_mapSection = mapSection;
 		this.automate = AutomateLoader.findAutomate(GameEntity.SeaTreasure);
 		this.current_state = automate.initial_state;

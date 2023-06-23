@@ -8,6 +8,7 @@ import info3.game.modele.Entity;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.MoveableEntity;
+import info3.game.modele.StillEntityClass.SeaTreasure;
 import info3.game.modele.map.Tiles;
 import info3.game.sound.SoundEffect;
 import info3.game.sound.SoundTool;
@@ -90,7 +91,7 @@ public abstract class CannonBall extends MoveableEntity {
 		switch (c) {
 		case A:
 			for (Entity s : GameModele.entities) {
-				if(s instanceof Ship || s instanceof Tentacle) {
+				if(s instanceof Ship || s instanceof Tentacle || s instanceof SeaTreasure) {
 					if (collide(this, x - speedX, y - speedY, s)) {
 						ennemyAimed = s;
 						return true;
