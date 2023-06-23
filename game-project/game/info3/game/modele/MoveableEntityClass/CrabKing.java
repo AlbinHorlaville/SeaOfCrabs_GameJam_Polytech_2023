@@ -30,68 +30,70 @@ public class CrabKing extends Crab {
 	}
 	
 	public void egg() {
-		Crab b = null;
-		Tiles t;
-		switch(GameModele.player1.facing) {
-			case N:
-				t = GameModele.map.getTileUnderEntity(x, y - 5);
-				if(t.isIsland()) {
+		if(this.tick(this.timeElapsed)% 700 == 0) {
+			Crab b = null;
+			Tiles t;
+			switch(GameModele.player1.facing) {
+				case N:
+					t = GameModele.map.getTileUnderEntity(x, y - 5);
+					if(t.isIsland()) {
+						b = new Crab(level, null, t.getX(), t.getY());
+					}
+					break;
+				case S:
+					t = GameModele.map.getTileUnderEntity(x, y + 5);
+					if(t.isIsland()) {
+						b = new Crab(level, null, t.getX(), t.getY());
+					}
+					break;
+				case E:
+					t = GameModele.map.getTileUnderEntity(x + 5, y);
+					if(t.isIsland()) {
+						b = new Crab(level, null, t.getX(), t.getY());
+					}
+					break;
+				case W:
+					t = GameModele.map.getTileUnderEntity(x - 5, y);
+					if(t.isIsland()) {
+						b = new Crab(level, null, t.getX(), t.getY());
+					}
+					break;
+				case NW:
+					t = GameModele.map.getTileUnderEntity(x - 5, y - 5);
+					if(t.isIsland()) {
+						b = new Crab(level, null, t.getX(), t.getY());
+					}
+					break;
+				case NE:
+					t = GameModele.map.getTileUnderEntity(x + 5, y - 5);
+					if(t.isIsland()) {
+						b = new Crab(level, null, t.getX(), t.getY());
+					}
+					break;
+				case SW:
+					t = GameModele.map.getTileUnderEntity(x - 5, y + 5);
+					if(t.isIsland()) {
+						b = new Crab(level, null, t.getX(), t.getY());
+					}
+					break;
+				case SE:
+					t = GameModele.map.getTileUnderEntity(x + 5, y + 5);
+					if(t.isIsland()) {
+						b = new Crab(level, null, t.getX(), t.getY());
+					}
+					break;
+				default :
+					t = GameModele.map.getTileUnderEntity(x + 5, y + 5);
+					for(int i = 6, j = 6; i < 15 && j < 15 && !t.isIsland(); i++, j++) {
+						t = GameModele.map.getTileUnderEntity(x + i, y + j);
+					}
 					b = new Crab(level, null, t.getX(), t.getY());
-				}
-				break;
-			case S:
-				t = GameModele.map.getTileUnderEntity(x, y + 5);
-				if(t.isIsland()) {
-					b = new Crab(level, null, t.getX(), t.getY());
-				}
-				break;
-			case E:
-				t = GameModele.map.getTileUnderEntity(x + 5, y);
-				if(t.isIsland()) {
-					b = new Crab(level, null, t.getX(), t.getY());
-				}
-				break;
-			case W:
-				t = GameModele.map.getTileUnderEntity(x - 5, y);
-				if(t.isIsland()) {
-					b = new Crab(level, null, t.getX(), t.getY());
-				}
-				break;
-			case NW:
-				t = GameModele.map.getTileUnderEntity(x - 5, y - 5);
-				if(t.isIsland()) {
-					b = new Crab(level, null, t.getX(), t.getY());
-				}
-				break;
-			case NE:
-				t = GameModele.map.getTileUnderEntity(x + 5, y - 5);
-				if(t.isIsland()) {
-					b = new Crab(level, null, t.getX(), t.getY());
-				}
-				break;
-			case SW:
-				t = GameModele.map.getTileUnderEntity(x - 5, y + 5);
-				if(t.isIsland()) {
-					b = new Crab(level, null, t.getX(), t.getY());
-				}
-				break;
-			case SE:
-				t = GameModele.map.getTileUnderEntity(x + 5, y + 5);
-				if(t.isIsland()) {
-					b = new Crab(level, null, t.getX(), t.getY());
-				}
-				break;
-			default :
-				t = GameModele.map.getTileUnderEntity(x + 5, y + 5);
-				for(int i = 6, j = 6; i < 15 && j < 15 && !t.isIsland(); i++, j++) {
-					t = GameModele.map.getTileUnderEntity(x + i, y + j);
-				}
-				b = new Crab(level, null, t.getX(), t.getY());
-				break;
-		}
-		if(b != null) {
-			GameModele.entities.add(b);
-			crabsRemaining--;
+					break;
+			}
+			if(b != null) {
+				GameModele.entities.add(b);
+				crabsRemaining--;
+			}
 		}
 	}
 	
