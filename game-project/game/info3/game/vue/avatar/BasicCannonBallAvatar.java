@@ -5,17 +5,18 @@ import java.awt.image.BufferedImage;
 
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
+import info3.game.vue.GameView;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
 public class BasicCannonBallAvatar extends Avatar{
 
 	
-	public static int SCALE_CANNON_BALL = 2;
+	public static int SCALE_CANNON_BALL = GameView.SCALE/2;
 
 	public BasicCannonBallAvatar(Entity entity) {
 		super(entity);
-		m_images = SpriteLoader.get(SpriteType.BasicCannonBall);
+		m_images = SpriteLoader.get(SpriteType.CannonBall);
 		imageIndex = 0;
 	}
 
