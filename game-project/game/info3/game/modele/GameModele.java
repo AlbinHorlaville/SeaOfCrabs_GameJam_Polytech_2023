@@ -65,6 +65,8 @@ public class GameModele {
 
 	public static User currentUser;
 	public static Score currentScore;
+	public static Score bestUserScore;
+	public static boolean isUserBestScore;
 
 	private static File userFile, scoreFile;
 
@@ -78,19 +80,19 @@ public class GameModele {
 			if (!userFile.exists()) { // no user created
 
 				currentState = GameState.Utilisateur; // we create a user through SetUpUserView
-
+				bestUserScore = null;
 			} else if (!scoreFile.exists()) { // no score created
 
 				createScore(); // we create a new score file
 				currentUser = new User(readUsernameFromFile()); // we load the current user from file
 				currentState = GameState.Menu; // we display the menu
-
+				bestUserScore = currentScore;
 			} else { // both user and score are created so we only need to load them by reading files
 
 				currentUser = new User(readUsernameFromFile()); // we load the current user from file
 				currentScore = new Score(readScoreFromFile()); // we load the current score from file
 				currentState = GameState.Menu; // we display the menu
-
+				bestUserScore = currentScore;
 			}
 
 		} else { // local mode
@@ -461,7 +463,6 @@ public class GameModele {
 		timer.resetTimer();
 		onSea = true;
 		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
-		PiratePlayer.resetPiratePlayer();
 		pirateBoat = null;
 	}
 }

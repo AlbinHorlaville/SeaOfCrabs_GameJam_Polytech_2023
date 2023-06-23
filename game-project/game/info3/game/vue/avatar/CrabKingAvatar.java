@@ -9,17 +9,28 @@ import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
 public class CrabKingAvatar extends Avatar{
+	private int k;
 
 	public CrabKingAvatar(Entity entity) {
 		super(entity);
 		m_images = SpriteLoader.get(SpriteType.CrabKing);
 		imageIndex = 0;
+		k = 0;
 	}
 
 	@Override
 	public void tick(long elapsed) {
-		// TODO Auto-generated method stub
-		
+		k++;
+		if (k==40) {
+			k = 0;
+			imageIndex = 0;
+		}
+		if (k==10)
+			imageIndex++;
+		if (k==20)
+			imageIndex++;
+		if (k==30)
+			imageIndex++;
 	}
 
 	@Override

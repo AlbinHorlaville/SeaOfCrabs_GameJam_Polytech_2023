@@ -29,6 +29,10 @@ public class BasicCannonBall extends CannonBall {
 			((Ship) ennemyAimed).takeDamage(damage);
 		}
 		
+		if (ennemyAimed instanceof Tentacle) {
+			((Tentacle) ennemyAimed).takeDamage(damage);
+		}
+		
 		if (ennemyAimed instanceof SeaTreasure ) {
 			((SeaTreasure) ennemyAimed).takeDamage(damage);
 		}

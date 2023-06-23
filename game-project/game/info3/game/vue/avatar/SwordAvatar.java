@@ -31,16 +31,15 @@ public class SwordAvatar extends Avatar {
 	@Override
 	public void tick(long elapsed) {
 		if (((Weapon) entity).getAttacking()) {
-
-			if (k == 10) {
+			if (k == 100) {
 				imageIndex = 0;
 				k = 0;
 				((Weapon) entity).setAttacking(false);
-			} else if (k == 7) {
+			} else if (k == 70) {
 				imageIndex = 3;
-			} else if (k == 5) {
+			} else if (k == 50) {
 				imageIndex = 2;
-			} else if (k == 3) {
+			} else if (k == 30) {
 				imageIndex = 1;
 			}
 
