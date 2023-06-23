@@ -1,12 +1,15 @@
 package info3.game.vue.view;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import info3.game.GameState;
 import info3.game.SeaOfCrabes;
@@ -25,6 +28,7 @@ public class MenuView extends View {
 	UIButton buttonSettings;
 	UIButton buttonScore;
 	UIButton buttonCredits;
+	UIButton buttonRules;
 	UICursor cursor;
 	UITitle title;
 	UIChecker checker;
@@ -37,15 +41,22 @@ public class MenuView extends View {
 		int widthButton = 200;
 		int xButton = (windowWidth - widthButton) / 2;
 		int SpaceBetweenYButton = 100;
-		int yButton = 300;
+		int yButton = 200;
 		
 		buttonPlay = new UIButton(xButton, yButton, widthButton,70, new UILabel(0, 0, "Play", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
-		buttonSettings = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,70,
-				new UILabel(0, 0, "Settings", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
+		
+		buttonRules = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,70,
+				new UILabel(0, 0, "Rules", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
+		
 		buttonScore = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,70,
 				new UILabel(0, 0, "Score", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
+		
+		buttonSettings = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,70,
+				new UILabel(0, 0, "Settings", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
+		
 		buttonCredits = new UIButton(xButton, yButton += SpaceBetweenYButton, widthButton,70,
 				new UILabel(0, 0, "Credits", FONT1, Color.black),UIButton.BACKGROUND_COLOR_BLUE);
+	
 
 		title = new UITitle(windowWidth, windowHeight, "SEA OF CRABS", FONT2, Color.black);
 
@@ -184,11 +195,46 @@ public class MenuView extends View {
 			};
 
 		});
+		
+		buttonRules.setUIComponentListener(new UIComponentListener() {
+
+			@Override
+			public void onComponentClicked(int x, int y) {
+				Desktop desktop = java.awt.Desktop.getDesktop();
+				try {
+					URI oURL = new URI("http://seaofcrabs.000webhostapp.com/pages/rules.php");
+					desktop.browse(oURL);
+				} catch (URISyntaxException | IOException e) {
+					return;
+				}
+			}
+
+			@Override
+			public void onComponentMouseIn(int x, int y) {
+				buttonRules.setBackgroundColor(UIButton.BACKGROUND_COLOR_BLUE_HOVER);
+			}
+
+			@Override
+			public void onComponentMouseOut(int x, int y) {
+				buttonRules.setBackgroundColor(UIButton.BACKGROUND_COLOR_BLUE);
+			}
+
+			public void onComponentPressed(int x, int y) {
+			}
+
+			@Override
+			public void onKeyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
 
 		// on ajoute les différents components
 		addComponent(buttonPlay);
 		addComponent(buttonScore);
 		addComponent(buttonSettings);
+		addComponent(buttonRules);
 		addComponent(buttonCredits);
 		addComponent(title);
 		/*if (GameModele.user!=null) {

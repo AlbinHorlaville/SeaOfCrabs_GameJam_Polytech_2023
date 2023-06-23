@@ -1,6 +1,7 @@
 package info3.game.vue.view;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -8,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import info3.game.GameState;
 import info3.game.SeaOfCrabes;
@@ -26,7 +30,7 @@ import info3.game.vue.toolkitUI.UITitle;
 
 public class CreditsView extends View {
 
-	UIButton buttonRetour;
+	UIButton buttonRetour, buttonWebsite;
 	UITitle title;
 	UIParagraph credits;
 	UIMoveableText creditsPanel;
@@ -44,6 +48,10 @@ public class CreditsView extends View {
 		buttonRetour = new UIButton(50, windowHeight - 100, 200, 70, new UILabel(0, 0, "Back", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_RED);
 		title = new UITitle(windowWidth, windowHeight, "Credits", FONT2, Color.black);
+		
+		
+		buttonWebsite = new UIButton(774, windowHeight - 100, 200, 70, new UILabel(0, 0, "Website", FONT1, Color.black),
+				UIButton.BACKGROUND_COLOR_YELLOW);
 
 		credits = new UIParagraph(readCreditsFile());
 
@@ -78,10 +86,44 @@ public class CreditsView extends View {
 			};
 
 		});
+		
+		buttonWebsite.setUIComponentListener(new UIComponentListener() {
+			@Override
+			public void onComponentClicked(int x, int y) {
+				Desktop desktop = java.awt.Desktop.getDesktop();
+				try {
+					URI oURL = new URI("http://seaofcrabs.000webhostapp.com/pages/home.php");
+					desktop.browse(oURL);
+				} catch (URISyntaxException | IOException e) {
+					return;
+				}
+			}
+
+			@Override
+			public void onComponentMouseIn(int x, int y) {
+				buttonWebsite.setBackgroundColor(UIButton.BACKGROUND_COLOR_YELLOW_HOVER);
+			}
+
+			@Override
+			public void onComponentMouseOut(int x, int y) {
+				buttonWebsite.setBackgroundColor(UIButton.BACKGROUND_COLOR_YELLOW);
+			}
+
+			public void onComponentPressed(int x, int y) {
+			}
+
+			@Override
+			public void onKeyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			};
+
+		});
 
 		addComponent(buttonRetour);
 		addComponent(title);
 		addComponent(creditsPanel);
+		addComponent(buttonWebsite);
 		if (SeaOfCrabes.connectedToDatabase) {
 			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
 		} else {
