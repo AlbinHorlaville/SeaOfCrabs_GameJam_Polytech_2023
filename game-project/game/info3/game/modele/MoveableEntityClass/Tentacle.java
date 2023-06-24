@@ -15,12 +15,13 @@ public class Tentacle extends Ennemy {
 
 	private int timerAttackMili;
 	private int timerAttackSec;
+	private int timerAttackMin;
 	private boolean reloading;
 	
 	private boolean stunned;
 	private int timerStunMili;
 	private int timerStunSec;
-	private int timerAttackMin;
+	
 	
 	private int reloadTimeSec;
 	private int reloadTimeMili;
