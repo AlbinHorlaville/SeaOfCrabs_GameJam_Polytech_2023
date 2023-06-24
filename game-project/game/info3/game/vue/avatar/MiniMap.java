@@ -13,6 +13,7 @@ import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Map;
 import info3.game.modele.map.MapSection;
 import info3.game.modele.map.Tiles;
+import info3.game.vue.GameView;
 
 public class MiniMap {
 
@@ -25,6 +26,14 @@ public class MiniMap {
 
 	private BufferedImage boatIcon;
 	private BufferedImage[] playerIcon;
+
+	private int mapPixelSize;
+
+	private int waterX;
+	private int topX;
+	private int topY;
+	private int minimapWidth;
+	private int minimapHeight;
 
 	public MiniMap(Map m) throws IOException {
 		this.map = m.getMap();
@@ -50,29 +59,25 @@ public class MiniMap {
 		if (imageFile.exists()) {
 			this.playerIcon[1] = ImageIO.read(imageFile);
 		}
+
+		this.mapPixelSize = 8;
+
+		this.waterX = GameView.screenWidth / 2 - ((this.sectionWidth - 16) * mapPixelSize) / 2;
+		this.topX = GameView.screenWidth / 2 - (this.sectionWidth * mapPixelSize) / 2;
+		this.topY = GameView.screenHeight / 2 - (this.sectionHeight * mapPixelSize) / 2;
+		this.minimapWidth = (this.sectionWidth - 16) * mapPixelSize;
+		this.minimapHeight = this.sectionHeight * mapPixelSize;
 	}
 
 	public void paint(Graphics g, int width, int height) {
-		int currentX = GameModele.getCurrentPlayerX();
-		int currentY = GameModele.getCurrentPlayerY();
 
-		Tiles tileUnder = GameModele.map.getTileUnderEntity(currentX, currentY);
-
-		int tilesX = tileUnder.getTileX();
-		int tilesY = tileUnder.getTileY();
-		int currentSection = GameModele.map.getSectionOfEntity(currentX, currentY);
-
-		int mapPixelSize = 8;
-
-		int baseX = width / 2 - (this.sectionWidth * mapPixelSize) / 2;
-		int baseY = height / 2 - (this.sectionHeight * mapPixelSize) / 2;
+		int currentSection = GameModele.pirateBoat.getCurrentSection();
 
 		// We paint the background of the minimap (the water) for optimisation we don't
 		// draw each water tile individually
 		g.setColor(new Color(0, 0, 255, 100)); // ROUGE
 
-		g.fillRect(width / 2 - ((this.sectionWidth - 16) * mapPixelSize) / 2, baseY,
-				(this.sectionWidth - 16) * mapPixelSize, this.sectionHeight * mapPixelSize);
+		g.fillRect(this.waterX, this.topY, this.minimapWidth, this.minimapHeight);
 
 		// We paint the island
 		for (int i = 0; i < this.sectionHeight; i++) {
@@ -99,17 +104,51 @@ public class MiniMap {
 					} else {
 						g.setColor(Color.black);
 					}
-					g.fillRect(baseX + j * mapPixelSize, baseY + i * mapPixelSize, mapPixelSize, mapPixelSize);
+					g.fillRect(this.topX + j * mapPixelSize, this.topY + i * mapPixelSize, mapPixelSize, mapPixelSize);
 				}
 			}
 		}
 
+		int currentX;
+		int currentY;
+
+		Tiles tileUnder;
+
+		int tilesX;
+		int tilesY;
+
 		if (GameModele.onSea) {
-			g.drawImage(this.boatIcon, baseX + tilesX * mapPixelSize - this.iconWidth / 2,
-					baseY + tilesY * mapPixelSize - this.iconHeight / 2, iconWidth, iconHeight, null);
+			currentX = GameModele.pirateBoat.getCenterX();
+			currentY = GameModele.pirateBoat.getCenterY();
+
+			tileUnder = GameModele.map.getTileUnderEntity(currentX, currentY);
+
+			tilesX = tileUnder.getTileX();
+			tilesY = tileUnder.getTileY();
+			g.drawImage(this.boatIcon, this.topX + tilesX * mapPixelSize - this.iconWidth / 2,
+					this.topY + tilesY * mapPixelSize - this.iconHeight / 2, iconWidth, iconHeight, null);
 		} else {
-			g.drawImage(this.playerIcon[0], baseX + tilesX * mapPixelSize - this.iconWidth / 2,
-					baseY + tilesY * mapPixelSize - this.iconHeight / 2, iconWidth, iconHeight, null);
+			currentX = GameModele.player1.getCenterX();
+			currentY = GameModele.player1.getCenterY();
+
+			tileUnder = GameModele.map.getTileUnderEntity(currentX, currentY);
+
+			tilesX = tileUnder.getTileX();
+			tilesY = tileUnder.getTileY();
+			g.drawImage(this.playerIcon[0], this.topX + tilesX * mapPixelSize - this.iconWidth / 2,
+					this.topY + tilesY * mapPixelSize - this.iconHeight / 2, iconWidth, iconHeight, null);
+			if (!GameModele.solo) {
+				currentX = GameModele.player2.getCenterX();
+				currentY = GameModele.player2.getCenterY();
+
+				tileUnder = GameModele.map.getTileUnderEntity(currentX, currentY);
+
+				tilesX = tileUnder.getTileX();
+				tilesY = tileUnder.getTileY();
+				g.drawImage(this.playerIcon[1], this.topX + tilesX * mapPixelSize - this.iconWidth / 2,
+						this.topY + tilesY * mapPixelSize - this.iconHeight / 2, iconWidth, iconHeight, null);
+			}
+
 		}
 	}
 }
