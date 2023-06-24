@@ -53,75 +53,63 @@ public class MiniMap {
 	}
 
 	public void paint(Graphics g, int width, int height) {
-		int tilesX = GameModele.map.getTileUnderEntity(GameModele.getCurrentPlayerX(), GameModele.getCurrentPlayerY())
-				.getTileX();
-		int tilesY = GameModele.map.getTileUnderEntity(GameModele.getCurrentPlayerX(), GameModele.getCurrentPlayerY())
-				.getTileY();
-		int currentSection = GameModele.map.getSectionOfEntity(GameModele.getCurrentPlayerX(),
-				GameModele.getCurrentPlayerY());
+		int currentX = GameModele.getCurrentPlayerX();
+		int currentY = GameModele.getCurrentPlayerY();
+
+		Tiles tileUnder = GameModele.map.getTileUnderEntity(currentX, currentY);
+
+		int tilesX = tileUnder.getTileX();
+		int tilesY = tileUnder.getTileY();
+		int currentSection = GameModele.map.getSectionOfEntity(currentX, currentY);
 
 		int mapPixelSize = 8;
+
+		int baseX = width / 2 - (this.sectionWidth * mapPixelSize) / 2;
+		int baseY = height / 2 - (this.sectionHeight * mapPixelSize) / 2;
 
 		// We paint the background of the minimap (the water) for optimisation we don't
 		// draw each water tile individually
 		g.setColor(new Color(0, 0, 255, 100)); // ROUGE
 
-		g.fillRect(width / 2 - ((this.sectionWidth - 16) * mapPixelSize) / 2,
-				height / 2 - (this.sectionHeight * mapPixelSize) / 2, (this.sectionWidth - 16) * mapPixelSize,
-				this.sectionHeight * mapPixelSize);
+		g.fillRect(width / 2 - ((this.sectionWidth - 16) * mapPixelSize) / 2, baseY,
+				(this.sectionWidth - 16) * mapPixelSize, this.sectionHeight * mapPixelSize);
 
 		// We paint the island
 		for (int i = 0; i < this.sectionHeight; i++) {
+			Tiles[][] tiles = this.map[currentSection].getTiles();
 			for (int j = 8; j < this.sectionWidth - 8; j++) {
-				if (!(i == tilesY && j == tilesX)) {
-					Tiles tile = this.map[currentSection].getTiles()[i][j];
-					if (tile.isIsland() || tile.notIslandAndNotWater() || tile.isIslandObstacle() || tile.isCloud() || tile.isBoatEnnemi()) {
-						if (tile.isGrass()) {
-							g.setColor(Color.green);
-						} else if (tile.isTreasur()) {
-							g.setColor(Color.red);
-						} else if (tile.isSand()) {
-							g.setColor(Color.yellow);
-						} else if (tile.isMoutain()) {
-							g.setColor(Color.gray);
-						} else if (tile.isCloud()) {
-							g.setColor(Color.magenta);
-						} else if (tile.isSwpaner()) {
-							g.setColor(Color.gray);
-						} else if (tile.isPooton()) {
-							g.setColor(new Color(88, 41, 0));
-						} else if (tile.isCrabLand()) {
-							g.setColor(new Color(255, 140, 0));
-						} else {
-							g.setColor(Color.black);
-						}
-						g.fillRect(width / 2 - (this.sectionWidth * mapPixelSize) / 2 + j * mapPixelSize,
-								height / 2 - (this.sectionHeight * mapPixelSize) / 2 + i * mapPixelSize, mapPixelSize,
-								mapPixelSize);
+				Tiles tile = tiles[i][j];
+				if (tile.isIsland() || tile.notIslandAndNotWater() || tile.isIslandObstacle() || tile.isCloud()) {
+					if (tile.isGrass()) {
+						g.setColor(Color.green);
+					} else if (tile.isTreasur()) {
+						g.setColor(Color.red);
+					} else if (tile.isSand()) {
+						g.setColor(Color.yellow);
+					} else if (tile.isMoutain()) {
+						g.setColor(Color.gray);
+					} else if (tile.isCloud()) {
+						g.setColor(Color.magenta);
+					} else if (tile.isSwpaner()) {
+						g.setColor(Color.gray);
+					} else if (tile.isPooton()) {
+						g.setColor(new Color(88, 41, 0));
+					} else if (tile.isCrabLand()) {
+						g.setColor(new Color(255, 140, 0));
+					} else {
+						g.setColor(Color.black);
 					}
+					g.fillRect(baseX + j * mapPixelSize, baseY + i * mapPixelSize, mapPixelSize, mapPixelSize);
 				}
 			}
 		}
+
 		if (GameModele.onSea) {
-			g.drawImage(this.boatIcon,
-					width / 2 - (this.sectionWidth * mapPixelSize) / 2 + tilesX * mapPixelSize - this.iconWidth / 2,
-					height / 2 - (this.sectionHeight * mapPixelSize) / 2 + tilesY * mapPixelSize - this.iconHeight / 2,
-					iconWidth, iconHeight, null);
+			g.drawImage(this.boatIcon, baseX + tilesX * mapPixelSize - this.iconWidth / 2,
+					baseY + tilesY * mapPixelSize - this.iconHeight / 2, iconWidth, iconHeight, null);
 		} else {
-			// if (GameModele.solo) {
-			g.drawImage(this.playerIcon[0],
-					width / 2 - (this.sectionWidth * mapPixelSize) / 2 + tilesX * mapPixelSize - this.iconWidth / 2,
-					height / 2 - (this.sectionHeight * mapPixelSize) / 2 + tilesY * mapPixelSize - this.iconHeight / 2,
-					iconWidth, iconHeight, null);
-			/*
-			 * } else { g.drawImage(this.playerIcon[0], width / 2 - (this.sectionWidth *
-			 * mapPixelSize) / 2 + j * mapPixelSize - this.iconWidth / 2, height / 2 -
-			 * (this.sectionHeight * mapPixelSize) / 2 + i * mapPixelSize - this.iconHeight
-			 * / 2, iconWidth, iconHeight, null); g.drawImage(this.playerIcon[1], width / 2
-			 * - (this.sectionWidth * mapPixelSize) / 2 + j * mapPixelSize - this.iconWidth
-			 * / 2, height / 2 - (this.sectionHeight * mapPixelSize) / 2 + i * mapPixelSize
-			 * - this.iconHeight / 2, iconWidth, iconHeight, null); }
-			 */
+			g.drawImage(this.playerIcon[0], baseX + tilesX * mapPixelSize - this.iconWidth / 2,
+					baseY + tilesY * mapPixelSize - this.iconHeight / 2, iconWidth, iconHeight, null);
 		}
 	}
 }

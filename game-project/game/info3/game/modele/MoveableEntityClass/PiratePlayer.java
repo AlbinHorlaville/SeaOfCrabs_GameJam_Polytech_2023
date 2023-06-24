@@ -315,11 +315,12 @@ public class PiratePlayer extends Player {
 			m_healthPoints -= damage;
 			if (m_healthPoints <= 0) {
 				die();
+			} else {
+				invincible = true;
+				timerInvicibleMili = timeMili;
+				timerInvicibleSec = timeSec;
 			}
-			invincible = true;
-			timerInvicibleMili = timeMili;
-			timerInvicibleSec = timeSec;
-		} else if (timerInvicibleMili <= timeMili && timerInvicibleSec + 1 <= timeSec) {
+		} else if (timerInvicibleSec + 1 <= timeSec && timerInvicibleMili <= timeMili) {
 			invincible = false;
 		}
 	}

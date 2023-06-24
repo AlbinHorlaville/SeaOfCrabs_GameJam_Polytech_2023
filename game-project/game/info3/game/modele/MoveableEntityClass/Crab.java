@@ -142,27 +142,18 @@ public class Crab extends Ennemy {
 //	}
 	
 	public void move(EnumDirection dir) {
+		if((int)tick(this.timeElapsed) % 2 == 0) {
 		//Nearer pirate to me 
 		PiratePlayer closestPlayer = this.closestPirateToMe();
-		//Get next coordinate
-		int nextX = this.getCenterX();
-		int nextY = this.getCenterY();
 		int valueX = (this.x > closestPlayer.x)? -1: 1;
 		int valueY = (this.y > closestPlayer.y)? -1: 1;
 		//Moving directly to the player
 		if(dir == EnumDirection.F) {
 			
-			nextX += valueX;
-			nextY += valueY;
-			
-			//Can the the tile be moved on buy a crab
-			Tiles tile = GameModele.map.getTileUnderEntity(nextX,nextY);
-			if(tile.isIsland()) {
-				if((int)tick(this.timeElapsed) % 2 == 0) {
+				
 					this.x += valueX;
 					this.y += valueY;
 				}
-			}
 			
 //			if(this.nextTileHasCrab(tile)) {
 //				System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
@@ -315,9 +306,8 @@ public class Crab extends Ennemy {
 
 	@Override
 	public boolean closest() {
-		return GameModele.map.getSectionOfEntity(GameModele.player1.x, GameModele.player1.y)
-				== GameModele.map.getSectionOfEntity(x,y)
-				&& !GameModele.onSea;
+		return !GameModele.onSea && GameModele.currentSection
+				== GameModele.map.getSectionOfEntity(x,y);
 		//return (GameModele.map.getTileUnderEntity(GameModele.player1.x, GameModele.player1.y).isIsland() 
 			//	&& GameModele.map.getTileUnderEntity(GameModele.player1.x, GameModele.player1.y).isIsland());
 	}
