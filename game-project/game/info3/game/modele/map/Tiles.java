@@ -201,24 +201,24 @@ public class Tiles {
 	}
 
 	public boolean isIslandObstacle() {
-		return this.type == EnumTiles.CRAB_SPAWNER || this.type == EnumTiles.CRAB_SPAWNER_TRANSITION
-				|| this.type == EnumTiles.TREE;
+		return this.type == EnumTiles.TREE || this.type == EnumTiles.CRAB_SPAWNER_TRANSITION
+				|| this.type == EnumTiles.CRAB_SPAWNER;
 	}
 
 	public boolean notIslandAndNotWater() {
-		return this.type == EnumTiles.PONTOON || this.type == EnumTiles.HARBOR_SAND || this.type == EnumTiles.MOUTAIN;
+		return this.type == EnumTiles.HARBOR_SAND || this.type == EnumTiles.MOUTAIN || this.type == EnumTiles.PONTOON;
 	}
 
 	public boolean isIsland() {
-		return this.type == EnumTiles.SAND_WATER || this.type == EnumTiles.STORMY_SAND_WATER
-				|| this.type == EnumTiles.RAGING_SAND_WATER || this.type == EnumTiles.SAND
-				|| this.type == EnumTiles.GRASS || this.type == EnumTiles.BLUE_FLOWER
-				|| this.type == EnumTiles.YELLOW_FLOWER || this.type == EnumTiles.RED_FLOWER
-				|| this.type == EnumTiles.SHELLFISH_1 || this.type == EnumTiles.SHELLFISH_2
-				|| this.type == EnumTiles.SHELLFISH_3 || this.type == EnumTiles.PONTOON
-				|| this.type == EnumTiles.TREASUR || this.type == EnumTiles.GRASS_WITH_ROCK_1
-				|| this.type == EnumTiles.GRASS_WITH_ROCK_2 || this.type == EnumTiles.CRAB_KING_LAND
-				|| this.type == EnumTiles.CRAB_KING || this.type == EnumTiles.TRANSITION_GRASS_UNDER_SAND
+		return this.type == EnumTiles.SAND || this.type == EnumTiles.GRASS || this.type == EnumTiles.SAND_WATER
+				|| this.type == EnumTiles.STORMY_SAND_WATER || this.type == EnumTiles.RAGING_SAND_WATER
+				|| this.type == EnumTiles.BLUE_FLOWER || this.type == EnumTiles.YELLOW_FLOWER
+				|| this.type == EnumTiles.RED_FLOWER || this.type == EnumTiles.SHELLFISH_1
+				|| this.type == EnumTiles.SHELLFISH_2 || this.type == EnumTiles.SHELLFISH_3
+				|| this.type == EnumTiles.PONTOON || this.type == EnumTiles.TREASUR
+				|| this.type == EnumTiles.GRASS_WITH_ROCK_1 || this.type == EnumTiles.GRASS_WITH_ROCK_2
+				|| this.type == EnumTiles.CRAB_KING_LAND || this.type == EnumTiles.CRAB_KING
+				|| this.type == EnumTiles.TRANSITION_GRASS_UNDER_SAND
 				|| this.type == EnumTiles.TRANSITION_GRASS_ON_TOP_OF_SAND
 				|| this.type == EnumTiles.TRANSITION_GRASS_ON_LEFT_OF_SAND
 				|| this.type == EnumTiles.TRANSITION_GRASS_ON_RIGHT_OF_SAND
@@ -337,7 +337,7 @@ public class Tiles {
 	}
 
 	public boolean isGrass() {
-		return this.type == EnumTiles.TREE || this.type == EnumTiles.GRASS || this.type == EnumTiles.BLUE_FLOWER
+		return this.type == EnumTiles.GRASS || this.type == EnumTiles.TREE || this.type == EnumTiles.BLUE_FLOWER
 				|| this.type == EnumTiles.YELLOW_FLOWER || this.type == EnumTiles.RED_FLOWER
 				|| this.type == EnumTiles.GRASS_WITH_ROCK_1 || this.type == EnumTiles.GRASS_WITH_ROCK_2
 				|| this.type == EnumTiles.TRANSITION_GRASS_UNDER_SAND

@@ -34,8 +34,7 @@ public class SectionTitle {
 
 	public void paint(Graphics g, int width, int height) {
 
-		if (GameModele.map.getSectionOfEntity(GameModele.getCurrentPlayerX(),
-				GameModele.getCurrentPlayerY()) != this.section) {
+		if (GameModele.pirateBoat.getCurrentSection() != this.section) {
 			this.setTitle(GameModele.pirateBoat.getCurrentSection());
 		}
 
