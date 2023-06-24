@@ -16,9 +16,9 @@ public class Ship extends Ennemy {
 	public final static int DEFAULT_DAMAGE = 25;
 
 	private int timerAttackMili;
-	private int timerAttackSec;
+	private int timerAttackSec;	
 	private boolean reloading;
-	private MapSection m_mapSection;
+
 	private boolean stunned;
 	private int timerStunMili;
 	private int timerStunSec;
@@ -26,7 +26,6 @@ public class Ship extends Ennemy {
 	public Ship(MapSection mapSection) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE);
 		this.avatar = new ShipAvatar(this);
-		this.m_mapSection = mapSection;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Ship);
 		this.current_state = automate.initial_state;
 		GameModele.entities.add(this);
