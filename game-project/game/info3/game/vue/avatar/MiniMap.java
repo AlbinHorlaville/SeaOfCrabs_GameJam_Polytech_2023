@@ -5,10 +5,12 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 import info3.game.modele.GameModele;
+import info3.game.modele.MoveableEntityClass.Ship;
 import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Map;
 import info3.game.modele.map.MapSection;
@@ -35,10 +37,14 @@ public class MiniMap {
 	private int minimapWidth;
 	private int minimapHeight;
 
-	public MiniMap(Map m) throws IOException {
+	private ArrayList<Ship> seaEnnemie;
+
+	public MiniMap(Map m, ArrayList<Ship> seaEnnemie) throws IOException {
 		this.map = m.getMap();
 		this.sectionWidth = m.getSectionWidth();
 		this.sectionHeight = m.getSectionHeight();
+
+		this.seaEnnemie = seaEnnemie;
 
 		File imageFile = new File("resources/img/logo-boat.png");
 		if (imageFile.exists()) {
@@ -106,6 +112,19 @@ public class MiniMap {
 					}
 					g.fillRect(this.topX + j * mapPixelSize, this.topY + i * mapPixelSize, mapPixelSize, mapPixelSize);
 				}
+			}
+		}
+
+		g.setColor(Color.black);
+		for (Ship seaShip : this.seaEnnemie) {
+			if (GameModele.map.getSectionOfEntity(seaShip.getCenterX(),
+					seaShip.getCenterY()) == GameModele.pirateBoat.getCurrentSection()) {
+				Tiles tileUnder = GameModele.map.getTileUnderEntity(seaShip.getCenterX(),
+						seaShip.getCenterY());
+				int tilesX = tileUnder.getTileX();
+				int tilesY = tileUnder.getTileY();
+				
+				g.fillRect(this.topX + tilesX * mapPixelSize, this.topY + tilesY * mapPixelSize, mapPixelSize, mapPixelSize);
 			}
 		}
 

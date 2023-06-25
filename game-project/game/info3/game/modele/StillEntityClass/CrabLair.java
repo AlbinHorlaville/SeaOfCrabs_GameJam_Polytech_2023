@@ -77,7 +77,7 @@ public class CrabLair extends StillEntity {
 		 * if(distanceP1 < SCRAB_SPANWING_RANGE ){//&& distanceP2 <
 		 * SCRAB_SPANWING_RANGE) { return true; } return false;
 		 */
-		return !GameModele.onSea && GameModele.currentSection == GameModele.map.getSectionOfEntity(x, y);
+		return !GameModele.onSea && GameModele.currentSection == this.m_section.getSectionNumber();
 
 	}
 
