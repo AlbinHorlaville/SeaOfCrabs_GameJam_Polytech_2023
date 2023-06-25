@@ -62,6 +62,7 @@ public class GameModele {
 	public static Map map;
 
 	public static int seed;
+	public static int section;
 	
 	public static int currentSection;
 
@@ -261,11 +262,7 @@ public class GameModele {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
 
-			System.out.println("Seed = " + seed);
-
-			// Remplacer 13 par le nombre de section souhaité (10 minimum par défaut et si +
-			// forcement 10 + un multiple de 3 donc 10, 13, 16, 19, 22...)
-			map = new Map(seed, 13);
+			map = new Map(seed, section);
 
 			if (!solo) {
 				player2 = new PiratePlayer(GameEntity.PlayerMulti2);
@@ -293,9 +290,8 @@ public class GameModele {
 					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 13][map.getSectionWidth() / 2].getY());
 			pirateBoat.setAvatar(new BoatPlayerAvatar(pirateBoat));
 			GameModele.entities.add(pirateBoat);
-			// Remplacer 13 par le nombre de section souhaité (10 minimum par défaut et si +
-			// forcement 10 + un multiple de 3 donc 10, 13, 16, 19, 22...)
-			map = new Map(seed, 13);
+
+			map = new Map(seed, section);
 
 			genereEntity(map);
 			if (perroquet != null) {

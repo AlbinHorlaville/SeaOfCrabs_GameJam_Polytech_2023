@@ -280,14 +280,14 @@ public class PlayingView extends View {
 		cannonBallBox.paint(g);
 
 		boxPlayer1 = new UIBoxes(50, 602);
-		weaponPlayer1 = new UIBox(50, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 2F),
+		weaponPlayer1 = new UIBox(50, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 1F),
 				new UIImage(0, 0, "resources/img/logo-pirate-1.png", 1F));
 		boxPlayer1.addBox(weaponPlayer1);
 		boxPlayer1.paint(g);
 
 		if (!GameModele.solo) {
 			boxPlayer2 = new UIBoxes(910, 602);
-			weaponPlayer2 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 2F),
+			weaponPlayer2 = new UIBox(910, 602, 64, new UIImage(0, 0, "resources/img/Epee.png", 1F),
 					new UIImage(0, 0, "resources/img/logo-pirate-2.png", 1F));
 			boxPlayer2.addBox(weaponPlayer2);
 			boxPlayer2.paint(g);
