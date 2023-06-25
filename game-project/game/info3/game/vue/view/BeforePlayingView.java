@@ -87,6 +87,7 @@ public class BeforePlayingView extends View {
 		sectionBoxes.addBox(section10);
 		sectionBoxes.addBox(section16);
 		sectionBoxes.addBox(section22);
+		sectionBoxes.setSelectedBox(section10);
 		
 		labelParrot = new UILabel(50, 451, "Pirate's parrot?", FONT1, Color.black);
 		
