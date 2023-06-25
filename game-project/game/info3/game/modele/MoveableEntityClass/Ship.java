@@ -16,17 +16,18 @@ public class Ship extends Ennemy {
 	public final static int DEFAULT_DAMAGE = 25;
 
 	private int timerAttackMili;
-	private int timerAttackSec;
+	private int timerAttackSec;	
+	private int timerAttackMin;	
 	private boolean reloading;
-	private MapSection m_mapSection;
+
 	private boolean stunned;
 	private int timerStunMili;
 	private int timerStunSec;
+	private int timerStunMin;
 
 	public Ship(MapSection mapSection) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE);
 		this.avatar = new ShipAvatar(this);
-		this.m_mapSection = mapSection;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Ship);
 		this.current_state = automate.initial_state;
 		GameModele.entities.add(this);
@@ -63,31 +64,55 @@ public class Ship extends Ennemy {
 			}
 		}
 	}
+	
+	private boolean stunTimePassed(int debutStunMili, int debutStunSec, int actualMili, int actualSec) {
+		if (debutStunSec* 1000 + 5000 + debutStunMili < actualSec * 1000
+				+ actualMili) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public boolean gotPower() {
 		if (this.stunned) {
+			
 			int timeMili = GameModele.timer.getMiliSecondes();
 			int timeSec = GameModele.timer.getSecondes();
-			if (this.timerStunMili <= timeMili && this.timerStunSec + 1 <= timeSec) {
+			int timeMin = GameModele.timer.getMinutes();
+			if (stunTimePassed(this.timerStunMili, this.timerStunSec, timeMili, timeSec)
+					|| this.timerStunMin < timeMin) {
 				this.stunned = false;
-				this.automate = AutomateLoader.findAutomate(GameEntity.KrakenTentacle);
+				this.automate = AutomateLoader.findAutomate(GameEntity.Ship);
 				this.current_state = automate.initial_state;
 			}
 		}
-
+		
 		return this.m_healthPoints > 0;
+	}
+	
+	private boolean reloadingTimePassed(int debutReloadingMili, int debutReloadingSec, int actualMili, int actualSec) {
+		if (debutReloadingSec* 1000 + 1000 + debutReloadingMili < actualSec * 1000
+				+ actualMili) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void hit() {
 		int timeMili = GameModele.timer.getMiliSecondes();
 		int timeSec = GameModele.timer.getSecondes();
+		int timeMin = GameModele.timer.getMinutes();
 
 		if (!this.reloading) {
 			GameModele.map.setDamaging(GameModele.pirateBoat.getCenterX(), GameModele.pirateBoat.getCenterY());
 			this.reloading = true;
 			this.timerAttackMili = timeMili;
 			this.timerAttackSec = timeSec;
-		} else if (timerAttackMili <= timeMili && timerAttackSec + 1 <= timeSec) {
+			this.timerAttackMin = timeMin;
+		} else if (reloadingTimePassed(this.timerAttackMili, this.timerAttackSec, timeMili, timeSec)
+				|| this.timerAttackMin < timeMin) {
 			this.reloading = false;
 		}
 	}
@@ -137,6 +162,7 @@ public class Ship extends Ennemy {
 
 		this.timerStunMili = GameModele.timer.getMiliSecondes();
 		this.timerStunSec = GameModele.timer.getSecondes();
+		this.timerStunMin = GameModele.timer.getMinutes();
 	}
 
 	private BoatPlayer closestBoatToMe() {
