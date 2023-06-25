@@ -47,15 +47,27 @@ public class Ship extends Ennemy {
 			int nextX = this.x;
 			int nextY = this.y;
 
-			if (this.x > closestPlayer.x)
-				nextX--;
-			else if (this.x < closestPlayer.x)
-				nextX++;
+			if (this.x > closestPlayer.x) {// Aller à droite
+				if (GameModele.map.getTileUnderEntity(nextX, nextY).getTileX() < GameModele.map.getSectionWidth()
+						- 20) {
+					nextX--;
+				}
 
-			if (this.y > closestPlayer.y)
-				nextY--;
-			else if (this.y < closestPlayer.y)
-				nextY++;
+			} else if (this.x < closestPlayer.x) {
+				if (GameModele.map.getTileUnderEntity(nextX, nextY).getTileX() > 20) {
+					nextX++;
+				}
+			}
+			if (this.y > closestPlayer.y) {
+				if (GameModele.map.getTileUnderEntity(nextX, nextY).getTileX() < GameModele.map.getSectionWidth()
+						- 20) {
+					nextY--;
+				}
+			} else if (this.y < closestPlayer.y) {
+				if (GameModele.map.getTileUnderEntity(nextX, nextY).getTileX() > 20) {
+					nextY++;
+				}
+			}
 
 //			int nextX = this.x - ((this.x - closestPlayer.x) * 1);
 //			int nextY = this.y - ((this.y - closestPlayer.y) * 1);
@@ -154,7 +166,7 @@ public class Ship extends Ennemy {
 				} else {
 					return (Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2)) < 5);
 				}
-				
+
 			case V:
 				if (distanceY > 40 || distanceX > 40) {
 					return false;
