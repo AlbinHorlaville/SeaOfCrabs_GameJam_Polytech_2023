@@ -16,14 +16,16 @@ public class Ship extends Ennemy {
 	public final static int DEFAULT_DAMAGE = 25;
 
 	private int timerAttackMili;
-	private int timerAttackSec;	
-	private int timerAttackMin;	
+	private int timerAttackSec;
+	private int timerAttackMin;
 	private boolean reloading;
 
 	private boolean stunned;
 	private int timerStunMili;
 	private int timerStunSec;
 	private int timerStunMin;
+
+	private int sectionHeight;
 
 	public Ship(MapSection mapSection) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE);
@@ -32,6 +34,8 @@ public class Ship extends Ennemy {
 		this.current_state = automate.initial_state;
 		GameModele.entities.add(this);
 		this.reloading = false;
+
+		this.sectionHeight = GameModele.map.getSectionHeight();
 	}
 
 	public void move() {
@@ -64,10 +68,9 @@ public class Ship extends Ennemy {
 			}
 		}
 	}
-	
+
 	private boolean stunTimePassed(int debutStunMili, int debutStunSec, int actualMili, int actualSec) {
-		if (debutStunSec* 1000 + 5000 + debutStunMili < actualSec * 1000
-				+ actualMili) {
+		if (debutStunSec * 1000 + 5000 + debutStunMili < actualSec * 1000 + actualMili) {
 			return true;
 		} else {
 			return false;
@@ -76,7 +79,7 @@ public class Ship extends Ennemy {
 
 	public boolean gotPower() {
 		if (this.stunned) {
-			
+
 			int timeMili = GameModele.timer.getMiliSecondes();
 			int timeSec = GameModele.timer.getSecondes();
 			int timeMin = GameModele.timer.getMinutes();
@@ -87,13 +90,12 @@ public class Ship extends Ennemy {
 				this.current_state = automate.initial_state;
 			}
 		}
-		
+
 		return this.m_healthPoints > 0;
 	}
-	
+
 	private boolean reloadingTimePassed(int debutReloadingMili, int debutReloadingSec, int actualMili, int actualSec) {
-		if (debutReloadingSec* 1000 + 1000 + debutReloadingMili < actualSec * 1000
-				+ actualMili) {
+		if (debutReloadingSec * 1000 + 1000 + debutReloadingMili < actualSec * 1000 + actualMili) {
 			return true;
 		} else {
 			return false;
@@ -128,29 +130,43 @@ public class Ship extends Ennemy {
 
 	@Override
 	public boolean closest(EnumCategory cat) {
-		
-		int height = GameModele.map.getSectionHeight();
 
-		Tiles tileUnderPlayer = GameModele.map.getTileUnderEntity(GameModele.getCurrentPlayerX(),
-				GameModele.getCurrentPlayerY());
-		Tiles tileUnderThis = GameModele.map.getTileUnderEntity(this.x, this.y);
+		if (GameModele.onSea) {
 
-		int playerTileY = GameModele.currentSection * height + height
-				- tileUnderPlayer.getTileY();
+			Tiles tileUnderPlayer = GameModele.map.getTileUnderEntity(GameModele.getCurrentPlayerX(),
+					GameModele.getCurrentPlayerY());
+			Tiles tileUnderThis = GameModele.map.getTileUnderEntity(this.x, this.y);
 
-		int EntityTileY = GameModele.map.getSectionOfEntity(this.x, this.y) * height
-				+ height - tileUnderThis.getTileY();
+			int playerTileY = GameModele.currentSection * this.sectionHeight + this.sectionHeight
+					- tileUnderPlayer.getTileY();
 
-		switch (cat) {
-		case A:
-			return (GameModele.onSea && Math.sqrt(Math.pow(tileUnderPlayer.getTileX() - tileUnderThis.getTileX(), 2)
-					+ Math.pow(playerTileY - EntityTileY, 2)) < 5);
-		case V:
-			return (GameModele.onSea && Math.sqrt(Math.pow(tileUnderPlayer.getTileX() - tileUnderThis.getTileX(), 2)
-					+ Math.pow(playerTileY - EntityTileY, 2)) < 40);
-		default:
-			return false;
+			int EntityTileY = GameModele.map.getSectionOfEntity(this.x, this.y) * this.sectionHeight
+					+ this.sectionHeight - tileUnderThis.getTileY();
+
+			// Only for optimisation
+			int distanceY = Math.abs(playerTileY - EntityTileY);
+			int distanceX = Math.abs(tileUnderPlayer.getTileX() - tileUnderThis.getTileX());
+
+			switch (cat) {
+			case A:
+				if (distanceY > 5 || distanceX > 5) {
+					return false;
+				} else {
+					return (Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2)) < 5);
+				}
+				
+			case V:
+				if (distanceY > 40 || distanceX > 40) {
+					return false;
+				} else {
+					return (Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2)) < 40);
+				}
+			default:
+				return false;
+			}
 		}
+
+		return false;
 
 	}
 

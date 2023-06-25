@@ -45,6 +45,8 @@ public class GameModele {
 	GameView gameview;
 
 	public static ArrayList<Entity> entities = new ArrayList<>();
+	
+	public static ArrayList<Ship> seaEnnemie = new ArrayList<>();
 
 	public static PiratePlayer player1;
 
@@ -430,6 +432,7 @@ public class GameModele {
 							newEntity = new Ship(section);
 							newEntity.setLocation(current.getX(), current.getY());
 							entities.add(newEntity);
+							this.seaEnnemie.add((Ship)newEntity);
 						} else if (current.getType() == EnumTiles.CRAB_KING) {
 							newEntity = new CrabKing(k, 1500, current.getX(), current.getY(), 200); // TODO CHANGE PARAM
 							GameModele.entities.add(newEntity);

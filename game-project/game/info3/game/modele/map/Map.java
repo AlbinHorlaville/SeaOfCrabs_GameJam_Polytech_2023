@@ -68,7 +68,7 @@ public class Map {
 
 		this.mapRepres = new MapRepresentation(this);
 
-		this.miniMap = new MiniMap(this);
+		this.miniMap = new MiniMap(this, GameModele.seaEnnemie);
 	}
 
 	/*
@@ -106,7 +106,7 @@ public class Map {
 
 		this.mapRepres = new MapRepresentation(this);
 
-		this.miniMap = new MiniMap(this);
+		this.miniMap = new MiniMap(this, GameModele.seaEnnemie);
 
 		this.title = new SectionTitle();
 	}
