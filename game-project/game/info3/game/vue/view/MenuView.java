@@ -202,7 +202,7 @@ public class MenuView extends View {
 			public void onComponentClicked(int x, int y) {
 				Desktop desktop = java.awt.Desktop.getDesktop();
 				try {
-					URI oURL = new URI("http://seaofcrabs.000webhostapp.com/pages/rules.php?btnradio=rules");
+					URI oURL = new URI("http://seaofcrabs.000webhostapp.com/pages/doc.php");
 					desktop.browse(oURL);
 				} catch (URISyntaxException | IOException e) {
 					return;
