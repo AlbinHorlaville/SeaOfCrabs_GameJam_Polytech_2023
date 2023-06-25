@@ -223,6 +223,27 @@ public class Map {
 		this.initOptimisationVariable();
 	}
 
+	public EnumSectionType getSectionType(int section) {
+		switch (this.map[section].getSeaType()) {
+		case HARBOR:
+			return EnumSectionType.HARBOR;
+		case CALM_SEA:
+		case CALM_SEA_TO_STORMY_SEA:
+			return EnumSectionType.CALM_SEA;
+		case STORMY_SEA_FROM_CALM_SEA:
+		case STORMY_SEA:
+		case STORMY_SEA_TO_RAGING_SEA:
+			return EnumSectionType.STORMY_SEA;
+		case RAGING_SEA:
+		case RAGING_SEA_FROM_STORMY_SEA:
+			return EnumSectionType.RAGING_SEA;
+		case CRAB_KING_SEA:
+			return EnumSectionType.CRAB_KING_SEA;
+		default:
+			return EnumSectionType.KRAKEN_SEA;
+		}
+	}
+
 	/*
 	 * Set the coordonate of each tiles
 	 */
