@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 import info3.game.DAO;
 import info3.game.Controller;
@@ -62,6 +63,7 @@ public class GameModele {
 	public static Map map;
 
 	public static int seed;
+	public Random rand = new Random();
 	public static int section;
 	
 	public static int currentSection;
@@ -258,6 +260,7 @@ public class GameModele {
 	}
 
 	public void start() throws Exception {
+		seed = rand.nextInt();
 		if (currentState == GameState.AvantJeu) {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
@@ -362,6 +365,8 @@ public class GameModele {
 	}
 
 	void genereEntity(Map map) {
+		
+		System.out.println("Seed : " + seed);
 
 		Kraken kraken = new Kraken();
 		int tentacle_number = 0;
