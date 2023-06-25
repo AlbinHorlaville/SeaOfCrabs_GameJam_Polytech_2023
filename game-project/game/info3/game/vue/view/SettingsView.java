@@ -47,8 +47,8 @@ public class SettingsView extends View {
 		buttonAutomatonView = new UIButton(774, windowHeight - 100, 200,70, new UILabel(0, 0, "Automata", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_CYAN);
 
-		backgroundSoundChecker = new UIChecker(320, 230, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
-		effectSoundChecker = new UIChecker(320, 280, new UILabel(0, 0, "Mute", FONT1, c1), c2, true);
+		backgroundSoundChecker = new UIChecker(320, 230, new UILabel(0, 0, "", FONT1, c1), c2, true);
+		effectSoundChecker = new UIChecker(320, 280, new UILabel(0, 0, "", FONT1, c1), c2, true);
 
 		backgroundSoundVolumeLabel = new UILabel(50, 250, "Background sound : ", FONT1, Color.black);
 		effectSoundVolumeLabel = new UILabel(50, 300, "Sound effects : ", FONT1, Color.black);
@@ -180,8 +180,9 @@ public class SettingsView extends View {
 		addComponent(effectSoundVolumeLabel);
 		addComponent(effectSoundChecker);
 		addComponent(buttonAutomatonView);
+		
 		if (SeaOfCrabes.connectedToDatabase) {
-			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
+			addComponent(new UILabel(10, 30, "Connected to database: @"+GameModele.currentUser.getUsername(), FONT4, Color.green));
 		} else {
 			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 		}
