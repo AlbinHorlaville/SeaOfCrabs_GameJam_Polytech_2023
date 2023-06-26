@@ -46,7 +46,7 @@ public class GameModele {
 	GameView gameview;
 
 	public static ArrayList<Entity> entities = new ArrayList<>();
-	
+
 	public static ArrayList<Ship> seaEnnemie = new ArrayList<>();
 
 	public static PiratePlayer player1;
@@ -68,7 +68,7 @@ public class GameModele {
 	public static int seed;
 	public Random rand = new Random();
 	public static int section;
-	
+
 	public static int currentSection;
 
 	int waveTick = 0;
@@ -204,7 +204,8 @@ public class GameModele {
 		if (currentState == GameState.Jeu) {
 			if (this.onSea) {
 				this.currentSection = this.pirateBoat.getCurrentSection();
-				if (this.map.getTileUnderEntity(this.pirateBoat.getCenterX(), this.pirateBoat.getCenterY()).isWaterDamaging()) {
+				if (this.map.getTileUnderEntity(this.pirateBoat.getCenterX(), this.pirateBoat.getCenterY())
+						.isWaterDamaging()) {
 					this.pirateBoat.takeDamage(20);
 				}
 			}
@@ -240,17 +241,6 @@ public class GameModele {
 			}
 		}
 		entities = newEntities;
-
-		// System.out.print("\n\n x : " +
-		// -map.getMap()[0].getTiles()[26][map.getSectionWidth() / 2].getX() + "\n\n");
-		/*
-		 * System.out.print("\n\n x : " +
-		 * this.map.transpoXCoordinateToTile(this.pirateBoat.getX(),
-		 * this.pirateBoat.getY()) + "\n\n"); System.out.print("tt:" +
-		 * this.map.getSectionWidth()/2); System.out.print("\n\n YYYY : " +
-		 * this.map.transpoYCoordinateToTile(this.pirateBoat.getX(),
-		 * this.pirateBoat.getY()) + "\n\n");
-		 */
 	}
 
 	public GameState getCurrentState() {
@@ -284,7 +274,7 @@ public class GameModele {
 				BeforePlayingView.weapon1.setPlayer(player1);
 				entities.add(BeforePlayingView.weapon1);
 				BeforePlayingView.weapon1.setAvatar(new SwordAvatar(BeforePlayingView.weapon1));
-				
+
 			} else {
 				player1 = new PiratePlayer(GameEntity.Player1);
 				player1.setAvatar(new Player1(player1));
@@ -292,8 +282,6 @@ public class GameModele {
 				BeforePlayingView.weapon1.setPlayer(player1);
 				entities.add(BeforePlayingView.weapon1);
 				BeforePlayingView.weapon1.setAvatar(new SwordAvatar(BeforePlayingView.weapon1));
-				
-				System.out.println(BeforePlayingView.weapon1.avatar.toString());
 			}
 
 			perroquet = BeforePlayingView.perroquet;
@@ -377,7 +365,7 @@ public class GameModele {
 	}
 
 	void genereEntity(Map map) {
-		
+
 		System.out.println("Seed : " + seed);
 
 		Kraken kraken = new Kraken();
@@ -430,7 +418,7 @@ public class GameModele {
 																									// vie
 
 							entities.add(newEntity);
-							newEntity = new CloudCluster(current.getX()-200, current.getY()-200, map.getMap()[k]);
+							newEntity = new CloudCluster(current.getX() - 200, current.getY() - 200, map.getMap()[k]);
 							entities.add(newEntity);
 						} else if (current.isCloud()) {
 
@@ -444,7 +432,7 @@ public class GameModele {
 							newEntity = new Ship(section);
 							newEntity.setLocation(current.getX(), current.getY());
 							entities.add(newEntity);
-							this.seaEnnemie.add((Ship)newEntity);
+							this.seaEnnemie.add((Ship) newEntity);
 						} else if (current.getType() == EnumTiles.CRAB_KING) {
 							newEntity = new CrabKing(k, 1500, current.getX(), current.getY(), 200); // TODO CHANGE PARAM
 							GameModele.entities.add(newEntity);

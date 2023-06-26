@@ -31,53 +31,18 @@ public abstract class Weapon extends MoveableEntity {
 		this.range = range;
 	}
 
-	/*
-	 * public void hit() { attacking = true; tempX = player.getCenterX(); tempY =
-	 * player.getCenterY(); //width = player.avatar.getWidth()/ Avatar.SCALE_IMG;
-	 * //height = 2 * player.avatar.getHeight() / Avatar.SCALE_IMG; width =
-	 * player.avatar.getWidth(); height = player.avatar.getHeight();
-	 * ArrayList<Entity> tempEntities = (ArrayList) GameModele.entities.clone();
-	 * for(Entity e : tempEntities) { if(e != player) { switch(player.facing) { case
-	 * N: //System.out.println(GameModele.map.getTileUnderEntity(tempX, tempY +
-	 * range + height).getType().toString()); if(e.getCenterX() <= tempX + width &&
-	 * e.getCenterX() >= tempX - width) { if(e.getCenterY() >= tempY &&
-	 * e.getCenterY() <= tempY + range) { //System.out.println("touché N " +
-	 * e.getClass()); if(e instanceof MoveableEntity) {
-	 * ((MoveableEntity)e).takeDamage(damage); } } } break; case S:
-	 * //System.out.println(GameModele.map.getTileUnderEntity(tempX, tempY -
-	 * range).getType().toString()); if(e.getCenterX() <= tempX + width &&
-	 * e.getCenterX() >= tempX - width) { if(e.getCenterY() <= tempY &&
-	 * e.getCenterY() >= tempY - range) { //System.out.println("touché S " +
-	 * e.getClass()); if(e instanceof MoveableEntity) {
-	 * ((MoveableEntity)e).takeDamage(damage); } } } break; case E:
-	 * //System.out.println(GameModele.map.getTileUnderEntity(tempX, tempY +
-	 * height).getType().toString()); if(e.getCenterY() >= tempY && e.getCenterY()
-	 * <= tempY + height) { if(e.getCenterX() <= tempX && e.getCenterX() >= tempX -
-	 * range) { //System.out.println("touché E " + e.getClass()); if(e instanceof
-	 * MoveableEntity) { ((MoveableEntity)e).takeDamage(damage); } } } break; case
-	 * W: //System.out.println(GameModele.map.getTileUnderEntity(tempX + range +
-	 * width, tempY).getType().toString()); if(e.getCenterY() >= tempY &&
-	 * e.getCenterY() <= tempY + height) if(e.getCenterX() >= tempX &&
-	 * e.getCenterX() <= tempX + range) { //System.out.println("touché W " +
-	 * e.getClass()); if(e instanceof MoveableEntity) {
-	 * ((MoveableEntity)e).takeDamage(damage); } } break; }
-	 * 
-	 * }
-	 * 
-	 * } }
-	 */
-
 	public void hit(float rangeCoeff, float damageCoeff) {
-		SwordAvatar sword = (SwordAvatar)this.avatar;
+		SwordAvatar sword = (SwordAvatar) this.avatar;
 		sword.setAttacking();
 		if (player == null)
 			player = playerRescu;
-		tempY = player.getY()+player.getAvatar().getHeight()/2;	
-		width = player.avatar.getWidth() / 2;//player.avatar.getWidth();
-		height = player.avatar.getHeight() / 2	;//player.avatar.getHeight();
+		tempX = player.getX() + player.getAvatar().getWidth() / 2;
+		tempY = player.getY() + player.getAvatar().getHeight() / 2;
+		width = player.avatar.getWidth() / 2;// player.avatar.getWidth();
+		height = player.avatar.getHeight() / 2;// player.avatar.getHeight();
 		ArrayList<Entity> tempEntities = (ArrayList) GameModele.entities.clone();
 		for (Entity e : tempEntities) {
-			if (e != player && e!= GameModele.perroquet) {
+			if (e != player && e != GameModele.perroquet) {
 				int eCenterX = e.getCenterX();
 				int eCenterY = e.getCenterY();
 				if (e instanceof Tree) {
@@ -85,45 +50,35 @@ public abstract class Weapon extends MoveableEntity {
 				}
 				switch (player.facing) {
 				case N:
-					//System.out.println("North "
-					//		+ GameModele.map.getTileUnderEntity(tempX, tempY + range).getType().toString());
 					if (eCenterX - e.r <= tempX + width / 2 && eCenterX + e.r >= tempX - width / 2) {
-						if (eCenterY + e.r >= tempY && eCenterY - e.r <= tempY + (int)(range*rangeCoeff)) {
-							// System.out.println("touché N " + e.getClass());
-							e.takeDamage((int)(damage * damageCoeff));
+						if (eCenterY + e.r >= tempY && eCenterY - e.r <= tempY + (int) (range * rangeCoeff)) {
+							e.takeDamage((int) (damage * damageCoeff));
 							return;
 						}
 					}
 					break;
 				case S:
-					//System.out.println(
-					//		"South " + GameModele.map.getTileUnderEntity(tempX, tempY - range).getType().toString());
 					if (eCenterX - e.r <= tempX + width / 2 && eCenterX + e.r >= tempX - width / 2) {
-						if (eCenterY - e.r <= tempY && eCenterY + e.r >= tempY - (int)(range*rangeCoeff)) {
-							// System.out.println("touché S " + e.getClass());
-							e.takeDamage((int)(damage * damageCoeff));
+						if (eCenterY - e.r <= tempY && eCenterY + e.r >= tempY - (int) (range * rangeCoeff)) {
+							e.takeDamage((int) (damage * damageCoeff));
 							return;
 						}
 					}
 					break;
 				case E:
-					//System.out.println("East "
-					//		+ GameModele.map.getTileUnderEntity(tempX - range, tempY).getType().toString());
-					if (eCenterY + e.r >= tempY + player.getAvatar().getWidth()/4 - height / 2 && eCenterY - e.r <= tempY - player.getAvatar().getWidth()/4 + height / 2) {
-						if (eCenterX - e.r <= tempX && eCenterX + e.r >= tempX - (int)(range*rangeCoeff)) {
-							// System.out.println("touché E " + e.getClass());
-							e.takeDamage((int)(damage * damageCoeff));
+					if (eCenterY + e.r >= tempY + player.getAvatar().getWidth() / 4 - height / 2
+							&& eCenterY - e.r <= tempY - player.getAvatar().getWidth() / 4 + height / 2) {
+						if (eCenterX - e.r <= tempX && eCenterX + e.r >= tempX - (int) (range * rangeCoeff)) {
+							e.takeDamage((int) (damage * damageCoeff));
 							return;
 						}
 					}
 					break;
 				case W:
-					//System.out.println("West "
-					//		+ GameModele.map.getTileUnderEntity(tempX + range, tempY).getType().toString());
-					if (eCenterY + e.r >= tempY + player.getAvatar().getWidth()/4 - height / 2 && eCenterY - e.r <= tempY - player.getAvatar().getWidth()/4 + height / 2)
-						if (eCenterX + e.r >= tempX && eCenterX - e.r <= tempX + (int)(range*rangeCoeff)) {
-							// System.out.println("touché W " + e.getClass());
-							e.takeDamage((int)(damage * damageCoeff));
+					if (eCenterY + e.r >= tempY + player.getAvatar().getWidth() / 4 - height / 2
+							&& eCenterY - e.r <= tempY - player.getAvatar().getWidth() / 4 + height / 2)
+						if (eCenterX + e.r >= tempX && eCenterX - e.r <= tempX + (int) (range * rangeCoeff)) {
+							e.takeDamage((int) (damage * damageCoeff));
 							return;
 						}
 					break;
