@@ -18,7 +18,7 @@ public class Level {
 		case 7:
 			return 80;
 		default: 
-			return 0;
+			return 80;
 		}
 	}
 	

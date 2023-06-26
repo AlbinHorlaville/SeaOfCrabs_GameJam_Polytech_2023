@@ -29,13 +29,14 @@ import info3.game.vue.toolkitUI.UITextInput;
 public class BeforePlayingView extends View {
 
 	UIButton buttonPlay, buttonCmd, buttonRandomSeed, buttonRetour;
-	UILabel seedLabel, weaponLabelPlayer1, weaponLabelPlayer2;
+	UILabel seedLabel, weaponLabelPlayer1, weaponLabelPlayer2, sectionLabel;
 	UITextInput seedInput;
-	UIBoxes weaponsBoxesPlayer1, weaponsBoxesPlayer2;
+	UIBoxes weaponsBoxesPlayer1, weaponsBoxesPlayer2, sectionBoxes;
 	UIChecker perroquetBox;
-	UILabel weaponSelectedLabel1, weaponSelectedLabel2;
+	UILabel weaponSelectedLabel1, weaponSelectedLabel2, labelParrot;
 
-	UIBox boxSwordPlayer1, boxScythePlayer1, boxSwordPlayer2, boxScythePlayer2;
+	UIBox boxSwordPlayer1, boxScythePlayer1, boxSwordPlayer2, boxScythePlayer2, section10, section16, section22;
+	
 
 	public static Weapon weapon1;
 	public static Weapon weapon2;
@@ -47,9 +48,6 @@ public class BeforePlayingView extends View {
 
 		int windowWidth = (int) gameView.getWidthCanvas();
 		int windowHeight = (int) gameView.getHeightCanvas();
-
-		perroquetBox = new UIChecker(100, 500,
-				new UILabel(0, 0, "BinGru le perroquet ?", FONT1, Color.black), c1, false);
 
 		buttonRetour = new UIButton(50, windowHeight - 100, 200, 70, new UILabel(0, 0, "Back", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_RED);
@@ -67,24 +65,33 @@ public class BeforePlayingView extends View {
 		weaponLabelPlayer2 = new UILabel(50, 321, "Player 2's weapon : ", FONT1, Color.black);
 
 		boxSwordPlayer1 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Epee.png", 2F));
-
-		boxScythePlayer1 = new UIBox(96, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 2F));
 		boxSwordPlayer2 = new UIBox(96, new Sword(), new UIImage(0, 0, "resources/img/Epee.png", 2F));
-		boxScythePlayer2 = new UIBox(96, Scythe.getInstance(), new UIImage(0, 0, "resources/img/Scythe.png", 2F));
 
-		weaponSelectedLabel1 = new UILabel(550, 221, "", FONT1, Color.black);
-		weaponSelectedLabel2 = new UILabel(550, 321, "", FONT1, Color.black);
+		weaponSelectedLabel1 = new UILabel(450, 221, "", FONT1, Color.black);
+		weaponSelectedLabel2 = new UILabel(450, 321, "", FONT1, Color.black);
 
-		weaponsBoxesPlayer1 = new UIBoxes(320, 170, weaponSelectedLabel1);
-
+		weaponsBoxesPlayer1 = new UIBoxes(300, 170, weaponSelectedLabel1);
 		weaponsBoxesPlayer1.addBox(boxSwordPlayer1);
-		weaponsBoxesPlayer1.addBox(boxScythePlayer1);
 		weaponsBoxesPlayer1.setSelectedBox(boxSwordPlayer1);
 
-		weaponsBoxesPlayer2 = new UIBoxes(320, 270, weaponSelectedLabel2);
+		weaponsBoxesPlayer2 = new UIBoxes(300, 270, weaponSelectedLabel2);
 		weaponsBoxesPlayer2.addBox(boxSwordPlayer2);
-		weaponsBoxesPlayer2.addBox(boxScythePlayer2);
 		weaponsBoxesPlayer2.setSelectedBox(boxSwordPlayer2);
+				
+		sectionLabel = new UILabel(50, 351, "Section number :", FONT1, Color.black);
+		
+		sectionBoxes=new UIBoxes(300,314);
+		section10 = new UIBox(64, 10);
+		section16 = new UIBox(64, 16);
+		section22 = new UIBox(64, 22);
+		sectionBoxes.addBox(section10);
+		sectionBoxes.addBox(section16);
+		sectionBoxes.addBox(section22);
+		sectionBoxes.setSelectedBox(section10);
+		
+		labelParrot = new UILabel(50, 451, "Pirate's parrot?", FONT1, Color.black);
+		
+		perroquetBox = new UIChecker(300, 428,new UILabel(0, 0, "", FONT1, Color.black), c1, false);
 
 		perroquetBox.setUIComponentListener(new UIComponentListener() {
 
@@ -144,11 +151,13 @@ public class BeforePlayingView extends View {
 						}
 						// TODO : relier la vue au modele avant d'appeler start
 						GameModele.seed = i;
+						GameModele.section = sectionBoxes.getSelectedBox().getValue();
 						gameView.getGame().start();
 					} else {
 						seedInput.setInputText(Integer.toString(i));
 						// TODO : relier la vue au modele avant d'appeler start
 						GameModele.seed = i;
+						GameModele.section = sectionBoxes.getSelectedBox().getValue();
 						gameView.getGame().start();
 					}
 				} catch (Exception e) {
@@ -368,8 +377,12 @@ public class BeforePlayingView extends View {
 		addComponent(weaponLabelPlayer2);
 		addComponent(weaponsBoxesPlayer2);
 		addComponent(weaponSelectedLabel2);
+		addComponent(sectionBoxes);
+		addComponent(sectionLabel);
+		addComponent(labelParrot);
+		
 		if (SeaOfCrabes.connectedToDatabase) {
-			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
+			addComponent(new UILabel(10, 30, "Connected to database: @"+GameModele.currentUser.getUsername(), FONT4, Color.green));
 		} else {
 			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 		}
@@ -379,8 +392,16 @@ public class BeforePlayingView extends View {
 	public void paint(Graphics g, int width, int height) {
 		if (GameModele.solo) {
 			weaponLabelPlayer1.setText("Player's weapon : ");
+			sectionLabel.setPositionY(351);
+			sectionBoxes.setPositionY(314);
+			perroquetBox.setPositionY(428);
+			labelParrot.setPositionY(451);
 		} else {
 			weaponLabelPlayer1.setText("Player 1's weapon : ");
+			sectionLabel.setPositionY(451);
+			sectionBoxes.setPositionY(414);
+			perroquetBox.setPositionY(528);
+			labelParrot.setPositionY(551);
 		}
 		for (UIComponent c : components) {
 			if ((c == weaponLabelPlayer2 || c == weaponsBoxesPlayer2 || c == weaponSelectedLabel2) && GameModele.solo)

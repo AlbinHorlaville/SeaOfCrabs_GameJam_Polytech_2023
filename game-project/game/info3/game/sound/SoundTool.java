@@ -14,7 +14,7 @@ public class SoundTool {
 	
 	static private boolean cancelSoundEffect = false;
 
-	public final static String path = "assets/audio/";
+	public final static String path = "./assets/audio/";
 
 	private static HashMap<BackgroundMusic, String> backgroundSounds;
 	private static HashMap<SoundEffect, String> soundEffects;

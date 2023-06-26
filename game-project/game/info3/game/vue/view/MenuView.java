@@ -202,7 +202,7 @@ public class MenuView extends View {
 			public void onComponentClicked(int x, int y) {
 				Desktop desktop = java.awt.Desktop.getDesktop();
 				try {
-					URI oURL = new URI("http://seaofcrabs.000webhostapp.com/pages/rules.php");
+					URI oURL = new URI("http://seaofcrabs.000webhostapp.com/pages/doc.php");
 					desktop.browse(oURL);
 				} catch (URISyntaxException | IOException e) {
 					return;
@@ -237,11 +237,9 @@ public class MenuView extends View {
 		addComponent(buttonRules);
 		addComponent(buttonCredits);
 		addComponent(title);
-		/*if (GameModele.user!=null) {
-			addComponent(new UILabel(10, 30, "Connected as @"+GameModele.user.getUsername(), FONT4, Color.black));
-		}*/
+
 		if (SeaOfCrabes.connectedToDatabase) {
-			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
+			addComponent(new UILabel(10, 30, "Connected to database: @"+GameModele.currentUser.getUsername(), FONT4, Color.green));
 		} else {
 			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 		}

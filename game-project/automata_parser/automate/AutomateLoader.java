@@ -25,7 +25,7 @@ public class AutomateLoader {
 
 	public static void initAutomateLoader() {
 		try {
-			AST ast = AutomataParser.from_file(System.getProperty("user.dir") + "/automata_parser/automata.gal");
+			AST ast = AutomataParser.from_file("./automata_parser/automata.gal");
 			Visitor v = new Visitor();
 			l = (LinkedList<Object>) ast.accept(v);
 
