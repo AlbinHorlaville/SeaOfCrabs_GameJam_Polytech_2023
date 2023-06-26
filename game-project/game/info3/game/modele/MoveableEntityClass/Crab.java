@@ -114,7 +114,6 @@ public class Crab extends Ennemy {
 					this.y = nextY;
 					lastY = valueY;
 					lastX = 0;
-					System.out.println("Y");
 			}else if(!GameModele.map.getTileUnderEntity(getCenterX(),nextY).isIsland()) {
 					this.x = nextX;
 					lastX = valueX;
