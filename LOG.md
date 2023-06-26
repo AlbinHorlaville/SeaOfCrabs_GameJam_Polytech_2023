@@ -235,3 +235,9 @@
 
 # 24 Juin
 - Rémi: Optimisation générale du jeu
+
+# 25 juin
+- Albin: Modèle Perroquet, il tourne en traçant un cercle harmonieux autour du personnage / bateau.
+
+# 26 juin
+- Albin et Axel: Correction de bug, corrrection de vitesse sur les boulets de canon (qui ont désormais une vitesse fixe), les crabes contournent désormais les obstacles, les personnages ne peuvent plus sortir de l'écran dans le mode 2 joueurs, mise à jour des images de commandes pour les joueurs.
