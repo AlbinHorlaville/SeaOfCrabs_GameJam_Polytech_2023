@@ -79,6 +79,7 @@ public class GameView {
 			this.screenHeight = 768;
 
 			frame = canvas.createFrame(d);
+			frame.setResizable(false);
 
 			System.out.println("  - setting up the frame...");
 			File backgroundImageFile = new File("resources/background.png");
