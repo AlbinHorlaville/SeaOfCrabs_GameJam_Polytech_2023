@@ -10,6 +10,7 @@ import info3.game.modele.bonus.DamageBonus;
 import info3.game.modele.bonus.HealthBonus;
 import info3.game.modele.bonus.RangeBonus;
 import info3.game.modele.bonus.SpeedBonus;
+import info3.game.vue.GameView;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
@@ -48,7 +49,11 @@ public class BonusAvatar extends Avatar {
 		int coeffX = -entity.getX() + GameModele.getCurrentPlayerX() + width / 2;
 		int coeffY = -entity.getY() + GameModele.getCurrentPlayerY() + height / 2;
 
-		g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
+		// Only draw them if they are on screen
+		if (coeffX < width && coeffY < height && coeffX + width_painted > 0
+				&& coeffY + heigth_painted > 0) {
+			g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
+		}
 	}
 
 }

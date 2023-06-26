@@ -13,11 +13,11 @@ import info3.game.modele.map.MapSection;
 import info3.game.modele.map.Tiles;
 import info3.game.vue.avatar.CrabslairAvatar;
 
-public class CrabLair extends StillEntity{
-	
+public class CrabLair extends StillEntity {
+
 	public static final int SCRAB_SPANWING_RANGE = 1500;
 	public static final int DEFAULT_CRAB_NUMBER = 2;
-	
+
 	private int m_level;
 	private int m_nbCrabsToEgg;
 	private int m_nbCrabsAlive;
@@ -25,9 +25,9 @@ public class CrabLair extends StillEntity{
 	private boolean m_isDead;
 	private ArrayList<Tiles> m_tilesForCrabSpanwing;
 	private MapSection m_section;
-	
+
 	public CrabLair(int level, MapSection m_section, int x, int y) {
-		super(x,y);
+		super(x, y);
 		this.m_level = level;
 		m_section.setCrabLair(this);
 		this.m_nbCrabsToEgg = DEFAULT_CRAB_NUMBER + Level.getNbCrabsToEgg(level);
@@ -43,129 +43,129 @@ public class CrabLair extends StillEntity{
 
 	@Override
 	public void move() {
-		//System.out.println("AAAAAAAAAAAAAAAAAAAAAA : " + this.toString());
+		// System.out.println("AAAAAAAAAAAAAAAAAAAAAA : " + this.toString());
 	}
 
 	@Override
 	public void die() {
 		m_isDead = true;
-		
+		CrabslairAvatar avatar = (CrabslairAvatar) this.avatar;
+		avatar.setDead();
 	}
-	
+
 	public boolean gotStuff() {
 		return this.m_nbCrabsToEgg > 0;
 	}
-	
+
 	public boolean gotPower() {
 		return this.m_nbCrabsAlive > 0;
 	}
-	
+
 	public void aCrabDied() {
 		this.m_nbCrabsAlive--;
-		if(!this.gotPower())
+		if (!this.gotPower())
 			this.die();
 	}
-	
-	public  boolean closest() {
-		/*double distanceP1 = Math.sqrt(Math.pow(this.x - GameModele.player1.x,2) + Math.pow(this.y - GameModele.player1.y,2));
-		//double distanceP2 = Math.sqrt(Math.pow(this.x - GameModele.player2.x,2) + Math.pow(this.y - GameModele.player2.y,2));
-		
-		if(distanceP1 < SCRAB_SPANWING_RANGE ){//&& distanceP2 < SCRAB_SPANWING_RANGE) {
-			return true;
-		}
-		return false;*/
-		return GameModele.map.getSectionOfEntity(GameModele.player1.x, GameModele.player1.y)
-				== GameModele.map.getSectionOfEntity(x,y)
-				&& !GameModele.onSea;
-		
+
+	public boolean closest() {
+		/*
+		 * double distanceP1 = Math.sqrt(Math.pow(this.x - GameModele.player1.x,2) +
+		 * Math.pow(this.y - GameModele.player1.y,2)); //double distanceP2 =
+		 * Math.sqrt(Math.pow(this.x - GameModele.player2.x,2) + Math.pow(this.y -
+		 * GameModele.player2.y,2));
+		 * 
+		 * if(distanceP1 < SCRAB_SPANWING_RANGE ){//&& distanceP2 <
+		 * SCRAB_SPANWING_RANGE) { return true; } return false;
+		 */
+		return !GameModele.onSea && GameModele.currentSection == this.m_section.getSectionNumber();
+
 	}
-	
+
 	public void egg() {
-		if(this.m_crabLairTiles == null) {
+		if (this.m_crabLairTiles == null) {
 			this.defineCrabLairTiles();
 		}
-		
-		if(this.tick(this.timeElapsed)% 700 == 0) {
-			if(this.m_tilesForCrabSpanwing == null) {
+
+		if (this.tick(this.timeElapsed) % 700 == 0) {
+			if (this.m_tilesForCrabSpanwing == null) {
 				this.m_tilesForCrabSpanwing = this.defineTilesWhreCrabsCouldSpawn();
-			}		
-			int rand = new Random()
-					.nextInt(this.m_tilesForCrabSpanwing.size());
+			}
+			int rand = new Random().nextInt(this.m_tilesForCrabSpanwing.size());
 			Tiles tile = this.m_tilesForCrabSpanwing.get(rand);
-			
-			//Create crab and addint it to the List
+
+			// Create crab and addint it to the List
 			Crab crab = new Crab(this.m_level, this, tile.getX(), tile.getY());
 			GameModele.entities.add(crab);
-			this.m_nbCrabsToEgg --;
+			this.m_nbCrabsToEgg--;
 		}
-		
+
 	}
-	
-	private ArrayList<Tiles> defineTilesWhreCrabsCouldSpawn() { 
-		
-		//get coordinates of the crabsLair (Top left hand corner)
+
+	private ArrayList<Tiles> defineTilesWhreCrabsCouldSpawn() {
+
+		// get coordinates of the crabsLair (Top left hand corner)
 		Tiles crabLairTile = GameModele.map.getTileUnderEntity(this.x, this.y);
 		int initX = crabLairTile.getTileX();
 		int initY = crabLairTile.getTileY();
-		
-		//adding all the tiles around the CrabsLair to an arrayList
+
+		// adding all the tiles around the CrabsLair to an arrayList
 		ArrayList<Tiles> tilesWhreCrabsCouldSpawn = new ArrayList<Tiles>();
-		
-			//All the tiles above the crabs lair
-			for(int i = 0; i < 5; i++) {
-				Tiles tile = m_section.getTiles()[initY-1][initX-1+i];
-				if(tile.isIsland()) {
-					tilesWhreCrabsCouldSpawn.add(tile);
-				}
+
+		// All the tiles above the crabs lair
+		for (int i = 0; i < 5; i++) {
+			Tiles tile = m_section.getTiles()[initY - 1][initX - 1 + i];
+			if (tile.isIsland()) {
+				tilesWhreCrabsCouldSpawn.add(tile);
 			}
-			
-			//All the tiles below the crabs lair
-			for(int i = 0; i < 5; i++) {
-				Tiles tile = m_section.getTiles()[initY+2][initX-1+i];
-				if(tile.isIsland()) {
-					tilesWhreCrabsCouldSpawn.add(tile);
-				}
+		}
+
+		// All the tiles below the crabs lair
+		for (int i = 0; i < 5; i++) {
+			Tiles tile = m_section.getTiles()[initY + 2][initX - 1 + i];
+			if (tile.isIsland()) {
+				tilesWhreCrabsCouldSpawn.add(tile);
 			}
-			
-			//All the tiles on the left  the crabs lair
-			for(int i = 0; i < 2; i++) {
-				Tiles tile = m_section.getTiles()[initY-i][initX-1];
-				if(tile.isIsland()) {
-					tilesWhreCrabsCouldSpawn.add(tile);
-				}
+		}
+
+		// All the tiles on the left the crabs lair
+		for (int i = 0; i < 2; i++) {
+			Tiles tile = m_section.getTiles()[initY - i][initX - 1];
+			if (tile.isIsland()) {
+				tilesWhreCrabsCouldSpawn.add(tile);
 			}
-			
-			//All the tiles on the left  the crabs lair
-			for(int i = 0; i < 2; i++) {
-				Tiles tile = m_section.getTiles()[initY-i][initX+3];
-				if(tile.isIsland()) {
-					tilesWhreCrabsCouldSpawn.add(tile);
-				}
+		}
+
+		// All the tiles on the left the crabs lair
+		for (int i = 0; i < 2; i++) {
+			Tiles tile = m_section.getTiles()[initY - i][initX + 3];
+			if (tile.isIsland()) {
+				tilesWhreCrabsCouldSpawn.add(tile);
 			}
-			
-			return tilesWhreCrabsCouldSpawn;
-		
+		}
+
+		return tilesWhreCrabsCouldSpawn;
+
 	}
-	
-	private void defineCrabLairTiles() { 
-		
-		//get coordinates of the crabsLair (Top left hand corner)
+
+	private void defineCrabLairTiles() {
+
+		// get coordinates of the crabsLair (Top left hand corner)
 		Tiles crabLairTile = GameModele.map.getTileUnderEntity(this.x, this.y);
 		int initX = crabLairTile.getTileX();
 		int initY = crabLairTile.getTileY();
-		
-		//adding all the tiles around the CrabsLair to an arrayList
+
+		// adding all the tiles around the CrabsLair to an arrayList
 		this.m_crabLairTiles = new ArrayList<Tiles>();
-		
+
 		for (int j = 0; j < 4; j++) {
-			for(int i = 0; i < 6; i++) {
-				Tiles tile = m_section.getTiles()[initY-1+j][initX-1+i];
-					this.m_crabLairTiles.add(tile);
+			for (int i = 0; i < 6; i++) {
+				Tiles tile = m_section.getTiles()[initY - 1 + j][initX - 1 + i];
+				this.m_crabLairTiles.add(tile);
 			}
 		}
 	}
-	
-	public ArrayList<Tiles> getCrabLairTiles(){
+
+	public ArrayList<Tiles> getCrabLairTiles() {
 		return this.m_crabLairTiles;
 	}
 

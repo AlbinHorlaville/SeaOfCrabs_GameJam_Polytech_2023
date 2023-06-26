@@ -9,10 +9,9 @@ import info3.game.vue.GameView;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
-public class StunningCannonBallAvatar extends Avatar{
+public class StunningCannonBallAvatar extends Avatar {
 
-	
-	public static int SCALE_CANNON_BALL = GameView.SCALE/2;
+	public static int SCALE_CANNON_BALL = GameView.SCALE / 2;
 
 	public StunningCannonBallAvatar(Entity entity) {
 		super(entity);
@@ -23,19 +22,21 @@ public class StunningCannonBallAvatar extends Avatar{
 	@Override
 	public void tick(long elapsed) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void paint(Graphics g, int width, int height) {
-			BufferedImage img = m_images[imageIndex];
-			
-			int width_painted = SCALE_CANNON_BALL * img.getWidth();
-			int heigth_painted = SCALE_CANNON_BALL * img.getHeight();
-			
-			g.drawImage(img,-entity.getX()+GameModele.pirateBoat.getX()+width/2, -entity.getY()+GameModele.pirateBoat.getY()+height/2, width_painted, heigth_painted, null);
-		
+		BufferedImage img = m_images[imageIndex];
+
+		int width_painted = SCALE_CANNON_BALL * img.getWidth();
+		int heigth_painted = SCALE_CANNON_BALL * img.getHeight();
+
+		int coeffX = -entity.getX() + GameModele.pirateBoat.getX() + width / 2;
+		int coeffY = -entity.getY() + GameModele.pirateBoat.getY() + height / 2;
+		if (coeffX < width && coeffY < height && coeffX + width_painted > 0
+				&& coeffY + heigth_painted > 0) {
+			g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
+		}
 	}
-
 }
-

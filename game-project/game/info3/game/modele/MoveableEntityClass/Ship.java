@@ -17,58 +17,88 @@ public class Ship extends Ennemy {
 
 	private int timerAttackMili;
 	private int timerAttackSec;
+	private int timerAttackMin;
 	private boolean reloading;
-	private MapSection m_mapSection;
+
 	private boolean stunned;
 	private int timerStunMili;
 	private int timerStunSec;
+	private int timerStunMin;
+
+	private int sectionHeight;
 
 	public Ship(MapSection mapSection) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE);
 		this.avatar = new ShipAvatar(this);
-		this.m_mapSection = mapSection;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Ship);
 		this.current_state = automate.initial_state;
 		GameModele.entities.add(this);
 		this.reloading = false;
+
+		this.sectionHeight = GameModele.map.getSectionHeight();
 	}
 
 	public void move() {
-		// Nearer pirate to me
-		BoatPlayer closestPlayer = this.closestBoatToMe();
+		if ((int) tick(this.timeElapsed) % 3 == 0) {
+			// Nearer pirate to me
+			BoatPlayer closestPlayer = this.closestBoatToMe();
 
-		// Get next coordinate
-		int nextX = this.x;
-		int nextY = this.y;
+			// Get next coordinate
+			int nextX = this.x;
+			int nextY = this.y;
 
-		if (this.x > closestPlayer.x)
-			nextX--;
-		else if (this.x < closestPlayer.x)
-			nextX++;
+			if (this.x > closestPlayer.x) {// Aller à droite
+				if (GameModele.map.getTileUnderEntity(nextX, nextY).getTileX() < GameModele.map.getSectionWidth()
+						- 20) {
+					nextX--;
+				}
 
-		if (this.y > closestPlayer.y)
-			nextY--;
-		else if (this.y < closestPlayer.y)
-			nextY++;
+			} else if (this.x < closestPlayer.x) {
+				if (GameModele.map.getTileUnderEntity(nextX, nextY).getTileX() > 20) {
+					nextX++;
+				}
+			}
+			if (this.y > closestPlayer.y) {
+				if (GameModele.map.getTileUnderEntity(nextX, nextY).getTileX() < GameModele.map.getSectionWidth()
+						- 20) {
+					nextY--;
+				}
+			} else if (this.y < closestPlayer.y) {
+				if (GameModele.map.getTileUnderEntity(nextX, nextY).getTileX() > 20) {
+					nextY++;
+				}
+			}
 
-//		int nextX = this.x - ((this.x - closestPlayer.x) * 1);
-//		int nextY = this.y - ((this.y - closestPlayer.y) * 1);
+//			int nextX = this.x - ((this.x - closestPlayer.x) * 1);
+//			int nextY = this.y - ((this.y - closestPlayer.y) * 1);
 
-		// Can the the tile be moved on buy a crab
-		Tiles tile = GameModele.map.getTileUnderEntity(nextX, nextY);
-		if (tile.isWater() && (int) tick(this.timeElapsed) % 3 == 0) {
-			this.x = nextX;
-			this.y = nextY;
+			// Can the the tile be moved on buy a crab
+			Tiles tile = GameModele.map.getTileUnderEntity(nextX, nextY);
+			if (tile.isWater()) {
+				this.x = nextX;
+				this.y = nextY;
+			}
+		}
+	}
+
+	private boolean stunTimePassed(int debutStunMili, int debutStunSec, int actualMili, int actualSec) {
+		if (debutStunSec * 1000 + 5000 + debutStunMili < actualSec * 1000 + actualMili) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
 	public boolean gotPower() {
 		if (this.stunned) {
+
 			int timeMili = GameModele.timer.getMiliSecondes();
 			int timeSec = GameModele.timer.getSecondes();
-			if (this.timerStunMili <= timeMili && this.timerStunSec + 1 <= timeSec) {
+			int timeMin = GameModele.timer.getMinutes();
+			if (stunTimePassed(this.timerStunMili, this.timerStunSec, timeMili, timeSec)
+					|| this.timerStunMin < timeMin) {
 				this.stunned = false;
-				this.automate = AutomateLoader.findAutomate(GameEntity.KrakenTentacle);
+				this.automate = AutomateLoader.findAutomate(GameEntity.Ship);
 				this.current_state = automate.initial_state;
 			}
 		}
@@ -76,23 +106,35 @@ public class Ship extends Ennemy {
 		return this.m_healthPoints > 0;
 	}
 
+	private boolean reloadingTimePassed(int debutReloadingMili, int debutReloadingSec, int actualMili, int actualSec) {
+		if (debutReloadingSec * 1000 + 1000 + debutReloadingMili < actualSec * 1000 + actualMili) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public void hit() {
 		int timeMili = GameModele.timer.getMiliSecondes();
 		int timeSec = GameModele.timer.getSecondes();
+		int timeMin = GameModele.timer.getMinutes();
 
 		if (!this.reloading) {
-			GameModele.map.setDamaging(GameModele.getCurrentPlayerX(), GameModele.getCurrentPlayerY());
+			GameModele.map.setDamaging(GameModele.pirateBoat.getCenterX(), GameModele.pirateBoat.getCenterY());
 			this.reloading = true;
 			this.timerAttackMili = timeMili;
 			this.timerAttackSec = timeSec;
-		} else if (timerAttackMili <= timeMili && timerAttackSec + 1 <= timeSec) {
+			this.timerAttackMin = timeMin;
+		} else if (reloadingTimePassed(this.timerAttackMili, this.timerAttackSec, timeMili, timeSec)
+				|| this.timerAttackMin < timeMin) {
 			this.reloading = false;
 		}
 	}
 
 	@Override
 	public void die() {
-		Rhum rhum = new Rhum(this.x, this.y, GameModele.map.getMap()[GameModele.map.getSectionOfEntity(this.x, this.y)]);
+		Rhum rhum = new Rhum(this.x, this.y,
+				GameModele.map.getMap()[GameModele.map.getSectionOfEntity(this.x, this.y)]);
 		GameModele.entities.add(rhum);
 		GameModele.entities.remove(this);
 
@@ -101,27 +143,42 @@ public class Ship extends Ennemy {
 	@Override
 	public boolean closest(EnumCategory cat) {
 
-		Tiles tileUnderPlayer = GameModele.map.getTileUnderEntity(GameModele.getCurrentPlayerX(),
-				GameModele.getCurrentPlayerY());
-		Tiles tileUnderThis = GameModele.map.getTileUnderEntity(this.x, this.y);
+		if (GameModele.onSea) {
 
-		int playerTileY = GameModele.map.getSectionOfEntity(GameModele.getCurrentPlayerX(),
-				GameModele.getCurrentPlayerY()) * GameModele.map.getSectionHeight() + GameModele.map.getSectionHeight()
-				- tileUnderPlayer.getTileY();
+			Tiles tileUnderPlayer = GameModele.map.getTileUnderEntity(GameModele.getCurrentPlayerX(),
+					GameModele.getCurrentPlayerY());
+			Tiles tileUnderThis = GameModele.map.getTileUnderEntity(this.x, this.y);
 
-		int EntityTileY = GameModele.map.getSectionOfEntity(this.x, this.y) * GameModele.map.getSectionHeight()
-				+ GameModele.map.getSectionHeight() - tileUnderThis.getTileY();
+			int playerTileY = GameModele.currentSection * this.sectionHeight + this.sectionHeight
+					- tileUnderPlayer.getTileY();
 
-		switch (cat) {
-		case A:
-			return (GameModele.onSea && Math.sqrt(Math.pow(tileUnderPlayer.getTileX() - tileUnderThis.getTileX(), 2)
-					+ Math.pow(playerTileY - EntityTileY, 2)) < 5);
-		case V:
-			return (GameModele.onSea && Math.sqrt(Math.pow(tileUnderPlayer.getTileX() - tileUnderThis.getTileX(), 2)
-					+ Math.pow(playerTileY - EntityTileY, 2)) < 40);
-		default:
-			return false;
+			int EntityTileY = GameModele.map.getSectionOfEntity(this.x, this.y) * this.sectionHeight
+					+ this.sectionHeight - tileUnderThis.getTileY();
+
+			// Only for optimisation
+			int distanceY = Math.abs(playerTileY - EntityTileY);
+			int distanceX = Math.abs(tileUnderPlayer.getTileX() - tileUnderThis.getTileX());
+
+			switch (cat) {
+			case A:
+				if (distanceY > 5 || distanceX > 5) {
+					return false;
+				} else {
+					return (Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2)) < 5);
+				}
+
+			case V:
+				if (distanceY > 40 || distanceX > 40) {
+					return false;
+				} else {
+					return (Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2)) < 40);
+				}
+			default:
+				return false;
+			}
 		}
+
+		return false;
 
 	}
 
@@ -133,6 +190,7 @@ public class Ship extends Ennemy {
 
 		this.timerStunMili = GameModele.timer.getMiliSecondes();
 		this.timerStunSec = GameModele.timer.getSecondes();
+		this.timerStunMin = GameModele.timer.getMinutes();
 	}
 
 	private BoatPlayer closestBoatToMe() {

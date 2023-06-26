@@ -107,19 +107,16 @@ public class BoatPlayer extends Player {
 	@Override
 	public void move(EnumDirection eval) {
 		facing = eval;
-		int tempX = x;
-		int tempY = y;
+
 		// if(!cell()) {
 		this.moveEntity(eval, DEFAULT_BOATPLAYER_SPEED);
 		// }
 
 		Tiles under = GameModele.map.getTileUnderEntity(this.x, y);
 		int tileY = under.getTileY();
+		int tileX = under.getTileX();
 		int section = GameModele.map.getSectionOfEntity(this.x, y);
-		if (under.notIslandAndNotWater()) {
-			x = tempX;
-			y = tempY;
-		} else if (under.isIsland()) {
+		if (under.isIsland()) {
 			GameModele.entities.remove(this);
 			GameModele.player1.setLocation(under.getX(), under.getY());
 			GameModele.player1.facing = this.facing;
@@ -134,14 +131,10 @@ public class BoatPlayer extends Player {
 			GameModele.onSea = !GameModele.onSea;
 		}
 
-		under = GameModele.map.getTileUnderEntity(this.x, this.y);
-		tileY = under.getTileY();
-		section = GameModele.map.getSectionOfEntity(this.x, this.y);
-
-		if (under.getTileX() < 9) {
+		if (tileX < 9) {
 			this.x = GameModele.map.getMap()[section].getTiles()[tileY][GameModele.map.getSectionWidth() - 10].getX();
 			this.y = GameModele.map.getMap()[section].getTiles()[tileY][GameModele.map.getSectionWidth() - 10].getY();
-		} else if (under.getTileX() > GameModele.map.getSectionWidth() - 10) {
+		} else if (tileX > GameModele.map.getSectionWidth() - 10) {
 			this.x = GameModele.map.getMap()[section].getTiles()[tileY][10].getX();
 			this.y = GameModele.map.getMap()[section].getTiles()[tileY][10].getY();
 		}

@@ -44,9 +44,10 @@ public class BoatPlayerAvatar extends Avatar {
 	public void paint(Graphics g, int width, int height) {
 		this.width = width;
 		BufferedImage img = m_images[imageIndex];
-		int width_painted = SCALE_IMG * img.getWidth();
-		int heigth_painted = SCALE_IMG * img.getHeight();
-		g.drawImage(img, width/2-width_painted/2,(int) ((height/2-heigth_painted/2)+GameModele.map.getWaveOffset(entity.getX(), entity.getY())), width_painted, heigth_painted, null);
+		g.drawImage(img, width / 2 - SCALE_IMG * img.getWidth() / 2,
+				(int) ((height / 2 - SCALE_IMG * img.getHeight() / 2)
+						+ GameModele.map.getWaveOffset(entity.getX(), entity.getY())),
+				SCALE_IMG * img.getWidth(), SCALE_IMG * img.getHeight(), null);
 	}
 
 }

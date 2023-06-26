@@ -7,6 +7,7 @@ import info3.game.modele.StillEntityClass.Treasure;
 import info3.game.modele.StillEntityClass.Tree;
 import info3.game.vue.GameView;
 import info3.game.vue.avatar.Avatar;
+import info3.game.vue.avatar.SwordAvatar;
 
 public abstract class Weapon extends MoveableEntity {
 
@@ -15,6 +16,7 @@ public abstract class Weapon extends MoveableEntity {
 	public static String Dagger = "Dagger";
 
 	public PiratePlayer player;
+	public PiratePlayer playerRescu;
 	protected String name;
 	protected int damage;
 	public int range;
@@ -22,8 +24,6 @@ public abstract class Weapon extends MoveableEntity {
 	public int tempY;
 	public int width;
 	public int height;
-
-	private boolean attacking; // Sert à l'animation de l'arme
 
 	public Weapon(String name, int range) {
 		super(0, 0, 0);
@@ -68,8 +68,10 @@ public abstract class Weapon extends MoveableEntity {
 	 */
 
 	public void hit(float rangeCoeff, float damageCoeff) {
-		attacking = true;
-		tempX = player.getX()+player.getAvatar().getWidth()/2;
+		SwordAvatar sword = (SwordAvatar)this.avatar;
+		sword.setAttacking();
+		if (player == null)
+			player = playerRescu;
 		tempY = player.getY()+player.getAvatar().getHeight()/2;	
 		width = player.avatar.getWidth() / 2;//player.avatar.getWidth();
 		height = player.avatar.getHeight() / 2	;//player.avatar.getHeight();
@@ -134,18 +136,11 @@ public abstract class Weapon extends MoveableEntity {
 
 	public void setPlayer(PiratePlayer player) {
 		this.player = player;
+		this.playerRescu = player;
 		this.damage = player.getDamage();
 	}
 
 	public String getName() {
 		return name;
-	}
-
-	public void setAttacking(boolean cond) {
-		this.attacking = cond;
-	}
-
-	public boolean getAttacking() {
-		return this.attacking;
 	}
 }

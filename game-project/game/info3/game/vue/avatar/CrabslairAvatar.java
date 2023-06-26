@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
 import info3.game.modele.StillEntityClass.CrabLair;
+import info3.game.vue.GameView;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
@@ -19,9 +20,10 @@ public class CrabslairAvatar extends Avatar {
 
 	@Override
 	public void tick(long elapsed) {
-		if(((CrabLair)this.entity).isDead()) {
-			this.imageIndex = 1;
-		}
+	}
+	
+	public void setDead() {
+		this.imageIndex = 1;
 	}
 
 	@Override
@@ -37,6 +39,11 @@ public class CrabslairAvatar extends Avatar {
 		int coeffX = -entity.getX() + GameModele.getCurrentPlayerX() + width / 2 + Decalage_Tiles_X;
 		int coeffY = -entity.getY() + GameModele.getCurrentPlayerY() + height / 2 + Decalage_Tiles_Y;
 
-		g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
+		// Only draw them if they are on screen
+		if (coeffX < width && coeffY < height && coeffX + width_painted > 0
+				&& coeffY + heigth_painted > 0) {
+
+			g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
+		}
 	}
 }

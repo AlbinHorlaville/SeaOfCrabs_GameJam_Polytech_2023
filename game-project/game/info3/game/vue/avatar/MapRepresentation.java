@@ -10,6 +10,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import info3.game.modele.GameModele;
 import info3.game.modele.map.Map;
 import info3.game.modele.map.MapSection;
 import info3.game.modele.map.Tiles;
@@ -78,21 +79,21 @@ public class MapRepresentation {
 			this.sandImage = resize(this.sandImage, this.sandImage.getWidth() * scale,
 					this.sandImage.getHeight() * scale);
 		}
-		
+
 		imageFile = new File("assets/img/tiles/default.png");
 		if (imageFile.exists()) {
 			this.defaultImage = ImageIO.read(imageFile);
 			this.defaultImage = resize(this.defaultImage, this.defaultImage.getWidth() * scale,
 					this.defaultImage.getHeight() * scale);
 		}
-		
+
 		imageFile = new File("assets/img/tiles/crabKingLand.png");
 		if (imageFile.exists()) {
 			this.crabKingLandImage = ImageIO.read(imageFile);
 			this.crabKingLandImage = resize(this.crabKingLandImage, this.crabKingLandImage.getWidth() * scale,
 					this.crabKingLandImage.getHeight() * scale);
 		}
-		
+
 		imageFile = new File("assets/img/tiles/moutain.png");
 		if (imageFile.exists()) {
 			this.moutainImage = ImageIO.read(imageFile);
@@ -165,7 +166,7 @@ public class MapRepresentation {
 			this.stoneImage[1] = resize(this.stoneImage[1], this.stoneImage[1].getWidth() * scale,
 					this.stoneImage[1].getHeight() * scale);
 		}
-		
+
 		this.waterPreDamageImage = new BufferedImage[4];
 
 		imageFile = new File("assets/img/tiles/water_pre_damage.png");
@@ -187,7 +188,7 @@ public class MapRepresentation {
 		if (imageFile.exists()) {
 			waterPreDamageImage[3] = ImageIO.read(imageFile);
 		}
-		
+
 		this.waterDamagingImage = new BufferedImage[4];
 
 		imageFile = new File("assets/img/tiles/water_damaging.png");
@@ -412,16 +413,23 @@ public class MapRepresentation {
 		int positionX;
 		int positionY;
 
-		double waveOffset;
-
 		Tiles currentTile;
 
 		/*
 		 * Draw each tiles of the map
 		 */
-		boolean sandWater;
+		boolean sandWater = false;
 
-		for (int i = 0; i < this.nbSection; i++) {
+		int max = GameModele.pirateBoat.getCurrentSection() - 1 > 0 ? GameModele.pirateBoat.getCurrentSection() - 1 : 0;
+
+		int min = GameModele.pirateBoat.getCurrentSection() + 1 < this.nbSection
+				? GameModele.pirateBoat.getCurrentSection() + 1
+				: this.nbSection;
+
+		min = this.nbSection - 1 - min;
+		max = this.nbSection - 1 - max;
+
+		for (int i = min; i <= max; i++) {
 			section = this.map[(this.nbSection - i - 1)].getTiles();
 			for (int j = 0; j < this.sectionHeight; j++) {
 				for (int k = 0; k < this.sectionWidth; k++) {
@@ -438,50 +446,49 @@ public class MapRepresentation {
 					if (positionX < width + imgWidth && positionX > 0 - imgWidth && positionY < height + imgHeight
 							&& positionY > 0 - imgHeight) {
 
-						waveOffset = this.wave[i * this.sectionHeight + j][k];
-
-						sandWater = false;
-
 						switch (currentTile.getType()) {
-						case CALM_WATER:
-						case CALM_SEA_ENNEMIE:
-						case CALM_SEA_CHEST:
-							img = calmWaterImage;
-							positionY += (int) waveOffset;
-							break;
-						case STORMY_WATER:
-						case STORMY_SEA_ENNEMIE:
-						case STORMY_SEA_CHEST:
-							img = stormyWaterImage;
-							positionY += (int) waveOffset;
-							break;
-						case RAGING_WATER:
-						case RAGING_SEA_ENNEMIE:
-						case RAGING_SEA_CHEST:
-							img = ragingWaterImage;
-							positionY += (int) waveOffset;
-							break;
-						case KRAKEN_WATER:
-						case KRAKEN_TENTACLE:
-							img = krakenWaterImage;
-							positionY += (int) waveOffset;
+						case SAND_WATER:
+						case STORMY_SAND_WATER:
+						case RAGING_SAND_WATER:
+							img = sandImage;
+							sandWater = true;
 							break;
 						case GRASS:
 							img = grassImage;
 							break;
-						case MOUTAIN:
-							img = moutainImage;
+						case CALM_WATER:
+						case CALM_SEA_ENNEMIE:
+						case CALM_SEA_CHEST:
+						case CALM_FAKE_SEA_CHEST:
+							img = calmWaterImage;
+							positionY += (int) this.wave[i * this.sectionHeight + j][k];
+							break;
+						case STORMY_WATER:
+						case STORMY_SEA_ENNEMIE:
+						case STORMY_SEA_CHEST:
+						case STORMY_FAKE_SEA_CHEST:
+							img = stormyWaterImage;
+							positionY += (int) this.wave[i * this.sectionHeight + j][k];
+							break;
+						case RAGING_WATER:
+						case RAGING_SEA_ENNEMIE:
+						case RAGING_SEA_CHEST:
+						case RAGING_FAKE_SEA_CHEST:
+							img = ragingWaterImage;
+							positionY += (int) this.wave[i * this.sectionHeight + j][k];
+							break;
+						case KRAKEN_WATER:
+						case KRAKEN_TENTACLE:
+							img = krakenWaterImage;
+							positionY += (int) this.wave[i * this.sectionHeight + j][k];
 							break;
 						case SAND:
 						case HARBOR_SAND:
 						case TREASUR:
 							img = sandImage;
 							break;
-						case SAND_WATER:
-						case STORMY_SAND_WATER:
-						case RAGING_SAND_WATER:
-							img = sandImage;
-							sandWater = true;
+						case MOUTAIN:
+							img = moutainImage;
 							break;
 						case CRAB_SPAWNER:
 							img = this.stoneImage[0];
@@ -579,35 +586,35 @@ public class MapRepresentation {
 							break;
 						case CALM_WATER_PRE_DAMAGE:
 							img = this.waterPreDamageImage[0];
-							positionY += (int) waveOffset;
+							positionY += (int) this.wave[i * this.sectionHeight + j][k];
 							break;
 						case STORMY_WATER_PRE_DAMAGE:
 							img = this.waterPreDamageImage[1];
-							positionY += (int) waveOffset;
+							positionY += (int) this.wave[i * this.sectionHeight + j][k];
 							break;
 						case RAGING_WATER_PRE_DAMAGE:
 							img = this.waterPreDamageImage[2];
-							positionY += (int) waveOffset;
+							positionY += (int) this.wave[i * this.sectionHeight + j][k];
 							break;
 						case KRAKEN_WATER_PRE_DAMAGE:
 							img = this.waterPreDamageImage[3];
-							positionY += (int) waveOffset;
+							positionY += (int) this.wave[i * this.sectionHeight + j][k];
 							break;
 						case CALM_WATER_DAMAGING:
 							img = this.waterDamagingImage[0];
-							positionY += (int) waveOffset;
+							positionY += (int) this.wave[i * this.sectionHeight + j][k];
 							break;
 						case STORMY_WATER_DAMAGING:
 							img = this.waterDamagingImage[1];
-							positionY += (int) waveOffset;
+							positionY += (int) this.wave[i * this.sectionHeight + j][k];
 							break;
 						case RAGING_WATER_DAMAGING:
 							img = this.waterDamagingImage[2];
-							positionY += (int) waveOffset;
+							positionY += (int) this.wave[i * this.sectionHeight + j][k];
 							break;
 						case KRAKEN_WATER_DAMAGING:
 							img = this.waterDamagingImage[3];
-							positionY += (int) waveOffset;
+							positionY += (int) this.wave[i * this.sectionHeight + j][k];
 							break;
 						default:
 							img = defaultImage;
@@ -617,20 +624,25 @@ public class MapRepresentation {
 						g.drawImage(img, positionX, positionY, imgWidth, imgHeight, null);
 						// If the tile to be drawed is sand water (special case since it is composed of
 						// 2 tiles, a static sand and a moving half transparent water)
-						if (sandWater && positionY + (int) waveOffset < positionY) {
-							switch (currentTile.getType()) {
-							case SAND_WATER:
-								img = this.sandWaterImage[0];
-								break;
-							case STORMY_SAND_WATER:
-								img = this.sandWaterImage[1];
-								break;
-							default:
-								img = this.sandWaterImage[2];
-								break;
-							}
-							g.drawImage(img, positionX, positionY + (int) waveOffset, imgWidth, imgHeight, null);
+						if (sandWater) {
+							sandWater = false;
+							if (positionY + (int) this.wave[i * this.sectionHeight + j][k] < positionY) {
 
+								switch (currentTile.getType()) {
+								case SAND_WATER:
+									img = this.sandWaterImage[0];
+									break;
+								case STORMY_SAND_WATER:
+									img = this.sandWaterImage[1];
+									break;
+								default:
+									img = this.sandWaterImage[2];
+									break;
+								}
+								g.drawImage(img, positionX, positionY + (int) this.wave[i * this.sectionHeight + j][k],
+										imgWidth, imgHeight, null);
+
+							}
 						}
 					}
 				}

@@ -15,12 +15,13 @@ public class Tentacle extends Ennemy {
 
 	private int timerAttackMili;
 	private int timerAttackSec;
+	private int timerAttackMin;
 	private boolean reloading;
 	
 	private boolean stunned;
 	private int timerStunMili;
 	private int timerStunSec;
-	private int timerAttackMin;
+	
 	
 	private int reloadTimeSec;
 	private int reloadTimeMili;
@@ -41,6 +42,9 @@ public class Tentacle extends Ennemy {
 		
 		this.reloadTimeMili = 0;
 		this.reloadTimeSec = 1;
+		
+		TentacleAvatar tentacle = (TentacleAvatar)this.avatar;
+		tentacle.setTentacleNumber(this.number * 3);
 	}
 
 	@Override
