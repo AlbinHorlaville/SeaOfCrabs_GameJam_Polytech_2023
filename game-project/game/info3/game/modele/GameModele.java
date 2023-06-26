@@ -20,6 +20,7 @@ import info3.game.modele.MoveableEntityClass.Kraken;
 import info3.game.modele.MoveableEntityClass.Perroquet;
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
 import info3.game.modele.MoveableEntityClass.Ship;
+import info3.game.modele.MoveableEntityClass.Sword;
 import info3.game.modele.MoveableEntityClass.Tentacle;
 import info3.game.modele.StillEntityClass.CloudCluster;
 import info3.game.modele.StillEntityClass.CrabLair;
@@ -37,7 +38,7 @@ import info3.game.vue.avatar.BoatPlayerAvatar;
 import info3.game.vue.avatar.Player1;
 import info3.game.vue.avatar.Player2;
 import info3.game.vue.avatar.RedCrossAvatar;
-
+import info3.game.vue.avatar.SwordAvatar;
 import info3.game.vue.view.BeforePlayingView;
 
 public class GameModele {
@@ -274,16 +275,27 @@ public class GameModele {
 				player2.setAvatar(new Player2(player2));
 				player2.setWeapon(BeforePlayingView.weapon2);
 				BeforePlayingView.weapon2.setPlayer(player2);
+				entities.add(BeforePlayingView.weapon2);
+				BeforePlayingView.weapon2.setAvatar(new SwordAvatar(BeforePlayingView.weapon2));
 
 				player1 = new PiratePlayer(GameEntity.PlayerMulti1);
 				player1.setAvatar(new Player1(player1));
 				player1.setWeapon(BeforePlayingView.weapon1);
 				BeforePlayingView.weapon1.setPlayer(player1);
+				entities.add(BeforePlayingView.weapon1);
+				BeforePlayingView.weapon1.setAvatar(new SwordAvatar(BeforePlayingView.weapon1));
+				
+				System.out.println(BeforePlayingView.weapon1.toString());
+				System.out.println(BeforePlayingView.weapon2.toString());
 			} else {
 				player1 = new PiratePlayer(GameEntity.Player1);
 				player1.setAvatar(new Player1(player1));
 				player1.setWeapon(BeforePlayingView.weapon1);
 				BeforePlayingView.weapon1.setPlayer(player1);
+				entities.add(BeforePlayingView.weapon1);
+				BeforePlayingView.weapon1.setAvatar(new SwordAvatar(BeforePlayingView.weapon1));
+				
+				System.out.println(BeforePlayingView.weapon1.avatar.toString());
 			}
 
 			perroquet = BeforePlayingView.perroquet;
