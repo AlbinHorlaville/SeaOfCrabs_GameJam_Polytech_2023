@@ -22,6 +22,8 @@ public class Crab extends Ennemy {
 	public final static int HIT_BOX = 50;
 
 	private CrabLair m_crabLair;
+	private int lastX = 0;
+	private int lastY = 0;
 
 	public Crab(int level, CrabLair crabLair) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE, HIT_BOX);
@@ -42,8 +44,7 @@ public class Crab extends Ennemy {
 		this.m_crabLair = crabLair;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Crab);
 		this.current_state = automate.initial_state;
-//		System.out.println("Coord Player : (" +  GameModele.player1.x + ", " + GameModele.player1.y + ")");
-//		System.out.println("Coord Crab : (" +  this.x + ", " + this.y + ")");
+
 	}
 
 	public void hit() {
@@ -51,26 +52,80 @@ public class Crab extends Ennemy {
 	}
 	
 	public void move(EnumCategory cat) {
-		//Nearer pirate to me 
-		PiratePlayer closestPlayer = this.closestPirateToMe();
-		int valueX = ((this.x > closestPlayer.x)? -1: 1);
-		int nextX = this.getCenterX() + valueX;
-		int valueY = ((this.y > closestPlayer.y)? -1: 1);
-		Tiles tile = GameModele.map.getTileUnderEntity(nextX,this.getCenterY());
-		if(tile.isIsland())
-			this.x += valueX;
-		else {
+		
+//		//Nearer pirate to me 
+//		PiratePlayer closestPlayer = this.closestPirateToMe();
+//		int valueX = ((this.x > closestPlayer.x)? -1: 1);
+//		int nextX = this.getCenterX() + valueX;
+//		int valueY = ((this.y > closestPlayer.y)? -1: 1);
+//		Tiles tile = GameModele.map.getTileUnderEntity(nextX,this.getCenterY());
+//		if(tile.isIsland())
+//			this.x += valueX;
+//		else {
+//			int nextY = this.getCenterY() + valueY;
+//			tile = GameModele.map.getTileUnderEntity(this.getCenterX(),nextY);
+//			if(tile.isIsland())
+//				this.y += valueY;
+//			else {
+//				tile = GameModele.map.getTileUnderEntity(nextX,nextY);
+//				if(tile.isIsland()) {
+//					this.x += valueX;
+//					this.y += valueY;
+//				}
+//			}
+//		}
+		
+//		PiratePlayer closestPlayer = this.closestPirateToMe();
+//		
+//		int valueX = ((this.x > closestPlayer.x)? -1: 1);
+//		int nextX = this.getCenterX() + valueX;
+//		int valueY = ((this.y > closestPlayer.y)? -1: 1);
+//		int nextY = this.getCenterY() + valueY;
+//		
+//		
+//		
+//		if(GameModele.map.getTileUnderEntity(nextX,nextY).isIsland()) {
+//			this.x = nextX;
+//			this.y = nextY;
+//			System.out.println("Going Forward");
+//		}else {
+//			if(GameModele.map.getTileUnderEntity(nextX,this.getCenterY()).isIsland()){
+//				this.y = nextY;
+//				System.out.println("Going Y");
+//
+//			}
+//			if(GameModele.map.getTileUnderEntity(this.getCenterX(),nextY).isIsland()) {
+//				this.x = nextX;
+//				System.out.println("Going X");
+//
+//			}
+//		}
+		
+		if((int)tick(this.timeElapsed) % 2 == 0) {
+		
+			PiratePlayer closestPlayer = this.closestPirateToMe();
+			
+			int valueX = ((this.x > closestPlayer.x)? -1: 1);
+			int nextX = this.getCenterX() + valueX;
+			int valueY = ((this.y > closestPlayer.y)? -1: 1);
 			int nextY = this.getCenterY() + valueY;
-			tile = GameModele.map.getTileUnderEntity(this.getCenterX(),nextY);
-			if(tile.isIsland())
-				this.y += valueY;
-			else {
-				tile = GameModele.map.getTileUnderEntity(nextX,nextY);
-				if(tile.isIsland()) {
-					this.x += valueX;
-					this.y += valueY;
-				}
+			
+			if(!GameModele.map.getTileUnderEntity(nextX,getCenterY()).isIsland()) {
+					this.y = nextY;
+					lastY = valueY;
+					lastX = 0;
+					System.out.println("Y");
+			}else if(!GameModele.map.getTileUnderEntity(getCenterX(),nextY).isIsland()) {
+					this.x = nextX;
+					lastX = valueX;
+					lastY = 0;
+			}else {
+				this.x += lastX;
+				this.y += lastY;
+
 			}
+			
+
 		}
 		
 	}
@@ -231,12 +286,8 @@ public class Crab extends Ennemy {
 	
 	
 	public boolean cell(EnumDirection dir, EnumCategory cat) {
-		
-		//System.out.println("CELL");
-
 			
 		PiratePlayer closestPlayer = this.closestPirateToMe();
-		
 		
 		if(cat == EnumCategory.A) {
 			return Math.abs(closestPlayer.getCenterX() - getCenterX()) < RANGE && Math.abs(closestPlayer.getCenterY() - getCenterY()) < RANGE;
