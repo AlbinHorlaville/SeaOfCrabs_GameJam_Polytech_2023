@@ -213,7 +213,7 @@
 
 # 20 Juin
 
-- Alexandre: développement d'une classe DAO (singleton) pour la base de données
+- Alexandre: développement d'une classe DAO (singleton) pour la base de données, création d'un fichier .USER pour l'utilisateur
 - Rémi: Fonction move des bateaux ennemie et amélioration de la génération des troncons (ajout des tiles de spawn des ennemie)
 - Romain: Création du Rhum + Réinitialisation de la partie + Mise à jour de la Base de données + 
 - Albin: Fix du problème de perspective entre les joueurs et les palmiers, implémentation des Bonus, Modèle du nuage, Vue de l'épée et animation de celle-ci dans les 4 directions
@@ -225,18 +225,21 @@
 - Rémi: Réalisation de l'attaque utilisé par les bateau ennemies ainsi que le kraken. Et réalisation des fonctions des automates de ship et krakenTentacle. 
 - Emin: Fin d'implémentation du CrabKing + fix bugs crabs et CrabKing
 - Albin: Jonction Vue modèle de l'épée pour 1 joueur, corrections hitbox. Debug Nuages.
-- Romain: Amélioration de la gestion du son + Spawn des entités Tentacules Rhum Nuages 
+- Romain: Amélioration de la gestion du son + Spawn des entités Tentacules Rhum Nuages
+- Alexandre: amélioration de la classe DAO + création d'un fichier .SCORE pour enregistrer le meilleur score du joueur
 
  # 22 Juin
  - Rémi: Réalisation de la fonction die du kraken (amenant sur la vue de victoire). Résolution de multiple léger problème (Titre de section mal affiché lorsque l'ont revenait en arrière, l'offset des vagues est peut maintenant être propre au différente section, la génération de l'ile du crab King est plus propre)
  - Albin: Inventaire des boulets de canon, fix de l'épée dans le mode 2 joueurs, équilibrage hit-box épée et palmier, Sprites
 - Romain: 2 Joueurs Rendu fonctionnel + Amélioration du double buffering de touche + Création de l'inventaire fonctionnelle pour le bateau
 - Axel : Les Arbres soignent désormais le bateau une fois détruit + Changement du visitor pour l'état mort qui créait des problèmes + Les bonus sont désormais appliqués aux joueurs
+- Alexandre: modification de la vue du jeu, ajout des bonus + améliorations partielles sur les autres vues
  
  # 23 Juin
  - Albin: Correction de bugs, conception / design / implémentation / correction / appréciation du perroquet. Animation du kraken et du crabking
  - Rémi: Ajout d'une condition d'accès au kraken (Avoir tuer le crab king) et ajout de tous les timers (temps de rechargement des armes, temps d'invincibilité après avoir pris des dégats...)
- - Axel : Correction des automates, les actions à chaces fonctionnent vraiment + changement du mode de fonctionnement des trésors, il faiut maintenat tirer dessus/tapper pour les ouvrir + changement des hitboxes de certains collectibles pour les récupérer plus rapidement  
+ - Axel : Correction des automates, les actions à chaces fonctionnent vraiment + changement du mode de fonctionnement des trésors, il faiut maintenat tirer dessus/tapper pour les ouvrir + changement des hitboxes de certains collectibles pour les récupérer plus rapidement
+- Alexandre: rédaction d'une documentation et d'un wiki sur le site internet du jeu
 
 # 24 Juin
 - Rémi: Optimisation générale du jeu (Affichage uniquement des entités dans le viewport / itération sur une plus petite quantité de donnée (uniquement la section courante du joueur ainsi que celle avant et après plutot que toute la carte) / ...)
@@ -244,6 +247,8 @@
 # 25 juin
 - Albin: Modèle Perroquet, il tourne en traçant un cercle harmonieux autour du personnage / bateau.
 - Rémi: Affichage des ennemie de mer sur la minimap et résolution de multiple problème (titre des sections (incorrect pour les partie avec un nombre custom de section) / Rhum qui faisait crash suite à la collection d'un bonus de vie / équilibrage des ennemies pour une partie avec un nombree custom de section)
+- Alexandre: modifications sur la vue d'avant jeu, ajout de le selection du nombre de section
 
 # 26 juin
 - Albin et Axel: Correction de bug, corrrection de vitesse sur les boulets de canon (qui ont désormais une vitesse fixe), les crabes contournent désormais les obstacles, les personnages ne peuvent plus sortir de l'écran dans le mode 2 joueurs, mise à jour des images de commandes pour les joueurs.
+- Alexandre: finition des musiques du jeu
