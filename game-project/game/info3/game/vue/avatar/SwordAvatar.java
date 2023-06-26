@@ -19,6 +19,8 @@ public class SwordAvatar extends Avatar {
 
 	private int k;
 
+	private boolean attacking;
+
 	public SwordAvatar(Entity entity) {
 		super(entity);
 		m_imagesEW = SpriteLoader.get(SpriteType.SwordEW);
@@ -26,145 +28,173 @@ public class SwordAvatar extends Avatar {
 		imageIndex = 0;
 		k = 0;
 		((Weapon) entity).player = GameModele.player1;
+		this.attacking = false;
+	}
+
+	public void setAttacking() {
+		this.attacking = true;
 	}
 
 	@Override
 	public void tick(long elapsed) {
-		if (((Weapon) entity).getAttacking()) {
+		if (this.attacking) {
 			if (k == 100) {
 				imageIndex = 0;
 				k = 0;
-				((Weapon) entity).setAttacking(false);
-			} else if (k == 70) {
+				this.attacking = false;
+			} else if (k == 80) {
 				imageIndex = 3;
-			} else if (k == 50) {
+			} else if (k == 40) {
 				imageIndex = 2;
-			} else if (k == 30) {
+			} else if (k == 20) {
 				imageIndex = 1;
 			}
-
 			k++;
 		}
-
 	}
 
 	@Override
 	public void paint(Graphics g, int width, int height) {
+		if (this.attacking) {
+			int orientationX, orientationY;
+			BufferedImage img;
+			int iW = 0;
+			int iH = 0;
+			
+			Weapon weapon = (Weapon) this.entity;
+			if (weapon.player != null) {
+				if (GameModele.solo) {
+					switch (weapon.player.facing) {
+					case N:
+						img = m_imagesNS[imageIndex];
+						orientationX = width / 2 - weapon.width / 2;// width / 2 -
+																	// weapon.player.getAvatar().getWidth()
+																	// / 2;
+						orientationY = height / 2 - weapon.range;
+						iW = weapon.height;
+						iH = weapon.range;
+						break;
+					case W:
+						img = m_imagesEW[imageIndex + 4];
+						orientationX = width / 2 - weapon.range;
+						orientationY = height / 2 - weapon.height / 2 + weapon.player.getAvatar().getHeight() / 4;// (height
+																													// /
+																													// 2
+																													// -
+						// weapon.player.getAvatar().getHeight()
+						// / 2);
+						iW = weapon.range;
+						iH = weapon.height;
+						break;
+					case S:
+						img = m_imagesNS[imageIndex + 4];
+						orientationX = width / 2 - weapon.width / 2;// width / 2 -
+																	// weapon.player.getAvatar().getWidth()
+																	// / 2;
+						orientationY = height / 2;
+						iW = weapon.height;
+						iH = weapon.range;
+						break;
+					case E:
+						orientationX = width / 2;
+						orientationY = height / 2 - weapon.height / 2 + weapon.player.getAvatar().getHeight() / 4;// height
+																													// /
+																													// 2
+																													// -
+						// weapon.player.getAvatar().getHeight()
+						// / 2;
+						img = m_imagesEW[imageIndex];
+						iW = weapon.range;
+						iH = weapon.height;
+						break;
+					default:
+						orientationX = 0;
+						orientationY = 0;
+						img = m_imagesEW[0];
+						break;
+					}
+				} else {
+					PiratePlayer entityBased = (weapon.player == GameModele.player1) ? GameModele.player2
+							: GameModele.player1;
+					switch (weapon.player.facing) {
+					case N:
+						img = m_imagesNS[imageIndex];
+						// orientationX = width / 2 - entityBased.getAvatar().getWidth() / 2;
+						orientationX = (entityBased.getX()
+								+ ((width - (GameModele.player1.getX() + GameModele.player2.getX())) / 2))
+								- weapon.width / 2;// - (entityBased.getAvatar().getWidth()/2);
 
-		int orientationX, orientationY;
-		BufferedImage img;
-		int iW = 0;
-		int iH = 0;
-		Weapon weapon = (Weapon) this.entity;
-		if (weapon.player != null) {
-			if (GameModele.solo) {
-				switch (weapon.player.facing) {
-				case N:
-					img = m_imagesNS[imageIndex];
-					orientationX = width / 2 - weapon.width / 2;// width / 2 -
-																			// weapon.player.getAvatar().getWidth()
-																			// / 2;
-					orientationY = height / 2 - weapon.range;
-					iW = weapon.height;
-					iH = weapon.range;
-					break;
-				case W:
-					img = m_imagesEW[imageIndex + 4];
-					orientationX = width / 2 - weapon.range;
-					orientationY = height / 2 - weapon.height / 2 + weapon.player.getAvatar().getHeight() / 4;// (height / 2 -
-																					// weapon.player.getAvatar().getHeight()
-																					// / 2);
-					iW = weapon.range;
-					iH = weapon.height;
-					break;
-				case S:
-					img = m_imagesNS[imageIndex + 4];
-					orientationX = width / 2 - weapon.width / 2;// width / 2 -
-																			// weapon.player.getAvatar().getWidth()
-																			// / 2;
-					orientationY = height / 2;
-					iW = weapon.height;
-					iH = weapon.range;
-					break;
-				case E:
-					orientationX = width / 2;
-					orientationY = height / 2 - weapon.height / 2 + weapon.player.getAvatar().getHeight() / 4;// height / 2 -
-																					// weapon.player.getAvatar().getHeight()
-																					// / 2;
-					img = m_imagesEW[imageIndex];
-					iW = weapon.range;
-					iH = weapon.height;
-					break;
-				default:
-					orientationX = 0;
-					orientationY = 0;
-					img = m_imagesEW[0];
-					break;
-				}
-			}
-			else {
-				PiratePlayer entityBased = (weapon.player == GameModele.player1) ? GameModele.player2:GameModele.player1;
-				switch (weapon.player.facing) {
-				case N:
-					img = m_imagesNS[imageIndex];
-					//orientationX = width / 2 - entityBased.getAvatar().getWidth() / 2;
-					orientationX = (entityBased.getX() + ((width-(GameModele.player1.getX()+GameModele.player2.getX()))/2)) - weapon.width / 2;// - (entityBased.getAvatar().getWidth()/2);
-					
-					//orientationY = height / 2 - weapon.range;
-					orientationY = (entityBased.getY() + ((height-(GameModele.player1.getY()+GameModele.player2.getY()))/2)) - weapon.range;
-					
-					iW = weapon.height;
-					iH = weapon.range;
-					break;
-				case W:
-					img = m_imagesEW[imageIndex + 4];
-					//orientationX = width / 2 - weapon.range;
-					orientationX = (entityBased.getX() + ((width-(GameModele.player1.getX()+GameModele.player2.getX()))/2)) - weapon.range;
-					
-					//orientationY = (height / 2 - entityBased.getAvatar().getHeight() / 2);
-					orientationY = (entityBased.getY() + ((height-(GameModele.player1.getY()+GameModele.player2.getY()))/2)) - weapon.height / 2 + entityBased.getAvatar().getHeight() / 4;// - entityBased.getAvatar().getHeight() / 2;// + entityBased.getAvatar().getHeight() / 4;
-					
-					
-					iW = weapon.range;
-					iH = weapon.height;
-					break;
-				case S:
-					img = m_imagesNS[imageIndex + 4];
-					//orientationX = width / 2 - entityBased.getAvatar().getWidth() / 2;
-					orientationX = (entityBased.getX() + ((width-(GameModele.player1.getX()+GameModele.player2.getX()))/2)) - weapon.width / 2;// - entityBased.getAvatar().getWidth() / 2;
-					
-					
-					//orientationY = height / 2;
-					orientationY = (entityBased.getY() + ((height-(GameModele.player1.getY()+GameModele.player2.getY()))/2));
-					
-					
-					iW = weapon.height;
-					iH = weapon.range;
-					break;
-				case E:
-					//orientationX = width / 2;
-					orientationX = (entityBased.getX() + ((width-(GameModele.player1.getX()+GameModele.player2.getX()))/2));
-					
-					//orientationY = height / 2 - entityBased.getAvatar().getHeight() / 2;
-					orientationY = (entityBased.getY() + ((height-(GameModele.player1.getY()+GameModele.player2.getY()))/2)) - weapon.height / 2 + entityBased.getAvatar().getHeight() / 4;//- entityBased.getAvatar().getHeight() / 2;// + entityBased.getAvatar().getHeight() / 4;
-					
-					
-					img = m_imagesEW[imageIndex];
-					iW = weapon.range;
-					iH = weapon.height;
-					break;
-				default:
-					orientationX = 0;
-					orientationY = 0;
-					img = m_imagesEW[0];
-					break;
-				}
-			}
+						// orientationY = height / 2 - weapon.range;
+						orientationY = (entityBased.getY()
+								+ ((height - (GameModele.player1.getY() + GameModele.player2.getY())) / 2))
+								- weapon.range;
 
+						iW = weapon.height;
+						iH = weapon.range;
+						break;
+					case W:
+						img = m_imagesEW[imageIndex + 4];
+						// orientationX = width / 2 - weapon.range;
+						orientationX = (entityBased.getX()
+								+ ((width - (GameModele.player1.getX() + GameModele.player2.getX())) / 2))
+								- weapon.range;
+
+						// orientationY = (height / 2 - entityBased.getAvatar().getHeight() / 2);
+						orientationY = (entityBased.getY()
+								+ ((height - (GameModele.player1.getY() + GameModele.player2.getY())) / 2))
+								- weapon.height / 2 + entityBased.getAvatar().getHeight() / 4;// -
+																								// entityBased.getAvatar().getHeight()
+																								// / 2;// +
+																								// entityBased.getAvatar().getHeight()
+																								// / 4;
+
+						iW = weapon.range;
+						iH = weapon.height;
+						break;
+					case S:
+						img = m_imagesNS[imageIndex + 4];
+						// orientationX = width / 2 - entityBased.getAvatar().getWidth() / 2;
+						orientationX = (entityBased.getX()
+								+ ((width - (GameModele.player1.getX() + GameModele.player2.getX())) / 2))
+								- weapon.width / 2;// - entityBased.getAvatar().getWidth() / 2;
+
+						// orientationY = height / 2;
+						orientationY = (entityBased.getY()
+								+ ((height - (GameModele.player1.getY() + GameModele.player2.getY())) / 2));
+
+						iW = weapon.height;
+						iH = weapon.range;
+						break;
+					case E:
+						// orientationX = width / 2;
+						orientationX = (entityBased.getX()
+								+ ((width - (GameModele.player1.getX() + GameModele.player2.getX())) / 2));
+
+						// orientationY = height / 2 - entityBased.getAvatar().getHeight() / 2;
+						orientationY = (entityBased.getY()
+								+ ((height - (GameModele.player1.getY() + GameModele.player2.getY())) / 2))
+								- weapon.height / 2 + entityBased.getAvatar().getHeight() / 4;// -
+																								// entityBased.getAvatar().getHeight()
+																								// / 2;// +
+																								// entityBased.getAvatar().getHeight()
+																								// / 4;
+
+						img = m_imagesEW[imageIndex];
+						iW = weapon.range;
+						iH = weapon.height;
+						break;
+					default:
+						orientationX = 0;
+						orientationY = 0;
+						img = m_imagesEW[0];
+						break;
+					}
+				}
+
+				g.drawImage(img, orientationX, orientationY, iW, iH, null);
+			}
 			// System.out.println(((Weapon) entity).getAttacking());
 
-			if (((Weapon) entity).getAttacking())
-				g.drawImage(img, orientationX, orientationY, iW, iH, null);
 		}
 		/*
 		 * g.setColor(Color.white); // East g.fillRect(width / 2, (height/2 -

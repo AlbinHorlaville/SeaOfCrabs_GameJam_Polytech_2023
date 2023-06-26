@@ -7,6 +7,7 @@ import info3.game.modele.StillEntityClass.Treasure;
 import info3.game.modele.StillEntityClass.Tree;
 import info3.game.vue.GameView;
 import info3.game.vue.avatar.Avatar;
+import info3.game.vue.avatar.SwordAvatar;
 
 public abstract class Weapon extends MoveableEntity {
 
@@ -22,8 +23,6 @@ public abstract class Weapon extends MoveableEntity {
 	public int tempY;
 	public int width;
 	public int height;
-
-	private boolean attacking; // Sert à l'animation de l'arme
 
 	public Weapon(String name, int range) {
 		super(0, 0, 0);
@@ -68,7 +67,8 @@ public abstract class Weapon extends MoveableEntity {
 	 */
 
 	public void hit(float rangeCoeff, float damageCoeff) {
-		attacking = true;
+		SwordAvatar sword = (SwordAvatar)this.avatar;
+		sword.setAttacking();
 		tempX = player.getX()+player.getAvatar().getWidth()/2;
 		tempY = player.getY()+player.getAvatar().getHeight()/2;	
 		width = player.avatar.getWidth() / 2;//player.avatar.getWidth();
@@ -139,13 +139,5 @@ public abstract class Weapon extends MoveableEntity {
 
 	public String getName() {
 		return name;
-	}
-
-	public void setAttacking(boolean cond) {
-		this.attacking = cond;
-	}
-
-	public boolean getAttacking() {
-		return this.attacking;
 	}
 }

@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 import info3.game.DAO;
 import info3.game.Controller;
@@ -27,6 +28,7 @@ import info3.game.modele.StillEntityClass.SeaTreasure;
 import info3.game.modele.StillEntityClass.Tree;
 import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Map;
+import info3.game.modele.map.MapSection;
 import info3.game.modele.map.Tiles;
 import info3.game.sound.BackgroundMusic;
 import info3.game.sound.SoundTool;
@@ -43,6 +45,8 @@ public class GameModele {
 	GameView gameview;
 
 	public static ArrayList<Entity> entities = new ArrayList<>();
+	
+	public static ArrayList<Ship> seaEnnemie = new ArrayList<>();
 
 	public static PiratePlayer player1;
 
@@ -61,6 +65,10 @@ public class GameModele {
 	public static Map map;
 
 	public static int seed;
+	public Random rand = new Random();
+	public static int section;
+	
+	public static int currentSection;
 
 	int waveTick = 0;
 
@@ -194,7 +202,8 @@ public class GameModele {
 	public void tick(long elapsed) {
 		if (currentState == GameState.Jeu) {
 			if (this.onSea) {
-				if (this.map.getTileUnderEntity(this.pirateBoat.getX(), this.pirateBoat.getY()).isWaterDamaging()) {
+				this.currentSection = this.pirateBoat.getCurrentSection();
+				if (this.map.getTileUnderEntity(this.pirateBoat.getCenterX(), this.pirateBoat.getCenterY()).isWaterDamaging()) {
 					this.pirateBoat.takeDamage(20);
 				}
 			}
@@ -253,14 +262,12 @@ public class GameModele {
 	}
 
 	public void start() throws Exception {
+		seed = rand.nextInt();
 		if (currentState == GameState.AvantJeu) {
 			SoundTool.changeBackgroundMusic(BackgroundMusic.Game);
 			setCurrentState(GameState.Jeu);
 
-			System.out.println("Seed = " + seed);
-
-			//Remplacer 13 par le nombre de section souhaité (10 minimum par défaut et si + forcement 10 + un multiple de 3 donc 10, 13, 16, 19, 22...)
-			map = new Map(seed, 13);
+			map = new Map(seed, section);
 
 			if (!solo) {
 				player2 = new PiratePlayer(GameEntity.PlayerMulti2);
@@ -288,8 +295,8 @@ public class GameModele {
 					map.getMap()[0].getTiles()[this.map.getSectionHeight() - 13][map.getSectionWidth() / 2].getY());
 			pirateBoat.setAvatar(new BoatPlayerAvatar(pirateBoat));
 			GameModele.entities.add(pirateBoat);
-			//Remplacer 13 par le nombre de section souhaité (10 minimum par défaut et si + forcement 10 + un multiple de 3 donc 10, 13, 16, 19, 22...)
-			map = new Map(seed, 13);
+
+			map = new Map(seed, section);
 
 			genereEntity(map);
 			if (perroquet != null) {
@@ -360,6 +367,8 @@ public class GameModele {
 	}
 
 	void genereEntity(Map map) {
+		
+		System.out.println("Seed : " + seed);
 
 		Kraken kraken = new Kraken();
 		int tentacle_number = 0;
@@ -367,68 +376,72 @@ public class GameModele {
 		int nbSection = map.getNbSection();
 		int mapWidth = map.getSectionWidth();
 		int mapHeight = map.getSectionHeight();
-		
+
 		Tiles[][] tiles;
-		
+
 		for (int k = 0; k < nbSection; k++) {
 			boolean crab = false; // Boolean to spawn only once
 			boolean treasure = false; // Boolean to spawn only once
-			
-			tiles = map.getMap()[k].getTiles();
-			
+
+			MapSection section = map.getMap()[k];
+			tiles = section.getTiles();
+
 			for (int i = 0; i < mapHeight; i++) {
 				for (int j = 0; j < mapWidth; j++) {
-					Tiles Current = tiles[i][j];
-					Entity newEntity;
-					if (treasure == false && Current.isTreasur()) {
-						treasure = true;
-						newEntity = new RedCross(map.getMap()[k]);
-						newEntity.setLocation(Current.getX(), Current.getY());
-						newEntity.setAvatar(new RedCrossAvatar(newEntity)); // TODO Mettre dans le constructeur
-						entities.add(newEntity);
-					} else if (crab == false && Current.isSwpaner()) {
-						crab = true;
-						newEntity = new CrabLair(k, map.getMap()[k], Current.getX(), Current.getY()); // Créer 10
-																										// crabes
-																										// de niveau k
-																										// (le numéro
-																										// //
-																										// de section)
-																										// avec 20
-																										// points de vie
-						// newEntity.setLocation(Current.getX(),Current.getY());
-						entities.add(newEntity);
-					} else if (Current.isTree()) {
-						newEntity = new Tree(k);
-						newEntity.setLocation(Current.getX(), Current.getY());
-						entities.add(newEntity);
-					} else if (Current.isSeaChest()) {
-						newEntity = new SeaTreasure(map.getMap()[k], Current.getX(), Current.getY());// de section) avec
-																										// 20 points de
-																										// vie
+					Tiles current = tiles[i][j];
 
-						entities.add(newEntity);
-						newEntity = new CloudCluster(Current.getX()-200, Current.getY()-200, map.getMap()[k]);
-						entities.add(newEntity);
-					} else if (Current.isCloud()) {
+					if (!current.isBasicTiles()) {
+						Entity newEntity;
+						if (treasure == false && current.isTreasur()) {
+							treasure = true;
+							newEntity = new RedCross(map.getMap()[k]);
+							newEntity.setLocation(current.getX(), current.getY());
+							newEntity.setAvatar(new RedCrossAvatar(newEntity)); // TODO Mettre dans le constructeur
+							entities.add(newEntity);
+						} else if (crab == false && current.isSwpaner()) {
+							crab = true;
+							newEntity = new CrabLair(k, section, current.getX(), current.getY()); // Créer 10
+																									// crabes
+																									// de niveau k
+																									// (le numéro
+																									// //
+																									// de section)
+																									// avec 20
+																									// points de vie
+							// newEntity.setLocation(Current.getX(),Current.getY());
+							entities.add(newEntity);
+						} else if (current.isTree()) {
+							newEntity = new Tree(k);
+							newEntity.setLocation(current.getX(), current.getY());
+							entities.add(newEntity);
+						} else if (current.isSeaChest()) {
+							newEntity = new SeaTreasure(section, current.getX(), current.getY());// de section) avec
+																									// 20 points de
+																									// vie
 
-						newEntity = new CloudCluster(Current.getX(), Current.getY(), map.getMap()[k]); // Créer 10
-																										// crabes de
-																										// niveau k
-						// (le
-						// numéro
-						entities.add(newEntity);
-					} else if (Current.isBoatEnnemi()) {
-						newEntity = new Ship(map.getMap()[k]);
-						newEntity.setLocation(Current.getX(), Current.getY());
-						entities.add(newEntity);
-					} else if (Current.getType() == EnumTiles.CRAB_KING) {
-						newEntity = new CrabKing(k, 1500, Current.getX(), Current.getY(), 200); // TODO CHANGE PARAM
-						GameModele.entities.add(newEntity);
-						// entities.add(newEntity);
-					} else if (Current.getType() == EnumTiles.KRAKEN_TENTACLE) {
-						kraken.addTentacle(Current.getX(), Current.getY(), tentacle_number++);
+							entities.add(newEntity);
+						} else if (current.isCloud()) {
+
+							newEntity = new CloudCluster(current.getX(), current.getY(), map.getMap()[k]); // Créer 10
+																											// crabes de
+																											// niveau k
+							// (le
+							// numéro
+							entities.add(newEntity);
+						} else if (current.isBoatEnnemi()) {
+							newEntity = new Ship(section);
+							newEntity.setLocation(current.getX(), current.getY());
+							entities.add(newEntity);
+							this.seaEnnemie.add((Ship)newEntity);
+						} else if (current.getType() == EnumTiles.CRAB_KING) {
+							newEntity = new CrabKing(k, 1500, current.getX(), current.getY(), 200); // TODO CHANGE PARAM
+							GameModele.entities.add(newEntity);
+							// entities.add(newEntity);
+						} else if (current.getType() == EnumTiles.KRAKEN_TENTACLE) {
+							kraken.addTentacle(current.getX(), current.getY(), tentacle_number++);
+						}
 					}
+
 				}
 			}
 		}

@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
+import info3.game.vue.GameView;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
@@ -26,9 +27,16 @@ public class CrabAvatar extends Avatar {
 		BufferedImage img = m_images[imageIndex];
 		int width_painted = SCALE_IMG * img.getWidth();
 		int heigth_painted = SCALE_IMG * img.getHeight();
-		int Decalage_Tiles_X = (int) -32*6+14*6;
-		int Decalage_Tiles_Y = (int) -32*6+6*6;
-		g.drawImage(img,-entity.getX()+GameModele.getCurrentPlayerX()+width/2, -entity.getY()+GameModele.getCurrentPlayerY()+height/2, width_painted, heigth_painted, null);
+
+		int coeffX = -entity.getX() + GameModele.getCurrentPlayerX() + width / 2;
+		int coeffY = -entity.getY() + GameModele.getCurrentPlayerY() + height / 2;
+
+		// Only draw them if they are on screen
+		if (coeffX < width && coeffY < height && coeffX + width_painted > 0
+				&& coeffY + heigth_painted > 0) {
+			g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
+
+		}
 	}
 
 }

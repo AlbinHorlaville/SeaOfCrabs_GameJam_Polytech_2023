@@ -1085,7 +1085,7 @@ public class MapSection {
 		int rand;
 		int added = amount;
 		for (int i = 0; i < this.sectionHeight && added > 0; i++) {
-			for (int j = 10; j < this.sectionWidth - 11 && added > 0; j++) {
+			for (int j = 20; j < this.sectionWidth - 20 && added > 0; j++) {
 				if (this.tiles[i][j].getType() == EnumTiles.CALM_WATER
 						|| this.tiles[i][j].getType() == EnumTiles.RAGING_WATER
 						|| this.tiles[i][j].getType() == EnumTiles.STORMY_WATER) {
@@ -1144,7 +1144,7 @@ public class MapSection {
 		for (int i = 0; i < this.sectionHeight; i++) {
 			for (int j = 0; j < this.sectionWidth; j++) {
 				if (this.tiles[i][j].getType() == EnumTiles.GRASS) {
-					rand = this.randomGenerator.nextInt(12);
+					rand = this.randomGenerator.nextInt(20);
 					if (rand == 5) {
 						this.tiles[i][j].setType(EnumTiles.TREE);
 					}
