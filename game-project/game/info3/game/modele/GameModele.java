@@ -451,6 +451,7 @@ public class GameModele {
 	 * Fonction pour partie perdu
 	 */
 	public void gameover() {
+		SoundTool.changeBackgroundMusic(BackgroundMusic.Defeat);
 		gameview.update_view(GameState.GameOver);
 		gameview.getGame().setCurrentState(GameState.GameOver);
 	}
@@ -477,6 +478,7 @@ public class GameModele {
 	 * Fonction pour la victoire
 	 */
 	public void victory() {
+		SoundTool.changeBackgroundMusic(BackgroundMusic.Victory);
 		gameview.update_view(GameState.Victory);
 		gameview.getGame().setCurrentState(GameState.Victory);
 		if (SeaOfCrabes.connectedToDatabase) {
