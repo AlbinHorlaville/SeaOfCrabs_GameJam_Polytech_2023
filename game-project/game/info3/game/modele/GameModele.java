@@ -285,8 +285,6 @@ public class GameModele {
 				entities.add(BeforePlayingView.weapon1);
 				BeforePlayingView.weapon1.setAvatar(new SwordAvatar(BeforePlayingView.weapon1));
 				
-				System.out.println(BeforePlayingView.weapon1.toString());
-				System.out.println(BeforePlayingView.weapon2.toString());
 			} else {
 				player1 = new PiratePlayer(GameEntity.Player1);
 				player1.setAvatar(new Player1(player1));
