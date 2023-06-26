@@ -170,4 +170,8 @@ public class MiniMap {
 
 		}
 	}
+	
+	public void removeEnnemi(Ship ship) {
+		this.seaEnnemie.remove(ship);
+	}
 }
