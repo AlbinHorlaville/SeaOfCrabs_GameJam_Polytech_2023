@@ -140,8 +140,8 @@ Crab(Init){
  | Closest ? : (Moving)
  | True ? : (Init)
  * (Moving) :
- | !Cell(F,V) ? Move(O) : (Init)
  | Cell(F,A) ? Hit : (Init)
+ | !Cell(F,V) ? Move(O) : (Init)
  | True ? Move(F) : (Init)
  * ()
 }

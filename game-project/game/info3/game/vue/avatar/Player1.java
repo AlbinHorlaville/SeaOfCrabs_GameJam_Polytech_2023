@@ -18,9 +18,6 @@ public class Player1 extends Avatar {
 	BufferedImage[] m_images_left;
 	BufferedImage[] m_images_right;
 	
-	PiratePlayer pirate1;
-	PiratePlayer pirate2;
-	
 	
 	
 	public Player1(Entity entity) {
@@ -31,16 +28,16 @@ public class Player1 extends Avatar {
 		m_images_back = Arrays.copyOfRange(this.m_images, 4, 7);
 		m_images_right = Arrays.copyOfRange(this.m_images, 8, 11);
 		m_images_left = Arrays.copyOfRange(this.m_images, 12, 15);
-		
-		pirate1 = (PiratePlayer)this.entity;
-		
-		pirate2 = GameModele.player2;
 	}
 
 	@Override
 	public void tick(long elapsed) {
-		PiratePlayer entityBased = GameModele.solo ? pirate1 : pirate2;
-
+		PiratePlayer entityBased;
+		if (!GameModele.solo) { // INVERSER POUR LE MODE 2 JOUEURS // TODO CAN BE CHANGE
+			entityBased = GameModele.player2;
+		} else {
+			entityBased = (PiratePlayer) this.entity;
+		}
 		switch (entityBased.getFacing()) {
 		case SW:
 		case S:

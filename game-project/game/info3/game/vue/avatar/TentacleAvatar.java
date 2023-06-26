@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
 import info3.game.modele.MoveableEntityClass.Tentacle;
-import info3.game.vue.GameView;
 import info3.game.vue.SpriteLoader.SpriteLoader;
 import info3.game.vue.SpriteLoader.SpriteType;
 
@@ -14,37 +13,30 @@ public class TentacleAvatar extends Avatar {
 
 	private int k;
 	private int imageI;
-	
-	private int tentacleNumber;
 
 	public TentacleAvatar(Entity entity) {
 		super(entity);
 		this.m_images = SpriteLoader.get(SpriteType.Tentacle);
 		k = 0;
 		imageI = 0;
-		this.tentacleNumber = 0;
 	}
 
 	@Override
 	public void tick(long elapsed) {
-		if (++k % 30 == 0) {
-			if (k == 90) {
-				k = 0;
-				imageI = 0;
-			} else {
-				imageI++;
-			}
-
+		k++;
+		if (k == 90) {
+			k = 0;
+			imageI = 0;
 		}
-	}
-	
-	public void setTentacleNumber(int number) {
-		this.tentacleNumber = number;
+		if (k == 30)
+			imageI++;
+		if (k == 60)
+			imageI++;
 	}
 
 	@Override
 	public void paint(Graphics g, int width, int height) {
-		BufferedImage img = m_images[this.tentacleNumber + imageI];
+		BufferedImage img = m_images[((Tentacle) this.entity).getNumber()*3+imageI];
 
 		int width_painted = SCALE_IMG * img.getWidth();
 		int heigth_painted = SCALE_IMG * img.getHeight();
@@ -55,9 +47,8 @@ public class TentacleAvatar extends Avatar {
 
 		int coeffX = -entity.getX() + GameModele.getCurrentPlayerX() + width / 2 + Decalage_Tiles_X;
 		int coeffY = -entity.getY() + GameModele.getCurrentPlayerY() + height / 2 + Decalage_Tiles_Y;
-		if (coeffX < width && coeffY < height && coeffX + width_painted > 0
-				&& coeffY + heigth_painted > 0) {
-			g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
-		}
+
+		g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
 	}
+
 }

@@ -182,7 +182,7 @@ public class ControlsView extends View{
 		addComponent(title);
 		addComponent(labelCmdGenerales);
 		if (SeaOfCrabes.connectedToDatabase) {
-			addComponent(new UILabel(10, 30, "Connected to database: @"+GameModele.currentUser.getUsername(), FONT4, Color.green));
+			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
 		} else {
 			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 		}

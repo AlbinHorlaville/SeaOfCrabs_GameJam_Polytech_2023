@@ -15,9 +15,6 @@ public class TreeAvatar extends Avatar {
 	BufferedImage[] m_images;
 	private int k;
 
-	private int width_painted;
-	private int heigth_painted;
-
 	public TreeAvatar(Entity entity) {
 		super(entity);
 		m_images = SpriteLoader.get(SpriteType.Palmer);
@@ -27,9 +24,10 @@ public class TreeAvatar extends Avatar {
 	@Override
 	public void tick(long elapsed) {
 		// TODO Auto-generated method stub
-		if (++k % 30 == 0) {
+		k++;
+		if (k % 30 == 0) {
 			k = 0;
-			imageIndex = (imageIndex + 1) % 4;
+			imageIndex = (imageIndex + 1) % 4 > 0 ? (imageIndex + 1) % 4 : -(imageIndex + 1) % 4;
 		}
 	}
 
@@ -46,7 +44,8 @@ public class TreeAvatar extends Avatar {
 		int coeffX = -entity.getX() + GameModele.getCurrentPlayerX() + width / 2 + Decalage_Tiles_X;
 		int coeffY = -entity.getY() + GameModele.getCurrentPlayerY() + height / 2 + Decalage_Tiles_Y;
 
-		if (coeffX < width && coeffY < height && coeffX + width_painted > 0 && coeffY + heigth_painted > 0) {
+		if (coeffX > -width_painted && coeffX < GameView.screenWidth && coeffY > -heigth_painted
+				&& coeffY < GameView.screenHeight) {
 			// Aligne a taton le sprite et la tile dedie
 			g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
 		}

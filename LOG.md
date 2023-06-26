@@ -228,4 +228,10 @@
  - Rémi: Réalisation de la fonction die du kraken (amenant sur la vue de victoire). Résolution de multiple léger problème (Titre de section mal affiché lorsque l'ont revenait en arrière, l'offset des vagues est peut maintenant être propre au différente section, la génération de l'ile du crab King est plus propre)
  - Albin: Inventaire des boulets de canon, fix de l'épée dans le mode 2 joueurs, équilibrage hit-box épée et palmier, Sprites
 - Romain: 2 Joueurs Rendu fonctionnel + Amélioration du double buffering de touche + Création de l'inventaire fonctionnelle pour le bateau
+ 
  # 23 Juin
+ - Albin: Correction de bugs, conception / design / implémentation / correction / appréciation du perroquet. Animation du kraken et du crabking
+ - Rémi: Ajout d'une condition d'accès au kraken (Avoir tuer le crab king) et ajout de tous les timers (temps de rechargement des armes, temps d'invincibilité après avoir pris des dégats...)
+
+# 24 Juin
+- Rémi: Optimisation générale du jeu

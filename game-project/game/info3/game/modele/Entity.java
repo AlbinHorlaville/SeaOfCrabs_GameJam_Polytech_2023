@@ -142,8 +142,9 @@ public abstract class Entity {
 	 * L'impl�mentation initial est pour le d�placement du joueur sur terre
 	 */
 	public void move(EnumDirection eval) {
+		int speed = 1;
 		//if (checkCollision(eval, speed))
-		moveEntity(eval,1);
+		moveEntity(eval,speed);
 	}
 	
 	public void moveEntity(EnumDirection direction, int speed) {
