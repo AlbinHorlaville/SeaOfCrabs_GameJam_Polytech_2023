@@ -167,8 +167,8 @@ CrabsLair(Init){
  	| Closest ? : (Spawn)
  	| True ? : (Init)
  * (Spawn) :
- 	| !GotPower ? : (Dead)
  	| GotStuff ? Egg : (Init)
+ 	| !GotPower ? : (Dead)
  	| True ? : (Init)
  * (Dead)
  }

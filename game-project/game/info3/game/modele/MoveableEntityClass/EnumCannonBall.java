@@ -1,8 +1,8 @@
 package info3.game.modele.MoveableEntityClass;
 
 public enum EnumCannonBall {
-	Basic,
 	Stunt,
+	Basic,
 	KrakenSlayer,
 	Damaged
 }

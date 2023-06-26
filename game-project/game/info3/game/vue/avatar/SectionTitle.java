@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.io.IOException;
 
 import info3.game.modele.GameModele;
-import info3.game.modele.map.EnumSectionType;
 import info3.game.modele.map.Map;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UITitle;
@@ -35,7 +34,8 @@ public class SectionTitle {
 
 	public void paint(Graphics g, int width, int height) {
 
-		if (GameModele.pirateBoat.getCurrentSection() != this.section) {
+		if (GameModele.map.getSectionOfEntity(GameModele.getCurrentPlayerX(),
+				GameModele.getCurrentPlayerY()) != this.section) {
 			this.setTitle(GameModele.pirateBoat.getCurrentSection());
 		}
 
@@ -44,14 +44,11 @@ public class SectionTitle {
 			if (this.fadeIn) {
 				title = new UITitle(GameView.screenWidth, GameView.screenHeight, this.textTitle, FONT,
 						new Color(0, 0, 0, frame));
-				title.setOffsetY(40);
 			} else {
 				title = new UITitle(GameView.screenWidth, GameView.screenHeight, this.textTitle, FONT,
 						new Color(0, 0, 0, 255 - frame));
-				title.setOffsetY(40);
 			}
-
-			title.setValue(g);
+			title.paint(g);
 			g.setColor(Color.white);
 			g.fillRect(title.getX() - 10, title.getY() - 20 - title.getDrawHeight() / 2, title.getDrawWidth() + 20,
 					title.getDrawHeight() + 20);
@@ -69,30 +66,86 @@ public class SectionTitle {
 	}
 
 	private void setTitle(int section) {
-		EnumSectionType sectionFrom = GameModele.map.getSectionType(this.section);
-		EnumSectionType sectionTo = GameModele.map.getSectionType(section);
-
-		if (sectionFrom != sectionTo) {
-			this.display = true;
-			this.fadeIn = true;
-			switch (sectionTo) {
-			case CALM_SEA:
-				this.textTitle = "CALM SEA";
-				break;
-			case HARBOR:
+		if (this.section < section) {
+			switch (section) {
+			case 0:
+				this.display = true;
+				this.fadeIn = true;
 				this.textTitle = "HARBOUR";
 				break;
-			case STORMY_SEA:
+			case 1:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "CALM SEA";
+				break;
+			case 2:
+				break;
+			case 3:
+				this.display = true;
+				this.fadeIn = true;
 				this.textTitle = "STORMY SEA";
 				break;
-			case RAGING_SEA:
+			case 4:
+				break;
+			case 5:
+				this.display = true;
+				this.fadeIn = true;
 				this.textTitle = "RAGING SEA";
 				break;
-			case CRAB_KING_SEA:
+			case 6:
+				break;
+			case 7:
+				this.display = true;
+				this.fadeIn = true;
 				this.textTitle = "THE DESOLATE LANDS OF THE KING CRABS";
 				break;
-			default:
+			case 8:
+				this.display = true;
+				this.fadeIn = true;
 				this.textTitle = "THE KRAKEN'S LAIR";
+				break;
+			default:
+				break;
+			}
+		} else {
+			switch (section) {
+			case 0:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "HARBOUR";
+				break;
+			case 1:
+				break;
+			case 2:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "CALM SEA";
+				break;
+			case 3:
+				break;
+			case 4:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "STORMY SEA";
+				break;
+			case 5:
+				break;
+			case 6:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "RAGING SEA";
+				break;
+			case 7:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "THE DESOLATE LANDS OF THE KING CRABS";
+				break;
+			case 8:
+				this.display = true;
+				this.fadeIn = true;
+				this.textTitle = "THE KRAKEN'S LAIR";
+				break;
+			default:
 				break;
 			}
 		}

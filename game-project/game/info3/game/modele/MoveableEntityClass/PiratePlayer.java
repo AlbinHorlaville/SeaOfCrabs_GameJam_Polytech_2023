@@ -17,9 +17,9 @@ public class PiratePlayer extends Player {
 
 	// Default stat (at Spawn)
 	private static final int DEFAULT_PIRATEPLAYER_LIFE_POINT = 100;
-
+	
 	private static final int DEFAULT_PIRATEPLAYER_DAMAGE = 50;
-
+	
 	private static final int DEFAULT_PIRATEPLAYER_MAX_LIFE_POINT = 100;
 
 	private static final int DEFAULT_PIRATEPLAYER_RANGE = 1;
@@ -71,7 +71,6 @@ public class PiratePlayer extends Player {
 	public boolean invincible;
 	public int timerInvicibleMili;
 	public int timerInvicibleSec;
-	public int timerInvicibleMin;
 
 	public boolean reloading;
 	public int timerReloadingMili;
@@ -91,13 +90,13 @@ public class PiratePlayer extends Player {
 		current_state = automate.initial_state;
 		facing = EnumDirection.N;
 		this.invincible = false;
-
+		
 		this.m_attackspeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
 		this.m_speedCoeff = DEFAULT_PIRATEPLAYER_SPEED_COEFF;
 		this.m_damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
 		this.m_rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
 		this.m_maxHealthCoeff = DEFAULT_MAX_PLAYERS_LIFE_COEFF;
-
+		
 		this.m_damage = DEFAULT_PIRATEPLAYER_DAMAGE;
 		this.m_maxHealthPoints = DEFAULT_MAX_PLAYERS_LIFE;
 		this.m_healthPoints = DEFAULT_PIRATEPLAYER_LIFE_POINT;
@@ -207,17 +206,27 @@ public class PiratePlayer extends Player {
 		}
 	}
 
-	public boolean reloadingTimePassed(int debutReloadMili, int debutReloadSec, int actualMili, int actualSec) {
-		if (debutReloadSec * 1000 + reloadTimeSec * 1000 + debutReloadMili + reloadTimeMili < actualSec * 1000
-				+ actualMili) {
-			return true;
-		} else {
-			return false;
+	@Override
+	public void hit() {
+
+		int timeMili = GameModele.timer.getMiliSecondes();
+		int timeSec = GameModele.timer.getSecondes();
+		int timeMin = GameModele.timer.getMinutes();
+		
+		if (!reloading) {
+			weapon.hit(m_rangeCoeff, m_damageCoeff);
+
+			reloading = true;
+			timerReloadingMili = timeMili - 20;
+			timerReloadingSec = timeSec;
+			timerReloadingMin = timeMin;
+		} else if (reloadingTimePassed(timerReloadingMili, timerReloadingSec, timeMili, timeSec) || timerReloadingMin < timeMin) {
+			reloading = false;
 		}
 	}
-	
-	public boolean invincibilityTimePassed(int debutInvincibilityMili, int debutInvincibilitySec, int actualMili, int actualSec) {
-		if (debutInvincibilitySec * 1000 + 1000 + debutInvincibilityMili < actualSec * 1000
+
+	public boolean reloadingTimePassed(int debutReloadMili, int debutReloadSec, int actualMili, int actualSec) {
+		if (debutReloadSec * 1000 + reloadTimeSec * 1000 + debutReloadMili + reloadTimeMili < actualSec * 1000
 				+ actualMili) {
 			return true;
 		} else {
@@ -236,7 +245,7 @@ public class PiratePlayer extends Player {
 	public float getDamageCoeff() {
 		return m_damageCoeff;
 	}
-
+	
 	public int getDamage() {
 		return m_damage;
 	}
@@ -259,7 +268,7 @@ public class PiratePlayer extends Player {
 
 	public void addAttackpeedCoeff(float f) {
 		m_attackspeedCoeff += f;
-
+		
 		if (m_attackSpeed * m_attackspeedCoeff > 1) {
 			reloadTimeSec = 0;
 			reloadTimeMili = 1000 - (int) (m_attackSpeed * m_attackspeedCoeff * 20);
@@ -299,43 +308,19 @@ public class PiratePlayer extends Player {
 		m_maxHealthPoints = (int) (m_maxHealthPoints * m_maxHealthCoeff);
 	}
 
-	@Override
-	public void hit() {
-
-		int timeMili = GameModele.timer.getMiliSecondes();
-		int timeSec = GameModele.timer.getSecondes();
-		int timeMin = GameModele.timer.getMinutes();
-
-		if (!this.reloading) {
-			weapon.hit(m_rangeCoeff, m_damageCoeff);
-
-			this.reloading = true;
-			this.timerReloadingMili = timeMili - 20;
-			this.timerReloadingSec = timeSec;
-			this.timerReloadingMin = timeMin;
-		} else if (reloadingTimePassed(this.timerReloadingMili, this.timerReloadingSec, timeMili, timeSec)
-				|| this.timerReloadingMin < timeMin) {
-			this.reloading = false;
-		}
-	}
-
 	public void takeDamage(int damage) {
 		int timeMili = GameModele.timer.getMiliSecondes();
 		int timeSec = GameModele.timer.getSecondes();
-		int timeMin = GameModele.timer.getMinutes();
-		if (!this.invincible) {
+		if (!invincible) {
 			m_healthPoints -= damage;
 			if (m_healthPoints <= 0) {
 				die();
-			} else {
-				this.invincible = true;
-				this.timerInvicibleMili = timeMili;
-				this.timerInvicibleSec = timeSec;
-				this.timerInvicibleMin = timeMin;
 			}
-		} else if (invincibilityTimePassed(this.timerInvicibleMili, this.timerInvicibleSec, timeMili, timeSec)
-				|| this.timerInvicibleMin < timeMin) {
-			this.invincible = false;
+			invincible = true;
+			timerInvicibleMili = timeMili;
+			timerInvicibleSec = timeSec;
+		} else if (timerInvicibleMili <= timeMili && timerInvicibleSec + 1 <= timeSec) {
+			invincible = false;
 		}
 	}
 

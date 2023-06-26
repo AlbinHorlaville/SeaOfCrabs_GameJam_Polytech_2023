@@ -52,7 +52,7 @@ public class Rhum extends StillEntity {
 	}
 
 	public void power() { // HEAL FULL LIFE
-		GameModele.player1.setHealthPoints((int) (GameModele.player1.getMaxHealthPoints()));
+		GameModele.player1.setHealthPoints((int) (GameModele.player1.getMaxHealthPoints()*GameModele.player1.getMaxLifePointsCoeff()));
 	}
 
 	@Override

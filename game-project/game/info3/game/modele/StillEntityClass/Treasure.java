@@ -12,10 +12,12 @@ import info3.game.vue.avatar.LandTreasureAvatar;
 
 public class Treasure extends StillEntity {
 		 
+	private MapSection m_mapSection;
 	private boolean m_opened;
 	
 	public Treasure(MapSection mapSection, int x,int y) {
 		super(x, y, 100);
+		this.m_mapSection = mapSection;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Treasure);
 		this.current_state = automate.initial_state;
 		this.avatar = new LandTreasureAvatar(this);
@@ -53,12 +55,10 @@ public class Treasure extends StillEntity {
 		Random ran = new Random();
 		EnumCannonBall[] listeBall = EnumCannonBall.values();
 		//r.nextInt((max - min) + 1) + min;
-		int index;
-		
-		for (int i = 0; i < 3; i++) {
-			index = ran.nextInt(3) + 1;
-			GameModele.pirateBoat.addBoulet(listeBall[index], 1);
-		}
+		int first_ball_index = ran.nextInt((3 - 1) + 1) + 1;
+		GameModele.pirateBoat.addBoulet(listeBall[first_ball_index], m_mapSection.getSectionNumber());
+		int second_ball_index = ran.nextInt((3 - 1) + 1) + 1;
+		GameModele.pirateBoat.addBoulet(listeBall[second_ball_index], m_mapSection.getSectionNumber());
 	}
 	
 	public boolean gotPower() {

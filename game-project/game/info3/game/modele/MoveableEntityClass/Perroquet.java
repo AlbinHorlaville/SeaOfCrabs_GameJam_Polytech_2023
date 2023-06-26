@@ -11,7 +11,7 @@ import info3.game.vue.avatar.PerroquetAvatar;
 // Le perroquet suit le bateau et le joueur
 
 public class Perroquet extends MoveableEntity {
-
+	
 	public Player closestPlayer;
 	private int speed;
 
@@ -20,17 +20,17 @@ public class Perroquet extends MoveableEntity {
 		this.automate = AutomateLoader.findAutomate(GameEntity.Perroquet);
 		this.current_state = automate.initial_state;
 		this.setAvatar(new PerroquetAvatar(this));
-		speed = 1;
+		speed = 2;
 	}
-
+	
 	public void takeDamage(int damage) {
-		m_healthPoints -= damage;
+			m_healthPoints -= damage;
 	}
 
 	private Player closestPirateToMe() {
 		if (GameModele.onSea) {
 			return GameModele.pirateBoat;
-		} else {
+		}else {
 			if (GameModele.solo) {
 				return GameModele.player1;
 			}
@@ -38,7 +38,7 @@ public class Perroquet extends MoveableEntity {
 					.sqrt(Math.pow(this.x - GameModele.player1.x, 2) + Math.pow(this.y - GameModele.player1.y, 2));
 			double distanceP2 = Math
 					.sqrt(Math.pow(this.x - GameModele.player2.x, 2) + Math.pow(this.y - GameModele.player2.y, 2));
-
+	
 			if (distanceP1 < distanceP2) {
 				return GameModele.player1;
 			}
@@ -55,39 +55,29 @@ public class Perroquet extends MoveableEntity {
 		int valueX = 0;
 		int valueY = 0;
 		closestPlayer = this.closestPirateToMe();
-		int dist = GameModele.onSea ? 200 : 100;
-		if (Math.sqrt(Math.pow(this.x - closestPlayer.x, 2) + Math.pow(this.y - closestPlayer.y, 2)) > dist
-				&& this.x != closestPlayer.x && this.y != closestPlayer.y) {
-			valueX = ((this.x >= closestPlayer.x) ? -speed : speed);
-			valueY = ((this.y >= closestPlayer.y) ? -speed : speed);
-		} else {
-			if (this.x == closestPlayer.x && this.y < closestPlayer.y) {
-				valueX -= speed;
-			} else if ((this.x == closestPlayer.x && this.y > closestPlayer.y)) {
-				valueX += speed;
-			} else if (this.y == closestPlayer.y && this.x < closestPlayer.x) {
-				valueY += speed;
-			} else if ((this.y == closestPlayer.y && this.x > closestPlayer.x)) {
-				valueY -= speed;
-			} else {
-				if (this.x < closestPlayer.x && this.y > closestPlayer.y) {
-					valueY += speed;
-				}
-				if (this.x >= closestPlayer.x && this.y > closestPlayer.y) {
-					valueX += speed;
-				}
-				if (this.x >= closestPlayer.x && this.y <= closestPlayer.y) {
-					valueY -= speed;
-				}
-				if (this.x < closestPlayer.x && this.y <= closestPlayer.y) {
-					valueX -= speed;
-				}
+		int dist = GameModele.onSea ? 300 : 200;
+		if (Math.sqrt(Math.pow(this.x - closestPlayer.x, 2) + Math.pow(this.y - closestPlayer.y, 2)) > dist) {	
+			valueX = ((this.x > closestPlayer.x) ? -speed : speed);
+			//int nextX = this.getCenterX() + valueX;
+			valueY = ((this.y > closestPlayer.y) ? -speed : speed);
+		}else {
+			if (this.x > closestPlayer.x) {
+				valueY +=speed;
+			}
+			if (this.x < closestPlayer.x){
+				valueY -=speed;
+			}
+			if (this.y > closestPlayer.y) {
+				valueX -=speed;
+			}
+			if (this.y < closestPlayer.y) {
+				valueX +=speed;
 			}
 		}
 		this.x += valueX;
 		this.y += valueY;
 	}
-
+	
 	public boolean gotPower() {
 		return this.m_healthPoints > 0;
 	}
