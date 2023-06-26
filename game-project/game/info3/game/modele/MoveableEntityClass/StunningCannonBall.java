@@ -26,4 +26,10 @@ public class StunningCannonBall extends CannonBall {
 			((SeaTreasure) ennemyAimed).takeDamage(damage);
 		}
 	}
+
+	@Override
+	protected void tripleShot(int mouseX, int mouseY, BoatPlayer boatPlayer) {
+		// TODO Auto-generated method stub
+		
+	}
 }

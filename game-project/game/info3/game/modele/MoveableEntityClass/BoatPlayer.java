@@ -9,6 +9,7 @@ import info3.game.Controller;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.map.Tiles;
+import info3.game.vue.GameView;
 import info3.game.vue.avatar.DamagedCannonBallAvatar;
 
 public class BoatPlayer extends Player {
@@ -165,7 +166,7 @@ public class BoatPlayer extends Player {
 
 	public void startFire(int mouseX, int mouseY) { // A changer
 		// A modifier pour choisir le boulet de cannon à tirer
-		
+		//getAmount(currentBall) != 0
 		int timeMili = GameModele.timer.getMiliSecondes();
 		int timeSec = GameModele.timer.getSecondes();
 		int timeMin = GameModele.timer.getMinutes();
@@ -174,10 +175,11 @@ public class BoatPlayer extends Player {
 			
 			CannonBall b = null;
 			if (EnumCannonBall.Basic == currentBall) {
+				
 				b = new BasicCannonBall();
-				b.setPositions(this.x, this.y, mouseX, mouseY);
+				b.setPositions(this.x, this.y, mouseX-GameView.screenWidth/2, mouseY-GameView.screenHeight/2);
 				b.fire();
-			} else if (getAmount(currentBall) != 0) {
+			} else {
 				this.bouletDeCannon.replace(currentBall, getAmount(currentBall)-1);
 				switch (currentBall) {
 				case Stunt:
@@ -188,11 +190,12 @@ public class BoatPlayer extends Player {
 					break;
 				case Damaged:
 					b = new DamagedCannonBall();
-					break;
+					b.tripleShot(mouseX,mouseY,this);
+					return;
 				default:
 					return;
 				}
-				b.setPositions(this.x, this.y, mouseX, mouseY);
+				b.setPositions(this.x , this.y, mouseX-GameView.screenWidth/2, mouseY-GameView.screenHeight/2);
 				b.fire();
 			}
 			

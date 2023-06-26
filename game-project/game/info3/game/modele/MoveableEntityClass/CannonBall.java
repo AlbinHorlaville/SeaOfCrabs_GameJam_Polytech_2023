@@ -29,7 +29,7 @@ public abstract class CannonBall extends MoveableEntity {
 	protected int radiusY;
 	public boolean fire;
 	
-	static final int BASIC_RANGE = 2000;
+	static final int BASIC_RANGE = 1000;
 	static final int BASIC_RATE_OF_FIRE = 1;
 
 	public Entity ennemyAimed;
@@ -58,10 +58,9 @@ public abstract class CannonBall extends MoveableEntity {
 		/*speedX = (endX - (GameView.screenWidth / 2)) / 50;
 		speedY = (endY - (GameView.screenHeight / 2)) / 50;
 		*/
-		speedX = (int) (((endX - (GameView.screenWidth / 2))*range )/(Math.sqrt(Math.pow(endX - (GameView.screenWidth / 2), 2) + Math.pow(endY - (GameView.screenHeight / 2), 2))) / 100);
-		speedY = (int) (((endY - (GameView.screenHeight / 2))*range )/(Math.sqrt(Math.pow(endX - (GameView.screenWidth / 2), 2) + Math.pow(endY - (GameView.screenHeight / 2), 2))) / 100);
-		System.out.println(startX);
-		System.out.println(startY);
+		speedX = (int) (((endX)*range )/(Math.sqrt(Math.pow(endX , 2) + Math.pow(endY , 2))) / 100);
+		speedY = (int) (((endY )*range )/(Math.sqrt(Math.pow(endX , 2) + Math.pow(endY, 2))) / 100);
+
 	}
 
 	public void fire() {
@@ -133,5 +132,7 @@ public abstract class CannonBall extends MoveableEntity {
 		}
 
 	}
+
+	protected abstract void tripleShot(int mouseX, int mouseY, BoatPlayer boatPlayer);
 
 }
