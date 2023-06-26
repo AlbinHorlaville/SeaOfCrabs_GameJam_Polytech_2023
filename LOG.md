@@ -236,10 +236,11 @@
  - Axel : Correction des automates, les actions à chaces fonctionnent vraiment + changement du mode de fonctionnement des trésors, il faiut maintenat tirer dessus/tapper pour les ouvrir + changement des hitboxes de certains collectibles pour les récupérer plus rapidement  
 
 # 24 Juin
-- Rémi: Optimisation générale du jeu
+- Rémi: Optimisation générale du jeu (Affichage uniquement des entités dans le viewport / itération sur une plus petite quantité de donnée (uniquement la section courante du joueur ainsi que celle avant et après plutot que toute la carte) / ...)
 
 # 25 juin
 - Albin: Modèle Perroquet, il tourne en traçant un cercle harmonieux autour du personnage / bateau.
+- Rémi: Affichage des ennemie de mer sur la minimap et résolution de multiple problème (titre des sections (incorrect pour les partie avec un nombre custom de section) / Rhum qui faisait crash suite à la collection d'un bonus de vie / équilibrage des ennemies pour une partie avec un nombree custom de section)
 
 # 26 juin
 - Albin et Axel: Correction de bug, corrrection de vitesse sur les boulets de canon (qui ont désormais une vitesse fixe), les crabes contournent désormais les obstacles, les personnages ne peuvent plus sortir de l'écran dans le mode 2 joueurs, mise à jour des images de commandes pour les joueurs.
