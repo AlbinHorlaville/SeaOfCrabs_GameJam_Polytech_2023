@@ -147,81 +147,39 @@ public abstract class Entity {
 		moveEntity(eval,speed);
 	}
 	
-public void moveEntity(EnumDirection direction, int speed) {
-		
-		if(!GameModele.solo && !GameModele.onSea) {
-			int centerX = (GameModele.player1.getCenterX() + GameModele.player2.getCenterX())/2;
-			int centerY = (GameModele.player1.getCenterY() + GameModele.player2.getCenterY())/2;
-				switch (direction) {
-				case E:
-				case SE:
-				case NE:
-					if (x-speed > centerX - 1024/2 + GameModele.player1.getAvatar().getWidth()/2)
-						x -= speed;
-					break;
-				case W:
-				case SW:
-				case NW:
-					if (x+speed < centerX + 1024/2 - GameModele.player1.getAvatar().getWidth()/2)
-						x += speed;
-					break;
-				default:
-					break;
-				}
-			switch (direction) {
-			case S:
-			case SE:
-			case SW:
-				if (y-speed > centerY - 768/2 + GameModele.player1.getAvatar().getHeight()/2)
-					y -= speed;
-				break;
-			case NE:
-			case N:
-			case NW:
-				if (y+speed < centerY + 768/2 - GameModele.player1.getAvatar().getHeight()/2)
-					y += speed;
-				break;
-			default:
-				break;
-			}
-		}else {
-			
-			
-			
-			switch (direction) {
-			case E:
-			case SE:
-			case NE:
-					x -= speed;
-				break;
-			case W:
-			case SW:
-			case NW:
-					x += speed;
-				break;
-			default:
-				break;
-			}
+	public void moveEntity(EnumDirection direction, int speed) {
 		switch (direction) {
+		case W:
+			x += speed;
+			break;
+		case E:
+			x -= speed;
+			break;
+		case N:
+			y += speed;
+			break;
 		case S:
+			y -= speed;
+			break;
 		case SE:
-		case SW:
-				y -= speed;
+			y -= speed;
+			x -= speed;
 			break;
 		case NE:
-		case N:
+			y += speed;
+			x -= speed;
+			break;
+		case SW:
+			y -= speed;
+			x += speed;
+			break;
 		case NW:
-				y += speed;
+			y += speed;
+			x += speed;
 			break;
 		default:
 			break;
 		}
-			
-			
-		}
-		
-		
-		
 	}
 	
 	public long tick(long elapsed) {
