@@ -27,6 +27,7 @@ public class BoatPlayer extends Player {
 	public boolean invincible;
 	public int timerInvicibleMili;
 	public int timerInvicibleSec;
+	public int timerInvicibleMin;
 	
 	private int timerAttackMili;
 	private int timerAttackSec;
@@ -145,11 +146,21 @@ public class BoatPlayer extends Player {
 	public int getCurrentSection() {
 		return this.currentSection;
 	}
+	
+	public void updateInvincible () {
+		int timeMili = GameModele.timer.getMiliSecondes();
+		int timeSec = GameModele.timer.getSecondes();
+		int timeMin = GameModele.timer.getMinutes();
+		if ((timerInvicibleMili <= timeMili && timerInvicibleSec + 1 <= timeSec) || this.timerInvicibleMin < timeMin) {
+			invincible = false;
+		}
+	}
 
 	@Override
 	public void takeDamage(int damage) {
 		int timeMili = GameModele.timer.getMiliSecondes();
 		int timeSec = GameModele.timer.getSecondes();
+		int timeMin = GameModele.timer.getMinutes();
 		if (!invincible) {
 			this.m_healthPoints -= damage;
 			if (this.m_healthPoints <= 0) {
@@ -158,7 +169,8 @@ public class BoatPlayer extends Player {
 			invincible = true;
 			this.timerInvicibleMili = timeMili;
 			this.timerInvicibleSec = timeSec;
-		} else if (timerInvicibleMili <= timeMili && timerInvicibleSec + 1 <= timeSec) {
+			this.timerInvicibleMin = timeMin;
+		} else if ((timerInvicibleMili <= timeMili && timerInvicibleSec + 1 <= timeSec) || this.timerInvicibleMin < timeMin) {
 			invincible = false;
 		}
 	}

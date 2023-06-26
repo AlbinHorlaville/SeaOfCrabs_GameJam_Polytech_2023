@@ -215,10 +215,10 @@ public class PiratePlayer extends Player {
 			return false;
 		}
 	}
-	
-	public boolean invincibilityTimePassed(int debutInvincibilityMili, int debutInvincibilitySec, int actualMili, int actualSec) {
-		if (debutInvincibilitySec * 1000 + 1000 + debutInvincibilityMili < actualSec * 1000
-				+ actualMili) {
+
+	public boolean invincibilityTimePassed(int debutInvincibilityMili, int debutInvincibilitySec, int actualMili,
+			int actualSec) {
+		if (debutInvincibilitySec * 1000 + 1000 + debutInvincibilityMili < actualSec * 1000 + actualMili) {
 			return true;
 		} else {
 			return false;
@@ -316,6 +316,16 @@ public class PiratePlayer extends Player {
 		} else if (reloadingTimePassed(this.timerReloadingMili, this.timerReloadingSec, timeMili, timeSec)
 				|| this.timerReloadingMin < timeMin) {
 			this.reloading = false;
+		}
+	}
+
+	public void updateInvincible() {
+		int timeMili = GameModele.timer.getMiliSecondes();
+		int timeSec = GameModele.timer.getSecondes();
+		int timeMin = GameModele.timer.getMinutes();
+		if (invincibilityTimePassed(this.timerInvicibleMili, this.timerInvicibleSec, timeMili, timeSec)
+				|| this.timerInvicibleMin < timeMin) {
+			this.invincible = false;
 		}
 	}
 
