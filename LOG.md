@@ -157,7 +157,7 @@
 # 13 Juin
 - Albin et Alexandre: Toolkit UI/Vue du menu : Finalisation écran de démarrage et implémentation tableau des scores
 - Axel et Emin: Faire marcher le cowBoy en utilisant un automate (.gal) + Merger les automates
-- Brice : Sprite Loader
+- Brice : Sprite Loader afin de pouvoir charger tous les sprites en début de jeu
 - Romain: Deplacement du joueur dans le modéle (Début de liaison à l'automate) + SoundManager
 - Rémi: Fixer bug vagues
 <br>
@@ -167,7 +167,8 @@
 
 - Albin: Ajout de l'interface de commandes pour J1 et J2, Création de la - - barre de points de vie, Ajout de Sprites
 - Romain: Multi Buffering de touche (On peut appuyer sur plusieurs touche à la fois) + Déplacement du bateau
-- Rémi: Otimisation de la vue (affichage uniquement des tiles dans le viewport) et ajout getter pour tiles sous une certaine position
+- Brice: Finalisation du Sprite Loader
+- Rémi: Optimisation de la vue (affichage uniquement des tiles dans le viewport) et ajout getter pour tiles sous une certaine position
 - Alexandre: création de la vue d'avant jeu (selection des armes, selection de la graine...) + création des composants nécessaires (input, box)
 - Axel : Correction des fonctions pour le parser d'automate + Implémenations des classes des entités faisant partie du décors
 - Emin : Début d'implémentation des fonctions du modéle pour intéractions automates - entités (test avec joueur sur terre)
@@ -177,7 +178,7 @@
 
 - Albin: Conception d'un modèle de collision entre une arme et une entité (hit box en cône), Implémentation CrabLair (Avatar et génération des entités), Ajout de Sprites
 - Romain: Transition de Bateau à Joueur, application du déplacement 2 joueurs, activation de la minimap
-- Brice: Equation de déplacement à deux joueurs 
+- Brice: Equation de déplacement à deux joueurs et conception RedCross et Treasure
 - Rémi: Amélioration de la génération des troncons (ajout de tuile de transition entre la terre et le sable) et ajout de getter pratique pour des informations sur le modèle de la map
 - Alexandre : création de composant pour la vue de jeu, barre de vie et timer
 - Axel : Liaison des classes qui permettent l'interaction des joueurs avec le décors au niveau du modèle + Ajout des fonctions non implementées dans l'automate (Closest, GotStuff, GotPower, Cell ...)
@@ -187,6 +188,7 @@
 
 - Albin: Implémentation Tree, avatar, génération des entités dans GameModele, Conception et implémentation Cloud, Fix d'affichage comme alignement des sprites sur les cases de la map, des animations des personnages, ..., Ajout de Sprites
 - Romain:  Générateur D'automate pour chaque entité (Permet de changer les automates de nos entités facilement via ConfigFile) + Génération des entités sur la carte (SpawnerCrab, Crab) + Début de leurs avatars.
+- Brice: Test et debug RedCross et Treasure
 - Rémi: Fix "gros bug" concernant la positions sur la map (bug découvert la veille). 
 - Alexandre: création de la vue de config des automates
 - Axel : Début du travail sur les crabes et les cavernes à crabes. Rendre le Crab lair's fonctionnel avant de gérer les crabes.
@@ -203,6 +205,7 @@
 
 - Albin: Tentative d'implémenter un GIF sur le menu, non fructueuse, les joueurs passent désormais derrière les palmiers si ils sont censés le faire (et autres entités), implémentation Avatar trésor de la mer, bateau ennemi Ajout de Sprites
 - Romain: Liaison de l'interface graphique de changement d'avatar avec le fichier de config de chargement des automates. Ajout Avatar: Cloud, Ship, SeaTreasure
+- Brice:  Collisions boulets de cannon avec ennemi: hitbox circulaire.
 - Rémi: Ajout de la minimap. Ajout de nouvelle tiles pour faire spawner les entitées. Ajout d'un titre lorsque l'on change de section
 - Alexandre: création de la vue d'entrée sur le jeu. Le joueur doit entrer son nom d'utilisateur + début création de la base de données pour enregistrer les utilisateurs et leur score
 - Axel : Fonction de déplacement vers le joueur pour les ennemis crabes et de débloquages lorsqyue le crabe est bloqué. + Essai de faire bouger les crabes vers le joueur sans qu'il se regroupe (C'est une échec).
