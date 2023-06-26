@@ -420,6 +420,8 @@ public class GameModele {
 																									// vie
 
 							entities.add(newEntity);
+							newEntity = new CloudCluster(current.getX()-200, current.getY()-200, map.getMap()[k]);
+							entities.add(newEntity);
 						} else if (current.isCloud()) {
 
 							newEntity = new CloudCluster(current.getX(), current.getY(), map.getMap()[k]); // Créer 10
