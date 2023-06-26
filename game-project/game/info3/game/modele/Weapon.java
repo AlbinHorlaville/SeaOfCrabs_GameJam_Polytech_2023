@@ -16,6 +16,7 @@ public abstract class Weapon extends MoveableEntity {
 	public static String Dagger = "Dagger";
 
 	public PiratePlayer player;
+	public PiratePlayer playerRescu;
 	protected String name;
 	protected int damage;
 	public int range;
@@ -69,7 +70,8 @@ public abstract class Weapon extends MoveableEntity {
 	public void hit(float rangeCoeff, float damageCoeff) {
 		SwordAvatar sword = (SwordAvatar)this.avatar;
 		sword.setAttacking();
-		tempX = player.getX()+player.getAvatar().getWidth()/2;
+		if (player == null)
+			player = playerRescu;
 		tempY = player.getY()+player.getAvatar().getHeight()/2;	
 		width = player.avatar.getWidth() / 2;//player.avatar.getWidth();
 		height = player.avatar.getHeight() / 2	;//player.avatar.getHeight();
@@ -134,6 +136,7 @@ public abstract class Weapon extends MoveableEntity {
 
 	public void setPlayer(PiratePlayer player) {
 		this.player = player;
+		this.playerRescu = player;
 		this.damage = player.getDamage();
 	}
 
