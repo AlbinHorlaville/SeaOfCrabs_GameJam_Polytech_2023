@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -76,6 +77,10 @@ public class GameView {
 
 			frame = canvas.createFrame(d);
 			frame.setResizable(false);
+			
+			ImageIcon img = new ImageIcon("resources/icon.png");
+
+			frame.setIconImage(img.getImage());
 
 			System.out.println("  - setting up the frame...");
 			File backgroundImageFile = new File("resources/background.png");
