@@ -94,18 +94,19 @@ public class PiratePlayer extends Player {
 		facing = EnumDirection.N;
 		this.invincible = false;
 
-		this.m_attackspeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
-		this.m_speedCoeff = DEFAULT_PIRATEPLAYER_SPEED_COEFF;
-		this.m_damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
-		this.m_rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
-		this.m_maxHealthCoeff = DEFAULT_MAX_PLAYERS_LIFE_COEFF;
+		m_attackspeedCoeff = DEFAULT_PIRATEPLAYER_ATTACKSPEED_COEFF;
+		m_speedCoeff = DEFAULT_PIRATEPLAYER_SPEED_COEFF;
+		m_damageCoeff = DEFAULT_PIRATEPLAYER_DAMAGE_COEFF;
+		m_rangeCoeff = DEFAULT_PIRATEPLAYER_RANGE_COEFF;
+		m_maxHealthCoeff = DEFAULT_MAX_PLAYERS_LIFE_COEFF;
 
-		this.m_damage = DEFAULT_PIRATEPLAYER_DAMAGE;
-		this.m_maxHealthPoints = DEFAULT_MAX_PLAYERS_LIFE;
-		this.m_healthPoints = DEFAULT_PIRATEPLAYER_LIFE_POINT;
-		this.m_attackSpeed = DEFAULT_PIRATEPLAYER_ATTACKSPEED;
-		this.m_range = DEFAULT_PIRATEPLAYER_RANGE;
-		this.m_speed = DEFAULT_PIRATEPLAYER_SPEED;
+		m_damage = DEFAULT_PIRATEPLAYER_DAMAGE;
+		m_maxHealthPoints = DEFAULT_MAX_PLAYERS_LIFE;
+		m_healthPoints = DEFAULT_PIRATEPLAYER_LIFE_POINT;
+		m_attackSpeed = DEFAULT_PIRATEPLAYER_ATTACKSPEED;
+		m_range = DEFAULT_PIRATEPLAYER_RANGE;
+		m_speed = DEFAULT_PIRATEPLAYER_SPEED;
+		
 		invincible = false;
 		this.reloading = false;
 		resetPiratePlayer();

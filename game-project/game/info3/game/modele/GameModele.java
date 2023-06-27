@@ -478,7 +478,7 @@ public class GameModele {
 	 * Fonction pour partie perdu
 	 */
 	public void gameover() {
-		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
+		resetModele();
 		entities.clear();
 		SoundTool.playSoundEffect(SoundEffect.Defeat, 0);
 		gameview.getGame().setCurrentState(GameState.GameOver);
@@ -506,7 +506,7 @@ public class GameModele {
 	 * Fonction pour la victoire
 	 */
 	public void victory() {
-		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
+		resetModele();
 		entities.clear();
 		SoundTool.playSoundEffect(SoundEffect.Victory, 0);
 		gameview.getGame().setCurrentState(GameState.Victory);
@@ -523,10 +523,22 @@ public class GameModele {
 			}
 		}
 	}
-
-	public static void reset() {
-		timer.resetTimer();
+	
+	/**
+	 * Reset le modéle
+	 */
+	public static void resetModele() {
+		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
+		seaEnnemie.clear();
+		entities.clear();
 		onSea = true;
 		pirateBoat = null;
+	}
+
+	/**
+	 * Utiliser à la fin de la vue de fin 
+	 */
+	public static void reset() {
+		timer.resetTimer();
 	}
 }
