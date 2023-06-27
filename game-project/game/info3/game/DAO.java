@@ -9,6 +9,8 @@ import java.sql.Time;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+
 public class DAO {
 
 	private static DAO instance;

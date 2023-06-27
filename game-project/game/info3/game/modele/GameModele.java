@@ -53,8 +53,6 @@ public class GameModele {
 	public static ArrayList<Entity> entities = new ArrayList<>();
 
 	public static ArrayList<Ship> seaEnnemie = new ArrayList<>();
-	
-	public static CrabKing king;
 
 	public static PiratePlayer player1;
 
@@ -86,8 +84,6 @@ public class GameModele {
 	public static Score currentScore;
 	public static Score bestUserScore;
 	public static boolean isUserBestScore;
-	
-	public static boolean backgroundSound;
 	
 	
 
@@ -174,11 +170,8 @@ public class GameModele {
 					currentUser = new User(name);
 					userFile.setWritable(false);
 				}
-				if (createScore()) {
-					return true;
-				} else {
-					return false;
-				}
+				createScore();
+				return true;
 			} catch (IOException e) {
 				return false;
 			}
@@ -229,11 +222,6 @@ public class GameModele {
 				if (this.map.getTileUnderEntity(this.pirateBoat.getCenterX(), this.pirateBoat.getCenterY())
 						.isWaterDamaging()) {
 					this.pirateBoat.takeDamage(20);
-				}
-				
-				if (this.map.getTileUnderEntity(this.pirateBoat.getCenterX(), this.pirateBoat.getCenterY())
-						.isPoison()) {
-					this.pirateBoat.takePoison();
 				}
 			}
 			this.map.updateDamagingTick();
@@ -463,8 +451,8 @@ public class GameModele {
 							entities.add(newEntity);
 							this.seaEnnemie.add((Ship) newEntity);
 						} else if (current.getType() == EnumTiles.CRAB_KING) {
-							king = new CrabKing(k, 1500, current.getX(), current.getY(), 200); // TODO CHANGE PARAM
-							GameModele.entities.add(king);
+							newEntity = new CrabKing(k, 1500, current.getX(), current.getY(), 200); // TODO CHANGE PARAM
+							GameModele.entities.add(newEntity);
 							// entities.add(newEntity);
 						} else if (current.getType() == EnumTiles.KRAKEN_TENTACLE) {
 							kraken.addTentacle(current.getX(), current.getY(), tentacle_number++);
@@ -480,8 +468,7 @@ public class GameModele {
 	 * Fonction pour partie perdu
 	 */
 	public void gameover() {
-		resetModele();
-		entities.clear();
+		reset();
 		SoundTool.playSoundEffect(SoundEffect.Defeat, 0);
 		gameview.getGame().setCurrentState(GameState.GameOver);
 	}
@@ -508,8 +495,7 @@ public class GameModele {
 	 * Fonction pour la victoire
 	 */
 	public void victory() {
-		resetModele();
-		entities.clear();
+		reset();
 		SoundTool.playSoundEffect(SoundEffect.Victory, 0);
 		gameview.getGame().setCurrentState(GameState.Victory);
 		if (SeaOfCrabes.connectedToDatabase) {
@@ -518,26 +504,19 @@ public class GameModele {
 				if (GameModele.solo) {
 					DAO.getInstance().updateScoreSolo(currentUser, GameModele.timer.toSQLStringFormat(), seed);
 					updateScoreFile();
-				}
+				} /*
+					 * else { DAO.getInstance().updateScoreDuo(currentUser,
+					 * GameModele.timer.toSQLStringFormat(), seed); }
+					 */
 			}
 		}
 	}
-	
-	/**
-	 * Reset le modéle
-	 */
-	public static void resetModele() {
+
+	public static void reset() {
 		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
-		seaEnnemie.clear();
 		entities.clear();
+		timer.resetTimer();
 		onSea = true;
 		pirateBoat = null;
-	}
-
-	/**
-	 * Utiliser à la fin de la vue de fin 
-	 */
-	public static void reset() {
-		timer.resetTimer();
 	}
 }

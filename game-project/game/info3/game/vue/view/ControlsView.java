@@ -186,13 +186,13 @@ public class ControlsView extends View{
 	
 	@Override
 	public void paint(Graphics g, int width, int height) {
-		if (GameModele.currentScore!=null) {
-			if (SeaOfCrabes.connectedToDatabase) {
-				addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
+		if (SeaOfCrabes.connectedToDatabase) {
+			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
+			if (GameModele.currentUser != null) {
 				addComponent(new UILabel(10, 50, "@"+GameModele.currentUser.getUsername(), FONT4, Color.black));
-			} else {
-				addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 			}
+		} else {
+			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 		}
 		if (GameModele.solo) {
 			title.setText("Controls");
