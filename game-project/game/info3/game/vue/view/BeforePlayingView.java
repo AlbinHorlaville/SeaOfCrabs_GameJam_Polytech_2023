@@ -11,11 +11,8 @@ import info3.game.SeaOfCrabes;
 import info3.game.modele.GameModele;
 import info3.game.modele.Weapon;
 import info3.game.modele.MoveableEntityClass.Perroquet;
-import info3.game.modele.MoveableEntityClass.Scythe;
 import info3.game.modele.MoveableEntityClass.Sword;
 import info3.game.vue.GameView;
-import info3.game.vue.SpriteLoader.SpriteLoader;
-import info3.game.vue.SpriteLoader.SpriteType;
 import info3.game.vue.toolkitUI.UIBox;
 import info3.game.vue.toolkitUI.UIBoxes;
 import info3.game.vue.toolkitUI.UIButton;
@@ -36,7 +33,6 @@ public class BeforePlayingView extends View {
 	UILabel weaponSelectedLabel1, weaponSelectedLabel2, labelParrot;
 
 	UIBox boxSwordPlayer1, boxScythePlayer1, boxSwordPlayer2, boxScythePlayer2, section10, section16, section22;
-	
 
 	public static Weapon weapon1;
 	public static Weapon weapon2;
@@ -77,10 +73,10 @@ public class BeforePlayingView extends View {
 		weaponsBoxesPlayer2 = new UIBoxes(300, 270, weaponSelectedLabel2);
 		weaponsBoxesPlayer2.addBox(boxSwordPlayer2);
 		weaponsBoxesPlayer2.setSelectedBox(boxSwordPlayer2);
-				
+
 		sectionLabel = new UILabel(50, 351, "Section number :", FONT1, Color.black);
-		
-		sectionBoxes=new UIBoxes(300,314);
+
+		sectionBoxes = new UIBoxes(300, 314);
 		section10 = new UIBox(64, 10);
 		section16 = new UIBox(64, 16);
 		section22 = new UIBox(64, 22);
@@ -88,10 +84,10 @@ public class BeforePlayingView extends View {
 		sectionBoxes.addBox(section16);
 		sectionBoxes.addBox(section22);
 		sectionBoxes.setSelectedBox(section10);
-		
+
 		labelParrot = new UILabel(50, 451, "Pirate's parrot?", FONT1, Color.black);
-		
-		perroquetBox = new UIChecker(300, 428,new UILabel(0, 0, "", FONT1, Color.black), c1, false);
+
+		perroquetBox = new UIChecker(300, 428, new UILabel(0, 0, "", FONT1, Color.black), c1, false);
 
 		perroquetBox.setUIComponentListener(new UIComponentListener() {
 
@@ -100,8 +96,7 @@ public class BeforePlayingView extends View {
 				perroquetBox.check();
 				if (perroquetBox.isState()) {
 					perroquet = new Perroquet(100, 0, 10);
-				}
-				else {
+				} else {
 					perroquet = null;
 				}
 			}
@@ -384,9 +379,10 @@ public class BeforePlayingView extends View {
 		addComponent(sectionBoxes);
 		addComponent(sectionLabel);
 		addComponent(labelParrot);
-		
+
 		if (SeaOfCrabes.connectedToDatabase) {
-			addComponent(new UILabel(10, 30, "Connected to database: @"+GameModele.currentUser.getUsername(), FONT4, Color.green));
+			addComponent(new UILabel(10, 30, "Connected to database: @" + GameModele.currentUser.getUsername(), FONT4,
+					Color.green));
 		} else {
 			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 		}
