@@ -296,7 +296,8 @@ public class PiratePlayer extends Player {
 	}
 
 	public void setNewMaxHealthPoints() {
-		m_maxHealthPoints = (int) (m_maxHealthPoints * m_maxHealthCoeff);
+		m_maxHealthPoints = (int) (this.DEFAULT_MAX_PLAYERS_LIFE * m_maxHealthCoeff);
+		m_healthPoints = m_maxHealthPoints;
 	}
 
 	@Override
