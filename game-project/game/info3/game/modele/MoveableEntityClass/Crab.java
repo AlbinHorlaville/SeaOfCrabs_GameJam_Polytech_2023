@@ -74,30 +74,33 @@ public class Crab extends Ennemy {
 //				}
 //			}
 //		}
-		
-//		PiratePlayer closestPlayer = this.closestPirateToMe();
 //		
-//		int valueX = ((this.x > closestPlayer.x)? -1: 1);
-//		int nextX = this.getCenterX() + valueX;
-//		int valueY = ((this.y > closestPlayer.y)? -1: 1);
-//		int nextY = this.getCenterY() + valueY;
-//		
-//		
-//		
-//		if(GameModele.map.getTileUnderEntity(nextX,nextY).isIsland()) {
-//			this.x = nextX;
-//			this.y = nextY;
-//			System.out.println("Going Forward");
-//		}else {
-//			if(GameModele.map.getTileUnderEntity(nextX,this.getCenterY()).isIsland()){
-//				this.y = nextY;
-//				System.out.println("Going Y");
+//		if((int)tick(this.timeElapsed) % 2 == 0) {
 //
-//			}
-//			if(GameModele.map.getTileUnderEntity(this.getCenterX(),nextY).isIsland()) {
-//				this.x = nextX;
-//				System.out.println("Going X");
-//
+//			PiratePlayer closestPlayer = this.closestPirateToMe();
+//			
+//			int valueX = ((this.x > closestPlayer.x)? -1: 1);
+//			int nextX = this.getCenterX() + valueX;
+//			int valueY = ((this.y > closestPlayer.y)? -1: 1);
+//			int nextY = this.getCenterY() + valueY;
+//			
+//			
+//			
+//			if(GameModele.map.getTileUnderEntity(nextX,nextY).isIsland()) {
+//				this.x += valueX;
+//				this.y += valueY;
+//				System.out.println("Going Forward");
+//			}else {
+//				if(GameModele.map.getTileUnderEntity(nextX,this.getCenterY()).isIsland()){
+//					this.y = valueY;
+//					System.out.println("Going Y");
+//	
+//				}
+//				if(GameModele.map.getTileUnderEntity(this.getCenterX(),nextY).isIsland()) {
+//					this.x = valueX;
+//					System.out.println("Going X");
+//	
+//				}
 //			}
 //		}
 		
@@ -111,11 +114,11 @@ public class Crab extends Ennemy {
 			int nextY = this.getCenterY() + valueY;
 			
 			if(!GameModele.map.getTileUnderEntity(nextX,getCenterY()).isIsland()) {
-					this.y = nextY;
+					this.y += valueY;
 					lastY = valueY;
 					lastX = 0;
 			}else if(!GameModele.map.getTileUnderEntity(getCenterX(),nextY).isIsland()) {
-					this.x = nextX;
+					this.x += valueX;
 					lastX = valueX;
 					lastY = 0;
 			}else {
