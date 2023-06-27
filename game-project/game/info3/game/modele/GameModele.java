@@ -1,5 +1,6 @@
 package info3.game.modele;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,6 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
+import javax.imageio.ImageIO;
+
 import info3.game.DAO;
 import info3.game.Controller;
 import info3.game.GameState;
@@ -79,6 +83,8 @@ public class GameModele {
 	public static Score currentScore;
 	public static Score bestUserScore;
 	public static boolean isUserBestScore;
+	
+	
 
 	private static File userFile, scoreFile;
 
@@ -202,6 +208,15 @@ public class GameModele {
 
 	public void tick(long elapsed) {
 		if (currentState == GameState.Jeu) {
+			
+			if (this.player1.invincible) {
+				this.player1.updateInvincible();
+			}
+			
+			if (this.pirateBoat.invincible) {
+				this.pirateBoat.updateInvincible();
+			}
+			
 			if (this.onSea) {
 				this.currentSection = this.pirateBoat.getCurrentSection();
 				if (this.map.getTileUnderEntity(this.pirateBoat.getCenterX(), this.pirateBoat.getCenterY())
@@ -364,7 +379,9 @@ public class GameModele {
 		}
 	}
 
-	void genereEntity(Map map) {
+	void genereEntity(Map map) throws IOException {
+		
+		
 
 		System.out.println("Seed : " + seed);
 

@@ -3,8 +3,12 @@ package info3.game.vue.view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import info3.game.Controller;
 import info3.game.modele.Entity;
@@ -43,10 +47,12 @@ public class PlayingView extends View {
 
 	private boolean playerOnSea;
 
+	private BufferedImage damageOverlay;
+
 	public UILabel attackSpeedBonusLabel, damageBonusLabel, healthBonusLabel, rangeBonusLabel, speedBonusLabel;
 	UIImage attackSpeedBonusImage, damageBonusImage, healthBonusImage, rangeBonusImage, speedBonusImage;
 
-	public PlayingView(GameView gv) {
+	public PlayingView(GameView gv) throws IOException {
 		super(gv);
 
 		int windowWidth = (int) gameView.getWidthCanvas();
@@ -99,7 +105,7 @@ public class PlayingView extends View {
 		healthBonusLabel.setText(Float.toString(1f));
 		rangeBonusLabel.setText(Float.toString(1f));
 		speedBonusLabel.setText(Float.toString(1f));
-		
+
 		barreVieMer.setPositionX(20);
 		barreVieMer.setPositionY(15);
 		barreVieMer.setWidth(150);
@@ -109,6 +115,11 @@ public class PlayingView extends View {
 		barreVieTerre.setWidth(75);
 
 		playerOnSea = true;
+
+		File imageFile = new File("assets/img/autre/damaged.png");
+		if (imageFile.exists()) {
+			this.damageOverlay = ImageIO.read(imageFile);
+		}
 	}
 
 	@Override
@@ -126,10 +137,10 @@ public class PlayingView extends View {
 	public void paint(Graphics g, int width, int height) {
 		// g.setColor(Color.gray);
 		// g.fillRect(0, 0, width, height);
-		
+
 		boolean onSea = GameModele.onSea;
 		boolean solo = GameModele.solo;
-		
+
 		int player1Y = GameModele.player1.getY();
 		int player2Y = 0;
 		if (!solo) {
@@ -141,8 +152,7 @@ public class PlayingView extends View {
 					GameModele.getCurrentPlayerY());
 		} else {
 			GameModele.map.getRepresentation().paint(g, width, height,
-					(GameModele.player1.getX() + GameModele.player2.getX()) / 2,
-					(player1Y + player2Y) / 2);
+					(GameModele.player1.getX() + GameModele.player2.getX()) / 2, (player1Y + player2Y) / 2);
 		}
 
 		if (solo) {
@@ -179,7 +189,7 @@ public class PlayingView extends View {
 			PiratePlayer higher, lower;
 			int higherY;
 			int lowerY;
-			
+
 			if (player1Y < player2Y) {
 				higher = GameModele.player2;
 				lower = GameModele.player1;
@@ -205,7 +215,7 @@ public class PlayingView extends View {
 			}
 			if (!onSea)
 				lower.getAvatar().paint(g, width, height);
-			
+
 			for (Entity entity : GameModele.entities) {
 				if (entity.getY() >= lowerY && entity.getY() <= higherY && entity != higher && entity != lower) {
 					if (entity instanceof CloudCluster) {
@@ -231,7 +241,10 @@ public class PlayingView extends View {
 					}
 				}
 			}
+		}
 
+		if (GameModele.pirateBoat.invincible || GameModele.player1.invincible) {
+			g.drawImage(this.damageOverlay, 0, 0, this.damageOverlay.getWidth(), this.damageOverlay.getHeight(), null);
 		}
 
 		// ****************************************//
@@ -316,5 +329,6 @@ public class PlayingView extends View {
 		healthBonusLabel.paint(g);
 		rangeBonusLabel.paint(g);
 		speedBonusLabel.paint(g);
+
 	}
 }
