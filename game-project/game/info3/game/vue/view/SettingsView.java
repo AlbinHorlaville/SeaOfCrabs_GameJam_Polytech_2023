@@ -2,6 +2,7 @@ package info3.game.vue.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
@@ -14,6 +15,7 @@ import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIButton;
 import info3.game.vue.toolkitUI.UIChecker;
+import info3.game.vue.toolkitUI.UIComponent;
 import info3.game.vue.toolkitUI.UIComponentListener;
 import info3.game.vue.toolkitUI.UICursor;
 import info3.game.vue.toolkitUI.UILabel;
@@ -180,11 +182,20 @@ public class SettingsView extends View {
 		addComponent(effectSoundVolumeLabel);
 		addComponent(effectSoundChecker);
 		addComponent(buttonAutomatonView);
-		
-		if (SeaOfCrabes.connectedToDatabase) {
-			addComponent(new UILabel(10, 30, "Connected to database: @"+GameModele.currentUser.getUsername(), FONT4, Color.green));
-		} else {
-			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
+	
+	}
+	
+	public void paint(Graphics g, int width, int height) {
+		for (UIComponent c : components) {
+			c.paint(g);
+		}
+		if (GameModele.currentScore!=null) {
+			if (SeaOfCrabes.connectedToDatabase) {
+				addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
+				addComponent(new UILabel(10, 50, "@"+GameModele.currentUser.getUsername(), FONT4, Color.black));
+			} else {
+				addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
+			}
 		}
 	}
 

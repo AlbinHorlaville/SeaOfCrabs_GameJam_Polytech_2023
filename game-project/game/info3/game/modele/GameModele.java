@@ -87,6 +87,8 @@ public class GameModele {
 	public static Score bestUserScore;
 	public static boolean isUserBestScore;
 	
+	public static boolean backgroundSound;
+	
 	
 
 	private static File userFile, scoreFile;
@@ -516,10 +518,7 @@ public class GameModele {
 				if (GameModele.solo) {
 					DAO.getInstance().updateScoreSolo(currentUser, GameModele.timer.toSQLStringFormat(), seed);
 					updateScoreFile();
-				} /*
-					 * else { DAO.getInstance().updateScoreDuo(currentUser,
-					 * GameModele.timer.toSQLStringFormat(), seed); }
-					 */
+				}
 			}
 		}
 	}

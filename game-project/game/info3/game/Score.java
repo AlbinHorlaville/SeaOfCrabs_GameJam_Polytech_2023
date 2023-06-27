@@ -45,31 +45,35 @@ public class Score {
 	}
 
 	public String toSQLStringFormat() {
-		String time = new String("");
-		String h = new String("");
-		String m = new String("");
-		String s = new String("");
-
-		if (heures < 10) {
-			h = '0' + Integer.toString(heures);
+		if (heures==0  && minutes==0 && secondes==0) {
+			return "No score";
 		} else {
-			h = Integer.toString(heures);
-		}
+			String time = new String("");
+			String h = new String("");
+			String m = new String("");
+			String s = new String("");
 
-		if (minutes < 10) {
-			m = '0' + Integer.toString(minutes);
-		} else {
-			m = Integer.toString(minutes);
-		}
+			if (heures < 10) {
+				h = '0' + Integer.toString(heures);
+			} else {
+				h = Integer.toString(heures);
+			}
 
-		if (secondes < 10) {
-			s = '0' + Integer.toString(secondes);
-		} else {
-			s = Integer.toString(secondes);
-		}
+			if (minutes < 10) {
+				m = '0' + Integer.toString(minutes);
+			} else {
+				m = Integer.toString(minutes);
+			}
 
-		time = new String(h + ":" + m + ":" + s);
-		return time;
+			if (secondes < 10) {
+				s = '0' + Integer.toString(secondes);
+			} else {
+				s = Integer.toString(secondes);
+			}
+
+			time = new String(h + ":" + m + ":" + s);
+			return time;
+		}
 	}
 
 }

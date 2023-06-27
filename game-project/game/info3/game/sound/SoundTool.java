@@ -140,9 +140,5 @@ public class SoundTool {
 			playBackgroundMusic();
 		}
 	}
-	
-
-	
-	
 
 }
