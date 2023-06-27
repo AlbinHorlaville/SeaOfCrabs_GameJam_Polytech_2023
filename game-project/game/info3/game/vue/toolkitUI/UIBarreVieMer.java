@@ -24,6 +24,10 @@ public class UIBarreVieMer extends UIBarrePointDeVie {
 		g.drawRect(getPositionX() - 1, getPositionY() - 1, getWidth() + 1, getHeight() + 1);
 		g.setColor(new Color(118, 71, 35));
 		g.fillRect(getPositionX(), getPositionY(), current_life * getWidth() / max_life, getHeight());
+		g.setColor(Color.black);
+		for (int i=0; i<max_life; i+=100) {
+			g.drawLine(getPositionX() +  getWidth() * i / max_life, getPositionY(),getPositionX() +  getWidth() * i / max_life, getPositionY() + getHeight());
+		}
 		image.setPositionX((getPositionX()+current_life * getWidth() / max_life)-16);
 		image.setPositionY(getPositionY()-10);
 		image.paint(g);
