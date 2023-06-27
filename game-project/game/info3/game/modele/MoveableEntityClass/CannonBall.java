@@ -61,6 +61,7 @@ public abstract class CannonBall extends MoveableEntity {
 				.sqrt(Math.pow(endX - (GameView.screenWidth / 2), 2) + Math.pow(endY - (GameView.screenHeight / 2), 2)))
 				/ 300);
 	}
+	
 
 	public void fire() {
 		fire = true;
@@ -129,5 +130,7 @@ public abstract class CannonBall extends MoveableEntity {
 		}
 
 	}
+
+	protected abstract void tripleShot(int mouseX, int mouseY, BoatPlayer boatPlayer);
 
 }

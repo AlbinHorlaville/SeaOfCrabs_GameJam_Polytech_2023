@@ -9,6 +9,7 @@ import info3.game.Controller;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.map.Tiles;
+import info3.game.vue.GameView;
 import info3.game.vue.avatar.DamagedCannonBallAvatar;
 
 public class BoatPlayer extends Player {
@@ -224,6 +225,7 @@ public class BoatPlayer extends Player {
 
 			CannonBall b = null;
 			if (EnumCannonBall.Basic == currentBall) {
+				
 				b = new BasicCannonBall();
 				b.setPositions(this.x, this.y, mouseX, mouseY);
 				b.fire();
@@ -238,11 +240,12 @@ public class BoatPlayer extends Player {
 					break;
 				case Damaged:
 					b = new DamagedCannonBall();
-					break;
+					b.tripleShot(mouseX,mouseY,this);
+					return;
 				default:
 					return;
 				}
-				b.setPositions(this.x, this.y, mouseX, mouseY);
+				b.setPositions(this.x , this.y, mouseX, mouseY);
 				b.fire();
 			}
 
