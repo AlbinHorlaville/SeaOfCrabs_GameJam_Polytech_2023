@@ -9,8 +9,8 @@ import info3.game.Controller;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.map.Tiles;
-import info3.game.vue.GameView;
-import info3.game.vue.avatar.DamagedCannonBallAvatar;
+import info3.game.sound.SoundEffect;
+import info3.game.sound.SoundTool;
 
 public class BoatPlayer extends Player {
 
@@ -200,6 +200,7 @@ public class BoatPlayer extends Player {
 		int timeSec = GameModele.timer.getSecondes();
 		int timeMin = GameModele.timer.getMinutes();
 		if (!invincible) {
+			SoundTool.playSoundEffect(SoundEffect.BoatHitted, 0);
 			this.m_healthPoints -= damage;
 			if (this.m_healthPoints <= 0) {
 				this.die();
@@ -229,7 +230,7 @@ public class BoatPlayer extends Player {
 				b = new BasicCannonBall();
 				b.setPositions(this.x, this.y, mouseX, mouseY);
 				b.fire();
-			} else if (getAmount(currentBall) != 0) {
+			} else if (getAmount(currentBall) <= 0) {
 				this.bouletDeCannon.replace(currentBall, getAmount(currentBall) - 1);
 				switch (currentBall) {
 				case Stunt:

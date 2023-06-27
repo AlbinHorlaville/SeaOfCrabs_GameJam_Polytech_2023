@@ -11,6 +11,8 @@ import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.Weapon;
 import info3.game.modele.map.Tiles;
+import info3.game.sound.SoundEffect;
+import info3.game.sound.SoundTool;
 import info3.game.vue.avatar.Avatar;
 
 public class PiratePlayer extends Player {
@@ -335,6 +337,7 @@ public class PiratePlayer extends Player {
 		int timeSec = GameModele.timer.getSecondes();
 		int timeMin = GameModele.timer.getMinutes();
 		if (!this.invincible) {
+			SoundTool.playSoundEffect(SoundEffect.PirateHitted, 0);
 			m_healthPoints -= damage;
 			if (m_healthPoints <= 0) {
 				die();

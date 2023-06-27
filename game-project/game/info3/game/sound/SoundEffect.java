@@ -7,6 +7,8 @@ public enum SoundEffect {
 	Cursor("UI/Cursor.ogg"),
 	Victory("Victory.ogg"),
 	Egg("EasterEggs.ogg"),
+	BoatHitted("BoatHitted.ogg"),
+	PirateHitted("PirateHitted.ogg"),
 	Defeat("Defeat.ogg");
 
 	private String fileName;
