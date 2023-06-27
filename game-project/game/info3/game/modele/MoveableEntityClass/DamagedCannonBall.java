@@ -36,11 +36,11 @@ public class DamagedCannonBall extends CannonBall {
 		double r = Math.sqrt(Math.pow((mouseX-GameView.screenWidth/2), 2)+Math.pow((mouseY-GameView.screenHeight/2),2));
 		
 		
-		a.setPositions(boat.x, boat.y, (int)(r*Math.cos(theta+Math.PI/8)),(int)(r*Math.sin(theta+Math.PI/8)));
+		a.setPositionsNoShift(boat.x, boat.y, (int)(r*Math.cos(theta+Math.PI/8)),(int)(r*Math.sin(theta+Math.PI/8)));
 		
-		this.setPositions(boat.x, boat.y, mouseX-GameView.screenWidth/2, mouseY -GameView.screenHeight/2);
+		this.setPositionsNoShift(boat.x, boat.y, mouseX-GameView.screenWidth/2, mouseY -GameView.screenHeight/2);
 		
-		c.setPositions(boat.x, boat.y, (int)(r*Math.cos(theta-Math.PI/8)),(int)(r*Math.sin(theta-Math.PI/8)));
+		c.setPositionsNoShift(boat.x, boat.y, (int)(r*Math.cos(theta-Math.PI/8)),(int)(r*Math.sin(theta-Math.PI/8)));
 		
 		a.fire();
 		this.fire();

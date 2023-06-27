@@ -177,7 +177,7 @@ public class BoatPlayer extends Player {
 			if (EnumCannonBall.Basic == currentBall) {
 				
 				b = new BasicCannonBall();
-				b.setPositions(this.x, this.y, mouseX-GameView.screenWidth/2, mouseY-GameView.screenHeight/2);
+				b.setPositions(this.x, this.y, mouseX, mouseY);
 				b.fire();
 			} else if (getAmount(currentBall) != 0) {
 				this.bouletDeCannon.replace(currentBall, getAmount(currentBall)-1);
@@ -195,7 +195,7 @@ public class BoatPlayer extends Player {
 				default:
 					return;
 				}
-				b.setPositions(this.x , this.y, mouseX-GameView.screenWidth/2, mouseY-GameView.screenHeight/2);
+				b.setPositions(this.x , this.y, mouseX, mouseY);
 				b.fire();
 			}
 			

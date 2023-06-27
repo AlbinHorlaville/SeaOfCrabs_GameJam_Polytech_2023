@@ -58,10 +58,25 @@ public abstract class CannonBall extends MoveableEntity {
 		/*speedX = (endX - (GameView.screenWidth / 2)) / 50;
 		speedY = (endY - (GameView.screenHeight / 2)) / 50;
 		*/
-		speedX = (int) (((endX)*range )/(Math.sqrt(Math.pow(endX , 2) + Math.pow(endY , 2))) / 100);
-		speedY = (int) (((endY )*range )/(Math.sqrt(Math.pow(endX , 2) + Math.pow(endY, 2))) / 100);
-
+		speedX = (int) (((endX - (GameView.screenWidth / 2))*range )/(Math.sqrt(Math.pow(endX - (GameView.screenWidth / 2), 2) + Math.pow(endY - (GameView.screenHeight / 2), 2))) / 100);
+		speedY = (int) (((endY - (GameView.screenHeight / 2))*range )/(Math.sqrt(Math.pow(endX - (GameView.screenWidth / 2), 2) + Math.pow(endY - (GameView.screenHeight / 2), 2))) / 100);
+		
 	}
+	
+	public void setPositionsNoShift(int x, int y, int endX, int endY) {
+		startX = x;
+		startY = y;
+		this.x = x;
+		this.y = y;
+		this.endX = endX;
+		this.endY = endY;
+		
+		speedX = (int) (((endX)*range )/(Math.sqrt(Math.pow(endX, 2) + Math.pow(endY, 2))) / 100);
+		speedY = (int) (((endY)*range )/(Math.sqrt(Math.pow(endX, 2) + Math.pow(endY, 2))) / 100);
+		System.out.println(startX);
+		System.out.println(startY);
+	}
+	
 
 	public void fire() {
 		fire = true;
