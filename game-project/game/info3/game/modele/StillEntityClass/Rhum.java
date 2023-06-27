@@ -40,7 +40,7 @@ public class Rhum extends StillEntity {
 			
 			for(int i = -1; i < 2; i++)
 				for(int j = -1; j < 2; j++)
-					if(X > 0 && Y > 0) {
+					if(X > 0 && Y > 0 && X < GameModele.map.getSectionWidth() && Y < GameModele.map.getSectionHeight()) {
 						if(boatTile.equals(tiles[Y+j][X+i])) {
 							return true;
 						}
