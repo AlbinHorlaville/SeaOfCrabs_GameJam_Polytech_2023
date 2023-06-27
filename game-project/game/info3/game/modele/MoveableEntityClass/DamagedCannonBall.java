@@ -6,7 +6,7 @@ import info3.game.vue.avatar.DamagedCannonBallAvatar;
 
 public class DamagedCannonBall extends CannonBall {
 	
-	static final int DAMAGED_DAMAGE = 50; // A modifier
+	static final int DAMAGED_DAMAGE = 25;
 	
 	public DamagedCannonBall() {
 		super(DAMAGED_DAMAGE, BASIC_RANGE, BASIC_RATE_OF_FIRE);
