@@ -384,16 +384,18 @@ public class BeforePlayingView extends View {
 		addComponent(sectionBoxes);
 		addComponent(sectionLabel);
 		addComponent(labelParrot);
-		
-		if (SeaOfCrabes.connectedToDatabase) {
-			addComponent(new UILabel(10, 30, "Connected to database: @"+GameModele.currentUser.getUsername(), FONT4, Color.green));
-		} else {
-			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
-		}
 	}
 
 	@Override
 	public void paint(Graphics g, int width, int height) {
+		if (GameModele.currentScore!=null) {
+			if (SeaOfCrabes.connectedToDatabase) {
+				addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
+				addComponent(new UILabel(10, 50, "@"+GameModele.currentUser.getUsername(), FONT4, Color.black));
+			} else {
+				addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
+			}
+		}
 		if (GameModele.solo) {
 			weaponLabelPlayer1.setText("Player's weapon : ");
 			sectionLabel.setPositionY(351);
@@ -413,7 +415,7 @@ public class BeforePlayingView extends View {
 			c.paint(g);
 		}
 	}
-
+	
 	@Override
 	public void tick(long elapsed) {
 		// TODO Auto-generated method stub

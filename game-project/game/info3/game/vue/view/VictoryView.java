@@ -102,15 +102,18 @@ public class VictoryView extends View {
 		addComponent(title);
 		addComponent(buttonMenu);
 		addComponent(buttonReplay);
-		
-		if (SeaOfCrabes.connectedToDatabase) {
-			addComponent(new UILabel(10, 30, "Connected to database: @"+GameModele.currentUser.getUsername(), FONT4, Color.green));
-		} else {
-			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
-		}
+
 	}
 
 	public void paint(Graphics g, int width, int height) {
+		if (GameModele.currentScore!=null) {
+			if (SeaOfCrabes.connectedToDatabase) {
+				addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
+				addComponent(new UILabel(10, 50, "@"+GameModele.currentUser.getUsername(), FONT4, Color.black));
+			} else {
+				addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
+			}
+		}
 		for (UIComponent c : components) {
 			c.paint(g);
 		}

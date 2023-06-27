@@ -128,5 +128,5 @@ public class SoundTool {
 	public static void setCancelSoundEffect(boolean cancelSoundEffect) {
 		SoundTool.cancelSoundEffect = cancelSoundEffect;
 	}
-
+	
 }

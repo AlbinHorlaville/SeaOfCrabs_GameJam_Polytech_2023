@@ -13,7 +13,7 @@ public class SeaOfCrabes {
 	public static boolean connectedToDatabase;
 
 	public static void main(String[] args) {
-		System.out.println("Chargement...");
+		System.out.println("Loading...");
 		try {
 			if (DAO.getInstance() != null) {
 				connectedToDatabase = true;
