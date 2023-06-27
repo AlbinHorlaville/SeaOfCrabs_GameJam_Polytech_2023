@@ -36,6 +36,7 @@ import info3.game.modele.map.Map;
 import info3.game.modele.map.MapSection;
 import info3.game.modele.map.Tiles;
 import info3.game.sound.BackgroundMusic;
+import info3.game.sound.SoundEffect;
 import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 import info3.game.vue.avatar.BoatPlayerAvatar;
@@ -470,8 +471,8 @@ public class GameModele {
 	 * Fonction pour partie perdu
 	 */
 	public void gameover() {
-		SoundTool.changeBackgroundMusic(BackgroundMusic.Defeat);
-		gameview.update_view(GameState.GameOver);
+		reset();
+		SoundTool.playSoundEffect(SoundEffect.Defeat, 0);
 		gameview.getGame().setCurrentState(GameState.GameOver);
 	}
 
@@ -497,8 +498,8 @@ public class GameModele {
 	 * Fonction pour la victoire
 	 */
 	public void victory() {
-		SoundTool.changeBackgroundMusic(BackgroundMusic.Victory);
-		gameview.update_view(GameState.Victory);
+		reset();
+		SoundTool.playSoundEffect(SoundEffect.Victory, 0);
 		gameview.getGame().setCurrentState(GameState.Victory);
 		if (SeaOfCrabes.connectedToDatabase) {
 			if (checkScore()) {
@@ -515,10 +516,10 @@ public class GameModele {
 	}
 
 	public static void reset() {
+		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
 		entities.clear();
 		timer.resetTimer();
 		onSea = true;
-		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
 		pirateBoat = null;
 	}
 }

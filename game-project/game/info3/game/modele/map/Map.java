@@ -322,6 +322,7 @@ public class Map {
 	public void updateDamagingTick() {
 		Tiles[][] section;
 
+		if (GameModele.pirateBoat == null ) return;
 		int currentSection = GameModele.pirateBoat.getCurrentSection();
 
 		int min = currentSection - 1 > 0 ? currentSection - 1 : 0;
