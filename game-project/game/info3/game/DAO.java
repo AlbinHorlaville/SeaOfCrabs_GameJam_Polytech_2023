@@ -51,9 +51,7 @@ public class DAO {
 	}
 
 	public boolean addUser(String username) {
-		if (isUsernameExists(username)) {
-			return false;
-		} else {
+		if (!checkUser(username)) {
 			try {
 				prepare = connection.prepareStatement("insert into " + DBNAME + ".user (username) values(?)");
 				prepare.setString(1, username);
@@ -63,9 +61,10 @@ public class DAO {
 				return false;
 			}
 		}
+		return false;
 	}
 
-	public boolean isUsernameExists(String username) {
+	public boolean checkUser(String username) {
 		try {
 			prepare = connection.prepareStatement("select username from " + DBNAME + ".user where username=?");
 			prepare.setString(1, username);
