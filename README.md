@@ -1,7 +1,7 @@
 # game-jam-2023
 
 ## Description
-This project is a three-week game jam carried out by a team of 7 ~~students~~ **GOATS** in their 3rd year of engineering school at Polytech Grenoble.
+This project is a three-week game jam carried out by a team of 7 ~~students~~ **GOATS** in their 3rd year of engineering school at Polytech Grenoble. To change an Automata, go to Settings from the main menu, then click on Automata in the bottom right corner.
 
 ## Table of contents (M. Périn)
 
