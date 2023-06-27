@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class Crab extends Ennemy {
 	
-	public final static int DEFAULT_HEALTH_POINTS = 50;
+	public final static int DEFAULT_HEALTH_POINTS = 100;
 	public final static int RANGE = 100;
 	public final static int DEFAULT_DAMAGE = 10;
 	public final static int HIT_BOX = 50;
@@ -113,18 +113,10 @@ public class Crab extends Ennemy {
 			int valueY = ((this.y > closestPlayer.y)? -1: 1);
 			int nextY = this.getCenterY() + valueY;
 			
-			if(!GameModele.map.getTileUnderEntity(nextX,getCenterY()).isIsland()) {
+			if(GameModele.map.getTileUnderEntity(nextX,nextY).isIsland()) {
 					this.y += valueY;
-					lastY = valueY;
-					lastX = 0;
-			}else if(!GameModele.map.getTileUnderEntity(getCenterX(),nextY).isIsland()) {
 					this.x += valueX;
-					lastX = valueX;
-					lastY = 0;
-			}else {
-				this.x += lastX;
-				this.y += lastY;
-
+					lastX = 0;
 			}
 			
 
