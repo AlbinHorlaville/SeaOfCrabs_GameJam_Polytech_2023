@@ -67,6 +67,7 @@ public class Map {
 		this.title = new SectionTitle();
 
 		this.mapRepres = new MapRepresentation(this);
+		
 
 		this.miniMap = new MiniMap(this, GameModele.seaEnnemie);
 	}
@@ -105,7 +106,7 @@ public class Map {
 		generateWave();
 
 		this.mapRepres = new MapRepresentation(this);
-
+		
 		this.miniMap = new MiniMap(this, GameModele.seaEnnemie);
 
 		this.title = new SectionTitle();
@@ -214,6 +215,8 @@ public class Map {
 
 		this.map[currentSection] = new MapSection(EnumSectionType.MOUTAIN, this.sectionWidth, this.sectionHeight,
 				this.rand, this.map[currentSection - 1].getMountainHeight(), currentSection);
+		
+		
 	}
 
 	public void setImageSize(int width, int height) {
@@ -339,6 +342,10 @@ public class Map {
 				}
 			}
 		}
+	}
+	
+	public void setPoisoning(int xPos, int yPos) {
+		this.getTileUnderEntity(xPos, yPos).setType(EnumTiles.POISONED_WATER);
 	}
 
 	public void setDamaging(int xPos, int yPos) {

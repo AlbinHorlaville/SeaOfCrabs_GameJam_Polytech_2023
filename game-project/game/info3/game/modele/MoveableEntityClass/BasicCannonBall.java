@@ -39,5 +39,11 @@ public class BasicCannonBall extends CannonBall {
 		}
 	}
 
+	@Override
+	protected void tripleShot(int mouseX, int mouseY, BoatPlayer boatPlayer) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

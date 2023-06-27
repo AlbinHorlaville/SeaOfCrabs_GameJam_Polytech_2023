@@ -13,6 +13,8 @@ public class SoundTool {
 	static BackgroundMusic currenBackgroundSound = BackgroundMusic.MainMenu;
 	
 	static private boolean cancelSoundEffect = false;
+	
+	static private boolean cancelBackgroundMusic = false;
 
 	public final static String path = "./assets/audio/";
 
@@ -61,7 +63,8 @@ public class SoundTool {
 		try {
 			RandomAccessFile file = new RandomAccessFile(filename, "r");
 			RandomFileInputStream fis = new RandomFileInputStream(file);
-			canvas.playMusic(fis, 0, 1f);
+			float volume = (cancelBackgroundMusic) ? 0:1f;
+			canvas.playMusic(fis, 0, volume);
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 			System.exit(-1);
@@ -128,5 +131,14 @@ public class SoundTool {
 	public static void setCancelSoundEffect(boolean cancelSoundEffect) {
 		SoundTool.cancelSoundEffect = cancelSoundEffect;
 	}
-	
+
+	public static void setCancelBackgroundMusic(boolean cancelBackgroundMusic) {
+		SoundTool.cancelBackgroundMusic = cancelBackgroundMusic;
+		if(cancelBackgroundMusic) {
+			stopBackgroundMusic();
+		} else {
+			playBackgroundMusic();
+		}
+	}
+
 }

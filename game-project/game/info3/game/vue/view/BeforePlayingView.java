@@ -11,11 +11,8 @@ import info3.game.SeaOfCrabes;
 import info3.game.modele.GameModele;
 import info3.game.modele.Weapon;
 import info3.game.modele.MoveableEntityClass.Perroquet;
-import info3.game.modele.MoveableEntityClass.Scythe;
 import info3.game.modele.MoveableEntityClass.Sword;
 import info3.game.vue.GameView;
-import info3.game.vue.SpriteLoader.SpriteLoader;
-import info3.game.vue.SpriteLoader.SpriteType;
 import info3.game.vue.toolkitUI.UIBox;
 import info3.game.vue.toolkitUI.UIBoxes;
 import info3.game.vue.toolkitUI.UIButton;
@@ -29,19 +26,20 @@ import info3.game.vue.toolkitUI.UITextInput;
 public class BeforePlayingView extends View {
 
 	UIButton buttonPlay, buttonCmd, buttonRandomSeed, buttonRetour;
-	UILabel seedLabel, weaponLabelPlayer1, weaponLabelPlayer2, sectionLabel;
+	UILabel seedLabel, weaponLabelPlayer1, weaponLabelPlayer2, sectionLabel, labelLifeCrabs;
 	UITextInput seedInput;
 	UIBoxes weaponsBoxesPlayer1, weaponsBoxesPlayer2, sectionBoxes;
-	UIChecker perroquetBox;
+	UIChecker perroquetBox, CheckerShowLifeCrabs;
 	UILabel weaponSelectedLabel1, weaponSelectedLabel2, labelParrot;
 
 	UIBox boxSwordPlayer1, boxScythePlayer1, boxSwordPlayer2, boxScythePlayer2, section10, section16, section22;
-	
 
 	public static Weapon weapon1;
 	public static Weapon weapon2;
 
 	public static Perroquet perroquet;
+	
+	public static boolean ShowLifeCrabs;
 
 	public BeforePlayingView(GameView gv) {
 		super(gv);
@@ -77,10 +75,10 @@ public class BeforePlayingView extends View {
 		weaponsBoxesPlayer2 = new UIBoxes(300, 270, weaponSelectedLabel2);
 		weaponsBoxesPlayer2.addBox(boxSwordPlayer2);
 		weaponsBoxesPlayer2.setSelectedBox(boxSwordPlayer2);
-				
+
 		sectionLabel = new UILabel(50, 351, "Section number :", FONT1, Color.black);
-		
-		sectionBoxes=new UIBoxes(300,314);
+
+		sectionBoxes = new UIBoxes(300, 314);
 		section10 = new UIBox(64, 10);
 		section16 = new UIBox(64, 16);
 		section22 = new UIBox(64, 22);
@@ -89,9 +87,17 @@ public class BeforePlayingView extends View {
 		sectionBoxes.addBox(section22);
 		sectionBoxes.setSelectedBox(section10);
 		
-		labelParrot = new UILabel(50, 451, "Pirate's parrot?", FONT1, Color.black);
+		CheckerShowLifeCrabs = new UIChecker(300, 528, new UILabel(0, 0, "", FONT1, Color.black), c1, false);
 		
-		perroquetBox = new UIChecker(300, 428,new UILabel(0, 0, "", FONT1, Color.black), c1, false);
+		labelLifeCrabs = new UILabel(50, 551, "Show Life's Crabs ?", FONT1, Color.black);
+		
+
+		
+		ShowLifeCrabs = false;
+
+		labelParrot = new UILabel(50, 451, "Pirate's parrot?", FONT1, Color.black);
+
+		perroquetBox = new UIChecker(300, 428, new UILabel(0, 0, "", FONT1, Color.black), c1, false);
 
 		perroquetBox.setUIComponentListener(new UIComponentListener() {
 
@@ -100,9 +106,45 @@ public class BeforePlayingView extends View {
 				perroquetBox.check();
 				if (perroquetBox.isState()) {
 					perroquet = new Perroquet(100, 0, 10);
-				}
-				else {
+				} else {
 					perroquet = null;
+				}
+			}
+
+			@Override
+			public void onComponentMouseIn(int x, int y) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onComponentMouseOut(int x, int y) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onComponentPressed(int x, int y) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onKeyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		
+		CheckerShowLifeCrabs.setUIComponentListener(new UIComponentListener() {
+
+			@Override
+			public void onComponentClicked(int x, int y) {
+				CheckerShowLifeCrabs.check();
+				if (CheckerShowLifeCrabs.isState()) {
+					ShowLifeCrabs = true;
+				} else {
+					ShowLifeCrabs = false;
 				}
 			}
 
@@ -373,6 +415,8 @@ public class BeforePlayingView extends View {
 		addComponent(buttonRandomSeed);
 
 		addComponent(perroquetBox);
+		addComponent(CheckerShowLifeCrabs);
+		addComponent(labelLifeCrabs);
 
 		addComponent(weaponLabelPlayer1);
 		addComponent(weaponsBoxesPlayer1);
@@ -408,6 +452,8 @@ public class BeforePlayingView extends View {
 			sectionBoxes.setPositionY(414);
 			perroquetBox.setPositionY(528);
 			labelParrot.setPositionY(551);
+			CheckerShowLifeCrabs.setPositionY(578);
+			labelLifeCrabs.setPositionY(601);
 		}
 		for (UIComponent c : components) {
 			if ((c == weaponLabelPlayer2 || c == weaponsBoxesPlayer2 || c == weaponSelectedLabel2) && GameModele.solo)

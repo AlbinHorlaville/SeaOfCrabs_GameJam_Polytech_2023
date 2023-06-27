@@ -53,6 +53,8 @@ public class GameModele {
 	public static ArrayList<Entity> entities = new ArrayList<>();
 
 	public static ArrayList<Ship> seaEnnemie = new ArrayList<>();
+	
+	public static CrabKing king;
 
 	public static PiratePlayer player1;
 
@@ -227,6 +229,11 @@ public class GameModele {
 				if (this.map.getTileUnderEntity(this.pirateBoat.getCenterX(), this.pirateBoat.getCenterY())
 						.isWaterDamaging()) {
 					this.pirateBoat.takeDamage(20);
+				}
+				
+				if (this.map.getTileUnderEntity(this.pirateBoat.getCenterX(), this.pirateBoat.getCenterY())
+						.isPoison()) {
+					this.pirateBoat.takePoison();
 				}
 			}
 			this.map.updateDamagingTick();
@@ -456,8 +463,8 @@ public class GameModele {
 							entities.add(newEntity);
 							this.seaEnnemie.add((Ship) newEntity);
 						} else if (current.getType() == EnumTiles.CRAB_KING) {
-							newEntity = new CrabKing(k, 1500, current.getX(), current.getY(), 200); // TODO CHANGE PARAM
-							GameModele.entities.add(newEntity);
+							king = new CrabKing(k, 1500, current.getX(), current.getY(), 200); // TODO CHANGE PARAM
+							GameModele.entities.add(king);
 							// entities.add(newEntity);
 						} else if (current.getType() == EnumTiles.KRAKEN_TENTACLE) {
 							kraken.addTentacle(current.getX(), current.getY(), tentacle_number++);
@@ -473,7 +480,8 @@ public class GameModele {
 	 * Fonction pour partie perdu
 	 */
 	public void gameover() {
-		reset();
+		resetModele();
+		entities.clear();
 		SoundTool.playSoundEffect(SoundEffect.Defeat, 0);
 		gameview.getGame().setCurrentState(GameState.GameOver);
 	}
@@ -500,7 +508,8 @@ public class GameModele {
 	 * Fonction pour la victoire
 	 */
 	public void victory() {
-		reset();
+		resetModele();
+		entities.clear();
 		SoundTool.playSoundEffect(SoundEffect.Victory, 0);
 		gameview.getGame().setCurrentState(GameState.Victory);
 		if (SeaOfCrabes.connectedToDatabase) {
@@ -513,12 +522,22 @@ public class GameModele {
 			}
 		}
 	}
-
-	public static void reset() {
+	
+	/**
+	 * Reset le modéle
+	 */
+	public static void resetModele() {
 		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
+		seaEnnemie.clear();
 		entities.clear();
-		timer.resetTimer();
 		onSea = true;
 		pirateBoat = null;
+	}
+
+	/**
+	 * Utiliser à la fin de la vue de fin 
+	 */
+	public static void reset() {
+		timer.resetTimer();
 	}
 }

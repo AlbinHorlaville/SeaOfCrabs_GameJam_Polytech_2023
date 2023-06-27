@@ -9,7 +9,8 @@ import info3.game.Controller;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.map.Tiles;
-import info3.game.vue.avatar.DamagedCannonBallAvatar;
+import info3.game.sound.SoundEffect;
+import info3.game.sound.SoundTool;
 
 public class BoatPlayer extends Player {
 
@@ -28,6 +29,11 @@ public class BoatPlayer extends Player {
 	public int timerInvicibleMili;
 	public int timerInvicibleSec;
 	public int timerInvicibleMin;
+	
+	public boolean poisonInvincible;
+	public int timerPoisonInvicibleMili;
+	public int timerPoisonInvicibleSec;
+	public int timerPoisonInvicibleMin;
 
 	private int timerAttackMili;
 	private int timerAttackSec;
@@ -192,6 +198,25 @@ public class BoatPlayer extends Player {
 			invincible = false;
 		}
 	}
+	
+	public void takePoison() {
+		int timeMili = GameModele.timer.getMiliSecondes();
+		int timeSec = GameModele.timer.getSecondes();
+		int timeMin = GameModele.timer.getMinutes();
+		if (!poisonInvincible) {
+			this.m_healthPoints -= 2;
+			if (this.m_healthPoints <= 0) {
+				this.die();
+			}
+			poisonInvincible = true;
+			this.timerPoisonInvicibleMili = timeMili;
+			this.timerPoisonInvicibleSec = timeSec;
+			this.timerPoisonInvicibleMin = timeMin;
+		} else if ((timerPoisonInvicibleMili <= timeMili && timerPoisonInvicibleSec + 1 <= timeSec)
+				|| this.timerPoisonInvicibleMin < timeMin) {
+			poisonInvincible = false;
+		}
+	}
 
 	@Override
 	public void takeDamage(int damage) {
@@ -199,6 +224,7 @@ public class BoatPlayer extends Player {
 		int timeSec = GameModele.timer.getSecondes();
 		int timeMin = GameModele.timer.getMinutes();
 		if (!invincible) {
+			SoundTool.playSoundEffect(SoundEffect.BoatHitted, 0);
 			this.m_healthPoints -= damage;
 			if (this.m_healthPoints <= 0) {
 				this.die();
@@ -224,10 +250,11 @@ public class BoatPlayer extends Player {
 
 			CannonBall b = null;
 			if (EnumCannonBall.Basic == currentBall) {
+				
 				b = new BasicCannonBall();
 				b.setPositions(this.x, this.y, mouseX, mouseY);
 				b.fire();
-			} else if (getAmount(currentBall) != 0) {
+			} else if (getAmount(currentBall) <= 0) {
 				this.bouletDeCannon.replace(currentBall, getAmount(currentBall) - 1);
 				switch (currentBall) {
 				case Stunt:
@@ -238,11 +265,12 @@ public class BoatPlayer extends Player {
 					break;
 				case Damaged:
 					b = new DamagedCannonBall();
-					break;
+					b.tripleShot(mouseX,mouseY,this);
+					return;
 				default:
 					return;
 				}
-				b.setPositions(this.x, this.y, mouseX, mouseY);
+				b.setPositions(this.x , this.y, mouseX, mouseY);
 				b.fire();
 			}
 

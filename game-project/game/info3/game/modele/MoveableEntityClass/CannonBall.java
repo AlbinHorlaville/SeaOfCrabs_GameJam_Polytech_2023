@@ -3,7 +3,6 @@ package info3.game.modele.MoveableEntityClass;
 import automate.AutomateLoader;
 import automate.EnumCategory;
 import automate.EnumDirection;
-import automate.StateDeath;
 import info3.game.modele.Entity;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
@@ -29,7 +28,7 @@ public abstract class CannonBall extends MoveableEntity {
 	protected int radiusY;
 	public boolean fire;
 	
-	static final int BASIC_RANGE = 2000;
+	static final int BASIC_RANGE = 1000;
 	static final int BASIC_RATE_OF_FIRE = 1;
 
 	public Entity ennemyAimed;
@@ -55,9 +54,28 @@ public abstract class CannonBall extends MoveableEntity {
 		this.y = y;
 		this.endX = endX;
 		this.endY = endY;
-		speedX = (int) (((endX - (GameView.screenWidth / 2))*range )/(Math.sqrt(Math.pow(endX - (GameView.screenWidth / 2), 2) + Math.pow(endY - (GameView.screenHeight / 2), 2))) / 300);
-		speedY = (int) (((endY - (GameView.screenHeight / 2))*range )/(Math.sqrt(Math.pow(endX - (GameView.screenWidth / 2), 2) + Math.pow(endY - (GameView.screenHeight / 2), 2))) / 300);
+		/*speedX = (endX - (GameView.screenWidth / 2)) / 50;
+		speedY = (endY - (GameView.screenHeight / 2)) / 50;
+		*/
+		speedX = (int) (((endX - (GameView.screenWidth / 2))*range )/(Math.sqrt(Math.pow(endX - (GameView.screenWidth / 2), 2) + Math.pow(endY - (GameView.screenHeight / 2), 2))) / 100);
+		speedY = (int) (((endY - (GameView.screenHeight / 2))*range )/(Math.sqrt(Math.pow(endX - (GameView.screenWidth / 2), 2) + Math.pow(endY - (GameView.screenHeight / 2), 2))) / 100);
+		
 	}
+	
+	public void setPositionsNoShift(int x, int y, int endX, int endY) {
+		startX = x;
+		startY = y;
+		this.x = x;
+		this.y = y;
+		this.endX = endX;
+		this.endY = endY;
+		
+		speedX = (int) (((endX)*range )/(Math.sqrt(Math.pow(endX, 2) + Math.pow(endY, 2))) / 100);
+		speedY = (int) (((endY)*range )/(Math.sqrt(Math.pow(endX, 2) + Math.pow(endY, 2))) / 100);
+		System.out.println(startX);
+		System.out.println(startY);
+	}
+	
 
 	public void fire() {
 		fire = true;
@@ -128,5 +146,7 @@ public abstract class CannonBall extends MoveableEntity {
 		}
 
 	}
+
+	protected abstract void tripleShot(int mouseX, int mouseY, BoatPlayer boatPlayer);
 
 }
