@@ -256,6 +256,10 @@ public class Tiles {
 		return this.type == EnumTiles.CALM_WATER_PRE_DAMAGE || this.type == EnumTiles.STORMY_WATER_PRE_DAMAGE
 				|| this.type == EnumTiles.RAGING_WATER_PRE_DAMAGE || this.type == EnumTiles.KRAKEN_WATER_PRE_DAMAGE;
 	}
+	
+	public boolean isPoison() {
+		return this.type == EnumTiles.POISONED_WATER;
+	}
 
 	public boolean isWater() {
 		return this.type == EnumTiles.CALM_WATER || this.type == EnumTiles.STORMY_WATER
@@ -268,7 +272,8 @@ public class Tiles {
 				|| this.type == EnumTiles.KRAKEN_WATER_PRE_DAMAGE || this.type == EnumTiles.CALM_WATER_DAMAGING
 				|| this.type == EnumTiles.STORMY_WATER_DAMAGING || this.type == EnumTiles.RAGING_WATER_DAMAGING
 				|| this.type == EnumTiles.KRAKEN_WATER_DAMAGING || this.type == EnumTiles.CALM_SEA_CHEST
-				|| this.type == EnumTiles.STORMY_SEA_CHEST || this.type == EnumTiles.RAGING_SEA_CHEST;
+				|| this.type == EnumTiles.STORMY_SEA_CHEST || this.type == EnumTiles.RAGING_SEA_CHEST
+				|| this.type == EnumTiles.POISONED_WATER;
 	}
 
 	public boolean isBasicTiles() {

@@ -91,6 +91,23 @@ public class Tentacle extends Ennemy {
 		}
 		return this.m_healthPoints > 0;
 	}
+	
+	@Override
+	public void power() {
+		int timeMili = GameModele.timer.getMiliSecondes();
+		int timeSec = GameModele.timer.getSecondes();
+		int timeMin = GameModele.timer.getMinutes();
+
+		if (!this.reloading) {
+			GameModele.map.setPoisoning(GameModele.getCurrentPlayerX(), GameModele.getCurrentPlayerY());
+			this.reloading = true;
+			this.timerAttackMili = timeMili - 20;
+			this.timerAttackSec = timeSec;
+			this.timerAttackMin = timeMin;
+		} else if (reloadingTimePassed(timerAttackMili, timerAttackSec, timeMili, timeSec) || timerAttackMin < timeMin) {
+			this.reloading = false;
+		}
+	}
 
 	public void hit() {
 		int timeMili = GameModele.timer.getMiliSecondes();
