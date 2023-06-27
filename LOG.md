@@ -242,10 +242,10 @@
 - Alexandre: rédaction d'une documentation et d'un wiki sur le site internet du jeu
 - Romain: Ajout des boulets de cannons (KrakenSlayer + Damaged) + Bug Fixing Treasure + Rhum
 
-# 24 Juin
+# 24 Juin (Samedi)
 - Rémi: Optimisation générale du jeu (Affichage uniquement des entités dans le viewport / itération sur une plus petite quantité de donnée (uniquement la section courante du joueur ainsi que celle avant et après plutot que toute la carte) / ...)
 
-# 25 juin
+# 25 juin (Dimanche)
 - Albin: Modèle Perroquet, il tourne en traçant un cercle harmonieux autour du personnage / bateau.
 - Rémi: Affichage des ennemie de mer sur la minimap et résolution de multiple problème (titre des sections (incorrect pour les partie avec un nombre custom de section) / Rhum qui faisait crash suite à la collection d'un bonus de vie / équilibrage des ennemies pour une partie avec un nombree custom de section)
 - Alexandre: modifications sur la vue d'avant jeu, ajout de le selection du nombre de section
@@ -258,3 +258,4 @@
 # 27 juin
 - Axel : Dernière version des déplacements des crabes + Correction de bug concernant la récupération de Rhum en mer. Enregistrement de la partie bonus de la vidéo
 - Albin : Correction d'un bug quand on cliquait pour écrire une seed mais que sans en saisir une, l'utilisateur cliquait sur jouer, ce qui entrainait une erreur. Repère sur la barre de vie du personnage tous les 100 points de vie pour visualiser l'augmentation du maximum de vie lorsque le joueur récupère un bonus de vie. Ajout de fonctionalité: lorsque le joueur survole la barre de vie du bateau ou de son personnage, les valeurs chiffrés de celle-ci s'affichent à l'écran. Changement du combat pour que le joueur donne un coup d'épée en zone et plus cible par cible. Affichage du CrabKing sur la minimap pour facilité sa recherche par le joueur. Ajout option désactivable : l'utilisateur peut choisir avant de jouer de voir les barres de points de vie des crabes. Ne s'applique pas au CrabKing. Corrections de bugs.
+- Romain : Fixing des derniers bug comme son/Interface/Reset. Ajout de son de dommage + Mise en place de la vidéo. 
