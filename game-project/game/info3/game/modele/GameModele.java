@@ -470,7 +470,7 @@ public class GameModele {
 	 * Fonction pour partie perdu
 	 */
 	public void gameover() {
-		reset();
+		resetModele();
 		SoundTool.playSoundEffect(SoundEffect.Defeat, 0);
 		gameview.getGame().setCurrentState(GameState.GameOver);
 	}
@@ -497,7 +497,7 @@ public class GameModele {
 	 * Fonction pour la victoire
 	 */
 	public void victory() {
-		reset();
+		resetModele();
 		SoundTool.playSoundEffect(SoundEffect.Victory, 0);
 		gameview.getGame().setCurrentState(GameState.Victory);
 		if (SeaOfCrabes.connectedToDatabase) {
@@ -514,11 +514,24 @@ public class GameModele {
 		}
 	}
 
-	public static void reset() {
+	/**
+	 * Reset le modle
+	 */
+	public static void resetModele() {
 		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
+		seaEnnemie.clear();
 		entities.clear();
+		onSea = true;
+		pirateBoat = null;
+	}
+
+	/**
+	 * Utiliser  la fin de la vue de fin 
+	 */
+	public static void reset() {
 		timer.resetTimer();
 		onSea = true;
 		pirateBoat = null;
 	}
+
 }
