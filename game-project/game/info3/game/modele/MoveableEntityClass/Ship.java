@@ -137,6 +137,8 @@ public class Ship extends Ennemy {
 				GameModele.map.getMap()[GameModele.map.getSectionOfEntity(this.x, this.y)]);
 		GameModele.entities.add(rhum);
 		GameModele.entities.remove(this);
+		GameModele.map.getMiniMap().removeEnnemi(this);
+		GameModele.seaEnnemie.remove(this);
 
 	}
 
