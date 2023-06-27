@@ -53,6 +53,8 @@ public class GameModele {
 	public static ArrayList<Entity> entities = new ArrayList<>();
 
 	public static ArrayList<Ship> seaEnnemie = new ArrayList<>();
+	
+	public static CrabKing king;
 
 	public static PiratePlayer player1;
 
@@ -454,8 +456,8 @@ public class GameModele {
 							entities.add(newEntity);
 							this.seaEnnemie.add((Ship) newEntity);
 						} else if (current.getType() == EnumTiles.CRAB_KING) {
-							newEntity = new CrabKing(k, 1500, current.getX(), current.getY(), 200); // TODO CHANGE PARAM
-							GameModele.entities.add(newEntity);
+							king = new CrabKing(k, 1500, current.getX(), current.getY(), 200); // TODO CHANGE PARAM
+							GameModele.entities.add(king);
 							// entities.add(newEntity);
 						} else if (current.getType() == EnumTiles.KRAKEN_TENTACLE) {
 							kraken.addTentacle(current.getX(), current.getY(), tentacle_number++);
