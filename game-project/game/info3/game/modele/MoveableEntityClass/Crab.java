@@ -48,7 +48,7 @@ public class Crab extends Ennemy {
 	}
 
 	public void hit() {
-		GameModele.player1.takeDamage(DEFAULT_DAMAGE);
+		GameModele.player1.takeDamage(this.m_damage);
 	}
 	
 	public void move(EnumCategory cat) {
