@@ -6,10 +6,10 @@ import automate.FunCall;
 import automate.Parameter;
 import info3.game.modele.Entity;
 
-public class Power extends FunCall{
-	
+public class Power extends FunCall {
+
 	protected int probability;
-	
+
 	public Power(List<Parameter> parameters, int proba) {
 		super("Power", parameters, proba);
 		// TODO Auto-generated constructor stub
@@ -24,17 +24,16 @@ public class Power extends FunCall{
 	public boolean eval(Entity e) {
 		return false;
 	}
-	
+
 	public String toString() {
 		String s = "";
 		s += "Power(";
-		for(Parameter p : parameters) {
-			s+= p.toString();
-			s+=", ";
+		for (Parameter p : parameters) {
+			s += p.toString();
+			s += ", ";
 		}
-		s+=");";
+		s += ");";
 		return s;
 	}
 
 }
-

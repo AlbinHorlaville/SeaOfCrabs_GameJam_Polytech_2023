@@ -45,7 +45,7 @@ public class Score {
 	}
 
 	public String toSQLStringFormat() {
-		if (heures==0  && minutes==0 && secondes==0) {
+		if (heures == 0 && minutes == 0 && secondes == 0) {
 			return "No score";
 		} else {
 			String time = new String("");

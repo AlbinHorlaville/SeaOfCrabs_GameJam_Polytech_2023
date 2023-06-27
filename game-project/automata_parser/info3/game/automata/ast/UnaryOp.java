@@ -27,7 +27,7 @@ public class UnaryOp extends Expression {
 		this.operator = op;
 		this.operand = arg;
 	}
-	
+
 	public String toString() {
 		return operator + " " + operand.toString();
 	}

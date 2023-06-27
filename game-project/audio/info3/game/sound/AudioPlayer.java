@@ -46,46 +46,45 @@ import info3.game.graphics.GameCanvas;
  */
 public abstract class AudioPlayer {
 
-  /* 
-   * Constant to control if the player is verbose in the console
-   * about what it plays.
-   */
-  protected static final boolean VERBOSE = false;
-  
-  /* 
-   * Constant to control if the player is verbose about possible
-   * errors encountered while playing audio.
-   */
-  protected static final boolean VERBOSE_ERROR = false;
+	/*
+	 * Constant to control if the player is verbose in the console about what it
+	 * plays.
+	 */
+	protected static final boolean VERBOSE = false;
 
-  protected AudioPlayerListener m_listener;
-  
-  protected GameCanvas m_canvas;
-  
-  protected AudioPlayer(GameCanvas canvas) {
-    m_canvas = canvas;
-  }
-  
-  public abstract String getName();
-  
-  /*
-   * Ask the player to stop playing the current audio stream
-   * as soon as possible.
-   */
-  public abstract void stop();
+	/*
+	 * Constant to control if the player is verbose about possible errors
+	 * encountered while playing audio.
+	 */
+	protected static final boolean VERBOSE_ERROR = false;
 
-  /*
-   * Ask the player to play the given audio stream as sound effect, 
-   * as soon as possible, over the playing background music, if any.
-   * If a sound with the same name is already playing, it is interrupted
-   * to play the new sound. 
-   */
-  public abstract void playSound(String name, final InputStream is, long duration, float volume, AudioPlayerListener l);
+	protected AudioPlayerListener m_listener;
 
-  /*
-   * Ask the player to play the given audio stream, as the background music.
-   * If a music is already playing, it is interrupt and the new music starts playing.
-   */
-  public abstract void playMusic(String name, final InputStream is, long duration, float volume);
+	protected GameCanvas m_canvas;
+
+	protected AudioPlayer(GameCanvas canvas) {
+		m_canvas = canvas;
+	}
+
+	public abstract String getName();
+
+	/*
+	 * Ask the player to stop playing the current audio stream as soon as possible.
+	 */
+	public abstract void stop();
+
+	/*
+	 * Ask the player to play the given audio stream as sound effect, as soon as
+	 * possible, over the playing background music, if any. If a sound with the same
+	 * name is already playing, it is interrupted to play the new sound.
+	 */
+	public abstract void playSound(String name, final InputStream is, long duration, float volume,
+			AudioPlayerListener l);
+
+	/*
+	 * Ask the player to play the given audio stream, as the background music. If a
+	 * music is already playing, it is interrupt and the new music starts playing.
+	 */
+	public abstract void playMusic(String name, final InputStream is, long duration, float volume);
 
 }

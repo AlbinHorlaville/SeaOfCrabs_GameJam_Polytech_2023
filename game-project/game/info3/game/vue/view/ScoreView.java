@@ -4,13 +4,9 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 import info3.game.GameState;
 import info3.game.SeaOfCrabes;
@@ -36,11 +32,10 @@ public class ScoreView extends View {
 		buttonRetour = new UIButton(50, windowHeight - 100, 200, 70, new UILabel(0, 0, "Back", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_RED);
 
-		buttonScore = new UIButton(windowWidth/2-150, windowHeight/2, 300, 70,
+		buttonScore = new UIButton(windowWidth / 2 - 150, windowHeight / 2, 300, 70,
 				new UILabel(0, 0, "See World Ranking", FONT1, Color.black), UIButton.BACKGROUND_COLOR_YELLOW);
 
 		title = new UITitle(windowWidth, windowHeight, "Score", FONT2, Color.black);
-		
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
@@ -105,18 +100,21 @@ public class ScoreView extends View {
 
 		addComponent(buttonRetour);
 		addComponent(buttonScore);
-		
-		if (GameModele.bestUserScore!=null) {
-			addComponent(new UILabel(windowWidth/2-200, windowHeight/2-100, "My best score : "+GameModele.bestUserScore.toSQLStringFormat(), FONT3, Color.black));
+
+		if (GameModele.bestUserScore != null) {
+			addComponent(new UILabel(windowWidth / 2 - 200, windowHeight / 2 - 100,
+					"My best score : " + GameModele.bestUserScore.toSQLStringFormat(), FONT3, Color.black));
 		} else {
-			addComponent(new UILabel(windowWidth/2-230, windowHeight/2-50, "Please connect to database to see your best score", FONT4, Color.black));
+			addComponent(new UILabel(windowWidth / 2 - 230, windowHeight / 2 - 50,
+					"Please connect to database to see your best score", FONT4, Color.black));
 		}
-		
-		addComponent(new UILabel(windowWidth/2-280, windowHeight/2-20, "You can consult the Sea Of Crabs world ranking by clicking here", FONT4, Color.black));
+
+		addComponent(new UILabel(windowWidth / 2 - 280, windowHeight / 2 - 20,
+				"You can consult the Sea Of Crabs world ranking by clicking here", FONT4, Color.black));
 		addComponent(title);
-		
+
 	}
-	
+
 	public void paint(Graphics g, int width, int height) {
 		for (UIComponent c : components) {
 			c.paint(g);
@@ -124,7 +122,7 @@ public class ScoreView extends View {
 		if (SeaOfCrabes.connectedToDatabase) {
 			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
 			if (GameModele.currentUser != null) {
-				addComponent(new UILabel(10, 50, "@"+GameModele.currentUser.getUsername(), FONT4, Color.black));
+				addComponent(new UILabel(10, 50, "@" + GameModele.currentUser.getUsername(), FONT4, Color.black));
 			}
 		} else {
 			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));

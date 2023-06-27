@@ -1,5 +1,7 @@
 package info3.game.modele.MoveableEntityClass;
 
+import java.util.ArrayList;
+
 import automate.AutomateLoader;
 import automate.EnumCategory;
 import automate.EnumDirection;
@@ -11,8 +13,6 @@ import info3.game.modele.StillEntityClass.CrabLair;
 import info3.game.modele.map.Tiles;
 import info3.game.vue.avatar.Avatar;
 import info3.game.vue.avatar.CrabAvatar;
-import java.lang.Math;
-import java.util.ArrayList;
 
 public class Crab extends Ennemy {
 

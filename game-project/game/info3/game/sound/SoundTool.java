@@ -11,9 +11,9 @@ public class SoundTool {
 	static GameCanvas canvas;
 
 	static BackgroundMusic currenBackgroundSound = BackgroundMusic.MainMenu;
-	
+
 	static private boolean cancelSoundEffect = false;
-	
+
 	static private boolean cancelBackgroundMusic = false;
 
 	public final static String path = "./assets/audio/";
@@ -40,13 +40,13 @@ public class SoundTool {
 	 * @param volume
 	 * @throws FileNotFoundException
 	 */
-	public static void playSoundEffect(SoundEffect se, long duration){
+	public static void playSoundEffect(SoundEffect se, long duration) {
 		String filename = path + "se/" + soundEffects.get(se);
 		try {
 			RandomAccessFile file = new RandomAccessFile(filename, "r");
 			RandomFileInputStream fis = new RandomFileInputStream(file);
-			
-			float volume = (cancelSoundEffect) ? 0:1f;
+
+			float volume = (cancelSoundEffect) ? 0 : 1f;
 			canvas.playSound(filename, fis, duration, volume);
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
@@ -63,7 +63,7 @@ public class SoundTool {
 		try {
 			RandomAccessFile file = new RandomAccessFile(filename, "r");
 			RandomFileInputStream fis = new RandomFileInputStream(file);
-			float volume = (cancelBackgroundMusic) ? 0:1f;
+			float volume = (cancelBackgroundMusic) ? 0 : 1f;
 			canvas.playMusic(fis, 0, volume);
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
@@ -93,15 +93,15 @@ public class SoundTool {
 	 */
 	public static void initSoundTool(GameCanvas canvas) {
 		SoundTool.canvas = canvas;
-		
+
 		/********
 		 * 
 		 * HASHMAP DES EFFECTS SONORES
 		 * 
 		 */
 		soundEffects = new HashMap<>();
-		
-		for (SoundEffect se: SoundEffect.values()) {
+
+		for (SoundEffect se : SoundEffect.values()) {
 			SoundTool.soundEffects.put(se, se.getFileName());
 		}
 
@@ -112,7 +112,7 @@ public class SoundTool {
 		 * HASHMAP DES SONS DE FONDS
 		 * 
 		 */
-		for (BackgroundMusic bgm: BackgroundMusic.values()) {
+		for (BackgroundMusic bgm : BackgroundMusic.values()) {
 			SoundTool.backgroundSounds.put(bgm, bgm.getFileName());
 		}
 	}
@@ -134,7 +134,7 @@ public class SoundTool {
 
 	public static void setCancelBackgroundMusic(boolean cancelBackgroundMusic) {
 		SoundTool.cancelBackgroundMusic = cancelBackgroundMusic;
-		if(cancelBackgroundMusic) {
+		if (cancelBackgroundMusic) {
 			stopBackgroundMusic();
 		} else {
 			playBackgroundMusic();

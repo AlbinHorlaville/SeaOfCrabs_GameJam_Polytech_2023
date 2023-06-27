@@ -2,11 +2,9 @@ package info3.game.vue.avatar;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -167,7 +165,7 @@ public class MapRepresentation {
 			this.stoneImage[1] = resize(this.stoneImage[1], this.stoneImage[1].getWidth() * scale,
 					this.stoneImage[1].getHeight() * scale);
 		}
-		
+
 		imageFile = new File("assets/img/tiles/poisoned_kraken_water.png");
 		if (imageFile.exists()) {
 			this.poisonWaterImage = ImageIO.read(imageFile);

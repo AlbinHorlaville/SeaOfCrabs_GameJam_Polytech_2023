@@ -3,15 +3,11 @@ package info3.game.vue.toolkitUI;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
-import automate.EnumCategory;
 import info3.game.modele.GameModele;
 import info3.game.modele.Weapon;
-import info3.game.modele.MoveableEntityClass.BasicCannonBall;
-import info3.game.modele.MoveableEntityClass.CannonBall;
 import info3.game.modele.MoveableEntityClass.EnumCannonBall;
 import info3.game.vue.view.View;
 
@@ -69,7 +65,7 @@ public class UIBox extends UIComponent {
 	public void setBackgroundColor(Color backgroundColor) {
 		this.backgroundColor = backgroundColor;
 	}
-	
+
 	public int getValue() {
 		return labelInt;
 	}

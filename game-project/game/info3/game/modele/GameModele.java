@@ -1,6 +1,5 @@
 package info3.game.modele;
 
-import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,10 +9,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-import javax.imageio.ImageIO;
-
 import info3.game.DAO;
-import info3.game.Controller;
 import info3.game.GameState;
 import info3.game.Score;
 import info3.game.SeaOfCrabes;
@@ -24,8 +20,6 @@ import info3.game.modele.MoveableEntityClass.Kraken;
 import info3.game.modele.MoveableEntityClass.Perroquet;
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
 import info3.game.modele.MoveableEntityClass.Ship;
-import info3.game.modele.MoveableEntityClass.Sword;
-import info3.game.modele.MoveableEntityClass.Tentacle;
 import info3.game.modele.StillEntityClass.CloudCluster;
 import info3.game.modele.StillEntityClass.CrabLair;
 import info3.game.modele.StillEntityClass.RedCross;
@@ -63,7 +57,7 @@ public class GameModele {
 	public static Perroquet perroquet;
 
 	public static GameTimer timer;
-	
+
 	public static CrabKing king;
 
 	public static boolean onSea = true;
@@ -86,8 +80,6 @@ public class GameModele {
 	public static Score currentScore;
 	public static Score bestUserScore;
 	public static boolean isUserBestScore;
-	
-	
 
 	private static File userFile, scoreFile;
 
@@ -108,7 +100,8 @@ public class GameModele {
 				currentUser = new User(readUsernameFromFile()); // we load the current user from file
 				currentState = GameState.Menu; // we display the menu
 				bestUserScore = currentScore;
-			} else if (userFile.exists() && scoreFile.exists()){ // both user and score are created so we only need to load them by reading files
+			} else if (userFile.exists() && scoreFile.exists()) { // both user and score are created so we only need to
+																	// load them by reading files
 
 				currentUser = new User(readUsernameFromFile()); // we load the current user from file
 				currentScore = new Score(readScoreFromFile()); // we load the current score from file
@@ -210,15 +203,15 @@ public class GameModele {
 
 	public void tick(long elapsed) {
 		if (currentState == GameState.Jeu) {
-			
+
 			if (this.player1.invincible) {
 				this.player1.updateInvincible();
 			}
-			
+
 			if (this.pirateBoat.invincible) {
 				this.pirateBoat.updateInvincible();
 			}
-			
+
 			if (this.onSea) {
 				this.currentSection = this.pirateBoat.getCurrentSection();
 				if (this.map.getTileUnderEntity(this.pirateBoat.getCenterX(), this.pirateBoat.getCenterY())
@@ -382,8 +375,6 @@ public class GameModele {
 	}
 
 	void genereEntity(Map map) throws IOException {
-		
-		
 
 		System.out.println("Seed : " + seed);
 
@@ -526,7 +517,7 @@ public class GameModele {
 	}
 
 	/**
-	 * Utiliser  la fin de la vue de fin 
+	 * Utiliser la fin de la vue de fin
 	 */
 	public static void reset() {
 		timer.resetTimer();

@@ -3,10 +3,7 @@ package info3.game.modele;
 import java.util.ArrayList;
 
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
-import info3.game.modele.StillEntityClass.Treasure;
 import info3.game.modele.StillEntityClass.Tree;
-import info3.game.vue.GameView;
-import info3.game.vue.avatar.Avatar;
 import info3.game.vue.avatar.SwordAvatar;
 
 public abstract class Weapon extends MoveableEntity {
@@ -53,7 +50,7 @@ public abstract class Weapon extends MoveableEntity {
 					if (eCenterX - e.r <= tempX + width / 2 && eCenterX + e.r >= tempX - width / 2) {
 						if (eCenterY + e.r >= tempY && eCenterY - e.r <= tempY + (int) (range * rangeCoeff)) {
 							e.takeDamage((int) (damage * damageCoeff));
-							//return;
+							// return;
 						}
 					}
 					break;
@@ -61,7 +58,7 @@ public abstract class Weapon extends MoveableEntity {
 					if (eCenterX - e.r <= tempX + width / 2 && eCenterX + e.r >= tempX - width / 2) {
 						if (eCenterY - e.r <= tempY && eCenterY + e.r >= tempY - (int) (range * rangeCoeff)) {
 							e.takeDamage((int) (damage * damageCoeff));
-							//return;
+							// return;
 						}
 					}
 					break;
@@ -70,7 +67,7 @@ public abstract class Weapon extends MoveableEntity {
 							&& eCenterY - e.r <= tempY - player.getAvatar().getWidth() / 4 + height / 2) {
 						if (eCenterX - e.r <= tempX && eCenterX + e.r >= tempX - (int) (range * rangeCoeff)) {
 							e.takeDamage((int) (damage * damageCoeff));
-							//return;
+							// return;
 						}
 					}
 					break;
@@ -79,7 +76,7 @@ public abstract class Weapon extends MoveableEntity {
 							&& eCenterY - e.r <= tempY - player.getAvatar().getWidth() / 4 + height / 2)
 						if (eCenterX + e.r >= tempX && eCenterX - e.r <= tempX + (int) (range * rangeCoeff)) {
 							e.takeDamage((int) (damage * damageCoeff));
-							//return;
+							// return;
 						}
 					break;
 				}

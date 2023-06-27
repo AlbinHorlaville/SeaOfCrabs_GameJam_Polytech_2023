@@ -3,11 +3,7 @@ package info3.game.vue.view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import info3.game.GameState;
 import info3.game.SeaOfCrabes;
@@ -16,7 +12,6 @@ import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIButton;
 import info3.game.vue.toolkitUI.UIComponent;
 import info3.game.vue.toolkitUI.UIComponentListener;
-import info3.game.vue.toolkitUI.UIImage;
 import info3.game.vue.toolkitUI.UILabel;
 import info3.game.vue.toolkitUI.UITitle;
 
@@ -33,11 +28,13 @@ public class GameModeView extends View {
 
 		title = new UITitle(windowWidth, windowHeight, "Select a game mode", FONT2, Color.black);
 
-		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Back", FONT1, Color.black),
+		buttonRetour = new UIButton(50, windowHeight - 100, 200, 70, new UILabel(0, 0, "Back", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_RED);
 
-		buttonSolo = new UIButton(74, 300, 400,120, new UILabel(0, 0, "Solo\n( 1 player)", FONT3, Color.black), UIButton.BACKGROUND_COLOR_GREEN);
-		buttonCoop = new UIButton(548, 300, 400,120, new UILabel(0, 0, "Cooperation\n( 2 players)", FONT3, Color.black), UIButton.BACKGROUND_COLOR_CYAN);
+		buttonSolo = new UIButton(74, 300, 400, 120, new UILabel(0, 0, "Solo\n( 1 player)", FONT3, Color.black),
+				UIButton.BACKGROUND_COLOR_GREEN);
+		buttonCoop = new UIButton(548, 300, 400, 120,
+				new UILabel(0, 0, "Cooperation\n( 2 players)", FONT3, Color.black), UIButton.BACKGROUND_COLOR_CYAN);
 
 		buttonRetour.setUIComponentListener(new UIComponentListener() {
 			@Override
@@ -137,9 +134,9 @@ public class GameModeView extends View {
 		addComponent(title);
 		addComponent(buttonSolo);
 		addComponent(buttonCoop);
-	
+
 	}
-	
+
 	public void paint(Graphics g, int width, int height) {
 		for (UIComponent c : components) {
 			c.paint(g);
@@ -147,7 +144,7 @@ public class GameModeView extends View {
 		if (SeaOfCrabes.connectedToDatabase) {
 			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
 			if (GameModele.currentUser != null) {
-				addComponent(new UILabel(10, 50, "@"+GameModele.currentUser.getUsername(), FONT4, Color.black));
+				addComponent(new UILabel(10, 50, "@" + GameModele.currentUser.getUsername(), FONT4, Color.black));
 			}
 		} else {
 			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));

@@ -60,7 +60,7 @@ public class SwordAvatar extends Avatar {
 			BufferedImage img;
 			int iW = 0;
 			int iH = 0;
-			
+
 			Weapon weapon = (Weapon) this.entity;
 			if (weapon.player != null) {
 				if (GameModele.solo) {

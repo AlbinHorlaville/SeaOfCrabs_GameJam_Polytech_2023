@@ -34,8 +34,7 @@ public class StunningCannonBallAvatar extends Avatar {
 
 		int coeffX = -entity.getX() + GameModele.pirateBoat.getX() + width / 2;
 		int coeffY = -entity.getY() + GameModele.pirateBoat.getY() + height / 2;
-		if (coeffX < width && coeffY < height && coeffX + width_painted > 0
-				&& coeffY + heigth_painted > 0) {
+		if (coeffX < width && coeffY < height && coeffX + width_painted > 0 && coeffY + heigth_painted > 0) {
 			g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
 		}
 	}

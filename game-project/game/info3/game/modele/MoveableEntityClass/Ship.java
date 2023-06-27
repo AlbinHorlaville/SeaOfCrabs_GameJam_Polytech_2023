@@ -4,7 +4,6 @@ import automate.AutomateLoader;
 import automate.EnumCategory;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
-import info3.game.modele.Level;
 import info3.game.modele.StillEntityClass.Rhum;
 import info3.game.modele.map.MapSection;
 import info3.game.modele.map.Tiles;

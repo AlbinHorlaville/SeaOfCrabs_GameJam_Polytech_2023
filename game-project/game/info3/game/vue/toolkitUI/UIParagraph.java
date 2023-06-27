@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.ArrayList;
 
 import info3.game.vue.GameView;
@@ -70,7 +69,7 @@ public class UIParagraph extends UIComponent {
 			i += 1;
 		}
 	}
-	
+
 	public void setPanel(UIMoveableText t) {
 		this.panel = t;
 	}
@@ -79,7 +78,7 @@ public class UIParagraph extends UIComponent {
 		int i = 0;
 		for (UILabel l : labels) {
 			l.setPositionY(y + i * 25);
-			i+=1;
+			i += 1;
 		}
 	}
 
@@ -99,8 +98,9 @@ public class UIParagraph extends UIComponent {
 		g.setFont(font);
 		height = 0;
 		for (UILabel l : this.labels) {
-			if (l.getPositionY() < this.panel.getPositionY()+10 || l.getPositionY() > this.panel.getPositionY()+this.panel.getHeight()) {
-				
+			if (l.getPositionY() < this.panel.getPositionY() + 10
+					|| l.getPositionY() > this.panel.getPositionY() + this.panel.getHeight()) {
+
 			} else {
 				l.paint(g);
 			}

@@ -37,10 +37,11 @@ public class Controller implements GameCanvasListener {
 
 	private static GameModele gameModele;
 	GameView gameView;
-	static KeyBuffered buffer = new KeyBuffered(); // Variable indiquant les inputs du clavier actif ( Pour chaque index == le code le touche )
+	static KeyBuffered buffer = new KeyBuffered(); // Variable indiquant les inputs du clavier actif ( Pour chaque index
+													// == le code le touche )
 	UIComponent focus; // focus is the UIComponent currently hovered on the game canvas
 	EasterEggs eggs;
-	
+
 	public Controller() throws Exception {
 		try {
 			gameModele = new GameModele();
@@ -62,7 +63,7 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(GameModele.onSea && GameModele.pirateBoat!=null){
+		if (GameModele.onSea && GameModele.pirateBoat != null) {
 			GameModele.pirateBoat.startFire(e.getX(), e.getY());
 		}
 	}
@@ -88,11 +89,12 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// Correction d'un bug : parfois gameView est nul (je ne sais pas pourquoi mais le problème de NullException est maitnenant réglé).
-		if (gameView!=null) {
-		
+		// Correction d'un bug : parfois gameView est nul (je ne sais pas pourquoi mais
+		// le problème de NullException est maitnenant réglé).
+		if (gameView != null) {
+
 			UIComponent newFocus = gameView.getCurrentView().getHoveredComponent(e.getX(), e.getY());
-		
+
 			if (focus != newFocus) {
 				if (focus != null) {
 					focus.mouseOut(e.getX(), e.getY()); // calls to the focus'mouseOut behavior
@@ -143,7 +145,7 @@ public class Controller implements GameCanvasListener {
 	public void windowOpened() {
 		if (gameModele != null && gameView != null) {
 		}
-		
+
 	}
 
 	@Override
@@ -170,13 +172,13 @@ public class Controller implements GameCanvasListener {
 		if (gameModele != null && gameView != null) {
 		}
 	}
-	
+
 	public static KeyBuffered getBuffer() {
 		return buffer;
 	}
-	
+
 	public static GameModele getGameModele() {
 		return gameModele;
 	}
-	
+
 }

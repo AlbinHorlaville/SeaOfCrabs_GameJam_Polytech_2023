@@ -67,7 +67,6 @@ public class Map {
 		this.title = new SectionTitle();
 
 		this.mapRepres = new MapRepresentation(this);
-		
 
 		this.miniMap = new MiniMap(this, GameModele.seaEnnemie);
 	}
@@ -106,7 +105,7 @@ public class Map {
 		generateWave();
 
 		this.mapRepres = new MapRepresentation(this);
-		
+
 		this.miniMap = new MiniMap(this, GameModele.seaEnnemie);
 
 		this.title = new SectionTitle();
@@ -215,8 +214,7 @@ public class Map {
 
 		this.map[currentSection] = new MapSection(EnumSectionType.MOUTAIN, this.sectionWidth, this.sectionHeight,
 				this.rand, this.map[currentSection - 1].getMountainHeight(), currentSection);
-		
-		
+
 	}
 
 	public void setImageSize(int width, int height) {
@@ -325,7 +323,8 @@ public class Map {
 	public void updateDamagingTick() {
 		Tiles[][] section;
 
-		if (GameModele.pirateBoat == null ) return;
+		if (GameModele.pirateBoat == null)
+			return;
 		int currentSection = GameModele.pirateBoat.getCurrentSection();
 
 		int min = currentSection - 1 > 0 ? currentSection - 1 : 0;
@@ -343,7 +342,7 @@ public class Map {
 			}
 		}
 	}
-	
+
 	public void setPoisoning(int xPos, int yPos) {
 		this.getTileUnderEntity(xPos, yPos).setType(EnumTiles.POISONED_WATER);
 	}

@@ -106,7 +106,7 @@ public class PiratePlayer extends Player {
 		m_attackSpeed = DEFAULT_PIRATEPLAYER_ATTACKSPEED;
 		m_range = DEFAULT_PIRATEPLAYER_RANGE;
 		m_speed = DEFAULT_PIRATEPLAYER_SPEED;
-		
+
 		invincible = false;
 		this.reloading = false;
 		resetPiratePlayer();

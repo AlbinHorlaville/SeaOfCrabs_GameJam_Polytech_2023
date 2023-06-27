@@ -52,7 +52,7 @@ public class GameTimer {
 	public int getSecondes() {
 		return secondes;
 	}
-	
+
 	public int getMiliSecondes() {
 		return this.milisecondes;
 	}

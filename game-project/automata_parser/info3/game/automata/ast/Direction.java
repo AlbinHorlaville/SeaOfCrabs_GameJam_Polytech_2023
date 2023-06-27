@@ -19,18 +19,18 @@ package info3.game.automata.ast;
 
 public class Direction extends Parameter {
 
-  public Terminal terminal;
+	public Terminal terminal;
 
-  public Direction(Terminal t) {
-    terminal = t;
-  }
-  
-  public String toString() {
-    return terminal.content;
-  }
-	
-  Object accept(IVisitor visitor) {
-    return visitor.visit(this);
-  }
+	public Direction(Terminal t) {
+		terminal = t;
+	}
+
+	public String toString() {
+		return terminal.content;
+	}
+
+	Object accept(IVisitor visitor) {
+		return visitor.visit(this);
+	}
 
 }

@@ -38,7 +38,7 @@ public class BeforePlayingView extends View {
 	public static Weapon weapon2;
 
 	public static Perroquet perroquet;
-	
+
 	public static boolean ShowLifeCrabs;
 
 	public BeforePlayingView(GameView gv) {
@@ -86,13 +86,11 @@ public class BeforePlayingView extends View {
 		sectionBoxes.addBox(section16);
 		sectionBoxes.addBox(section22);
 		sectionBoxes.setSelectedBox(section10);
-		
-		CheckerShowLifeCrabs = new UIChecker(300, 528, new UILabel(0, 0, "", FONT1, Color.black), c1, false);
-		
-		labelLifeCrabs = new UILabel(50, 551, "Show Life's Crabs ?", FONT1, Color.black);
-		
 
-		
+		CheckerShowLifeCrabs = new UIChecker(300, 528, new UILabel(0, 0, "", FONT1, Color.black), c1, false);
+
+		labelLifeCrabs = new UILabel(50, 551, "Show Life's Crabs ?", FONT1, Color.black);
+
 		ShowLifeCrabs = false;
 
 		labelParrot = new UILabel(50, 451, "Pirate's parrot?", FONT1, Color.black);
@@ -135,7 +133,7 @@ public class BeforePlayingView extends View {
 
 			}
 		});
-		
+
 		CheckerShowLifeCrabs.setUIComponentListener(new UIComponentListener() {
 
 			@Override
@@ -435,7 +433,7 @@ public class BeforePlayingView extends View {
 		if (SeaOfCrabes.connectedToDatabase) {
 			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
 			if (GameModele.currentUser != null) {
-				addComponent(new UILabel(10, 50, "@"+GameModele.currentUser.getUsername(), FONT4, Color.black));
+				addComponent(new UILabel(10, 50, "@" + GameModele.currentUser.getUsername(), FONT4, Color.black));
 			}
 		} else {
 			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
@@ -461,7 +459,7 @@ public class BeforePlayingView extends View {
 			c.paint(g);
 		}
 	}
-	
+
 	@Override
 	public void tick(long elapsed) {
 		// TODO Auto-generated method stub

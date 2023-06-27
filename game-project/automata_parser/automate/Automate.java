@@ -1,10 +1,6 @@
 package automate;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.lang.Math;
 
 import info3.game.modele.Entity;
 
@@ -12,46 +8,45 @@ public class Automate {
 	public String name;
 	public ArrayList<State> states;
 	public State initial_state;
-	
-	
-	public Automate(String name){
+
+	public Automate(String name) {
 		this.name = name;
 		states = new ArrayList<State>();
 	}
-	
+
 	public State addState(automate.State state, boolean initial) {
-		for(State s : states) {
-			if(s == state)
+		for (State s : states) {
+			if (s == state)
 				return state;
 		}
 		states.add(state);
-		if(initial) {
+		if (initial) {
 			initial_state = state;
 		}
 		return state;
 	}
-	
+
 	public State step(Entity e, State state) {
 		return state.step(e);
 	}
-	
+
 	public void print() {
 //		System.out.println("Voici l'automate : " + name);
 //		System.out.println("Etat initial : " + initial_state.name());
 //		for(State s : states) {
 //			s.print();
 //		}
-		
+
 		System.out.println(this.name + "(" + this.initial_state.name + "){\n");
-		for(State s : states) {
+		for (State s : states) {
 			s.print();
 		}
 		System.out.println("}\n");
 
-		
 	}
 
-	// step effectue un pas dans l'automate. Il effectue une action et mets à jour l'état courant.
+	// step effectue un pas dans l'automate. Il effectue une action et mets à jour
+	// l'état courant.
 	// Return : Le nouveau état courant
 //	public State step(Entity e) { // Entity e
 //		
@@ -88,5 +83,5 @@ public class Automate {
 //		}
 //		return e.current;
 //	}
-	
+
 }

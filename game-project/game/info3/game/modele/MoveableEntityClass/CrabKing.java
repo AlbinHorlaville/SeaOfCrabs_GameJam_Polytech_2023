@@ -18,7 +18,7 @@ public class CrabKing extends Crab {
 	private int statEgg;
 
 	public CrabKing(int level, int lifePoint, int x, int y, int damage) {
-		super(level, null, x, y);	
+		super(level, null, x, y);
 		this.level = level;
 		this.m_healthPoints = lifePoint;
 		statEgg = m_healthPoints / 5;

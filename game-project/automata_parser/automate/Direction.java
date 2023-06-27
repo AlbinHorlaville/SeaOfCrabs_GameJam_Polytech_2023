@@ -1,6 +1,6 @@
 package automate;
 
-public class Direction extends Parameter{
+public class Direction extends Parameter {
 
 	public Direction(String string) {
 		super(string);
@@ -10,8 +10,5 @@ public class Direction extends Parameter{
 	public Object eval() {
 		return EnumDirection.valueOf(m_string);
 	}
-	
-	
-	
 
 }

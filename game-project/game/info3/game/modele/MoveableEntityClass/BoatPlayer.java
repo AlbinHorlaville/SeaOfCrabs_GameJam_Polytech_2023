@@ -29,7 +29,7 @@ public class BoatPlayer extends Player {
 	public int timerInvicibleMili;
 	public int timerInvicibleSec;
 	public int timerInvicibleMin;
-	
+
 	public boolean poisonInvincible;
 	public int timerPoisonInvicibleMili;
 	public int timerPoisonInvicibleSec;
@@ -142,7 +142,7 @@ public class BoatPlayer extends Player {
 		default:
 			break;
 		}
-		
+
 		return !GameModele.map.getTileUnderEntity(tempX, tempY).notIslandAndNotWater();
 	}
 
@@ -198,7 +198,7 @@ public class BoatPlayer extends Player {
 			invincible = false;
 		}
 	}
-	
+
 	public void takePoison() {
 		int timeMili = GameModele.timer.getMiliSecondes();
 		int timeSec = GameModele.timer.getSecondes();
@@ -250,7 +250,7 @@ public class BoatPlayer extends Player {
 
 			CannonBall b = null;
 			if (EnumCannonBall.Basic == currentBall) {
-				
+
 				b = new BasicCannonBall();
 				b.setPositions(this.x, this.y, mouseX, mouseY);
 				b.fire();
@@ -265,12 +265,12 @@ public class BoatPlayer extends Player {
 					break;
 				case Damaged:
 					b = new DamagedCannonBall();
-					b.tripleShot(mouseX,mouseY,this);
+					b.tripleShot(mouseX, mouseY, this);
 					return;
 				default:
 					return;
 				}
-				b.setPositions(this.x , this.y, mouseX, mouseY);
+				b.setPositions(this.x, this.y, mouseX, mouseY);
 				b.fire();
 			}
 

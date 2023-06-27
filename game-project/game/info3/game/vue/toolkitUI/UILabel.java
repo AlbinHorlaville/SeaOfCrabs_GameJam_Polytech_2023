@@ -16,6 +16,7 @@ public class UILabel extends UIComponent {
 
 	/**
 	 * The UILabel is a simple label based from string text
+	 * 
 	 * @param x
 	 * @param y
 	 * @param text

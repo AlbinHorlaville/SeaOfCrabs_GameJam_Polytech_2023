@@ -19,19 +19,19 @@ package info3.game.automata.ast;
 
 public abstract class Node {
 
-  static int idGenerator = 10;
+	static int idGenerator = 10;
 
-	public int id ;          // a unique id used as a graph node for pretty printing the AST in dot format
+	public int id; // a unique id used as a graph node for pretty printing the AST in dot format
 
 	public Node() {
 		this.id = idGenerator++;
 	}
 
-	/** La terminologie Wikipédia distingue les noms de méthodes 
-	 * - le visitor visit(node) 
-	 * - le noeud accept(visitor)
+	/**
+	 * La terminologie Wikipédia distingue les noms de méthodes - le visitor
+	 * visit(node) - le noeud accept(visitor)
 	 */
-	
-	abstract Object accept(IVisitor visitor); 
+
+	abstract Object accept(IVisitor visitor);
 
 }

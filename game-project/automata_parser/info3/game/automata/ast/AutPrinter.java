@@ -27,11 +27,10 @@
 package info3.game.automata.ast;
 
 import java.io.PrintStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
-import info3.game.automata.ast.Node;
 import info3.game.automata.util.Dot;
 
 public class AutPrinter implements IVisitor {
@@ -161,13 +160,15 @@ public class AutPrinter implements IVisitor {
 		return null;
 	}
 
-	public void enter(Condition condition) {}
+	public void enter(Condition condition) {
+	}
 
 	public Object exit(Condition condition, Object exp) {
 		return null;
 	}
 
-	public void enter(Action action) {}
+	public void enter(Action action) {
+	}
 
 	public Object exit(Action action, List<Object> funcalls) {
 		return null;

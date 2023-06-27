@@ -20,7 +20,7 @@ import info3.game.vue.toolkitUI.UIImage;
 import info3.game.vue.toolkitUI.UILabel;
 import info3.game.vue.toolkitUI.UITitle;
 
-public class ControlsView extends View{
+public class ControlsView extends View {
 
 	UIButton buttonRetour;
 	UIImage imageCJ;
@@ -57,11 +57,13 @@ public class ControlsView extends View{
 		int windowHeight = (int) gameView.getHeightCanvas();
 
 		title = new UITitle(windowWidth, windowHeight, "Player 1's controls", FONT2, Color.black);
-		
+
 		labelCmdGenerales = new UILabel(460, 490, "General controls", FONT1, Color.black);
 
-		buttonRetour = new UIButton(50, windowHeight - 100, 200,70, new UILabel(0, 0, "Back", FONT1, Color.black),UIButton.BACKGROUND_COLOR_RED);
-		switchCommand = new UIButton(50, windowHeight - 200, 200,70, new UILabel(0, 0, "See player 2", FONT1, Color.black),UIButton.BACKGROUND_COLOR_YELLOW);
+		buttonRetour = new UIButton(50, windowHeight - 100, 200, 70, new UILabel(0, 0, "Back", FONT1, Color.black),
+				UIButton.BACKGROUND_COLOR_RED);
+		switchCommand = new UIButton(50, windowHeight - 200, 200, 70,
+				new UILabel(0, 0, "See player 2", FONT1, Color.black), UIButton.BACKGROUND_COLOR_YELLOW);
 
 		imageCJ = new UIImage((windowWidth - imageCJ1.getWidth()) / 2, 125, "resources/img/CommandesJoueur1.png", 1);
 		uiImageCG = new UIImage(400, 500, "resources/img/CommandesGenerales.png", 1);
@@ -181,15 +183,15 @@ public class ControlsView extends View{
 		addComponent(switchCommand);
 		addComponent(title);
 		addComponent(labelCmdGenerales);
-		
+
 	}
-	
+
 	@Override
 	public void paint(Graphics g, int width, int height) {
 		if (SeaOfCrabes.connectedToDatabase) {
 			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
 			if (GameModele.currentUser != null) {
-				addComponent(new UILabel(10, 50, "@"+GameModele.currentUser.getUsername(), FONT4, Color.black));
+				addComponent(new UILabel(10, 50, "@" + GameModele.currentUser.getUsername(), FONT4, Color.black));
 			}
 		} else {
 			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
@@ -204,7 +206,8 @@ public class ControlsView extends View{
 			}
 		}
 		for (UIComponent c : components) {
-			if (c == switchCommand  && GameModele.solo) continue;
+			if (c == switchCommand && GameModele.solo)
+				continue;
 			c.paint(g);
 		}
 	}

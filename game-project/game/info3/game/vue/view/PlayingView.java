@@ -24,7 +24,6 @@ import info3.game.vue.toolkitUI.UIBarreVieMer;
 import info3.game.vue.toolkitUI.UIBarreVieTerre;
 import info3.game.vue.toolkitUI.UIBox;
 import info3.game.vue.toolkitUI.UIBoxes;
-import info3.game.vue.toolkitUI.UIButton;
 import info3.game.vue.toolkitUI.UIComponentListener;
 import info3.game.vue.toolkitUI.UIImage;
 import info3.game.vue.toolkitUI.UILabel;
@@ -55,9 +54,9 @@ public class PlayingView extends View {
 		GameModele.timer = new GameTimer();
 
 		barreVieTerre = new UIBarreVieTerre(20, 50);
-		
+
 		barreVieTerre.setUIComponentListener(new UIComponentListener() {
-			
+
 			@Override
 			public void onComponentClicked(int x, int y) {
 			}
@@ -80,12 +79,12 @@ public class PlayingView extends View {
 			public void onKeyPressed(KeyEvent e) {
 			}
 		});
-		
+
 		barreVieMer = new UIBarreVieMer(20, 15);
 		barreVieMer.setWidth(150);
-		
+
 		barreVieMer.setUIComponentListener(new UIComponentListener() {
-			
+
 			@Override
 			public void onComponentClicked(int x, int y) {
 			}
@@ -108,7 +107,7 @@ public class PlayingView extends View {
 			public void onKeyPressed(KeyEvent e) {
 			}
 		});
-		
+
 		labelTimer = new UILabel(windowWidth / 2, 35, "0'", FONT3, Color.black);
 
 		cannonBallBox = new UIBoxes((windowWidth) / 2 - 130, windowHeight - 114);

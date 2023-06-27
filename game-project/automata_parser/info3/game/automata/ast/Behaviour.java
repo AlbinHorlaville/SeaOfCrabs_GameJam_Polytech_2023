@@ -3,7 +3,7 @@ package info3.game.automata.ast;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Behaviour  extends Node {
+public class Behaviour extends Node {
 
 	public List<Transition> transitions;
 

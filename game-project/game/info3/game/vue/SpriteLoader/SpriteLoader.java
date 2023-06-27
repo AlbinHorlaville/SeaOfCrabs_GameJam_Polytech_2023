@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+
 import javax.imageio.ImageIO;
 
 public class SpriteLoader {
@@ -29,10 +30,10 @@ public class SpriteLoader {
 		TypeSpritesMap = new HashMap<>();
 
 		/*
-		 * COMMENT RAJOUTER DES SPRITES DANS LE TABLEAU DE SPRITES: 
-		 * -Aller dans SpriteType.java et rajouter un enumerable 
-		 * -Ecrire ensuite load (SpriteType.Type, path/to/sprites, nb_lignes, nb_colonnes) 
-		 * dans cette fonction
+		 * COMMENT RAJOUTER DES SPRITES DANS LE TABLEAU DE SPRITES: -Aller dans
+		 * SpriteType.java et rajouter un enumerable -Ecrire ensuite load
+		 * (SpriteType.Type, path/to/sprites, nb_lignes, nb_colonnes) dans cette
+		 * fonction
 		 */
 
 		/*
@@ -87,7 +88,8 @@ public class SpriteLoader {
 	}
 
 	/*
-	 * Découpe une image selon ses sous-images et les charge dans un BufferedImage[]
+	 * Découpe une image selon ses sous-images et les charge dans un
+	 * BufferedImage[]
 	 * 
 	 */
 	private static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {

@@ -40,8 +40,7 @@ public class SetupUserView extends View {
 
 		buttonContinue.setBackgroundColor(UIButton.BACKGROUND_COLOR_GREEN_HOVER);
 
-		errorMessage = new UILabel(windowWidth / 2 - 200, windowHeight / 2 + 150, "", FONT1,
-				Color.red);
+		errorMessage = new UILabel(windowWidth / 2 - 200, windowHeight / 2 + 150, "", FONT1, Color.red);
 
 		buttonContinue.setUIComponentListener(new UIComponentListener() {
 
@@ -94,7 +93,7 @@ public class SetupUserView extends View {
 		addComponent(buttonContinue);
 		addComponent(errorMessage);
 	}
-	
+
 	public void paint(Graphics g, int width, int height) {
 		for (UIComponent c : components) {
 			c.paint(g);
@@ -102,7 +101,7 @@ public class SetupUserView extends View {
 		if (SeaOfCrabes.connectedToDatabase) {
 			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
 			if (GameModele.currentUser != null) {
-				addComponent(new UILabel(10, 50, "@"+GameModele.currentUser.getUsername(), FONT4, Color.black));
+				addComponent(new UILabel(10, 50, "@" + GameModele.currentUser.getUsername(), FONT4, Color.black));
 			}
 		} else {
 			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));

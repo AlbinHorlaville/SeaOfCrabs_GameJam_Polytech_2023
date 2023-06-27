@@ -1,8 +1,6 @@
 package info3.game.modele.bonus;
 
-import automate.AutomateLoader;
 import info3.game.GameState;
-import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.StillEntityClass.Bonus;
 import info3.game.modele.map.MapSection;

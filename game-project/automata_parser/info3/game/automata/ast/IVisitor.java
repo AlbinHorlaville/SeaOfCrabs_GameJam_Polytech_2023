@@ -21,41 +21,46 @@ import java.util.List;
 
 public interface IVisitor {
 
-  public Object visit(Category cat);
+	public Object visit(Category cat);
 
-  public Object visit(Direction dir);
+	public Object visit(Direction dir);
 
-  public Object visit(Key key);
+	public Object visit(Key key);
 
-  public Object visit(Value v);
+	public Object visit(Value v);
 
-  public Object visit(Underscore u);
- 
-  public void enter(FunCall funcall);
-  public Object exit(FunCall funcall, List<Object> parameters);
+	public Object visit(Underscore u);
 
-  public Object visit(BinaryOp operator, Object left, Object right);
+	public void enter(FunCall funcall);
 
-  public Object visit(UnaryOp operator, Object expression);
- 
-  public Object visit(State state);
+	public Object exit(FunCall funcall, List<Object> parameters);
 
-  public void enter(Mode mode);
-  public Object exit(Mode mode, Object source_state, Object behaviour);
+	public Object visit(BinaryOp operator, Object left, Object right);
 
-  public Object visit(Behaviour behaviour, List<Object> transitions);
+	public Object visit(UnaryOp operator, Object expression);
 
-  public void enter(Condition condition);
-  public Object exit(Condition condition, Object expression);
+	public Object visit(State state);
 
-  public void enter(Action acton);
-  public Object exit(Action action, List<Object> funcalls);
+	public void enter(Mode mode);
 
-  public Object visit(Transition transition, Object condition, Object action, Object target_state);  
+	public Object exit(Mode mode, Object source_state, Object behaviour);
 
-  public void enter(Automaton automaton);
-  public Object exit(Automaton automaton, Object initial_state, List<Object> modes);
+	public Object visit(Behaviour behaviour, List<Object> transitions);
 
-  public Object visit(AST bot, List<Object> automata);
-  
+	public void enter(Condition condition);
+
+	public Object exit(Condition condition, Object expression);
+
+	public void enter(Action acton);
+
+	public Object exit(Action action, List<Object> funcalls);
+
+	public Object visit(Transition transition, Object condition, Object action, Object target_state);
+
+	public void enter(Automaton automaton);
+
+	public Object exit(Automaton automaton, Object initial_state, List<Object> modes);
+
+	public Object visit(AST bot, List<Object> automata);
+
 }

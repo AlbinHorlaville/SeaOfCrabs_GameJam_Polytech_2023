@@ -1,26 +1,26 @@
 package info3.game.vue.view;
 
-import javax.swing.DefaultCellEditor;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
-import automate.Automate;
-import automate.AutomateLoader;
-import info3.game.modele.GameEntity;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.JOptionPane;
-import javax.swing.JLabel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JScrollPane;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import automate.AutomateLoader;
+import info3.game.modele.GameEntity;
 
 public class AutomataView extends JFrame {
 
@@ -56,10 +56,9 @@ public class AutomataView extends JFrame {
 
 		Object[][] data = new Object[GameEntity.values().length][2];
 
-		
-		for (int i=0; i<GameEntity.values().length; i++) {
+		for (int i = 0; i < GameEntity.values().length; i++) {
 			Object[] o = AutomateLoader.getHashMapValueByName(GameEntity.values()[i]);
-			if (o!=null) {
+			if (o != null) {
 				data[i] = o;
 			}
 		}
@@ -172,7 +171,7 @@ public class AutomataView extends JFrame {
 
 		panel_1.add(lblModifications);
 		panel_1.add(btnSave);
-		
+
 	}
 
 	private void initWindow() {

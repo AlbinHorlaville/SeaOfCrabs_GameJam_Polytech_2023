@@ -23,20 +23,19 @@ import java.util.ListIterator;
 
 public class FunCall extends Expression {
 
-	static final int NO_PERCENT = -1; 
+	static final int NO_PERCENT = -1;
 	public int percent;
 	public String name;
 	public List<Parameter> parameters;
 
 	public FunCall(String name, List<Parameter> parameters) {
-		this.percent = NO_PERCENT; 
+		this.percent = NO_PERCENT;
 		this.name = name;
 		this.parameters = parameters;
 	}
 
 	/**
-	 * @param percent
-	 *            is used by probabilistic action
+	 * @param percent is used by probabilistic action
 	 */
 	public FunCall(int percent, String name, List<Parameter> parameters) {
 		this.percent = percent;
@@ -56,7 +55,7 @@ public class FunCall extends Expression {
 	}
 
 	public String toString() {
-		String s = percent+"%"+name;
+		String s = percent + "%" + name;
 		if (parameters.size() > 0) {
 			s += "(";
 			ListIterator<Parameter> iterator = parameters.listIterator();

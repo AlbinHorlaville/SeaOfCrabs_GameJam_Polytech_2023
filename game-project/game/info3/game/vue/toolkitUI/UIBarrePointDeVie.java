@@ -12,7 +12,7 @@ public abstract class UIBarrePointDeVie extends UIComponent {
 	public void changeShowing(boolean s) {
 		state = s;
 	}
-	
+
 	public boolean getState() {
 		return this.state;
 	}

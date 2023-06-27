@@ -19,15 +19,15 @@ package info3.game.automata.ast;
 
 public class Underscore extends Parameter {
 
-  public Underscore() {
-    super();
-  }
+	public Underscore() {
+		super();
+	}
 
-  public String toString() {
-    return "_";
-  }
+	public String toString() {
+		return "_";
+	}
 
-  Object accept(IVisitor visitor) {
-    return visitor.visit(this);
-  }
+	Object accept(IVisitor visitor) {
+		return visitor.visit(this);
+	}
 }

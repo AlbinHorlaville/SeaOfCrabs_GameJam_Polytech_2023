@@ -6,10 +6,10 @@ import automate.FunCall;
 import automate.Parameter;
 import info3.game.modele.Entity;
 
-public class Throw extends FunCall{
-	
+public class Throw extends FunCall {
+
 	protected int probability;
-	
+
 	public Throw(List<Parameter> parameters, int proba) {
 		super("Throw", parameters, proba);
 		// TODO Auto-generated constructor stub
@@ -19,24 +19,23 @@ public class Throw extends FunCall{
 	public void exec(Entity e) {
 		System.out.println(this.toString());
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public boolean eval(Entity e) {
 		return false;
 	}
-	
+
 	public String toString() {
 		String s = "";
 		s += "Throw(";
-		for(Parameter p : parameters) {
-			s+= p.toString();
-			s+=", ";
+		for (Parameter p : parameters) {
+			s += p.toString();
+			s += ", ";
 		}
-		s+=");";
+		s += ");";
 		return s;
 	}
 
 }
-

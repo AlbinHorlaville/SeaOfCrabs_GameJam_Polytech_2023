@@ -1,13 +1,14 @@
 package automate;
+
 import info3.game.modele.Entity;
 
-public class Condition extends FunCall{
+public class Condition extends FunCall {
 	protected FunCall f;
-	
+
 	public Condition() {
 		super();
 	}
-	
+
 	public Condition(FunCall f) {
 		super(f.m_string, f.parameters, -1);
 		this.f = f;
@@ -20,13 +21,14 @@ public class Condition extends FunCall{
 	@Override
 	public void exec(Entity e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	public String toString() {
-		if(this.f != null)
+		if (this.f != null)
 			return this.f.toString();
-		else return "";
+		else
+			return "";
 	}
-	
+
 }

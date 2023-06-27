@@ -1,12 +1,9 @@
 package info3.game.modele.MoveableEntityClass;
 
 import automate.AutomateLoader;
-import automate.EnumCategory;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
-import info3.game.modele.StillEntityClass.Rhum;
 import info3.game.modele.map.EnumSectionType;
-import info3.game.modele.map.Tiles;
 import info3.game.vue.avatar.TentacleAvatar;
 
 public class Tentacle extends Ennemy {

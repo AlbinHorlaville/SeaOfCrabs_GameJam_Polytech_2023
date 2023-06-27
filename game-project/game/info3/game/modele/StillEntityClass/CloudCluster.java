@@ -1,10 +1,8 @@
 package info3.game.modele.StillEntityClass;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import info3.game.modele.Entity;
-import info3.game.modele.GameModele;
 import info3.game.modele.map.MapSection;
 import info3.game.vue.avatar.CloudAvatar;
 
@@ -16,15 +14,15 @@ public class CloudCluster extends Entity {
 	private static final int SIZE_CLOUDCLSUTER = 400;
 	private static final int SIZE_CLOUD_MIN = 6;
 	private static final int SIZE_CLOUD_MAX = 12;
-	
+
 	private MapSection m_mapSection;
 
 	/**
 	 * Créer un amas de nuages composés de NB_CLOUD nuages. Il y a 2 nuages par
 	 * tailles, de 1 à 5. Les nuages sont équitablement répartie autour des
 	 * coordonnées du centre de l'amas. Quand le joueur touche un nuage, celui-ci
-	 * deisparaît. l'usage d'un boulet de canon dissipe aussi le nuage. ATTENTION NE
-	 * PAS ADD A ENTITY LE CLOUDCLUSTER
+	 * deisparaît. l'usage d'un boulet de canon dissipe aussi le nuage. ATTENTION
+	 * NE PAS ADD A ENTITY LE CLOUDCLUSTER
 	 */
 	public CloudCluster(int x, int y, MapSection mapSection) {
 		super(x, y);
@@ -45,14 +43,14 @@ public class CloudCluster extends Entity {
 	public ArrayList<Cloud> getClouds() {
 		return this.cluster;
 	}
-	
+
 	public void step() {
 	}
 
 	public int getNbCloud() {
 		return NB_CLOUD;
 	}
-	
+
 	public MapSection getMapSection() {
 		return this.m_mapSection;
 	}

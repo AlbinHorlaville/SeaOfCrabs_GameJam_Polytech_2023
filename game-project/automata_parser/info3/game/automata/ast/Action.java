@@ -24,28 +24,28 @@ import info3.game.automata.util.Pretty;
 
 public class Action extends Node {
 
-  public List<FunCall> calls;
+	public List<FunCall> calls;
 
-  public Action(List<FunCall> calls) {    
-    this.calls = calls;
-  }
-  
-  Object accept(IVisitor visitor) {
-	visitor.enter(this);  
-    LinkedList<Object> list = new LinkedList<Object>();
-    for (FunCall call : this.calls) {
-      Object o = call.accept(visitor);
-      list.add(o);
-    }
-    return visitor.exit(this, list);
-  }
-  
-  public String toString() {
-	  List <String> strings = new LinkedList<String>();
-	  for(FunCall funcall : this.calls) {
-		  strings.add( funcall.percent() + funcall.toString() );
-	  }
-	  return Pretty.separate_with(strings," / ");
-  }
-  
+	public Action(List<FunCall> calls) {
+		this.calls = calls;
+	}
+
+	Object accept(IVisitor visitor) {
+		visitor.enter(this);
+		LinkedList<Object> list = new LinkedList<Object>();
+		for (FunCall call : this.calls) {
+			Object o = call.accept(visitor);
+			list.add(o);
+		}
+		return visitor.exit(this, list);
+	}
+
+	public String toString() {
+		List<String> strings = new LinkedList<String>();
+		for (FunCall funcall : this.calls) {
+			strings.add(funcall.percent() + funcall.toString());
+		}
+		return Pretty.separate_with(strings, " / ");
+	}
+
 }

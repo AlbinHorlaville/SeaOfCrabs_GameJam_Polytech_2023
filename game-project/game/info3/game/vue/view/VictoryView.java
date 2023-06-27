@@ -29,9 +29,9 @@ public class VictoryView extends View {
 		title = new UITitle(windowWidth, windowHeight, "CONGRATULATIONS!!", FONT2, Color.black);
 		buttonMenu = new UIButton(50, windowHeight - 100, 200, 70, new UILabel(0, 0, "Menu", FONT1, Color.black),
 				UIButton.BACKGROUND_COLOR_RED);
-		
-		buttonReplay = new UIButton(774, windowHeight - 100, 200, 70, new UILabel(0, 0, "Play again", FONT1, Color.black),
-				UIButton.BACKGROUND_COLOR_GREEN);
+
+		buttonReplay = new UIButton(774, windowHeight - 100, 200, 70,
+				new UILabel(0, 0, "Play again", FONT1, Color.black), UIButton.BACKGROUND_COLOR_GREEN);
 
 		buttonMenu.setUIComponentListener(new UIComponentListener() {
 
@@ -65,7 +65,7 @@ public class VictoryView extends View {
 			}
 
 		});
-		
+
 		buttonReplay.setUIComponentListener(new UIComponentListener() {
 
 			@Override
@@ -109,7 +109,7 @@ public class VictoryView extends View {
 		if (SeaOfCrabes.connectedToDatabase) {
 			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
 			if (GameModele.currentUser != null) {
-				addComponent(new UILabel(10, 50, "@"+GameModele.currentUser.getUsername(), FONT4, Color.black));
+				addComponent(new UILabel(10, 50, "@" + GameModele.currentUser.getUsername(), FONT4, Color.black));
 			}
 		} else {
 			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
@@ -117,9 +117,8 @@ public class VictoryView extends View {
 		for (UIComponent c : components) {
 			c.paint(g);
 		}
-		scoreLabel = new UILabel(50, 250,
-				"You won the seed " + Integer.toString(GameModele.seed) + " at time " + GameModele.timer.toSQLStringFormat(),
-				FONT1, Color.black);
+		scoreLabel = new UILabel(50, 250, "You won the seed " + Integer.toString(GameModele.seed) + " at time "
+				+ GameModele.timer.toSQLStringFormat(), FONT1, Color.black);
 		scoreLabel.paint(g);
 	}
 

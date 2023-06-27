@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import info3.game.modele.GameModele;
-import info3.game.vue.GameView;
 import info3.game.vue.view.View;
 
 public class UIBarreVieTerre extends UIBarrePointDeVie {
@@ -48,11 +47,11 @@ public class UIBarreVieTerre extends UIBarrePointDeVie {
 		image.setPositionX((getPositionX() + current_life * getWidth() / max_life) - 16);
 		image.setPositionY(getPositionY() - 10);
 		image.paint(g);
-		
+
 		if (getState()) {
 			g.setFont(View.FONT1);
 			g.setColor(Color.white);
-			g.drawString(current_life + " / " + max_life, getPositionX() + getWidth() + 20, getPositionY()+15);
+			g.drawString(current_life + " / " + max_life, getPositionX() + getWidth() + 20, getPositionY() + 15);
 		}
 	}
 }

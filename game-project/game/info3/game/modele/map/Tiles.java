@@ -1,6 +1,5 @@
 package info3.game.modele.map;
 
-import info3.game.modele.GameModele;
 import info3.game.vue.GameView;
 
 /*
@@ -256,7 +255,7 @@ public class Tiles {
 		return this.type == EnumTiles.CALM_WATER_PRE_DAMAGE || this.type == EnumTiles.STORMY_WATER_PRE_DAMAGE
 				|| this.type == EnumTiles.RAGING_WATER_PRE_DAMAGE || this.type == EnumTiles.KRAKEN_WATER_PRE_DAMAGE;
 	}
-	
+
 	public boolean isPoison() {
 		return this.type == EnumTiles.POISONED_WATER;
 	}
