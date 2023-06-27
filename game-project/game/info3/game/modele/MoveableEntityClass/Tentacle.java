@@ -5,6 +5,7 @@ import automate.EnumCategory;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
 import info3.game.modele.StillEntityClass.Rhum;
+import info3.game.modele.map.EnumSectionType;
 import info3.game.modele.map.Tiles;
 import info3.game.vue.avatar.TentacleAvatar;
 
@@ -17,12 +18,11 @@ public class Tentacle extends Ennemy {
 	private int timerAttackSec;
 	private int timerAttackMin;
 	private boolean reloading;
-	
+
 	private boolean stunned;
 	private int timerStunMili;
 	private int timerStunSec;
-	
-	
+
 	private int reloadTimeSec;
 	private int reloadTimeMili;
 
@@ -39,11 +39,11 @@ public class Tentacle extends Ennemy {
 
 		this.reloading = false;
 		GameModele.entities.add(this);
-		
+
 		this.reloadTimeMili = 0;
 		this.reloadTimeSec = 1;
-		
-		TentacleAvatar tentacle = (TentacleAvatar)this.avatar;
+
+		TentacleAvatar tentacle = (TentacleAvatar) this.avatar;
 		tentacle.setTentacleNumber(this.number * 3);
 	}
 
@@ -52,13 +52,13 @@ public class Tentacle extends Ennemy {
 		GameModele.entities.remove(this);
 		kraken.tentacleDead(this);
 	}
-	
+
 	public void stunt() {
 		this.automate = AutomateLoader.findAutomate(GameEntity.Stunned);
 		this.current_state = automate.initial_state;
-		
+
 		this.stunned = true;
-		
+
 		this.timerStunMili = GameModele.timer.getMiliSecondes();
 		this.timerStunSec = GameModele.timer.getSecondes();
 	}
@@ -66,7 +66,9 @@ public class Tentacle extends Ennemy {
 	@Override
 	public boolean closest() {
 
-		return GameModele.onSea && closestBoatToMe().getCurrentSection() == 8
+		return GameModele.onSea
+				&& GameModele.map.getMap()[closestBoatToMe().getCurrentSection()]
+						.getSeaType() == EnumSectionType.KRAKEN_SEA
 				&& GameModele.map.getTileUnderEntity(GameModele.getCurrentPlayerX(), GameModele.getCurrentPlayerY())
 						.getTileY() < GameModele.map.getSectionHeight() - 3;
 
@@ -77,10 +79,9 @@ public class Tentacle extends Ennemy {
 	}
 
 	public boolean gotPower() {
-		
-		
+
 		if (this.stunned) {
-			
+
 			int timeMili = GameModele.timer.getMiliSecondes();
 			int timeSec = GameModele.timer.getSecondes();
 			if (this.timerStunMili <= timeMili && this.timerStunSec + 1 <= timeSec) {
@@ -91,7 +92,7 @@ public class Tentacle extends Ennemy {
 		}
 		return this.m_healthPoints > 0;
 	}
-	
+
 	@Override
 	public void power() {
 		int timeMili = GameModele.timer.getMiliSecondes();
@@ -104,7 +105,8 @@ public class Tentacle extends Ennemy {
 			this.timerAttackMili = timeMili - 20;
 			this.timerAttackSec = timeSec;
 			this.timerAttackMin = timeMin;
-		} else if (reloadingTimePassed(timerAttackMili, timerAttackSec, timeMili, timeSec) || timerAttackMin < timeMin) {
+		} else if (reloadingTimePassed(timerAttackMili, timerAttackSec, timeMili, timeSec)
+				|| timerAttackMin < timeMin) {
 			this.reloading = false;
 		}
 	}
@@ -120,11 +122,12 @@ public class Tentacle extends Ennemy {
 			this.timerAttackMili = timeMili - 20;
 			this.timerAttackSec = timeSec;
 			this.timerAttackMin = timeMin;
-		} else if (reloadingTimePassed(timerAttackMili, timerAttackSec, timeMili, timeSec) || timerAttackMin < timeMin) {
+		} else if (reloadingTimePassed(timerAttackMili, timerAttackSec, timeMili, timeSec)
+				|| timerAttackMin < timeMin) {
 			this.reloading = false;
 		}
 	}
-	
+
 	public boolean reloadingTimePassed(int debutReloadMili, int debutReloadSec, int actualMili, int actualSec) {
 		if (debutReloadSec * 1000 + reloadTimeSec * 1000 + debutReloadMili + reloadTimeMili < actualSec * 1000
 				+ actualMili) {
