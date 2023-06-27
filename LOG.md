@@ -254,3 +254,6 @@
 - Albin et Axel: Correction de bug, corrrection de vitesse sur les boulets de canon (qui ont désormais une vitesse fixe), les crabes contournent désormais les obstacles, les personnages ne peuvent plus sortir de l'écran dans le mode 2 joueurs, mise à jour des images de commandes pour les joueurs.
 - Alexandre: finition des musiques du jeu
 - Romain: Montage Vidéo de présentation + Sound Bug Fix 
+
+# 27 juin
+Axel : Dernière version des déplacements des crabes + Correction de bug concernant la récupération de Rhum en mer. Enregistrement de la partie bonus de la vidéo
