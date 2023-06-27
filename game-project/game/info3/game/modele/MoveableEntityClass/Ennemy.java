@@ -25,7 +25,7 @@ public abstract class Ennemy extends MoveableEntity {
 	
 	public Ennemy(int lifePoint, int damage, int hitbox, int x, int y) { // good constructor
 		super(lifePoint, damage, x, y, hitbox);
-	}	
+	}
 	
 	
 	
