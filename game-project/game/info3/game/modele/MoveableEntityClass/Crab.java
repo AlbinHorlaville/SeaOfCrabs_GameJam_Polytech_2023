@@ -16,9 +16,9 @@ import java.util.ArrayList;
 
 public class Crab extends Ennemy {
 	
-	public final static int DEFAULT_HEALTH_POINTS = 100;
+	public final static int DEFAULT_HEALTH_POINTS = 50;
 	public final static int RANGE = 100;
-	public final static int DEFAULT_DAMAGE = 20;
+	public final static int DEFAULT_DAMAGE = 10;
 	public final static int HIT_BOX = 50;
 
 	private CrabLair m_crabLair;
