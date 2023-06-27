@@ -19,7 +19,7 @@ package info3.game.automata.util;
 
 public final class Id {
 	static int counter = 10;
-	
+
 	public static int fresh() {
 		int n = counter;
 		counter++;

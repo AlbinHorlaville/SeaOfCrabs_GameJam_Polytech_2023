@@ -18,8 +18,6 @@ public class Player2 extends Avatar {
 	BufferedImage[] m_images_left;
 	BufferedImage[] m_images_right;
 
-
-
 	public Player2(Entity entity) {
 		super(entity);
 		m_images = SpriteLoader.get(SpriteType.Player2);
@@ -46,7 +44,7 @@ public class Player2 extends Avatar {
 			break;
 		case E:
 			this.m_images = m_images_right;
-			break;	
+			break;
 		case W:
 			this.m_images = m_images_left;
 			break;
@@ -62,7 +60,7 @@ public class Player2 extends Avatar {
 			}
 		} else {
 			imageIndex = 0;
-		}		
+		}
 	}
 
 	@Override
@@ -71,17 +69,21 @@ public class Player2 extends Avatar {
 		BufferedImage img = m_images[imageIndex];
 		int width_painted = SCALE_IMG * img.getWidth();
 		int heigth_painted = SCALE_IMG * img.getHeight();
-		int posX = (entity.getX() + ((width-(GameModele.player1.getX()+GameModele.player2.getX()))/2)) - (width_painted/2);
-		int posY = (entity.getY() + ((height-(GameModele.player1.getY()+GameModele.player2.getY()))/2)) - (heigth_painted/2);
-		g.drawImage(img, posX,posY, width_painted, heigth_painted, null);
+		int posX = (entity.getX() + ((width - (GameModele.player1.getX() + GameModele.player2.getX())) / 2))
+				- (width_painted / 2);
+		int posY = (entity.getY() + ((height - (GameModele.player1.getY() + GameModele.player2.getY())) / 2))
+				- (heigth_painted / 2);
+		g.drawImage(img, posX, posY, width_painted, heigth_painted, null);
 	}
 
 	/**
-	 * Method permettant de savoir si le joueur est entrain  de bouger
+	 * Method permettant de savoir si le joueur est entrain de bouger
+	 * 
 	 * @return boolean
 	 */
 	private boolean isMoving() {
-		return Controller.getBuffer().isBuffered("FU") || Controller.getBuffer().isBuffered("FD")  || Controller.getBuffer().isBuffered("FL")  || Controller.getBuffer().isBuffered("FR");
+		return Controller.getBuffer().isBuffered("FU") || Controller.getBuffer().isBuffered("FD")
+				|| Controller.getBuffer().isBuffered("FL") || Controller.getBuffer().isBuffered("FR");
 	}
 
 }

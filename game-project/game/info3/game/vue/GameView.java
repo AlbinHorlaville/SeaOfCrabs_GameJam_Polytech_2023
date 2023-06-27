@@ -10,8 +10,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -22,13 +20,12 @@ import info3.game.Controller;
 import info3.game.GameState;
 import info3.game.graphics.GameCanvas;
 import info3.game.modele.GameModele;
-import info3.game.sound.RandomFileInputStream;
 import info3.game.sound.SoundTool;
-import info3.game.vue.avatar.Avatar;
 import info3.game.vue.view.BeforePlayingView;
+import info3.game.vue.view.ControlsView;
+import info3.game.vue.view.CreditsView;
 import info3.game.vue.view.GameModeView;
 import info3.game.vue.view.GameOverView;
-import info3.game.vue.view.CreditsView;
 import info3.game.vue.view.MenuView;
 import info3.game.vue.view.PlayingView;
 import info3.game.vue.view.ScoreView;
@@ -36,7 +33,6 @@ import info3.game.vue.view.SettingsView;
 import info3.game.vue.view.SetupUserView;
 import info3.game.vue.view.VictoryView;
 import info3.game.vue.view.View;
-import info3.game.vue.view.ControlsView;
 
 public class GameView {
 	JFrame frame;

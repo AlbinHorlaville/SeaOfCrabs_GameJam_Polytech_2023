@@ -2,9 +2,9 @@ package automate;
 
 import info3.game.KeyBuffered.KeyCodeConvertor;
 
-public class Key extends Parameter{
+public class Key extends Parameter {
 	public int code;
-	
+
 	public Key(String s) {
 		super(s);
 		code = convertToInt(s);
@@ -14,11 +14,11 @@ public class Key extends Parameter{
 	public Object eval() {
 		return this.code;
 	}
-	
+
 	public int convertToInt(String s) {
 		return KeyCodeConvertor.stringToKeyCode(s);
 	}
-	
+
 //	public void SetKeyPressed(int k) {
 //		this.key_pressed = k;
 //	}

@@ -4,7 +4,6 @@ import automate.AutomateLoader;
 import automate.EnumCategory;
 import info3.game.modele.GameEntity;
 import info3.game.modele.GameModele;
-import info3.game.modele.Level;
 import info3.game.modele.StillEntityClass.Rhum;
 import info3.game.modele.map.MapSection;
 import info3.game.modele.map.Tiles;
@@ -137,6 +136,8 @@ public class Ship extends Ennemy {
 				GameModele.map.getMap()[GameModele.map.getSectionOfEntity(this.x, this.y)]);
 		GameModele.entities.add(rhum);
 		GameModele.entities.remove(this);
+		GameModele.map.getMiniMap().removeEnnemi(this);
+		GameModele.seaEnnemie.remove(this);
 
 	}
 

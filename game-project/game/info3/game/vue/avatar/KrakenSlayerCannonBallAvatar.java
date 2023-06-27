@@ -36,8 +36,7 @@ public class KrakenSlayerCannonBallAvatar extends Avatar {
 		int coeffY = -entity.getY() + GameModele.pirateBoat.getY() + height / 2;
 
 		// Only draw them if they are on screen
-		if (coeffX < width && coeffY < height && coeffX + width_painted > 0
-				&& coeffY + heigth_painted > 0) {
+		if (coeffX < width && coeffY < height && coeffX + width_painted > 0 && coeffY + heigth_painted > 0) {
 			g.drawImage(img, coeffX, coeffY, width_painted, heigth_painted, null);
 		}
 	}

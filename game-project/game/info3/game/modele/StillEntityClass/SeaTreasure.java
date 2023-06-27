@@ -12,14 +12,13 @@ import info3.game.modele.bonus.SpeedBonus;
 import info3.game.modele.map.MapSection;
 import info3.game.vue.avatar.SeaTreasureAvatar;
 
-public class SeaTreasure extends StillEntity{
-	
+public class SeaTreasure extends StillEntity {
+
 	private Bonus m_bonusLeft;
 	private Bonus m_bonusRight;
 	private MapSection m_mapSection;
 	private boolean m_opened;
 
-	
 	public SeaTreasure(MapSection mapSection, int x, int y) {
 		super(x, y, 100);
 		this.m_mapSection = mapSection;
@@ -28,31 +27,31 @@ public class SeaTreasure extends StillEntity{
 		this.avatar = new SeaTreasureAvatar(this);
 		this.m_opened = false;
 	}
-	
+
 	@Override
 	public void die() {
 		super.die();
 
 	}
-	
+
 	private void setBonuses() {
-		
+
 		int rand = GameModele.map.getRand().nextInt(Bonus.BonusesNumber);
 		this.m_bonusLeft = this.getBonusBasedOnNumber(rand);
 		rand = GameModele.map.getRand().nextInt(Bonus.BonusesNumber);
 		this.m_bonusRight = this.getBonusBasedOnNumber(rand);
-		
-		while(this.m_bonusLeft.getClass().equals(this.m_bonusRight.getClass())) {
+
+		while (this.m_bonusLeft.getClass().equals(this.m_bonusRight.getClass())) {
 			rand = GameModele.map.getRand().nextInt(Bonus.BonusesNumber);
 			this.m_bonusRight = this.getBonusBasedOnNumber(rand);
 		}
-		
+
 		this.m_bonusLeft.setLocation(this.x - 200, this.y);
 		this.m_bonusLeft.setOtherBonus(m_bonusRight);
 		this.m_bonusRight.setLocation(this.x + 200, this.y);
 		this.m_bonusRight.setOtherBonus(m_bonusLeft);
 	}
-	
+
 //	private boolean areThesameBonuses() {
 //		if(this.m_bonusRight instanceof AttackSpeedbonus && this.m_bonusLeft instanceof AttackSpeedbonus ||
 //				this.m_bonusRight instanceof DamageBonus && this.m_bonusLeft instanceof DamageBonus ||
@@ -62,7 +61,7 @@ public class SeaTreasure extends StillEntity{
 //			
 //		}
 //	}
-	
+
 	public Bonus getBonusBasedOnNumber(int rand) {
 		switch (rand) {
 		case 0:
@@ -79,7 +78,7 @@ public class SeaTreasure extends StillEntity{
 			return null;
 		}
 	}
-	
+
 //	public boolean cell(EnumDirection d, EnumCategory c) {
 //		
 //
@@ -99,20 +98,18 @@ public class SeaTreasure extends StillEntity{
 //		}
 //		return false;
 //	}
-	
 
-	
 	public void egg() {
-		
+
 		this.setBonuses();
 		GameModele.entities.add(m_bonusLeft);
 		GameModele.entities.add(m_bonusRight);
 	}
-	
+
 	public boolean gotPower() {
 		return !this.m_opened;
 	}
-	
+
 	public void takeDamage(int damage) {
 		this.m_opened = true;
 	}
@@ -120,9 +117,7 @@ public class SeaTreasure extends StillEntity{
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
-		
-	}
 
-	
+	}
 
 }

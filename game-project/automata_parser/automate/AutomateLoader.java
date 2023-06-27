@@ -47,7 +47,8 @@ public class AutomateLoader {
 
 	/**
 	 * 
-	 * @param enen ( Afin d'ï¿½tre compatible avec l'implï¿½mentation prï¿½cï¿½dente)
+	 * @param enen ( Afin d'ï¿½tre compatible avec l'implï¿½mentation
+	 *             prï¿½cï¿½dente)
 	 * @return
 	 */
 	public static Automate findAutomate(GameEntity entity) {
@@ -97,12 +98,13 @@ public class AutomateLoader {
 				throw new Exception("BAD FILE CONFIG : NO AUTOMATA FOR " + words[1] + "\nDEFAULT CONFIG USED !!");
 			automateLoader.put(GameEntity.valueOf(words[0]), a);
 		}
-		
+
 		// Test si toute les entitées on bien un automate
 		// Si ce n'est pas le cas, init without config
 		for (GameEntity entity : GameEntity.values()) {
 			if (!automateLoader.containsKey(entity)) {
-				throw new Exception("BAD FILE CONFIG : NO AUTOMATA FOR " + entity.toString() + "\nDEFAULT CONFIG USED !!");
+				throw new Exception(
+						"BAD FILE CONFIG : NO AUTOMATA FOR " + entity.toString() + "\nDEFAULT CONFIG USED !!");
 			}
 		}
 	}
@@ -129,8 +131,8 @@ public class AutomateLoader {
 	 * 
 	 * @param name
 	 * @return Object[] or null
-	 */	
-	public static Object[] getHashMapValueByName(GameEntity entity) { 
+	 */
+	public static Object[] getHashMapValueByName(GameEntity entity) {
 		return new Object[] { entity.toString(), findAutomate(entity).name };
 	}
 
@@ -139,18 +141,18 @@ public class AutomateLoader {
 	 * 
 	 * @param l
 	 */
-	private static void initWithoutConfig(LinkedList<Object> l) {		
+	private static void initWithoutConfig(LinkedList<Object> l) {
 		automateLoader = new HashMap<>();
 
 		for (GameEntity entity : GameEntity.values()) {
 			for (Object temp : l) {
-				Automate a = (Automate)temp;
+				Automate a = (Automate) temp;
 				if (a.name.equals(entity.toString())) {
-					automateLoader.put(entity,a);
+					automateLoader.put(entity, a);
 					break;
 				}
 			}
-		} 
+		}
 	}
 
 	public static void updateConfig(Object[][] data) {

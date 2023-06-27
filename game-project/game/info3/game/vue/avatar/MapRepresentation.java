@@ -2,11 +2,9 @@ package info3.game.vue.avatar;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -36,6 +34,7 @@ public class MapRepresentation {
 	private BufferedImage moutainImage;
 	private BufferedImage defaultImage;
 	private BufferedImage crabKingLandImage;
+	private BufferedImage poisonWaterImage;
 
 	private BufferedImage[] grassTransitionOneSide;
 	private BufferedImage[] grassTransitionTwoSide;
@@ -165,6 +164,11 @@ public class MapRepresentation {
 			this.stoneImage[1] = ImageIO.read(imageFile);
 			this.stoneImage[1] = resize(this.stoneImage[1], this.stoneImage[1].getWidth() * scale,
 					this.stoneImage[1].getHeight() * scale);
+		}
+
+		imageFile = new File("assets/img/tiles/poisoned_kraken_water.png");
+		if (imageFile.exists()) {
+			this.poisonWaterImage = ImageIO.read(imageFile);
 		}
 
 		this.waterPreDamageImage = new BufferedImage[4];
@@ -614,6 +618,10 @@ public class MapRepresentation {
 							break;
 						case KRAKEN_WATER_DAMAGING:
 							img = this.waterDamagingImage[3];
+							positionY += (int) this.wave[i * this.sectionHeight + j][k];
+							break;
+						case POISONED_WATER:
+							img = this.poisonWaterImage;
 							positionY += (int) this.wave[i * this.sectionHeight + j][k];
 							break;
 						default:

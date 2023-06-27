@@ -7,12 +7,11 @@ import automate.EnumDirection;
 import automate.FunCall;
 import automate.Parameter;
 import info3.game.modele.Entity;
-import info3.game.modele.MoveableEntity;
 
 public class Cell extends FunCall {
 	private Parameter direction;
 	private Parameter categorie;
-	
+
 	public Cell(List<automate.Parameter> parameters) {
 		super("Cell", parameters, -1);
 		this.direction = parameters.get(0);
@@ -22,7 +21,7 @@ public class Cell extends FunCall {
 	@Override
 	public boolean eval(Entity e) {
 		try {
-			return e.cell((EnumDirection)direction.eval(), (EnumCategory)categorie.eval());
+			return e.cell((EnumDirection) direction.eval(), (EnumCategory) categorie.eval());
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -32,11 +31,11 @@ public class Cell extends FunCall {
 
 	@Override
 	public void exec(Entity e) {
-		
-		
+
 	}
+
 	public String toString() {
-		String s = "Cell("+this.direction.m_string+", "+this.categorie.m_string+");";
+		String s = "Cell(" + this.direction.m_string + ", " + this.categorie.m_string + ");";
 		return s;
 	}
 

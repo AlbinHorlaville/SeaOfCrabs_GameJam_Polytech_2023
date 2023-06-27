@@ -1,5 +1,7 @@
 package info3.game.modele.MoveableEntityClass;
 
+import java.util.ArrayList;
+
 import automate.AutomateLoader;
 import automate.EnumCategory;
 import automate.EnumDirection;
@@ -11,14 +13,12 @@ import info3.game.modele.StillEntityClass.CrabLair;
 import info3.game.modele.map.Tiles;
 import info3.game.vue.avatar.Avatar;
 import info3.game.vue.avatar.CrabAvatar;
-import java.lang.Math;
-import java.util.ArrayList;
 
 public class Crab extends Ennemy {
-	
+
 	public final static int DEFAULT_HEALTH_POINTS = 100;
 	public final static int RANGE = 100;
-	public final static int DEFAULT_DAMAGE = 20;
+	public final static int DEFAULT_DAMAGE = 10;
 	public final static int HIT_BOX = 50;
 
 	private CrabLair m_crabLair;
@@ -32,13 +32,13 @@ public class Crab extends Ennemy {
 		this.m_crabLair = crabLair;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Crab);
 		this.current_state = automate.initial_state;
-		this.setAvatar(new CrabAvatar(this));
+		this.setAvatar(new CrabAvatar(this, level));
 
 	}
-	
+
 	public Crab(int level, CrabLair crabLair, int x, int y) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE, HIT_BOX, x, y);
-		this.avatar = new CrabAvatar(this);
+		this.avatar = new CrabAvatar(this, level);
 		this.m_healthPoints += Level.getAugmentLifeCrab(level);
 		this.m_damage += Level.getAugmentDamageCrab(level);
 		this.m_crabLair = crabLair;
@@ -48,11 +48,11 @@ public class Crab extends Ennemy {
 	}
 
 	public void hit() {
-		GameModele.player1.takeDamage(DEFAULT_DAMAGE);
+		GameModele.player1.takeDamage(this.m_damage);
 	}
-	
+
 	public void move(EnumCategory cat) {
-		
+
 //		//Nearer pirate to me 
 //		PiratePlayer closestPlayer = this.closestPirateToMe();
 //		int valueX = ((this.x > closestPlayer.x)? -1: 1);
@@ -74,61 +74,67 @@ public class Crab extends Ennemy {
 //				}
 //			}
 //		}
-		
-//		PiratePlayer closestPlayer = this.closestPirateToMe();
 //		
-//		int valueX = ((this.x > closestPlayer.x)? -1: 1);
-//		int nextX = this.getCenterX() + valueX;
-//		int valueY = ((this.y > closestPlayer.y)? -1: 1);
-//		int nextY = this.getCenterY() + valueY;
-//		
-//		
-//		
-//		if(GameModele.map.getTileUnderEntity(nextX,nextY).isIsland()) {
-//			this.x = nextX;
-//			this.y = nextY;
-//			System.out.println("Going Forward");
-//		}else {
-//			if(GameModele.map.getTileUnderEntity(nextX,this.getCenterY()).isIsland()){
-//				this.y = nextY;
-//				System.out.println("Going Y");
+//		if((int)tick(this.timeElapsed) % 2 == 0) {
 //
-//			}
-//			if(GameModele.map.getTileUnderEntity(this.getCenterX(),nextY).isIsland()) {
-//				this.x = nextX;
-//				System.out.println("Going X");
-//
+//			PiratePlayer closestPlayer = this.closestPirateToMe();
+//			
+//			int valueX = ((this.x > closestPlayer.x)? -1: 1);
+//			int nextX = this.getCenterX() + valueX;
+//			int valueY = ((this.y > closestPlayer.y)? -1: 1);
+//			int nextY = this.getCenterY() + valueY;
+//			
+//			
+//			
+//			if(GameModele.map.getTileUnderEntity(nextX,nextY).isIsland()) {
+//				this.x += valueX;
+//				this.y += valueY;
+//				System.out.println("Going Forward");
+//			}else {
+//				if(GameModele.map.getTileUnderEntity(nextX,this.getCenterY()).isIsland()){
+//					this.y = valueY;
+//					System.out.println("Going Y");
+//	
+//				}
+//				if(GameModele.map.getTileUnderEntity(this.getCenterX(),nextY).isIsland()) {
+//					this.x = valueX;
+//					System.out.println("Going X");
+//	
+//				}
 //			}
 //		}
-		
-		if((int)tick(this.timeElapsed) % 2 == 0) {
-		
+
+		if ((int) tick(this.timeElapsed) % 2 == 0) {
+
 			PiratePlayer closestPlayer = this.closestPirateToMe();
-			
-			int valueX = ((this.x > closestPlayer.x)? -1: 1);
+
+			int valueX = ((this.x > closestPlayer.x) ? -1 : 1);
 			int nextX = this.getCenterX() + valueX;
-			int valueY = ((this.y > closestPlayer.y)? -1: 1);
+			int valueY = ((this.y > closestPlayer.y) ? -1 : 1);
 			int nextY = this.getCenterY() + valueY;
-			
-			if(!GameModele.map.getTileUnderEntity(nextX,getCenterY()).isIsland()) {
-					this.y = nextY;
+
+			Tiles nextTile = GameModele.map.getTileUnderEntity(nextX, nextY);
+
+			if (nextTile.isIsland() || nextTile.isIslandObstacle()) {
+				if (!GameModele.map.getTileUnderEntity(nextX, getCenterY()).isIsland()) {
+					this.y += valueY;
 					lastY = valueY;
 					lastX = 0;
-			}else if(!GameModele.map.getTileUnderEntity(getCenterX(),nextY).isIsland()) {
-					this.x = nextX;
+				} else if (!GameModele.map.getTileUnderEntity(getCenterX(), nextY).isIsland()) {
+					this.x += valueX;
 					lastX = valueX;
 					lastY = 0;
-			}else {
-				this.x += lastX;
-				this.y += lastY;
+				} else {
+					this.x += lastX;
+					this.y += lastY;
 
+					lastX = 0;
+				}
 			}
-			
-
 		}
-		
+
 	}
-	
+
 //	public void move(EnumDirection dir) {
 //		System.out.println("MOVE AVEC direction");
 //		//Nearer pirate to me 
@@ -194,21 +200,20 @@ public class Crab extends Ennemy {
 //	    
 //		
 //	}
-	
+
 	public void move(EnumDirection dir) {
-		if((int)tick(this.timeElapsed) % 2 == 0) {
-		//Nearer pirate to me 
-		PiratePlayer closestPlayer = this.closestPirateToMe();
-		int valueX = (this.x > closestPlayer.x)? -1: 1;
-		int valueY = (this.y > closestPlayer.y)? -1: 1;
-		//Moving directly to the player
-		if(dir == EnumDirection.F) {
-			
-				
-					this.x += valueX;
-					this.y += valueY;
-				}
-			
+		if ((int) tick(this.timeElapsed) % 2 == 0) {
+			// Nearer pirate to me
+			PiratePlayer closestPlayer = this.closestPirateToMe();
+			int valueX = (this.x > closestPlayer.x) ? -1 : 1;
+			int valueY = (this.y > closestPlayer.y) ? -1 : 1;
+			// Moving directly to the player
+			if (dir == EnumDirection.F) {
+
+				this.x += valueX;
+				this.y += valueY;
+			}
+
 //			if(this.nextTileHasCrab(tile)) {
 //				System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
 //				
@@ -263,18 +268,16 @@ public class Crab extends Ennemy {
 //					this.y = nextY;
 //				}
 //			}
-			
-			//moving toward the player while avoiding other crabs
+
+			// moving toward the player while avoiding other crabs
 		}
-		
-	    
-		
+
 	}
-	
+
 	private boolean nextTileHasCrab(Tiles tile) {
 		ArrayList<Entity> tab = GameModele.entities;
-		for(Entity e : tab) {
-			if(GameModele.map.getTileUnderEntity(e.x, e.y).equals(tile)){
+		for (Entity e : tab) {
+			if (GameModele.map.getTileUnderEntity(e.x, e.y).equals(tile)) {
 
 				return true;
 
@@ -282,24 +285,24 @@ public class Crab extends Ennemy {
 		}
 		return false;
 	}
-	
-	
+
 	public boolean cell(EnumDirection dir, EnumCategory cat) {
-			
+
 		PiratePlayer closestPlayer = this.closestPirateToMe();
-		
-		if(cat == EnumCategory.A) {
-			return Math.abs(closestPlayer.getCenterX() - getCenterX()) < RANGE && Math.abs(closestPlayer.getCenterY() - getCenterY()) < RANGE;
-		}else if (cat == EnumCategory.V){
-			//Get next coordinate
+
+		if (cat == EnumCategory.A) {
+			return Math.abs(closestPlayer.getCenterX() - getCenterX()) < RANGE
+					&& Math.abs(closestPlayer.getCenterY() - getCenterY()) < RANGE;
+		} else if (cat == EnumCategory.V) {
+			// Get next coordinate
 			int nextX = this.getCenterX();
 			int nextY = this.getCenterY();
-			
-			nextX += (this.x > closestPlayer.getCenterX())? -1: 1;
-			nextY += (this.y > closestPlayer.getCenterY())? -1: 1;
-			
-			Tiles tile = GameModele.map.getTileUnderEntity(nextX,nextY);
-			if(tile.isIsland())
+
+			nextX += (this.x > closestPlayer.getCenterX()) ? -1 : 1;
+			nextY += (this.y > closestPlayer.getCenterY()) ? -1 : 1;
+
+			Tiles tile = GameModele.map.getTileUnderEntity(nextX, nextY);
+			if (tile.isIsland())
 				return true;
 			return false;
 //		}else if(cat == EnumCategory.T) {
@@ -311,11 +314,11 @@ public class Crab extends Ennemy {
 //				}
 //			}
 //			return false;
-		}else {
+		} else {
 			return false;
 		}
 	}
-	
+
 //	private boolean isCrabLairTiles(Tiles tile) {
 //		
 //		ArrayList<Tiles> crabLairTiles = this.m_crabLair.getCrabLairTiles();
@@ -328,38 +331,37 @@ public class Crab extends Ennemy {
 //		return false;
 //	}
 
-	
 	private PiratePlayer closestPirateToMe() {
-		
-		if(GameModele.solo) {
+
+		if (GameModele.solo) {
 			return GameModele.player1;
 		}
-		
-		double distanceP1 = Math.sqrt(Math.pow(this.x - GameModele.player1.x,2) + Math.pow(this.y - GameModele.player1.y,2));
-		double distanceP2 = Math.sqrt(Math.pow(this.x - GameModele.player2.x,2) + Math.pow(this.y - GameModele.player2.y,2));
-		
-		if(distanceP1 < distanceP2) {
+
+		double distanceP1 = Math
+				.sqrt(Math.pow(this.x - GameModele.player1.x, 2) + Math.pow(this.y - GameModele.player1.y, 2));
+		double distanceP2 = Math
+				.sqrt(Math.pow(this.x - GameModele.player2.x, 2) + Math.pow(this.y - GameModele.player2.y, 2));
+
+		if (distanceP1 < distanceP2) {
 			return GameModele.player1;
 		}
 		return GameModele.player2;
-		
+
 	}
 
 	public void die() {
-		if(m_crabLair != null)
+		if (m_crabLair != null)
 			this.m_crabLair.aCrabDied();
 		super.die();
 	}
-	
-	
-
 
 	@Override
 	public boolean closest() {
-		return !GameModele.onSea && GameModele.currentSection
-				== GameModele.map.getSectionOfEntity(x,y);
-		//return (GameModele.map.getTileUnderEntity(GameModele.player1.x, GameModele.player1.y).isIsland() 
-			//	&& GameModele.map.getTileUnderEntity(GameModele.player1.x, GameModele.player1.y).isIsland());
+		return !GameModele.onSea && GameModele.currentSection == GameModele.map.getSectionOfEntity(x, y);
+		// return (GameModele.map.getTileUnderEntity(GameModele.player1.x,
+		// GameModele.player1.y).isIsland()
+		// && GameModele.map.getTileUnderEntity(GameModele.player1.x,
+		// GameModele.player1.y).isIsland());
 	}
 
 	public CrabLair getCrabLair() {
@@ -369,16 +371,16 @@ public class Crab extends Ennemy {
 	public void setCrabLair(CrabLair m_crabLair) {
 		this.m_crabLair = m_crabLair;
 	}
-	
+
 	public boolean gotPower() {
 		return this.m_healthPoints > 0;
 	}
 
 	public int getCenterX() {
-		return this.x; //+ (Avatar.SCALE_IMG* (this.avatar.getWidth() /Avatar.SCALE_IMG))/2;
+		return this.x; // + (Avatar.SCALE_IMG* (this.avatar.getWidth() /Avatar.SCALE_IMG))/2;
 	}
-	
+
 	public int getCenterY() {
-		return this.y + ( Avatar.SCALE_IMG * ( this.avatar.getHeight())/Avatar.SCALE_IMG)/2;
+		return this.y + (Avatar.SCALE_IMG * (this.avatar.getHeight()) / Avatar.SCALE_IMG) / 2;
 	}
 }

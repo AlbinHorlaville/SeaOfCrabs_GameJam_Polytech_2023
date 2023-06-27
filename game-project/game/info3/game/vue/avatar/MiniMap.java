@@ -11,7 +11,6 @@ import javax.imageio.ImageIO;
 
 import info3.game.modele.GameModele;
 import info3.game.modele.MoveableEntityClass.Ship;
-import info3.game.modele.map.EnumTiles;
 import info3.game.modele.map.Map;
 import info3.game.modele.map.MapSection;
 import info3.game.modele.map.Tiles;
@@ -117,15 +116,26 @@ public class MiniMap {
 
 		g.setColor(Color.black);
 		for (Ship seaShip : this.seaEnnemie) {
-			if (GameModele.map.getSectionOfEntity(seaShip.getCenterX(),
-					seaShip.getCenterY()) == GameModele.pirateBoat.getCurrentSection()) {
-				Tiles tileUnder = GameModele.map.getTileUnderEntity(seaShip.getCenterX(),
-						seaShip.getCenterY());
+			if (GameModele.map.getSectionOfEntity(seaShip.getCenterX(), seaShip.getCenterY()) == GameModele.pirateBoat
+					.getCurrentSection()) {
+				Tiles tileUnder = GameModele.map.getTileUnderEntity(seaShip.getCenterX(), seaShip.getCenterY());
 				int tilesX = tileUnder.getTileX();
 				int tilesY = tileUnder.getTileY();
-				
-				g.fillRect(this.topX + tilesX * mapPixelSize, this.topY + tilesY * mapPixelSize, mapPixelSize, mapPixelSize);
+
+				g.fillRect(this.topX + tilesX * mapPixelSize, this.topY + tilesY * mapPixelSize, mapPixelSize,
+						mapPixelSize);
 			}
+		}
+
+		if (GameModele.king != null && GameModele.map.getSectionOfEntity(GameModele.king.getCenterX(),
+				GameModele.king.getCenterY()) == GameModele.pirateBoat.getCurrentSection()) {
+			Tiles tileUnder = GameModele.map.getTileUnderEntity(GameModele.king.getCenterX(),
+					GameModele.king.getCenterY());
+			int tilesX = tileUnder.getTileX();
+			int tilesY = tileUnder.getTileY();
+			g.setColor(new Color(0, 0, 0));
+			g.fillRect(this.topX + tilesX * mapPixelSize, this.topY + tilesY * mapPixelSize, mapPixelSize * 2,
+					mapPixelSize * 2);
 		}
 
 		int currentX;
@@ -169,5 +179,9 @@ public class MiniMap {
 			}
 
 		}
+	}
+
+	public void removeEnnemi(Ship ship) {
+		this.seaEnnemie.remove(ship);
 	}
 }

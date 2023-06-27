@@ -20,8 +20,8 @@ package info3.game.automata.ast;
 
 public abstract class Expression extends Node {
 
-  abstract Object accept(IVisitor visitor);
+	abstract Object accept(IVisitor visitor);
 
-  public abstract String toString();
+	public abstract String toString();
 
 }

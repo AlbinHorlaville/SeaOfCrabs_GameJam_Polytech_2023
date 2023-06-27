@@ -10,7 +10,7 @@ public class UIChecker extends UIButton {
 	UILabel label;
 
 	public UIChecker(int x, int y, UILabel l, Color c, boolean baseState) {
-		super(x, y, 0, 0, l,0);
+		super(x, y, 0, 0, l, 0);
 		this.state = baseState;
 		setHeight(30);
 		setWidth(30);
@@ -30,7 +30,8 @@ public class UIChecker extends UIButton {
 	}
 
 	@Override
-	// Le checker est un carré qui change de couleur quand on clique dessus, suivant
+	// Le checker est un carré qui change de couleur quand on clique dessus,
+	// suivant
 	// son état.
 	// Un lizeré de 2 pixel entoure le rectangle.
 	public void paint(Graphics g) {

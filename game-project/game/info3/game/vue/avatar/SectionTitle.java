@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import info3.game.modele.GameModele;
 import info3.game.modele.map.EnumSectionType;
-import info3.game.modele.map.Map;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UITitle;
 

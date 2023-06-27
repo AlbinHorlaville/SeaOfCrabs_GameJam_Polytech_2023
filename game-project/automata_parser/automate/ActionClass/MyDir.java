@@ -7,10 +7,10 @@ import automate.FunCall;
 import automate.Parameter;
 import info3.game.modele.Entity;
 
-public class MyDir extends FunCall{
-	
+public class MyDir extends FunCall {
+
 	private Direction direction;
-	
+
 	public MyDir(List<Parameter> parameters) {
 		super("Mydir");
 		this.direction = (Direction) parameters.get(0);
@@ -18,8 +18,8 @@ public class MyDir extends FunCall{
 
 	@Override
 	public boolean eval(Entity e) {
-		//return EnumMyDirection.valueOf(m_string);
-		
+		// return EnumMyDirection.valueOf(m_string);
+
 		return false;
 
 	}
@@ -27,13 +27,12 @@ public class MyDir extends FunCall{
 	@Override
 	public void exec(Entity e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	public String toString() {
 		String s = "Mydir(" + this.direction.m_string + ");";
 		return s;
 	}
-
 
 }

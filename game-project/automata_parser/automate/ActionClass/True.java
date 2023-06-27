@@ -4,7 +4,7 @@ import automate.FunCall;
 import info3.game.modele.Entity;
 
 public class True extends FunCall {
-	
+
 	public True() {
 		super("True", null, -1);
 	}
@@ -17,7 +17,7 @@ public class True extends FunCall {
 	@Override
 	public void exec(Entity e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

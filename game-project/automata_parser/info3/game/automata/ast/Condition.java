@@ -19,19 +19,19 @@ package info3.game.automata.ast;
 
 public class Condition extends Node {
 
-  Expression expression;
+	Expression expression;
 
-  public Condition(Expression expression) {
-    this.expression = expression;
-  }
+	public Condition(Expression expression) {
+		this.expression = expression;
+	}
 
-  Object accept(IVisitor visitor) {
-	visitor.enter(this);  
-    Object o = expression.accept(visitor);
-    return visitor.exit(this, o);
-  }
+	Object accept(IVisitor visitor) {
+		visitor.enter(this);
+		Object o = expression.accept(visitor);
+		return visitor.exit(this, o);
+	}
 
-  public String toString() {
-    return expression.toString() ;
-  }
+	public String toString() {
+		return expression.toString();
+	}
 }

@@ -18,7 +18,7 @@
 package info3.game.automata.ast;
 
 public abstract class Parameter extends Node {
-  
-  public abstract String toString();
+
+	public abstract String toString();
 
 }

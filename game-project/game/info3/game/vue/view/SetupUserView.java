@@ -1,6 +1,7 @@
 package info3.game.vue.view;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 import info3.game.GameState;
@@ -8,6 +9,7 @@ import info3.game.SeaOfCrabes;
 import info3.game.modele.GameModele;
 import info3.game.vue.GameView;
 import info3.game.vue.toolkitUI.UIButton;
+import info3.game.vue.toolkitUI.UIComponent;
 import info3.game.vue.toolkitUI.UIComponentListener;
 import info3.game.vue.toolkitUI.UILabel;
 import info3.game.vue.toolkitUI.UITextInput;
@@ -38,8 +40,7 @@ public class SetupUserView extends View {
 
 		buttonContinue.setBackgroundColor(UIButton.BACKGROUND_COLOR_GREEN_HOVER);
 
-		errorMessage = new UILabel(windowWidth / 2 - 200, windowHeight / 2 + 150, "", FONT1,
-				Color.red);
+		errorMessage = new UILabel(windowWidth / 2 - 200, windowHeight / 2 + 150, "", FONT1, Color.red);
 
 		buttonContinue.setUIComponentListener(new UIComponentListener() {
 
@@ -91,9 +92,17 @@ public class SetupUserView extends View {
 		addComponent(usernameInput);
 		addComponent(buttonContinue);
 		addComponent(errorMessage);
-		
+	}
+
+	public void paint(Graphics g, int width, int height) {
+		for (UIComponent c : components) {
+			c.paint(g);
+		}
 		if (SeaOfCrabes.connectedToDatabase) {
-			addComponent(new UILabel(10, 30, "Connected to database: @"+GameModele.currentUser.getUsername(), FONT4, Color.green));
+			addComponent(new UILabel(10, 30, "Connected to database", FONT4, Color.green));
+			if (GameModele.currentUser != null) {
+				addComponent(new UILabel(10, 50, "@" + GameModele.currentUser.getUsername(), FONT4, Color.black));
+			}
 		} else {
 			addComponent(new UILabel(10, 30, "Not connected to database", FONT4, Color.red));
 		}

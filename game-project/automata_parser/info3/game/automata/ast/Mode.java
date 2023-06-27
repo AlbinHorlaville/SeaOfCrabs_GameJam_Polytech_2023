@@ -17,20 +17,20 @@
  */
 package info3.game.automata.ast;
 
-public class Mode extends Node { 
+public class Mode extends Node {
 
 	public State state;
-	public Behaviour behaviour ;
+	public Behaviour behaviour;
 
 	public Mode(State source, Behaviour behaviour) {
 		this.state = source;
-		this.behaviour = behaviour ;
+		this.behaviour = behaviour;
 	}
 
-	 Object accept(IVisitor visitor) {
+	Object accept(IVisitor visitor) {
 		visitor.enter(this);
 		Object s = state.accept(visitor);
-	    Object b = behaviour.accept(visitor);
-	    return visitor.exit(this, s, b);
-	  }
+		Object b = behaviour.accept(visitor);
+		return visitor.exit(this, s, b);
+	}
 }

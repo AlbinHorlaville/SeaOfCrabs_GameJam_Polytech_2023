@@ -10,9 +10,9 @@ public class UIBoxes extends UIComponent {
 	private ArrayList<UIBox> boxes;
 	private UIBox selectedBox;
 	private UILabel label;
-	
-	private static final Color BG_INITIAL = new Color(0,0,0,128);
-	private static final Color BG_SELECTED = new Color(0,0,0,64);
+
+	private static final Color BG_INITIAL = new Color(0, 0, 0, 128);
+	private static final Color BG_SELECTED = new Color(0, 0, 0, 64);
 
 	public UIBoxes(int x, int y, UILabel l) {
 		super(x, y, 0, 0);
@@ -45,7 +45,7 @@ public class UIBoxes extends UIComponent {
 
 			@Override
 			public void onKeyPressed(KeyEvent e) {
-				
+
 			}
 
 		});

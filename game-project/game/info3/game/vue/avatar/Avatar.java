@@ -10,7 +10,6 @@ import javax.imageio.ImageIO;
 import info3.game.modele.Entity;
 import info3.game.vue.GameView;
 
-
 public abstract class Avatar {
 	public BufferedImage[] m_images;
 	int imageIndex;
@@ -19,7 +18,7 @@ public abstract class Avatar {
 	int width;
 
 	Entity entity;
-	
+
 	public final static int SCALE_IMG = GameView.SCALE;
 
 	public Avatar(Entity entity) {
@@ -27,7 +26,7 @@ public abstract class Avatar {
 	}
 
 	/*
-	 * Simple animation here, the cowbow 
+	 * Simple animation here, the cowbow
 	 */
 	public abstract void tick(long elapsed);
 
@@ -52,19 +51,19 @@ public abstract class Avatar {
 		}
 		return null;
 	}
-	
+
 	public void setEntity(Entity entity) {
 		this.entity = entity;
 	}
-	
+
 	public Entity getEntity() {
 		return entity;
 	}
-	
+
 	public int getWidth() {
 		return m_images[imageIndex].getWidth() * SCALE_IMG;
 	}
-	
+
 	public int getHeight() {
 		return m_images[imageIndex].getHeight() * SCALE_IMG;
 	}

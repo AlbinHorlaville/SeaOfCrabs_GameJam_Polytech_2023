@@ -18,8 +18,9 @@
 
 package info3.game.automata.ast;
 
-import info3.game.automata.util.Dot;
 import java.util.List;
+
+import info3.game.automata.util.Dot;
 
 public class AstPrinter implements IVisitor {
 
@@ -74,7 +75,6 @@ public class AstPrinter implements IVisitor {
 		edge(node.id, -node.id);
 		dot_keyword_node(-node.id, node.toString());
 	}
-
 
 	protected void subtree(Node node, List<Integer> son_ids) {
 		for (Integer id : son_ids) {
@@ -131,10 +131,11 @@ public class AstPrinter implements IVisitor {
 		return null;
 	}
 
-	public void enter(Action action) {}
+	public void enter(Action action) {
+	}
 
 	public Object exit(Action action, List<Object> funcalls) {
-		non_terminal(action,"Action");
+		non_terminal(action, "Action");
 		subtree(action, (List<Integer>) (Object) funcalls);
 		return action.id;
 	}
@@ -146,7 +147,7 @@ public class AstPrinter implements IVisitor {
 	}
 
 	public Object visit(State state) {
-		identifier(state,"State");
+		identifier(state, "State");
 		return state.id;
 	}
 
@@ -159,8 +160,8 @@ public class AstPrinter implements IVisitor {
 	}
 
 	public void enter(Automaton automaton) {
-		non_terminal(automaton,"Automaton");
-		edge(automaton.id,-automaton.id);
+		non_terminal(automaton, "Automaton");
+		edge(automaton.id, -automaton.id);
 		dot_terminal_node(-automaton.id, automaton.name);
 	}
 
@@ -171,21 +172,23 @@ public class AstPrinter implements IVisitor {
 	}
 
 	public Object visit(AST bot, List<Object> automata) {
-		non_terminal(bot,"AST");
+		non_terminal(bot, "AST");
 		subtree(bot, (List<Integer>) (Object) automata);
 		return bot.id;
 	}
 
-	public void enter(Mode mode) {}
+	public void enter(Mode mode) {
+	}
 
 	public Object exit(Mode mode, Object state, Object behaviour) {
-		non_terminal(mode,"Mode");
+		non_terminal(mode, "Mode");
 		edge(mode.id, (Integer) state);
 		edge(mode.id, (Integer) behaviour);
 		return mode.id;
 	}
 
-	public void enter(Condition condition) {}
+	public void enter(Condition condition) {
+	}
 
 	public Object exit(Condition condition, Object expr) {
 		non_terminal(condition, "Condition");
