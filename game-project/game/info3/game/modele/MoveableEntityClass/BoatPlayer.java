@@ -179,7 +179,7 @@ public class BoatPlayer extends Player {
 				b = new BasicCannonBall();
 				b.setPositions(this.x, this.y, mouseX-GameView.screenWidth/2, mouseY-GameView.screenHeight/2);
 				b.fire();
-			} else {
+			} else if (getAmount(currentBall) != 0) {
 				this.bouletDeCannon.replace(currentBall, getAmount(currentBall)-1);
 				switch (currentBall) {
 				case Stunt:
