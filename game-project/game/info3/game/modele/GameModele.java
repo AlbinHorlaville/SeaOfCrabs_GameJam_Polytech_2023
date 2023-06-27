@@ -63,6 +63,8 @@ public class GameModele {
 	public static Perroquet perroquet;
 
 	public static GameTimer timer;
+	
+	public static CrabKing king;
 
 	public static boolean onSea = true;
 
@@ -451,8 +453,8 @@ public class GameModele {
 							entities.add(newEntity);
 							this.seaEnnemie.add((Ship) newEntity);
 						} else if (current.getType() == EnumTiles.CRAB_KING) {
-							newEntity = new CrabKing(k, 1500, current.getX(), current.getY(), 200); // TODO CHANGE PARAM
-							GameModele.entities.add(newEntity);
+							king = new CrabKing(k, 1500, current.getX(), current.getY(), 200); // TODO CHANGE PARAM
+							GameModele.entities.add(king);
 							// entities.add(newEntity);
 						} else if (current.getType() == EnumTiles.KRAKEN_TENTACLE) {
 							kraken.addTentacle(current.getX(), current.getY(), tentacle_number++);
