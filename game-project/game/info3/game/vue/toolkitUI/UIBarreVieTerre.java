@@ -31,6 +31,10 @@ public class UIBarreVieTerre extends UIBarrePointDeVie {
 		g.setColor(new Color(255 - current_life * 255 / max_life, current_life * 255 / max_life, 30));
 		g.fillRect(getPositionX(), getPositionY(), current_life * getWidth() / max_life, getHeight());
 		
+		g.setColor(Color.black);
+		for (int i=0; i<max_life; i+=100) {
+			g.drawLine(getPositionX() +  getWidth() * i / max_life, getPositionY(),getPositionX() +  getWidth() * i / max_life, getPositionY() + getHeight());
+		}
 		if (this.solo != GameModele.solo) {
 			this.solo = GameModele.solo;
 			if (solo) {
