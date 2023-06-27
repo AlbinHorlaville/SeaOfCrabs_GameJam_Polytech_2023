@@ -26,10 +26,10 @@ import info3.game.vue.toolkitUI.UITextInput;
 public class BeforePlayingView extends View {
 
 	UIButton buttonPlay, buttonCmd, buttonRandomSeed, buttonRetour;
-	UILabel seedLabel, weaponLabelPlayer1, weaponLabelPlayer2, sectionLabel;
+	UILabel seedLabel, weaponLabelPlayer1, weaponLabelPlayer2, sectionLabel, labelLifeCrabs;
 	UITextInput seedInput;
 	UIBoxes weaponsBoxesPlayer1, weaponsBoxesPlayer2, sectionBoxes;
-	UIChecker perroquetBox;
+	UIChecker perroquetBox, CheckerShowLifeCrabs;
 	UILabel weaponSelectedLabel1, weaponSelectedLabel2, labelParrot;
 
 	UIBox boxSwordPlayer1, boxScythePlayer1, boxSwordPlayer2, boxScythePlayer2, section10, section16, section22;
@@ -38,6 +38,8 @@ public class BeforePlayingView extends View {
 	public static Weapon weapon2;
 
 	public static Perroquet perroquet;
+	
+	public static boolean ShowLifeCrabs;
 
 	public BeforePlayingView(GameView gv) {
 		super(gv);
@@ -84,6 +86,14 @@ public class BeforePlayingView extends View {
 		sectionBoxes.addBox(section16);
 		sectionBoxes.addBox(section22);
 		sectionBoxes.setSelectedBox(section10);
+		
+		CheckerShowLifeCrabs = new UIChecker(300, 528, new UILabel(0, 0, "", FONT1, Color.black), c1, false);
+		
+		labelLifeCrabs = new UILabel(50, 551, "Show Life's Crabs ?", FONT1, Color.black);
+		
+
+		
+		ShowLifeCrabs = false;
 
 		labelParrot = new UILabel(50, 451, "Pirate's parrot?", FONT1, Color.black);
 
@@ -98,6 +108,43 @@ public class BeforePlayingView extends View {
 					perroquet = new Perroquet(100, 0, 10);
 				} else {
 					perroquet = null;
+				}
+			}
+
+			@Override
+			public void onComponentMouseIn(int x, int y) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onComponentMouseOut(int x, int y) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onComponentPressed(int x, int y) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onKeyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		
+		CheckerShowLifeCrabs.setUIComponentListener(new UIComponentListener() {
+
+			@Override
+			public void onComponentClicked(int x, int y) {
+				CheckerShowLifeCrabs.check();
+				if (CheckerShowLifeCrabs.isState()) {
+					ShowLifeCrabs = true;
+				} else {
+					ShowLifeCrabs = false;
 				}
 			}
 
@@ -368,6 +415,8 @@ public class BeforePlayingView extends View {
 		addComponent(buttonRandomSeed);
 
 		addComponent(perroquetBox);
+		addComponent(CheckerShowLifeCrabs);
+		addComponent(labelLifeCrabs);
 
 		addComponent(weaponLabelPlayer1);
 		addComponent(weaponsBoxesPlayer1);
@@ -402,6 +451,8 @@ public class BeforePlayingView extends View {
 			sectionBoxes.setPositionY(414);
 			perroquetBox.setPositionY(528);
 			labelParrot.setPositionY(551);
+			CheckerShowLifeCrabs.setPositionY(578);
+			labelLifeCrabs.setPositionY(601);
 		}
 		for (UIComponent c : components) {
 			if ((c == weaponLabelPlayer2 || c == weaponsBoxesPlayer2 || c == weaponSelectedLabel2) && GameModele.solo)
