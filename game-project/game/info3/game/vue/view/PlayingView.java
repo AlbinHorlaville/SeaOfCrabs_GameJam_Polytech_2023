@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -14,15 +13,8 @@ import info3.game.Controller;
 import info3.game.modele.Entity;
 import info3.game.modele.GameModele;
 import info3.game.modele.GameTimer;
-import info3.game.modele.Weapon;
-import info3.game.modele.MoveableEntityClass.PiratePlayer;
-import info3.game.modele.MoveableEntityClass.BoatPlayer;
 import info3.game.modele.MoveableEntityClass.EnumCannonBall;
 import info3.game.modele.MoveableEntityClass.PiratePlayer;
-import info3.game.modele.MoveableEntityClass.BasicCannonBall;
-import info3.game.modele.MoveableEntityClass.Player;
-import info3.game.modele.MoveableEntityClass.Scythe;
-import info3.game.modele.MoveableEntityClass.Sword;
 import info3.game.modele.StillEntityClass.CloudCluster;
 import info3.game.vue.GameView;
 import info3.game.vue.SpriteLoader.SpriteLoader;
@@ -32,6 +24,8 @@ import info3.game.vue.toolkitUI.UIBarreVieMer;
 import info3.game.vue.toolkitUI.UIBarreVieTerre;
 import info3.game.vue.toolkitUI.UIBox;
 import info3.game.vue.toolkitUI.UIBoxes;
+import info3.game.vue.toolkitUI.UIButton;
+import info3.game.vue.toolkitUI.UIComponentListener;
 import info3.game.vue.toolkitUI.UIImage;
 import info3.game.vue.toolkitUI.UILabel;
 
@@ -60,8 +54,61 @@ public class PlayingView extends View {
 
 		GameModele.timer = new GameTimer();
 
-		barreVieTerre = new UIBarreVieTerre(0, 0);
-		barreVieMer = new UIBarreVieMer(0, 0);
+		barreVieTerre = new UIBarreVieTerre(20, 50);
+		
+		barreVieTerre.setUIComponentListener(new UIComponentListener() {
+			
+			@Override
+			public void onComponentClicked(int x, int y) {
+			}
+
+			@Override
+			public void onComponentMouseIn(int x, int y) {
+				barreVieTerre.changeShowing(true);
+			}
+
+			@Override
+			public void onComponentMouseOut(int x, int y) {
+				barreVieTerre.changeShowing(false);
+			}
+
+			@Override
+			public void onComponentPressed(int x, int y) {
+			}
+
+			@Override
+			public void onKeyPressed(KeyEvent e) {
+			}
+		});
+		
+		barreVieMer = new UIBarreVieMer(20, 15);
+		barreVieMer.setWidth(150);
+		
+		barreVieMer.setUIComponentListener(new UIComponentListener() {
+			
+			@Override
+			public void onComponentClicked(int x, int y) {
+			}
+
+			@Override
+			public void onComponentMouseIn(int x, int y) {
+				barreVieMer.changeShowing(true);
+			}
+
+			@Override
+			public void onComponentMouseOut(int x, int y) {
+				barreVieMer.changeShowing(false);
+			}
+
+			@Override
+			public void onComponentPressed(int x, int y) {
+			}
+
+			@Override
+			public void onKeyPressed(KeyEvent e) {
+			}
+		});
+		
 		labelTimer = new UILabel(windowWidth / 2, 35, "0'", FONT3, Color.black);
 
 		cannonBallBox = new UIBoxes((windowWidth) / 2 - 130, windowHeight - 114);
@@ -99,20 +146,14 @@ public class PlayingView extends View {
 		speedBonusImage = new UIImage(windowWidth - 75, 15, SpriteLoader.get(SpriteType.Bonus)[4], 2F);
 
 		addComponent(cannonBallBox);
+		addComponent(barreVieTerre);
+		addComponent(barreVieMer);
 
 		attackSpeedBonusLabel.setText(Float.toString(1f));
 		damageBonusLabel.setText(Float.toString(1f));
 		healthBonusLabel.setText(Float.toString(1f));
 		rangeBonusLabel.setText(Float.toString(1f));
 		speedBonusLabel.setText(Float.toString(1f));
-
-		barreVieMer.setPositionX(20);
-		barreVieMer.setPositionY(15);
-		barreVieMer.setWidth(150);
-
-		barreVieTerre.setPositionX(20);
-		barreVieTerre.setPositionY(50);
-		barreVieTerre.setWidth(75);
 
 		playerOnSea = true;
 
@@ -270,7 +311,6 @@ public class PlayingView extends View {
 				barreVieMer.setPositionY(50);
 				barreVieMer.setWidth(75);
 			}
-
 		}
 		barreVieMer.paint(g);
 		barreVieTerre.paint(g);
