@@ -256,4 +256,5 @@
 - Romain: Montage Vidéo de présentation + Sound Bug Fix 
 
 # 27 juin
-Axel : Dernière version des déplacements des crabes + Correction de bug concernant la récupération de Rhum en mer. Enregistrement de la partie bonus de la vidéo
+- Axel : Dernière version des déplacements des crabes + Correction de bug concernant la récupération de Rhum en mer. Enregistrement de la partie bonus de la vidéo
+- Albin : Correction d'un bug quand on cliquait pour écrire une seed mais que sans en saisir une, l'utilisateur cliquait sur jouer, ce qui entrainait une erreur. Repère sur la barre de vie du personnage tous les 100 points de vie pour visualiser l'augmentation du maximum de vie lorsque le joueur récupère un bonus de vie. Ajout de fonctionalité: lorsque le joueur survole la barre de vie du bateau ou de son personnage, les valeurs chiffrés de celle-ci s'affichent à l'écran. Changement du combat pour que le joueur donne un coup d'épée en zone et plus cible par cible. Affichage du CrabKing sur la minimap pour facilité sa recherche par le joueur. Ajout option désactivable : l'utilisateur peut choisir avant de jouer de voir les barres de points de vie des crabes. Ne s'applique pas au CrabKing. Corrections de bugs.
