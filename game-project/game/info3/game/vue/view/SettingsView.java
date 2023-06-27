@@ -121,9 +121,9 @@ public class SettingsView extends View {
 			public void onComponentClicked(int x, int y) {
 				backgroundSoundChecker.check();
 				if (!backgroundSoundChecker.isState()) {
-					current = SoundTool.stopBackgroundMusic();
+					SoundTool.setCancelBackgroundMusic(true);
 				} else {
-					SoundTool.playBackgroundMusic();
+					SoundTool.setCancelBackgroundMusic(false);
 				}
 			}
 
