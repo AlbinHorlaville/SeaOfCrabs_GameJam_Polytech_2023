@@ -228,6 +228,11 @@ public class GameModele {
 						.isWaterDamaging()) {
 					this.pirateBoat.takeDamage(20);
 				}
+				
+				if (this.map.getTileUnderEntity(this.pirateBoat.getCenterX(), this.pirateBoat.getCenterY())
+						.isPoison()) {
+					this.pirateBoat.takePoison();
+				}
 			}
 			this.map.updateDamagingTick();
 			if (waveTick++ == 10) {

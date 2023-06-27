@@ -134,7 +134,7 @@ Ship(Init){
 KrakenTentacle(Init){
  * (Init) :
  | !GotPower ? : ()
- | Closest() ? Hit : (Init)
+ | Closest() ? 80%Hit / Power : (Init)
  | True ? : (Init)
  * ()
 }

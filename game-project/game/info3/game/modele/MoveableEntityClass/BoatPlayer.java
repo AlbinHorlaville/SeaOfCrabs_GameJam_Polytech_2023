@@ -28,6 +28,11 @@ public class BoatPlayer extends Player {
 	public int timerInvicibleMili;
 	public int timerInvicibleSec;
 	public int timerInvicibleMin;
+	
+	public boolean poisonInvincible;
+	public int timerPoisonInvicibleMili;
+	public int timerPoisonInvicibleSec;
+	public int timerPoisonInvicibleMin;
 
 	private int timerAttackMili;
 	private int timerAttackSec;
@@ -190,6 +195,25 @@ public class BoatPlayer extends Player {
 		int timeMin = GameModele.timer.getMinutes();
 		if ((timerInvicibleMili <= timeMili && timerInvicibleSec + 1 <= timeSec) || this.timerInvicibleMin < timeMin) {
 			invincible = false;
+		}
+	}
+	
+	public void takePoison() {
+		int timeMili = GameModele.timer.getMiliSecondes();
+		int timeSec = GameModele.timer.getSecondes();
+		int timeMin = GameModele.timer.getMinutes();
+		if (!poisonInvincible) {
+			this.m_healthPoints -= 2;
+			if (this.m_healthPoints <= 0) {
+				this.die();
+			}
+			poisonInvincible = true;
+			this.timerPoisonInvicibleMili = timeMili;
+			this.timerPoisonInvicibleSec = timeSec;
+			this.timerPoisonInvicibleMin = timeMin;
+		} else if ((timerPoisonInvicibleMili <= timeMili && timerPoisonInvicibleSec + 1 <= timeSec)
+				|| this.timerPoisonInvicibleMin < timeMin) {
+			poisonInvincible = false;
 		}
 	}
 
