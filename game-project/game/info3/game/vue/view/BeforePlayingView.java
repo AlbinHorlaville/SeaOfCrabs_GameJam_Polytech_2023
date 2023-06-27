@@ -156,6 +156,10 @@ public class BeforePlayingView extends View {
 					} else {
 						seedInput.setInputText(Integer.toString(i));
 						// TODO : relier la vue au modele avant d'appeler start
+						weapon1 = weaponsBoxesPlayer1.getSelectedBox().getWeapon();
+						if (!GameModele.solo) {
+							weapon2 = weaponsBoxesPlayer2.getSelectedBox().getWeapon();
+						}
 						GameModele.seed = i;
 						GameModele.section = sectionBoxes.getSelectedBox().getValue();
 						gameView.getGame().start();
