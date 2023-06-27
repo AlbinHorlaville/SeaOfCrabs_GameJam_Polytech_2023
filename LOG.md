@@ -240,6 +240,7 @@
  - Rémi: Ajout d'une condition d'accès au kraken (Avoir tuer le crab king) et ajout de tous les timers (temps de rechargement des armes, temps d'invincibilité après avoir pris des dégats...)
  - Axel : Correction des automates, les actions à chaces fonctionnent vraiment + changement du mode de fonctionnement des trésors, il faiut maintenat tirer dessus/tapper pour les ouvrir + changement des hitboxes de certains collectibles pour les récupérer plus rapidement
 - Alexandre: rédaction d'une documentation et d'un wiki sur le site internet du jeu
+- Romain: Ajout des boulets de cannons (KrakenSlayer + Damaged) + Bug Fixing Treasure + Rhum
 
 # 24 Juin
 - Rémi: Optimisation générale du jeu (Affichage uniquement des entités dans le viewport / itération sur une plus petite quantité de donnée (uniquement la section courante du joueur ainsi que celle avant et après plutot que toute la carte) / ...)
@@ -252,3 +253,4 @@
 # 26 juin
 - Albin et Axel: Correction de bug, corrrection de vitesse sur les boulets de canon (qui ont désormais une vitesse fixe), les crabes contournent désormais les obstacles, les personnages ne peuvent plus sortir de l'écran dans le mode 2 joueurs, mise à jour des images de commandes pour les joueurs.
 - Alexandre: finition des musiques du jeu
+- Romain: Montage Vidéo de présentation + Sound Bug Fix 
