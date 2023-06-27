@@ -24,6 +24,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import info3.game.KeyBuffered.EasterEggs;
 import info3.game.KeyBuffered.KeyBuffered;
 import info3.game.graphics.GameCanvasListener;
 import info3.game.modele.GameModele;
@@ -38,12 +39,14 @@ public class Controller implements GameCanvasListener {
 	GameView gameView;
 	static KeyBuffered buffer = new KeyBuffered(); // Variable indiquant les inputs du clavier actif ( Pour chaque index == le code le touche )
 	UIComponent focus; // focus is the UIComponent currently hovered on the game canvas
-
+	EasterEggs eggs;
+	
 	public Controller() throws Exception {
 		try {
 			gameModele = new GameModele();
 			gameView = new GameView(gameModele, this);
 			gameModele.setGameview(gameView);
+			eggs = new EasterEggs();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -109,6 +112,7 @@ public class Controller implements GameCanvasListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		this.eggs.checker(e.getExtendedKeyCode());
 		Controller.buffer.buff(e.getExtendedKeyCode());
 		if (focus != null) {
 			focus.keyPressed(e); // calls to the focus'keyPressed behavior
