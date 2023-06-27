@@ -21,11 +21,30 @@ This project is a three-week game jam carried out by a team of 7 ~~students~~ **
 
 - Le code du parser `NE PAS LE MODIFIER` = info3.game.automata/
 
-## Visuals
+## Video presentation
+
+https://www.youtube.com/watch?v=gvO7Z7SoDO8
+
+## Website
+
+http://seaofcrabs.000webhostapp.com/pages/home.php
 
 ## Installation
 
-## Usage
+http://seaofcrabs.000webhostapp.com/pages/download.php
+
+Windows
+
+   1. Click on 'Download for Windows'
+   2. Unzip the archive
+   3. Launch SeaOfCrabs.exe file
+
+MacOS or Linux
+
+   1. Click on 'Download for MacOS or Linux'
+   2. Unzip the archive
+   3. cd SeaOfCrabs_-_Linux_/SeaOfCrabs/
+   4. java -jar SeaOfCrabs.jar
 
 ## Diagram of branches
 ```mermaid
