@@ -1,5 +1,6 @@
 package info3.game.modele;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,6 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
+import javax.imageio.ImageIO;
+
 import info3.game.DAO;
 import info3.game.Controller;
 import info3.game.GameState;
@@ -32,6 +36,7 @@ import info3.game.modele.map.Map;
 import info3.game.modele.map.MapSection;
 import info3.game.modele.map.Tiles;
 import info3.game.sound.BackgroundMusic;
+import info3.game.sound.SoundEffect;
 import info3.game.sound.SoundTool;
 import info3.game.vue.GameView;
 import info3.game.vue.avatar.BoatPlayerAvatar;
@@ -48,6 +53,8 @@ public class GameModele {
 	public static ArrayList<Entity> entities = new ArrayList<>();
 
 	public static ArrayList<Ship> seaEnnemie = new ArrayList<>();
+	
+	public static CrabKing king;
 
 	public static PiratePlayer player1;
 
@@ -79,6 +86,8 @@ public class GameModele {
 	public static Score currentScore;
 	public static Score bestUserScore;
 	public static boolean isUserBestScore;
+	
+	
 
 	private static File userFile, scoreFile;
 
@@ -93,18 +102,20 @@ public class GameModele {
 
 				currentState = GameState.Utilisateur; // we create a user through SetUpUserView
 				bestUserScore = null;
-			} else if (!scoreFile.exists()) { // no score created
+			} else if (!scoreFile.exists() && userFile.exists()) { // no score created
 
 				createScore(); // we create a new score file
 				currentUser = new User(readUsernameFromFile()); // we load the current user from file
 				currentState = GameState.Menu; // we display the menu
 				bestUserScore = currentScore;
-			} else { // both user and score are created so we only need to load them by reading files
+			} else if (userFile.exists() && scoreFile.exists()){ // both user and score are created so we only need to load them by reading files
 
 				currentUser = new User(readUsernameFromFile()); // we load the current user from file
 				currentScore = new Score(readScoreFromFile()); // we load the current score from file
 				currentState = GameState.Menu; // we display the menu
 				bestUserScore = currentScore;
+			} else {
+				currentState = GameState.Menu; // there is no user/score in local mode
 			}
 
 		} else { // local mode
@@ -202,6 +213,15 @@ public class GameModele {
 
 	public void tick(long elapsed) {
 		if (currentState == GameState.Jeu) {
+			
+			if (this.player1.invincible) {
+				this.player1.updateInvincible();
+			}
+			
+			if (this.pirateBoat.invincible) {
+				this.pirateBoat.updateInvincible();
+			}
+			
 			if (this.onSea) {
 				this.currentSection = this.pirateBoat.getCurrentSection();
 				if (this.map.getTileUnderEntity(this.pirateBoat.getCenterX(), this.pirateBoat.getCenterY())
@@ -364,7 +384,9 @@ public class GameModele {
 		}
 	}
 
-	void genereEntity(Map map) {
+	void genereEntity(Map map) throws IOException {
+		
+		
 
 		System.out.println("Seed : " + seed);
 
@@ -434,8 +456,8 @@ public class GameModele {
 							entities.add(newEntity);
 							this.seaEnnemie.add((Ship) newEntity);
 						} else if (current.getType() == EnumTiles.CRAB_KING) {
-							newEntity = new CrabKing(k, 1500, current.getX(), current.getY(), 200); // TODO CHANGE PARAM
-							GameModele.entities.add(newEntity);
+							king = new CrabKing(k, 1500, current.getX(), current.getY(), 200); // TODO CHANGE PARAM
+							GameModele.entities.add(king);
 							// entities.add(newEntity);
 						} else if (current.getType() == EnumTiles.KRAKEN_TENTACLE) {
 							kraken.addTentacle(current.getX(), current.getY(), tentacle_number++);
@@ -451,8 +473,8 @@ public class GameModele {
 	 * Fonction pour partie perdu
 	 */
 	public void gameover() {
-		SoundTool.changeBackgroundMusic(BackgroundMusic.Defeat);
-		gameview.update_view(GameState.GameOver);
+		reset();
+		SoundTool.playSoundEffect(SoundEffect.Defeat, 0);
 		gameview.getGame().setCurrentState(GameState.GameOver);
 	}
 
@@ -478,8 +500,8 @@ public class GameModele {
 	 * Fonction pour la victoire
 	 */
 	public void victory() {
-		SoundTool.changeBackgroundMusic(BackgroundMusic.Victory);
-		gameview.update_view(GameState.Victory);
+		reset();
+		SoundTool.playSoundEffect(SoundEffect.Victory, 0);
 		gameview.getGame().setCurrentState(GameState.Victory);
 		if (SeaOfCrabes.connectedToDatabase) {
 			if (checkScore()) {
@@ -496,10 +518,10 @@ public class GameModele {
 	}
 
 	public static void reset() {
+		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
 		entities.clear();
 		timer.resetTimer();
 		onSea = true;
-		SoundTool.changeBackgroundMusic(BackgroundMusic.MainMenu);
 		pirateBoat = null;
 	}
 }

@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import info3.game.modele.GameModele;
-import info3.game.modele.MoveableEntityClass.PiratePlayer;
-import info3.game.modele.MoveableEntityClass.Player;
+import info3.game.vue.GameView;
+import info3.game.vue.view.View;
 
 public class UIBarreVieTerre extends UIBarrePointDeVie {
 
@@ -30,7 +30,12 @@ public class UIBarreVieTerre extends UIBarrePointDeVie {
 		g.drawRect(getPositionX() - 1, getPositionY() - 1, getWidth() + 1, getHeight() + 1);
 		g.setColor(new Color(255 - current_life * 255 / max_life, current_life * 255 / max_life, 30));
 		g.fillRect(getPositionX(), getPositionY(), current_life * getWidth() / max_life, getHeight());
-		
+
+		g.setColor(Color.black);
+		for (int i = 0; i < max_life; i += 100) {
+			g.drawLine(getPositionX() + getWidth() * i / max_life, getPositionY(),
+					getPositionX() + getWidth() * i / max_life, getPositionY() + getHeight());
+		}
 		if (this.solo != GameModele.solo) {
 			this.solo = GameModele.solo;
 			if (solo) {
@@ -43,5 +48,11 @@ public class UIBarreVieTerre extends UIBarrePointDeVie {
 		image.setPositionX((getPositionX() + current_life * getWidth() / max_life) - 16);
 		image.setPositionY(getPositionY() - 10);
 		image.paint(g);
+		
+		if (getState()) {
+			g.setFont(View.FONT1);
+			g.setColor(Color.white);
+			g.drawString(current_life + " / " + max_life, getPositionX() + getWidth() + 20, getPositionY()+15);
+		}
 	}
 }
