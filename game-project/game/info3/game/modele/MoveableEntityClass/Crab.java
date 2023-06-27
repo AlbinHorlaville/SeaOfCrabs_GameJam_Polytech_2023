@@ -32,13 +32,13 @@ public class Crab extends Ennemy {
 		this.m_crabLair = crabLair;
 		this.automate = AutomateLoader.findAutomate(GameEntity.Crab);
 		this.current_state = automate.initial_state;
-		this.setAvatar(new CrabAvatar(this));
+		this.setAvatar(new CrabAvatar(this, level));
 
 	}
 	
 	public Crab(int level, CrabLair crabLair, int x, int y) {
 		super(DEFAULT_HEALTH_POINTS, DEFAULT_DAMAGE, HIT_BOX, x, y);
-		this.avatar = new CrabAvatar(this);
+		this.avatar = new CrabAvatar(this, level);
 		this.m_healthPoints += Level.getAugmentLifeCrab(level);
 		this.m_damage += Level.getAugmentDamageCrab(level);
 		this.m_crabLair = crabLair;
