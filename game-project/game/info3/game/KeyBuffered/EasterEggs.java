@@ -19,7 +19,6 @@ public class EasterEggs {
 	}
 	
 	public void checker(int key_code) {
-		System.out.println(code_index);
 		if(key_code == CODE[code_index]) {
 			current_code[code_index] = key_code;
 			code_index++;

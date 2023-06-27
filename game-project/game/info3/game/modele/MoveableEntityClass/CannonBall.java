@@ -27,8 +27,8 @@ public abstract class CannonBall extends MoveableEntity {
 	protected int radiusX;
 	protected int radiusY;
 	public boolean fire;
-
-	static final int BASIC_RANGE = 2000;
+	
+	static final int BASIC_RANGE = 1000;
 	static final int BASIC_RATE_OF_FIRE = 1;
 
 	public Entity ennemyAimed;
@@ -54,12 +54,26 @@ public abstract class CannonBall extends MoveableEntity {
 		this.y = y;
 		this.endX = endX;
 		this.endY = endY;
-		speedX = (int) (((endX - (GameView.screenWidth / 2)) * range) / (Math
-				.sqrt(Math.pow(endX - (GameView.screenWidth / 2), 2) + Math.pow(endY - (GameView.screenHeight / 2), 2)))
-				/ 300);
-		speedY = (int) (((endY - (GameView.screenHeight / 2)) * range) / (Math
-				.sqrt(Math.pow(endX - (GameView.screenWidth / 2), 2) + Math.pow(endY - (GameView.screenHeight / 2), 2)))
-				/ 300);
+		/*speedX = (endX - (GameView.screenWidth / 2)) / 50;
+		speedY = (endY - (GameView.screenHeight / 2)) / 50;
+		*/
+		speedX = (int) (((endX - (GameView.screenWidth / 2))*range )/(Math.sqrt(Math.pow(endX - (GameView.screenWidth / 2), 2) + Math.pow(endY - (GameView.screenHeight / 2), 2))) / 100);
+		speedY = (int) (((endY - (GameView.screenHeight / 2))*range )/(Math.sqrt(Math.pow(endX - (GameView.screenWidth / 2), 2) + Math.pow(endY - (GameView.screenHeight / 2), 2))) / 100);
+		
+	}
+	
+	public void setPositionsNoShift(int x, int y, int endX, int endY) {
+		startX = x;
+		startY = y;
+		this.x = x;
+		this.y = y;
+		this.endX = endX;
+		this.endY = endY;
+		
+		speedX = (int) (((endX)*range )/(Math.sqrt(Math.pow(endX, 2) + Math.pow(endY, 2))) / 100);
+		speedY = (int) (((endY)*range )/(Math.sqrt(Math.pow(endX, 2) + Math.pow(endY, 2))) / 100);
+		System.out.println(startX);
+		System.out.println(startY);
 	}
 	
 
@@ -78,9 +92,10 @@ public abstract class CannonBall extends MoveableEntity {
 			boolean b = fire && (radiusX < range) && (radiusY < range) && !tile.isIsland();
 			b = b && tile.getTileX() > 8 && tile.getTileX() < GameModele.map.getSectionWidth() - 9;
 			int border = GameModele.map.getSectionOfEntity(x, y);
-			if (border == 0) {
+			if(border == 0) {
 				return b && tile.getTileY() < 47;
-			} else if (border == 8) {
+			}
+			else if(border == 8) {
 				return b && tile.getTileY() > 0;
 			}
 			return b;
@@ -93,7 +108,7 @@ public abstract class CannonBall extends MoveableEntity {
 		switch (c) {
 		case A:
 			for (Entity s : GameModele.entities) {
-				if (s instanceof Ship || s instanceof Tentacle || s instanceof SeaTreasure) {
+				if(s instanceof Ship || s instanceof Tentacle || s instanceof SeaTreasure) {
 					if (collide(this, x - speedX, y - speedY, s)) {
 						ennemyAimed = s;
 						return true;
@@ -106,6 +121,7 @@ public abstract class CannonBall extends MoveableEntity {
 
 		}
 	}
+	
 
 	public boolean collide(MoveableEntity m, int x, int y, Entity e) { // Code propre lvl 1
 		int centerx = x - m.getAvatar().getWidth() / (2 * Avatar.SCALE_IMG);
