@@ -28,7 +28,7 @@ public class CrabKing extends Crab {
 		crabsRemaining = NB_CRABS;
 		this.automate = AutomateLoader.findAutomate(GameEntity.CrabKing);
 		this.current_state = automate.initial_state;
-		this.setAvatar(new CrabKingAvatar(this));
+		this.setAvatar(new CrabKingAvatar(this, level));
 	}
 
 	public boolean gotStuff() {
